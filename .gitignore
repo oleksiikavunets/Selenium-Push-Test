@@ -1,3 +1,6 @@
+*iml
+*log
+test-output/
 target/
 .idea/
 src/main/data/
