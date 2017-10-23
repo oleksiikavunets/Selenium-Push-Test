@@ -1,0 +1,75 @@
+
+import com.selenium.utils.RandomGenerator;
+import org.testng.annotations.Test;
+import pageobjects.*;
+import testdata.TestData;
+
+/**
+ * Created by Oleksii on 03.07.2017.
+ */
+public class Test_Pos_SendMessage extends SeleniumBaseClass {
+
+    @Test(groups = {"send push"})
+    public void sendMessage() throws Exception {
+        LogInPage logInPage = new LogInPage(driver, wait);
+        String title = RandomGenerator.nextString();
+        String text = RandomGenerator.nextString();
+
+        MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
+        SideBar sideBar = mainAdminPage.openSite();
+
+        CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
+        createCampaignPage.setTitle(title);
+        createCampaignPage.setText(text);
+        CampaignHistoryPage campaignHistoryPage = createCampaignPage.sendPush();
+
+        campaignHistoryPage.verifyMessageExists(title);
+        new HeaderMenu(driver, wait).logout();
+    }
+
+
+/**
+ @Ignore("Not not checked on prod yet")
+ @Test public void receivePushNotification() throws Exception{
+ String email = "test@gravitec.net";
+ String pass = "mpsprod7781";
+
+ login(email, pass);
+ wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("http://restapiprod.at.ua"))).click();
+ wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@ng-bind=\"'LMENU_NEW_CAMP' | translate\"]"))).click();
+ wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("push-title"))).sendKeys("Se Test. title");
+ driver.findElement(By.name("text")).sendKeys("Se test. text");
+ driver.findElement(By.xpath("//button[@type=\"submit\"]")).click();
+ try {
+ Thread.sleep(2000);
+ } catch (InterruptedException e) {
+ e.printStackTrace();
+ }
+
+ int i;
+ Logs log = driver.manage().logs();
+ for (i = 1; i < 100; i++) {
+ List<LogEntry> logsEntries = log.get("browser").getAll();
+ for (LogEntry entry : logsEntries) {
+ String q = entry.getMessage();
+ System.out.println(q);
+ }
+ for (LogEntry entry : logsEntries) {
+ String s = entry.getMessage();
+ if (s.contains("tl:") && s.contains("tx:") && s.contains("redirect:")) {
+ System.out.println(s);
+ System.out.println("PUSH MESSAGE RECEIVED");
+ driver.quit();
+ }
+ }
+ System.out.println(i + ".second  NOT RECEIVED ANY MESSAGE YET");
+ try {
+ Thread.sleep(1000);
+ } catch (InterruptedException e) {
+ e.printStackTrace();
+ }
+ }
+ Assert.assertTrue(i != 100);
+ }
+ */
+}
