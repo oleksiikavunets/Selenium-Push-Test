@@ -1,3 +1,5 @@
+import com.selenium.utils.Listener;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
@@ -8,6 +10,7 @@ import java.time.LocalDateTime;
 /**
  * Created by Oleksii on 31.07.2017.
  */
+@Listeners(Listener.class)
 public class Test_Pos_LogInLogOut extends SeleniumBaseClass {
 
     @Test
@@ -16,7 +19,6 @@ public class Test_Pos_LogInLogOut extends SeleniumBaseClass {
 
 
         LocalDateTime date = LocalDateTime.now();
-        System.out.println(date.toString());
         new LogInPage(driver, wait).login(TestData.email, TestData.pass);
 //        Cookie token = driver.manage().getCookieNamed("accessToken");
 //        Set<Cookie> cookies = driver.manage().getCookies();

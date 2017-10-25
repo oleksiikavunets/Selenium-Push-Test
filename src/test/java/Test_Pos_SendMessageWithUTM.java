@@ -1,11 +1,14 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
+import com.selenium.utils.Listener;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
 
+@Listeners(Listener.class)
 public class Test_Pos_SendMessageWithUTM extends SeleniumBaseClass{
 
     @Test(groups = {"send push", "UTM"})

@@ -1,6 +1,8 @@
 import actions.UserActions;
+import com.selenium.utils.Listener;
 import com.selenium.utils.RandomGenerator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.MainAdminPage;
@@ -8,6 +10,8 @@ import pageobjects.MainAdminPage;
 /**
  * Created by Oleksii on 31.07.2017.
  */
+
+@Listeners(Listener.class)
 public class Test_Pos_DeleteSite extends SeleniumBaseClass {
 
 

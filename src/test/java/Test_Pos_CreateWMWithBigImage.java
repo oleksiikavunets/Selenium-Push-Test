@@ -2,9 +2,11 @@ import actions.Timer;
 import actions.UserActions;
 import actions.Verifier;
 import com.selenium.ConfigTest;
+import com.selenium.utils.Listener;
 import com.selenium.utils.Log;
 import com.selenium.utils.RandomGenerator;
 import org.testng.SkipException;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
 import pageobjects.HeaderMenu;
@@ -13,6 +15,7 @@ import pageobjects.WelcomeMessagePage;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
 
+@Listeners(Listener.class)
 public class Test_Pos_CreateWMWithBigImage extends SeleniumBaseClass {
 
     @Test(groups = {"WM"})

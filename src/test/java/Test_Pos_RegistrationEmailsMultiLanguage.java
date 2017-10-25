@@ -1,9 +1,11 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
 import com.selenium.MailService;
+import com.selenium.utils.Listener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
@@ -13,6 +15,7 @@ import testdata.TestData;
 import java.io.IOException;
 import java.util.List;
 
+@Listeners(Listener.class)
 public class Test_Pos_RegistrationEmailsMultiLanguage extends SeleniumBaseClass {
 
     @Test(groups = {"mails", "registration"})

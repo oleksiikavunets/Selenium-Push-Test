@@ -1,5 +1,7 @@
 package pageobjects;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -56,13 +58,11 @@ public class RegistrationPage {
 
 
     public void setUserCridentials(String login, String pass) {
+        Logger Log = LogManager.getLogger(LogInPage.class);
         setEmail(login);
         setPass(pass);
         repeatPass(pass);
         submit();
+        Log.info("NEW USER REGISTERED. EMAIL: " + login + " PASSWORD:" + pass);
     }
-
-
-
-
 }

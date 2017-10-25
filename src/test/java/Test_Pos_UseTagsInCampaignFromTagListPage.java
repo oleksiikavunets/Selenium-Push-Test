@@ -1,6 +1,8 @@
+import com.selenium.utils.Listener;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.TestData;
@@ -11,8 +13,8 @@ import java.util.List;
 /**
  * Created by Oleksii on 31.07.2017.
  */
+@Listeners(Listener.class)
 public class Test_Pos_UseTagsInCampaignFromTagListPage extends SeleniumBaseClass {
-
 
     @Test(groups = {"send push", "tags", "tag list"})
     public void useTagsInNewCampaignFromTagListPage() throws Exception {

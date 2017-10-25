@@ -1,5 +1,7 @@
 
+import com.selenium.utils.Listener;
 import com.selenium.utils.RandomGenerator;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.TestData;
@@ -7,6 +9,7 @@ import testdata.TestData;
 /**
  * Created by Oleksii on 03.07.2017.
  */
+@Listeners(Listener.class)
 public class Test_Pos_SendMessage extends SeleniumBaseClass {
 
     @Test(groups = {"send push"})

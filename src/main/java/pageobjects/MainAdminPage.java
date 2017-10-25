@@ -1,6 +1,8 @@
 package pageobjects;
 
 import actions.Timer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,6 +20,7 @@ public class MainAdminPage {
     WebDriver driver;
     Wait<WebDriver> wait;
 
+    Logger Log = LogManager.getLogger(LogInPage.class);
 
     public By siteName = By.cssSelector("a[ng-bind=\"site.url\"]");
     public By siteList = By.cssSelector("div[class*=\"table-sites-list\"]");
@@ -72,7 +75,9 @@ public class MainAdminPage {
                 break;
             }
         }
+        Log.info("TEST SITE: " + siteToOpen);
         return new SideBar(driver, wait);
+
     }
 
     public void verifySiteToBeDeleted(String siteUrl) {

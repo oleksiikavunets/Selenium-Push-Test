@@ -1,6 +1,7 @@
 import actions.Timer;
 import actions.UserActions;
 import actions.Verifier;
+import com.selenium.utils.Listener;
 import com.selenium.utils.RandomGenerator;
 import com.selenium.utils.SiteIdListener;
 import org.testng.annotations.Listeners;
@@ -15,6 +16,7 @@ import testdata.TestData;
  * Created by Oleksii on 31.07.2017.
  */
 
+@Listeners(Listener.class)
 public class Test_Pos_CreateWM extends SeleniumBaseClass {
 
 

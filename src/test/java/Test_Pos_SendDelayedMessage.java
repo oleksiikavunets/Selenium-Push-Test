@@ -1,8 +1,10 @@
 
+import com.selenium.utils.Listener;
 import com.selenium.utils.RandomGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.TestData;
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 /**
  * Created by Oleksii on 31.07.2017.
  */
+@Listeners(Listener.class)
 public class Test_Pos_SendDelayedMessage extends SeleniumBaseClass {
 
 
@@ -35,10 +38,9 @@ public class Test_Pos_SendDelayedMessage extends SeleniumBaseClass {
         MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
         SideBar sideBar = mainAdminPage.openSite(testSite);
         CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
-        Log.info("PUSH DATA> TITLE: " + title + "; TEXT: " + text + "; REDIRECT URL: " + siteUrl + "; DATE: " + date);
+        Log.info("DELAYED PUSH DATA> TITLE: " + title + "; TEXT: " + text + "; REDIRECT URL: " + siteUrl + "; DATE: " + date);
 
         createCampaignPage.setTitle(title);
-        System.out.println(title);
         createCampaignPage.setText(text);
         createCampaignPage.setUrlToRedirect(siteUrl);
         createCampaignPage.setDateAndTime(year, month, day, hour, min); //int parameter plus days

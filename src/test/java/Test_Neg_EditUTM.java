@@ -1,7 +1,9 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
+import com.selenium.utils.Listener;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.ErrorMessages;
@@ -11,6 +13,7 @@ import testrestrictions.BetaFeatures;
 import java.util.HashMap;
 import java.util.List;
 
+@Listeners(Listener.class)
 public class Test_Neg_EditUTM extends SeleniumBaseClass {
 
     @Test(groups = {"negative", "UTM"})

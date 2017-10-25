@@ -1,5 +1,7 @@
+import com.selenium.utils.Listener;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.BillingPage;
 import pageobjects.HeaderMenu;
@@ -7,6 +9,7 @@ import pageobjects.LogInPage;
 import testdata.TestData;
 import testrestrictions.GravitecBilling;
 
+@Listeners(Listener.class)
 public class Test_Pos_SmokePayment extends SeleniumBaseClass {
 
     @Test(groups = "billing")

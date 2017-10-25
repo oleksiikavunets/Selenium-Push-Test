@@ -1,6 +1,8 @@
 import actions.Verifier;
+import com.selenium.utils.Listener;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.ErrorMessages;
@@ -13,6 +15,8 @@ import java.util.List;
 /**
  * Created by Oleksii on 31.07.2017.
  */
+
+@Listeners(Listener.class)
 public class Test_Neg_SendMessage extends SeleniumBaseClass {
 
 

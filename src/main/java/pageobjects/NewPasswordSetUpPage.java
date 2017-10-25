@@ -1,5 +1,7 @@
 package pageobjects;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,6 +14,7 @@ public class NewPasswordSetUpPage {
     WebDriver driver;
     Wait<WebDriver> wait;
 
+    Logger Log = LogManager.getLogger(LogInPage.class);
 
     public By submitButton = By.cssSelector("button[type=\"submit\"]");
     public By passInput = By.name("password");
@@ -27,6 +30,7 @@ public class NewPasswordSetUpPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(passInput)).sendKeys(newPass);
         passRepeat.findElement(driver).sendKeys(newPass);
         submitButton.findElement(driver).click();
+        Log.info("NEW PASSWORD: " + newPass);
        clickOkPopUP();
     }
     public void clickOkPopUP(){

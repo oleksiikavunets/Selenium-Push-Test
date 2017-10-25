@@ -2,6 +2,8 @@ package pageobjects;
 
 import actions.Timer;
 import com.selenium.ConfigTest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -29,12 +31,15 @@ public class LogInPage {
     }
 
     public MainAdminPage login(String login, String pass) {
+        Logger Log = LogManager.getLogger(LogInPage.class);
 
         ConfigTest config = new ConfigTest();
         //pass = gravitecServer.checkPass(login, pass) ? pass : "b12345678";
         //gravitecServer.login(login, pass);
 
         driver.navigate().to(config.getStartUrl() + "/login");
+        Log.info("LOGIN: " + login + " PASSWORD: " + pass);
+
 
         for (int i = 0; i <= 100; i++) {
             if(i%20==0){

@@ -1,7 +1,9 @@
 import actions.UserActions;
+import com.selenium.utils.Listener;
 import com.selenium.utils.RandomGenerator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.SiteSettingsPage;
@@ -10,6 +12,8 @@ import testdata.TestData;
 /**
  * Created by Oleksii on 31.07.2017.
  */
+
+@Listeners(Listener.class)
 public class Test_Pos_ChangeSiteIcon extends SeleniumBaseClass {
 
 

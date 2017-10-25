@@ -2,12 +2,15 @@
 import actions.UserActions;
 import actions.Verifier;
 
+import com.selenium.utils.Listener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.TestData;
 
+@Listeners(Listener.class)
 public class Test_Pos_Subscription extends SeleniumBaseClass {
 
     @Test(groups = "subscription")

@@ -72,9 +72,7 @@ public class UserActions {
                 Timer.waitSeconds(0.2);
                 popUp = driver.findElement(siteSettingsPage.confirmPopUpButton).isDisplayed();
                 driver.findElement(siteSettingsPage.confirmPopUpButton).click();
-            } catch (NoSuchElementException e) {
-                System.out.println(e);
-            }
+            } catch (NoSuchElementException e) {}
             if(popUp)break;
         }
         wait.until(ExpectedConditions.invisibilityOfElementLocated(siteSettingsPage.cancelPopUpButton));

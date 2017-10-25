@@ -1,5 +1,7 @@
 import actions.UserActions;
 import com.selenium.ConfigTest;
+import com.selenium.utils.Listener;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
@@ -7,6 +9,7 @@ import pageobjects.LogInPage;
 /**
  * Created by Rayant on 11.04.2017.
  */
+@Listeners(Listener.class)
 public class Test_Pos_Registration extends SeleniumBaseClass {
 
     @Test(groups = {"mails", "registration"})

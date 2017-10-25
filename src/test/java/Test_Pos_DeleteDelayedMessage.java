@@ -1,14 +1,17 @@
 import actions.Verifier;
+import com.selenium.utils.Listener;
 import com.selenium.utils.RandomGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.TestData;
 
 import java.awt.*;
 
+@Listeners(Listener.class)
 public class Test_Pos_DeleteDelayedMessage extends SeleniumBaseClass{
 
     @Test(groups = {"send push", "delayed push"})

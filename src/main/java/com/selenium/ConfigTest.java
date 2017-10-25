@@ -190,8 +190,6 @@ public class ConfigTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println(emailNumber);
         return emailNumber;
     }
 
@@ -216,7 +214,6 @@ public class ConfigTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(password);
         return password;
     }
 
