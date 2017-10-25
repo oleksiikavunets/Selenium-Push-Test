@@ -32,7 +32,7 @@ public class RegistrationMails {
             "Vollständige Anmeldung bei Gravitec.net",
             "Du hast dich gerade bei Gravitec angemeldet. Bitte öffnen den Link (klicken auf den Button) unten, um deine E-Mail-Adresse zu bestätigen:",
             "Vollständige Anmeldung",
-            "Jemand (hoffentlich du) hat diese E-Mail verwendet, um sich bei gravitec.net anzumelden. Wenn du es nihct wars - ignorieren einfach diese E-Mail. Dein Kontp wird nicht aktiviert.",
+            "Jemand (hoffentlich du) hat diese E-Mail verwendet, um sich bei gravitec.net anzumelden. Wenn du es nihct wars - ignorieren einfach diese E-Mail. Dein Konto wird nicht aktiviert.",
             "Irgendwelche Fragen? Wir helfen gerne! Schreibe uns einfach eine E-mail.",
             "abmelden"));
     private List<String> wpushUK = new ArrayList<>(Arrays.asList(
@@ -70,7 +70,7 @@ public class RegistrationMails {
             "Vollständige Anmeldung bei push2b.com",
             "Du hast dich gerade bei push2b.com angemeldet. Bitte öffnen den Link (klicken auf den Button) unten, um deine E-Mail-Adresse zu bestätigen:",
             "Vollständige Anmeldung",
-            "Jemand (hoffentlich du) hat diese E-Mail verwendet, um sich bei push2b.com anzumelden. Wenn du es nihct wars - ignorieren einfach diese E-Mail. Dein Kontp wird nicht aktiviert.",
+            "Jemand (hoffentlich du) hat diese E-Mail verwendet, um sich bei push2b.com anzumelden. Wenn du es nihct wars - ignorieren einfach diese E-Mail. Dein Konto wird nicht aktiviert.",
             "Irgendwelche Fragen? Wir helfen gerne! Schreibe uns einfach eine E-mail.",
             "abmelden"
     ));

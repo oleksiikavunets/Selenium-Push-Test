@@ -47,7 +47,6 @@ public class CampaignHistoryPage {
        }
  */
        for (int j = 0; j <= 100; j++) {
-            System.out.println(j + " round");
             int rand = random.nextInt(messages.size());
             WebElement m = messages.get(rand);
             if (m.getText().equals(mes)) {

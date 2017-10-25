@@ -62,9 +62,8 @@ public class Test_Pos_SendMessageWithButtons extends SeleniumBaseClass {
             }
             new HeaderMenu(driver, wait).logout();
         } else {
-            System.out.println("Current funtionality is not deployed on " + ConfigTest.iTest);
-            Log.info("Test: COPY CAMPAIGN\n " +
-                    "Current funtionality is not deployed on " + ConfigTest.iTest + " yet");
+            Log.info("Test: COPY CAMPAIGN> " +
+                    "Current functionality is not deployed on " + ConfigTest.iTest + " yet");
         }
         verifier.assertTestPassed();
     }

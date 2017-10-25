@@ -2,6 +2,8 @@
 import actions.UserActions;
 import actions.Verifier;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.TestData;
@@ -10,6 +12,8 @@ public class Test_Pos_Subscription extends SeleniumBaseClass {
 
     @Test(groups = "subscription")
     public void testSubscription() {
+        Logger Log = LogManager.getLogger(Test_Pos_Subscription.class);
+
         Verifier verifier = new Verifier();
         LogInPage logInPage = new LogInPage(driver, wait);
         HeaderMenu headerMenu = new HeaderMenu(driver, wait);
@@ -20,7 +24,7 @@ public class Test_Pos_Subscription extends SeleniumBaseClass {
         SubscribersPage subscribersPage = sideBar.openSubscribersPage();
 
         int amountOfSubsBefore = subscribersPage.getAmountOfSubscribers();
-        System.out.println("Subs before: on main page - " + totalAmountOfSubsBefore +
+        Log.info("Subs before: on main page - " + totalAmountOfSubsBefore +
         " on subs page - " + amountOfSubsBefore);
         headerMenu.logout();
         new UserActions(driver, wait).subscribe(TestData.testSite);
@@ -33,7 +37,7 @@ public class Test_Pos_Subscription extends SeleniumBaseClass {
         mainAdminPage.openSite(TestData.testSite);
         sideBar.openSubscribersPage();
         int amountOfSubsAfter = subscribersPage.getAmountOfSubscribers();
-        System.out.println("Subs after: on main page - " + amountOfSubsAfter +
+        Log.info("Subs after: on main page - " + totalAmountOfSubsAfter +
                 " on subs page - " + amountOfSubsAfter);
 
         verifier.assertTrue(amountOfSubsBefore < amountOfSubsAfter, "Amount of subscribers did not change on Subscribers page. " +

@@ -77,7 +77,7 @@ public class Test_Pos_CopyCampaign extends SeleniumBaseClass {
             CreateCampaignPage.NotificationPreview notificationPreview = createCampaignPage.new NotificationPreview();
             for (int i = 1; i <= 10; i++) {
                 campaignReportPage.copyCampaign();
-                System.out.println("Copy " + i);
+                System.out.println("PUSH COPY " + i);
                 Timer.waitSeconds(0.5);
 
                 verifier.assertEquals(notificationPreview.getTitlePreview().getText(), title, "Failed on round: " + i);

@@ -108,7 +108,6 @@ public class TagListPage {
                 wait.until(ExpectedConditions.visibilityOfElementLocated(tagName));
                 List<WebElement> tg = driver.findElements(tagName);
                 for (WebElement t : tg) {
-                    System.out.println(t.getText());
                     if (t.getText().equals(newTag)) {
                         found = true;
                         break quit;
@@ -162,7 +161,6 @@ public class TagListPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(pageButton));
         List<WebElement> pages = driver.findElements(pageButton);
         amount = Integer.valueOf(pages.get(pages.size() - 1).getText());
-        System.out.println(amount + " pages");
 
         return amount;
     }

@@ -39,9 +39,8 @@ public class Test_Pos_SendMessageWithBigImage extends SeleniumBaseClass {
             new HeaderMenu(driver, wait).logout();
             verifier.assertTestPassed();
         } else {
-            System.out.println("Current funtionality is not deployed on kyivstar yet");
-            Log.info("Test: COPY CAMPAIGN\n " +
-                    "Current funtionality is not deployed on kyivstar yet");
+            Log.info("Test: COPY CAMPAIGN> " +
+                    "Current functionality is not deployed on kyivstar yet");
         }
 
     }

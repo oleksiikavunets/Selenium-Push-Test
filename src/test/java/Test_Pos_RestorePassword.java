@@ -1,5 +1,7 @@
 import com.selenium.ConfigTest;
 import com.selenium.MailService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
@@ -14,6 +16,7 @@ public class Test_Pos_RestorePassword extends SeleniumBaseClass {
 
     @Test(groups = {"mails", "recover password"})
     public void restorePassword() throws Exception {
+        Logger Log = LogManager.getLogger(Test_Pos_RestorePassword.class);
         RecoverPasswordPage recover = new RecoverPasswordPage(driver, wait);
         ConfigTest config = new ConfigTest();
         int emailNumber = Integer.valueOf(config.getEmailNumber()) - 2;
@@ -27,7 +30,7 @@ public class Test_Pos_RestorePassword extends SeleniumBaseClass {
         recover.setEmail("grovitek+" + emailNumber + "@gmail.com");
         recover.clickResetButton();
         String link = MailService.getRecoverLink();
-        System.out.println(link);
+        Log.info("RECOVER LINK: " + link);
         driver.navigate().to(link);
         new NewPasswordSetUpPage(driver, wait).setNewPass(newPass);
 

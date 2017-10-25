@@ -207,9 +207,7 @@ public class CreateCampaignPage {
             String ht = h.getText();
             if (ht.equals(hour)) {
                 actions.moveToElement(h).click().perform();
-
 //                h.click();
-                System.out.println("Clicked hour");
                 break;
             }
         }
@@ -225,7 +223,6 @@ public class CreateCampaignPage {
             if (mt.equals(minute)) {
                 actions.moveToElement(m).click().perform();
 //                m.click();
-                System.out.println("Clicked minute");
                 Timer.waitSeconds(1);
                 wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div[class*=\"minutes\"][style*=\"visibility: visible;\"]")));
                 break;
@@ -371,7 +368,6 @@ public class CreateCampaignPage {
             wait.until(ExpectedConditions.visibilityOfElementLocated(button1IconDropdown)).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(buttonIcon));
             List<WebElement> icons = driver.findElements(buttonIcon);
-            System.out.println(icons.size() + "icons in list1");
             Random random = new Random();
             int index = random.nextInt(216);
             index = index + 1;
@@ -382,7 +378,6 @@ public class CreateCampaignPage {
             wait.until(ExpectedConditions.visibilityOfElementLocated(button2IconDropdown)).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(buttonIcon));
             List<WebElement> icons = driver.findElements(buttonIcon);
-            System.out.println(icons.size() + "icons in list2");
             Random random = new Random();
             int index = random.nextInt(216);
             index = index + 217;

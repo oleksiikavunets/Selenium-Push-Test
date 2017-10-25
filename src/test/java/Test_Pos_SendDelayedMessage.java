@@ -1,5 +1,7 @@
 
 import com.selenium.utils.RandomGenerator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.*;
@@ -16,6 +18,7 @@ public class Test_Pos_SendDelayedMessage extends SeleniumBaseClass {
 
     @Test(groups = {"send push", "delayed push"})
     public void sendDelayedMessage() throws Exception {
+        Logger Log = LogManager.getLogger(Test_Pos_SendDelayedMessage.class);
         LocalDateTime date = LocalDateTime.now().plusDays(10);
         int year = date.getYear();
         int month = date.getMonthValue();
@@ -32,6 +35,7 @@ public class Test_Pos_SendDelayedMessage extends SeleniumBaseClass {
         MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
         SideBar sideBar = mainAdminPage.openSite(testSite);
         CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
+        Log.info("PUSH DATA> TITLE: " + title + "; TEXT: " + text + "; REDIRECT URL: " + siteUrl + "; DATE: " + date);
 
         createCampaignPage.setTitle(title);
         System.out.println(title);

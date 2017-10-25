@@ -1,6 +1,8 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
 import com.selenium.MailService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
@@ -15,6 +17,7 @@ public class Test_Pos_RegistrationEmailsMultiLanguage extends SeleniumBaseClass 
 
     @Test(groups = {"mails", "registration"})
     public void testRegistrationMails() throws IOException {
+        Logger Log = LogManager.getLogger(Test_Pos_RegistrationEmailsMultiLanguage.class);
         LogInPage logInPage = new LogInPage(driver, wait);
         HeaderMenu headerMenu = new HeaderMenu(driver, wait);
         RegistrationPage register = new RegistrationPage(driver, wait);
@@ -41,10 +44,10 @@ public class Test_Pos_RegistrationEmailsMultiLanguage extends SeleniumBaseClass 
                 emailNumber = emailNumber + 2;
                 config.setEmailNumber(emailNumber);
                 config.setPassword(pass);
-                System.out.println(message);
+                Log.info(message);
                 verifier.assertTrue(verifier.verifyRegistrationMail(message, ConfigTest.iTest, siteLang));
                 String link = "https://" + message.split(" https://")[1].split("\\n")[0];
-                System.out.println(link);
+                Log.info("CONFIRMATION LINK: " + link);
                 driver.navigate().to(link);
             } catch (Exception e) {
                 e.printStackTrace();

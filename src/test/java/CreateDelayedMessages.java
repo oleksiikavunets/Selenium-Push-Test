@@ -58,18 +58,18 @@ public class CreateDelayedMessages extends SeleniumBaseClass {
 
     public List<int[]> getNextMonthDates() {
         List<int[]> dates = new ArrayList<>(Arrays.asList());
-        /**if you want to set from next month
+        /**if you want to set from next month*/
          LocalDate localDate = LocalDate.now().plusMonths(1);
          int maxDays = localDate.lengthOfMonth();
          int startDay = 1;
-         */
 
-        /**if you want to set from tomorrow till the end of month*/
+
+        /**if you want to set from tomorrow till the end of month
 
         LocalDate localDate = LocalDate.now().plusDays(1);
         int maxDays = localDate.lengthOfMonth();
         int startDay = Integer.parseInt(localDate.format(DateTimeFormatter.ofPattern("d")));
-
+         */
 
         int month = Integer.parseInt(localDate.format(DateTimeFormatter.ofPattern("MM")));
         int year = Integer.parseInt(localDate.format(DateTimeFormatter.ofPattern("yyyy")));

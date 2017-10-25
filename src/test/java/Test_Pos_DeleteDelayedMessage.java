@@ -1,4 +1,7 @@
+import actions.Verifier;
 import com.selenium.utils.RandomGenerator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.*;
@@ -10,6 +13,7 @@ public class Test_Pos_DeleteDelayedMessage extends SeleniumBaseClass{
 
     @Test(groups = {"send push", "delayed push"})
     public void deleteDelayedMessage() throws AWTException {
+        Logger Log = LogManager.getLogger(Test_Pos_DeleteDelayedMessage.class);
 
         LogInPage logInPage = new LogInPage(driver, wait);
 
@@ -22,8 +26,8 @@ public class Test_Pos_DeleteDelayedMessage extends SeleniumBaseClass{
         CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
 
         createCampaignPage.setTitle(title);
-        System.out.println(title);
         createCampaignPage.setText(text);
+        Log.info("DELAYED PUSH DATA> TITLE: " + title + "; TEXT: " + text);
         createCampaignPage.setDateAndTime(10, 0, 0);
         CampaignHistoryPage campaignHistoryPage = createCampaignPage.sendPush();
 

@@ -3,6 +3,8 @@ import actions.Verifier;
 import com.selenium.ConfigTest;
 import com.selenium.MailService;
 import com.selenium.utils.RandomGenerator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import pageobjects.AddNewSitePage;
@@ -15,6 +17,7 @@ public class Test_Pos_NewSiteMailsMultiLanguage extends SeleniumBaseClass {
 
     @Test(groups = {"mails", "new site"})
     public void testCreateSiteMails() throws Exception {
+        Logger Log = LogManager.getLogger(Test_Pos_NewSiteMailsMultiLanguage.class);
         HeaderMenu headerMenu = new HeaderMenu(driver, wait);
         AddNewSitePage addNewSitePage = new AddNewSitePage(driver, wait);
         LogInPage logInPage = new LogInPage(driver, wait);
@@ -37,7 +40,7 @@ public class Test_Pos_NewSiteMailsMultiLanguage extends SeleniumBaseClass {
 
             addNewSitePage.createSite(siteUrl);
             String message = MailService.getCreatedSiteMail();
-            System.out.println(message);
+            Log.info(message);
             verifier.assertTrue(verifier.verifyCreateSiteMail(message, ConfigTest.iTest, siteLang));
             headerMenu.clickLogo();
             mainAdminPage.verifySitePresent(siteUrl);

@@ -1,6 +1,8 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
 import com.selenium.MailService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import pageobjects.*;
@@ -12,6 +14,7 @@ public class Test_Pos_RecoverPassMultiLanguage extends SeleniumBaseClass {
 
     @Test(groups = {"mails", "recover password"})
     public void testRecoverPasswordMail() throws Exception {
+        Logger Log = LogManager.getLogger(Test_Pos_RecoverPassMultiLanguage.class);
         LogInPage logInPage = new LogInPage(driver, wait);
         HeaderMenu headerMenu = new HeaderMenu(driver, wait);
         RecoverPasswordPage recoverPasswordPage = new RecoverPasswordPage(driver, wait);
@@ -41,7 +44,7 @@ public class Test_Pos_RecoverPassMultiLanguage extends SeleniumBaseClass {
             logInPage.clickForgotPass();
             recoverPasswordPage.requestPasswordReset(email);
             String message = MailService.getRecoverPasswordMail();
-            System.out.println(message);
+            Log.info(message);
             verifier.assertTrue(verifier.verifyRecoverPasswordMail(message, ConfigTest.iTest, siteLang));
 
             String link = "https://" + message.split("https://")[3].split("\\n")[0];

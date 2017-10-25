@@ -93,7 +93,7 @@ public class UserActions {
             wait.until(ExpectedConditions.presenceOfElementLocated(register.submit));
             register.setUserCridentials("grovitek+" + emailNumber + "@gmail.com", pass);
             String link = MailService.getConfirmationLink();
-            System.out.println(link);
+            System.out.println("CONFIRMATION LINK: " + link);
             driver.navigate().to(link);
         } catch (Exception e) {
             e.printStackTrace();

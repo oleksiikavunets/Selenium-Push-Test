@@ -102,7 +102,6 @@ public class Verifier extends Assertion{
     public void reportAnIssue(String r, AssertionError error) {
         Logger Log = LogManager.getLogger(Verifier.class);
         //Log.info(r + "\n" + error);
-        System.out.println(r + "\n" + error);
     }
     public boolean verifyRegistrationMail(String message, String port,  String key ){
         RegistrationMails registrationMails = new RegistrationMails();
