@@ -1,3 +1,4 @@
+import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -5,9 +6,13 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import testdata.CreateSiteMails;
+import testdata.PasswordRecoveryMails;
+import testdata.RegistrationMails;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -35,4 +40,93 @@ public class SeleniumSetup {
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         return new ChromeDriver(capabilities);
     }
+
+
+    @Test
+    public void checkNewSiteMail(){
+        CreateSiteMails createSiteMails = new CreateSiteMails();
+        HashMap<String, List> mails = createSiteMails.getMails("prod");
+        List<String> mailEn = mails.get("en");
+        List<String> mailRu = mails.get("ru");
+        List<String> mailPl = mails.get("pl");
+        List<String> mailDe = mails.get("de");
+
+        System.out.println("EN:");
+        for(String m: mailEn){
+            System.out.println(m);
+        }
+
+        System.out.println("RU:");
+        for(String m: mailRu){
+            System.out.println(m);
+        }
+
+        System.out.println("PL:");
+        for(String m: mailPl){
+            System.out.println(m);
+        }
+
+        System.out.println("DE:");
+        for(String m: mailDe){
+            System.out.println(m);
+        }
+    }
+@Test
+public void checkRegMail(){
+    RegistrationMails registrationMails = new RegistrationMails();
+    HashMap<String, List> mails = registrationMails.getMails("prod");
+    List<String> mailEn = mails.get("en");
+    List<String> mailRu = mails.get("ru");
+    List<String> mailPl = mails.get("pl");
+    List<String> mailDe = mails.get("de");
+
+    System.out.println("EN:");
+    for(String m: mailEn){
+        System.out.println(m);
+    }
+
+    System.out.println("RU:");
+    for(String m: mailRu){
+        System.out.println(m);
+    }
+
+    System.out.println("PL:");
+    for(String m: mailPl){
+        System.out.println(m);
+    }
+
+    System.out.println("DE:");
+    for(String m: mailDe){
+        System.out.println(m);
+}}
+    @Test
+    public void checkPassMail(){
+        PasswordRecoveryMails passwordRecoveryMails = new PasswordRecoveryMails();
+        HashMap<String, List> mails = passwordRecoveryMails.getMails("prod");
+        List<String> mailEn = mails.get("en");
+        List<String> mailRu = mails.get("ru");
+        List<String> mailPl = mails.get("pl");
+        List<String> mailDe = mails.get("de");
+
+        System.out.println("EN:");
+        for(String m: mailEn){
+            System.out.println(m);
+        }
+
+        System.out.println("RU:");
+        for(String m: mailRu){
+            System.out.println(m);
+        }
+
+        System.out.println("PL:");
+        for(String m: mailPl){
+            System.out.println(m);
+        }
+
+        System.out.println("DE:");
+        for(String m: mailDe){
+            System.out.println(m);
+        }
+    }
+
 }

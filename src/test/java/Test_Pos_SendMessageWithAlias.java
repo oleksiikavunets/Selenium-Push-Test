@@ -15,9 +15,10 @@ public class Test_Pos_SendMessageWithAlias extends SeleniumBaseClass {
         String title = RandomGenerator.nextString();
         String text = RandomGenerator.nextString();
         String alias = TestData.alias;
+        String testSite = TestData.testSite;
 
         MainAdminPage mainAdminPage = new LogInPage(driver, wait).login(TestData.email, TestData.pass);
-        SideBar sideBar = mainAdminPage.openSite();
+        SideBar sideBar = mainAdminPage.openSite(testSite);
         CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
         createCampaignPage.setTitle(title);
         createCampaignPage.setText(text);

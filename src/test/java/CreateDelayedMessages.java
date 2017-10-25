@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Test_CreateDelayedMessages extends SeleniumBaseClass {
+public class CreateDelayedMessages extends SeleniumBaseClass {
 
     @Test
     public void createDelayedMessages() throws Exception {

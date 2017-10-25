@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CreateSiteMails {
+
     private List<String> gravitecEN = new ArrayList<>(Arrays.asList(
             "The new website was registered!",
             "Dear Customer,",

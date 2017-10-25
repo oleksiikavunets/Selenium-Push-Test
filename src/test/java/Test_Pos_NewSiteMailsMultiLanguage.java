@@ -30,12 +30,13 @@ public class Test_Pos_NewSiteMailsMultiLanguage extends SeleniumBaseClass {
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         langs.get(0).click();
         driver.navigate().refresh();
-        siteLang = headerMenu.checkLanguage();
+
         for (int i = 1; i <= langs.size(); i++) {
+            siteLang = headerMenu.checkLanguage();
             String siteUrl = "http://" + RandomGenerator.nextString() + ".com";
 
             addNewSitePage.createSite(siteUrl);
-            String message = MailService.getCreateSitedMail();
+            String message = MailService.getCreatedSiteMail();
             System.out.println(message);
             verifier.assertTrue(verifier.verifyCreateSiteMail(message, ConfigTest.iTest, siteLang));
             headerMenu.clickLogo();
@@ -45,7 +46,6 @@ public class Test_Pos_NewSiteMailsMultiLanguage extends SeleniumBaseClass {
                 break;
             }
             headerMenu.switchLanguage(i);
-            siteLang = headerMenu.checkLanguage();
         }
 
         verifier.assertTestPassed();

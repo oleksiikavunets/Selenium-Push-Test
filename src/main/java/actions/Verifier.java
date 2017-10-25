@@ -135,6 +135,11 @@ public class Verifier extends Assertion{
         CreateSiteMails createSiteMails = new CreateSiteMails();
         HashMap<String, List> mails = createSiteMails.getMails(port);
         List<String> mail = mails.get(key);
+
+        System.out.println("MY MAIL PATTERN:");
+        for(String m: mail){
+            System.out.println(m);
+        }
         boolean pass = false;
         int errorCount = 0;
 

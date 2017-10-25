@@ -110,7 +110,7 @@ public class SeleniumBaseClass {
     protected static WebDriver getConfiguredWebDriver(String browser, boolean addBlockAnabled) {
         WebDriver driver = null;
         if (browser.equalsIgnoreCase("chrome")) {
-            System.setProperty("webdriver.chrome.driver", new File("C:\\Users\\OleksiiKavunets\\Documents\\pushnotifications\\pushnotifications\\Selenium\\src\\main\\resources\\WebDrivers\\chromedriver 2.33\\chromedriver.exe").getAbsolutePath());
+            System.setProperty("webdriver.chrome.driver", new File("src/main/resources/WebDrivers/chromedriver 2.33/chromedriver.exe").getAbsolutePath());
             DesiredCapabilities capabilities = DesiredCapabilities.chrome();
             ChromeOptions options = new ChromeOptions();
             options.addArguments("test-type");
@@ -130,7 +130,7 @@ public class SeleniumBaseClass {
             driver = new ChromeDriver(capabilities);
         } else if (browser.equalsIgnoreCase("firefox")) {
             DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-            System.setProperty("webdriver.gecko.driver", new File("C:\\Users\\OleksiiKavunets\\Documents\\pushnotifications\\pushnotifications\\Selenium\\src\\main\\resources\\WebDrivers\\geckodriver 0.19 win64\\geckodriver.exe").getAbsolutePath());
+            System.setProperty("webdriver.gecko.driver", new File("src/main/resources/WebDrivers/geckodriver 0.19 win64/geckodriver.exe").getAbsolutePath());
             FirefoxOptions options = new FirefoxOptions();
             ProfilesIni profile = new ProfilesIni();
             capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);

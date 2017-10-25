@@ -16,8 +16,7 @@ import java.util.List;
  */
 public class HeaderMenu {
     WebDriver driver;
-     Wait<WebDriver> wait;
-
+    Wait<WebDriver> wait;
 
 
     public By logo = By.cssSelector("a[ui-sref=\"list\"]");
@@ -40,7 +39,7 @@ public class HeaderMenu {
 
     public HashMap<String, String> signout = new HashMap<>();
 
-    public void clickLogo(){
+    public void clickLogo() {
         logo.findElement(driver).click();
     }
 
@@ -79,25 +78,38 @@ public class HeaderMenu {
         wait.until(ExpectedConditions.invisibilityOfElementWithText(logOutButton, langToChange));
     }
 
+//    public String checkLanguage() {
+//        String lang = "";
+//
+//        String mot = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
+//
+//        switch (mot) {
+//            case ("Sign out"):
+//                lang = "en";
+//                break;
+//            case ("Wyloguj"):
+//                lang = "pl";
+//                break;
+//            case ("Выйти"):
+//                lang = "ru";
+//                break;
+//            case ("Ausloggen"):
+//                lang = "de";
+//                break;
+//        }
+//        return lang;
+//    }
+
     public String checkLanguage() {
         String lang = "";
 
         String mot = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
 
-        switch (mot) {
-            case ("Sign out"):
-                lang = "en";
-                break;
-            case ("Wyloguj"):
-                lang = "pl";
-                break;
-            case ("Выйти"):
-                lang = "ru";
-                break;
-            case ("Ausloggen"):
-                lang = "de";
-                break;
-        }
+        if (mot.equals("Sign out")) lang = "en";
+        else if (mot.equals("Wyloguj")) lang = "pl";
+        else if (mot.equals("Выйти")) lang = "ru";
+        else if (mot.equals("Ausloggen")) lang = "de";
+
         return lang;
     }
 
@@ -146,7 +158,6 @@ public class HeaderMenu {
     }
 
 
-
     public void switchNextLanguage() {
         String mot = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
         switch (mot) {
@@ -163,8 +174,6 @@ public class HeaderMenu {
                 break;
         }
     }
-
-
 
 
 }

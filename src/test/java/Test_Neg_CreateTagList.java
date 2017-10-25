@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.ErrorMessages;
 import testdata.TestData;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class Test_Neg_CreateTagList extends SeleniumBaseClass {
 
 
-    @Test(groups = { "negative", "tag list" })
+    @Test(groups = {"negative", "tag list"})
     public void createTagListNegative() throws Exception {
         LogInPage logInPage = new LogInPage(driver, wait);
         HeaderMenu headerMenu = new HeaderMenu(driver, wait);
@@ -22,17 +23,16 @@ public class Test_Neg_CreateTagList extends SeleniumBaseClass {
         Verifier verifier = new Verifier();
         ErrorMessages errorMessages = new ErrorMessages();
 
-            HashMap<String, String> noTags = errorMessages.getNoTags();
-            HashMap<String, String> noName = errorMessages.getNoName();
-
+        HashMap<String, String> noTags = errorMessages.getNoTags();
+        HashMap<String, String> noName = errorMessages.getNoName();
+        String testSite = TestData.testSite;
         String siteLang;
-
 
 
         MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         langs.get(0).click();
-        SideBar sideBar = mainAdminPage.openSite();
+        SideBar sideBar = mainAdminPage.openSite(testSite);
         TagListPage tagListPage = sideBar.openTagListPage();
 
         for (int i = 1; i <= langs.size(); i++) {

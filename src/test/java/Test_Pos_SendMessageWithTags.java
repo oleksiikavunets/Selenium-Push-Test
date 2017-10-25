@@ -23,9 +23,10 @@ public class Test_Pos_SendMessageWithTags extends SeleniumBaseClass {
         String title = RandomGenerator.nextString();
         String text = RandomGenerator.nextString();
         String tag = TestData.tag;
+        String testSite = TestData.testSite;
 
         MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
-        SideBar sideBar = mainAdminPage.openSite();
+        SideBar sideBar = mainAdminPage.openSite(testSite);
 
         CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
         createCampaignPage.setTitle(title);

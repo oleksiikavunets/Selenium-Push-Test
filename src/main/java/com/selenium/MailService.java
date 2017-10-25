@@ -25,7 +25,7 @@ public class MailService {
             prop.load(input);
             int port = Integer.valueOf(config.getPort());
             int directPort = Integer.valueOf(config.getDirectPort());
-            gravitecServer = new GravitecServer(port,directPort);
+            gravitecServer = new GravitecServer(port, directPort);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -66,7 +66,7 @@ public class MailService {
 
             //Wait for 10 seconds
             if (unseen == 0) {
-                System.out.println("spend "+i+" seconds to get email from gravitec");
+                System.out.println("spend " + i + " seconds to get email from gravitec");
                 Thread.sleep(1000);
             } else {
                 break;
@@ -78,7 +78,7 @@ public class MailService {
         //Registration is already done
         for (Message mail : messages) {
             if (!mail.isSet(Flags.Flag.SEEN)) {
-                mailFromGod= mail;
+                mailFromGod = mail;
                 System.out.println("Message Count is: "
                         + mailFromGod.getMessageNumber());
                 isMailFound = true;
@@ -93,7 +93,7 @@ public class MailService {
             //Read the content of mail and launch registration URL
         } else {
             String result = "";
-            if (mailFromGod.isMimeType("text/plain") || mailFromGod.isMimeType("text/html") ) {
+            if (mailFromGod.isMimeType("text/plain") || mailFromGod.isMimeType("text/html")) {
                 result = mailFromGod.getContent().toString();
             } else if (mailFromGod.isMimeType("multipart/*")) {
                 MimeMultipart mimeMultipart = (MimeMultipart) mailFromGod.getContent();
@@ -115,7 +115,7 @@ public class MailService {
 
 
     private static String getTextFromMimeMultipart(
-            MimeMultipart mimeMultipart)  throws MessagingException, IOException{
+            MimeMultipart mimeMultipart) throws MessagingException, IOException {
         String result = "";
         int count = mimeMultipart.getCount();
         for (int i = 0; i < count; i++) {
@@ -126,8 +126,8 @@ public class MailService {
             } else if (bodyPart.isMimeType("text/html")) {
                 String html = (String) bodyPart.getContent();
                 result = result + "\n" + org.jsoup.Jsoup.parse(html).text();
-            } else if (bodyPart.getContent() instanceof MimeMultipart){
-                result = result + getTextFromMimeMultipart((MimeMultipart)bodyPart.getContent());
+            } else if (bodyPart.getContent() instanceof MimeMultipart) {
+                result = result + getTextFromMimeMultipart((MimeMultipart) bodyPart.getContent());
             }
         }
         return result;
@@ -137,77 +137,74 @@ public class MailService {
         System.out.println(getRecoverLink());
     }
 
-    public static String getRegistrationMail(){
+    public static String getRegistrationMail() {
         String registrationMail = null;
-        String mail = null;
 
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             try {
-                mail = getLastMessageFromGravitec();
+                String mail = getLastMessageFromGravitec();
+
+                if (mail.contains("Complete registration") ||
+                        mail.contains("Zakończ rejestrację") ||
+                        mail.contains("Активировать учетную запись") ||
+                        mail.contains("Vollständige Anmeldung") ||
+                        mail.contains("Активувати обліковий запис")) {
+                    registrationMail = mail;
+                    break;
+                } else {
+                    System.out.println("This is not registration mail:\n" + mail);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if(mail.contains("Complete registration") ||
-                    mail.contains("Zakończ rejestrację") ||
-                    mail.contains("Активировать учетную запись") ||
-                    mail.contains("Vollständige Anmeldung") ||
-                    mail.contains("Активувати обліковий запис")){
-                registrationMail = mail;
-                break;
-            }else {
-                System.out.println("This is not registration mail:\n" + mail);
-            }
-
         }
         return registrationMail;
     }
 
-    public static String getRecoverPasswordMail(){
+    public static String getRecoverPasswordMail() {
         String recoverPasswordMail = null;
-        String mail = null;
 
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             try {
-                mail = getLastMessageFromGravitec();
+                String mail = getLastMessageFromGravitec();
+
+                if (mail.contains("Reset the password") ||
+                        mail.contains("Resetuj hasło") ||
+                        mail.contains("Сбросить пароль") ||
+                        mail.contains("Passwort zurücksetzen") ||
+                        mail.contains("Сбросить пароль")) { //must put ukrainian text for kyivstar
+                    recoverPasswordMail = mail;
+                    break;
+                } else {
+                    System.out.println("This is not recover password mail:\n" + mail);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if(mail.contains("Reset the password") ||
-                    mail.contains("Resetuj hasło") ||
-                    mail.contains("Сбросить пароль") ||
-                    mail.contains("Passwort zurücksetzen") ||
-                    mail.contains("Сбросить пароль")){ //must put ukrainian text for kyivstar
-                recoverPasswordMail = mail;
-                break;
-            }else {
-                System.out.println("This is not recover password mail:\n" + mail);
-            }
-
         }
         return recoverPasswordMail;
     }
 
-    public static String getCreateSitedMail(){
+    public static String getCreatedSiteMail() {
         String createSiteMail = null;
-        String mail = null;
 
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             try {
-                mail = getLastMessageFromGravitec();
+                String mail = getLastMessageFromGravitec();
+
+                if (mail.contains("The new website was registered!") ||
+                        mail.contains("Nowa strona została zarejestrowana!") ||
+                        mail.contains("Новый сайт создан в Вашем аккаунте") ||
+                        mail.contains("Die neue Webseite wurde registriert!") ||
+                        mail.contains("Новий сайт створений у Вашому обліковому записі")) { //must put ukrainian text for kyivstar
+                    createSiteMail = mail;
+                    break;
+                } else {
+                    System.out.println("This is not created site mail:\n" + mail);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if(mail.contains("The new website was registered!") ||
-                    mail.contains("Nowa strona została zarejestrowana!") ||
-                    mail.contains("Новый сайт создан в Вашем аккаунте") ||
-                    mail.contains("Die neue Webseite wurde registriert!") ||
-                    mail.contains("Новий сайт створений у Вашому обліковому записі")){ //must put ukrainian text for kyivstar
-                createSiteMail = mail;
-                break;
-            }else {
-                System.out.println("This is not created site mail:\n" + mail);
-            }
-
         }
         return createSiteMail;
     }
@@ -219,8 +216,7 @@ public class MailService {
             System.out.println(messageBody);
             confirmationLink = messageBody.split(" https://")[1].split("\\n")[0];
             //return  "https://" + messageBody;
-        }
-        else{
+        } else {
             Document doc = Jsoup.parse(messageBody);
             Elements links = doc.select("a[href]");
             confirmationLink = links.get(4).attr("href").split("https://")[1];
@@ -237,21 +233,21 @@ public class MailService {
         if (ConfigTest.iTest.equals("7700") || ConfigTest.iTest.equals("prod") || ConfigTest.iTest.equals("kyivstar7700") || ConfigTest.iTest.equals("kyivstar") || ConfigTest.iTest.equals("7600") || ConfigTest.iTest.equals("push2b")) {
             System.out.println(messageBody);
             recoverLink = messageBody.split("https://")[3].split("\\n")[0];
-        }
-        else {
+        } else {
             Document doc = Jsoup.parse(messageBody);
             Elements links = doc.select("a[href]");
             recoverLink = links.get(4).attr("href").split("https://")[1];
         }
-        return  "https://" + recoverLink;
+        return "https://" + recoverLink;
     }
 
     public static String getCreatedSiteUrl() throws Exception {
-        String messagebody = getCreateSitedMail();
+        String messagebody = getCreatedSiteMail();
         System.out.println(messagebody);
         String createdSite = messagebody.split(" https://")[1].split("\\n")[0];
         return "https://" + createdSite;
     }
+
     public static String getCreatedSiteUrl(String messagebody) throws Exception {
         System.out.println(messagebody);
         String createdSite = messagebody.split(" https://")[1].split("\\n")[0];
