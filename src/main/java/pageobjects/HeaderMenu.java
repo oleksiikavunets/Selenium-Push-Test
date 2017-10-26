@@ -78,28 +78,6 @@ public class HeaderMenu {
         wait.until(ExpectedConditions.invisibilityOfElementWithText(logOutButton, langToChange));
     }
 
-//    public String checkLanguage() {
-//        String lang = "";
-//
-//        String mot = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
-//
-//        switch (mot) {
-//            case ("Sign out"):
-//                lang = "en";
-//                break;
-//            case ("Wyloguj"):
-//                lang = "pl";
-//                break;
-//            case ("Выйти"):
-//                lang = "ru";
-//                break;
-//            case ("Ausloggen"):
-//                lang = "de";
-//                break;
-//        }
-//        return lang;
-//    }
-
     public String checkLanguage() {
         String lang = "";
 
