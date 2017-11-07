@@ -1,7 +1,7 @@
 import actions.Timer;
 import actions.Verifier;
 import com.selenium.ConfigTest;
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,7 +15,7 @@ import testrestrictions.BetaFeatures;
  * Created by Oleksii on 31.07.2017.
  */
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_CopyCampaign extends SeleniumBaseClass {
 
 
@@ -79,7 +79,7 @@ public class Test_Pos_CopyCampaign extends SeleniumBaseClass {
 
             CampaignReportPage campaignReportPage = campaignHistoryPage.openMessage(title);
             CreateCampaignPage.NotificationPreview notificationPreview = createCampaignPage.new NotificationPreview();
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= 3; i++) {
                 campaignReportPage.copyCampaign();
                 System.out.println("PUSH COPY " + i);
                 Timer.waitSeconds(0.5);

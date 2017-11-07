@@ -1,5 +1,5 @@
 
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 /**
  * Created by Oleksii on 31.07.2017.
  */
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_SendDelayedMessage extends SeleniumBaseClass {
 
 

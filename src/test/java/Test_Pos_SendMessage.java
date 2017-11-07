@@ -1,5 +1,5 @@
 
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -9,7 +9,7 @@ import testdata.TestData;
 /**
  * Created by Oleksii on 03.07.2017.
  */
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_SendMessage extends SeleniumBaseClass {
 
     @Test(groups = {"send push"})
@@ -17,9 +17,10 @@ public class Test_Pos_SendMessage extends SeleniumBaseClass {
         LogInPage logInPage = new LogInPage(driver, wait);
         String title = RandomGenerator.nextString();
         String text = RandomGenerator.nextString();
+        String testSite = TestData.testSite;
 
         MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
-        SideBar sideBar = mainAdminPage.openSite();
+        SideBar sideBar = mainAdminPage.openSite(testSite);
 
         CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
         createCampaignPage.setTitle(title);

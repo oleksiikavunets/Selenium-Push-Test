@@ -1,6 +1,6 @@
 import actions.UserActions;
 import actions.Verifier;
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Listeners;
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Oleksii on 27.06.2017.
  */
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Neg_CreateWM extends SeleniumBaseClass {
 
 

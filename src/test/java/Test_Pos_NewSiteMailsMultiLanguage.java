@@ -2,7 +2,7 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
 import com.selenium.MailService;
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,10 +15,10 @@ import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
 import java.util.List;
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_NewSiteMailsMultiLanguage extends SeleniumBaseClass {
 
-    @Test(groups = {"mails", "new site"})
+    @Test(groups = {"mails", "new site"}, singleThreaded = true, threadPoolSize = 1)
     public void testCreateSiteMails() throws Exception {
         Logger Log = LogManager.getLogger(Test_Pos_NewSiteMailsMultiLanguage.class);
         HeaderMenu headerMenu = new HeaderMenu(driver, wait);

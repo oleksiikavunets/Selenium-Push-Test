@@ -1,4 +1,4 @@
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Oleksii on 31.07.2017.
  */
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_UseTagsInCampaignFromTagListPage extends SeleniumBaseClass {
 
     @Test(groups = {"send push", "tags", "tag list"})

@@ -1,6 +1,6 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import com.selenium.utils.Log;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.SkipException;
@@ -10,7 +10,7 @@ import pageobjects.*;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_EditUTM extends SeleniumBaseClass {
 
     @Test(groups = {"site settings", "UTM"})

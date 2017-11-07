@@ -46,13 +46,15 @@ public class UserActions {
         addNewSitePage.createSite(siteUrl);
     }
 
-    public void checkCreateSiteMail(String siteUrl) throws Exception {
+    public void checkCreateSiteMail(String siteUrl, String browser) throws Exception {
         BrowserMaster browserMaster = new BrowserMaster(driver);
         Verifier verifier = new Verifier();
         String createdSite = MailService.getCreatedSiteUrl();
-        browserMaster.openNewTab(createdSite);
-        verifier.assertTrue(driver.getCurrentUrl().contains(siteUrl));
-        browserMaster.switchToMainTab();
+        if(browser.equalsIgnoreCase("chrome")) {
+            browserMaster.openNewTab(createdSite);
+            verifier.assertTrue(driver.getCurrentUrl().contains(siteUrl));
+            browserMaster.switchToMainTab();
+        }
     }
 
     public void deleteSite(String siteUrl) throws InterruptedException {

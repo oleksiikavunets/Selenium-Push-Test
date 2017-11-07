@@ -3,42 +3,52 @@
 <suite name="OperaSuite">
     <parameter name="browser" value="opera"/>
     <listeners>
-        <listener class-name="com.selenium.utils.TestNGReportListener"/>
+        <listener class-name="testutils.Listeners.TestRetryListener"/>
+        <listener class-name="testutils.Listeners.TestNGReportListener"/>
         <listener class-name="org.uncommons.reportng.HTMLReporter"/>
     </listeners>
 
     <test name="Opera Test">
         <classes>
-            <!--<class  name="Test_Pos_Registration"/>-->
-            <class  name="Test_Pos_LogInLogOut"/>
-            <!--<class  name="Test_Pos_RestorePassword"/>-->
-            <class  name="Test_Pos_CreateHTTPSite"/>
-            <class  name="Test_Pos_CreateWM"/>
+            <class name="Test_Pos_LogInLogOut"/>
+            <!--<class name="Test_Pos_Registration"/>-->
+            <!--<class name="Test_Pos_RestorePassword"/>-->
+            <!--<class name="Test_Pos_RegistrationEmailsMultiLanguage"/>-->
+            <!--<class name="Test_Pos_RecoverPassMultiLanguage"/>-->
+            <!--<class name="Test_Pos_NewSiteMailsMultiLanguage"/>-->
+            <class name="Test_Pos_CreateHTTPSite"/>
+            <class name="Test_Pos_DeleteSite"/>
+            <class name="Test_Pos_CreateWM"/>
+            <class name="Test_Pos_CreateWMWithButtons"/>
+            <class name="Test_Pos_CreateWMWithBigImage"/>
             <!--<class name="Test_Pos_Subscription"/>-->
-            <!--<class  name="Test_Pos_AddNewTag"/>-->
-            <!--<class  name="Test_Pos_AddNewAlias"/>-->
-            <class  name="Test_Pos_ChangeSiteIcon"/>
-            <class  name="Test_Pos_DeleteSite"/>
-            <class  name="Test_Pos_SendMessage"/>
-            <class  name="Test_Pos_SendDelayedMessage"/>
+            <class name="Test_Pos_ChangeSiteIcon"/>
+            <class name="Test_Pos_SendMessage"/>
+            <class name="Test_Pos_SendDelayedMessage"/>
+            <class name="Test_Pos_SendDelayedMessageImmediately"/>
+            <class name="Test_Pos_DeleteDelayedMessage"/>
+            <class name="Test_Pos_EditDelayedMessage"/>
             <class name="Test_Pos_EditUTM"/>
-            <class  name="Test_Pos_SendMessageWithTags"/>
-            <class  name="Test_Pos_SendMessageWithAlias"/>
+            <!--<class name="Test_Pos_AddNewTag"/>-->
+            <!--<class name="Test_Pos_AddNewAlias"/>-->
+            <class name="Test_Pos_SendMessageWithTags"/>
+            <class name="Test_Pos_SendMessageWithAlias"/>
             <class name="Test_Pos_SendMessageWithUTM"/>
-            <class  name="Test_Pos_SendMessageWithButtons"/>
-            <class  name="Test_Pos_SendMessageWithBigImage"/>
-            <class  name="Test_Pos_CopyCampaign"/>
-            <class  name="Test_Pos_CreateTagList"/>
-            <class  name="Test_Pos_UseTagsInCampaignFromTagListPage"/>
-            <class  name="Test_Pos_SmokePayment"/>
-            <class  name="Test_Neg_LogIn"/>
-            <class  name="Test_Neg_Registration"/>
-            <class  name="Test_Neg_RestorePassword"/>
-            <class  name="Test_Neg_CreateSite"/>
-            <class  name="Test_Neg_CreateWM"/>
-            <class  name="Test_Neg_SendMessage"/>
+            <class name="Test_Pos_SendMessageWithButtons"/>
+            <class name="Test_Pos_SendMessageWithBigImage"/>
+            <!--<class name="Test_Pos_CopyCampaign"/> bug not fixed yet!!! -->
+            <class name="Test_Pos_CreateTagList"/>
+            <class name="Test_Pos_UseTagsInCampaignFromTagListPage"/>
+            <class name="Test_Pos_SmokePayment"/>
+
+            <!--<class name="Test_Neg_LogIn"/> bug not fixed yet!!! -->
+            <class name="Test_Neg_Registration"/>
+            <class name="Test_Neg_RestorePassword"/>
+            <class name="Test_Neg_CreateSite"/>
+            <class name="Test_Neg_CreateWM"/>
+            <class name="Test_Neg_SendMessage"/>
             <class name="Test_Neg_EditUTM"/>
-            <class  name="Test_Neg_CreateTagList"/>
+            <class name="Test_Neg_CreateTagList"/>
         </classes>
     </test>
 </suite>

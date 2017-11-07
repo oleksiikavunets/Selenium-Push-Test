@@ -2,7 +2,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Subscription Suite" parallel="tests">
     <listeners>
-        <listener class-name="com.selenium.utils.TestNGReportListener"/>
+        <listener class-name="testutils.Listeners.TestRetryListener"/>
+        <listener class-name="testutils.Listeners.TestNGReportListener"/>
         <listener class-name="org.uncommons.reportng.HTMLReporter"/>
     </listeners>
     <test name="Chrome Subscription">

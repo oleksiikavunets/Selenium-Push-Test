@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Dayly Test" >
+    <parameter name="browser" value="chrome"/>
+    <listeners>
+        <listener class-name="testutils.Listeners.TestRetryListener"/>
+        <listener class-name="testutils.Listeners.TestNGReportListener"/>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+    </listeners>
+
+
+    <test name="Dayly Test" parallel="classes" thread-count="3">
+        <classes>
+            <class name="Test_Pos_LogInLogOut"/>
+            <class name="Test_Neg_EditUTM"/>
+            <class name="Test_Neg_Registration"/>
+            <class name="Test_Neg_RestorePassword"/>
+            <class name="Test_Neg_SendMessage"/>
+            <class name="Test_Neg_CreateTagList"/>
+            <class name="Test_Pos_SmokePayment"/>
+        </classes>
+    </test>
+</suite>

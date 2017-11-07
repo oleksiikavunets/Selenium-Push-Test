@@ -187,14 +187,17 @@ public class CreateCampaignPage {
 
     public void setDateAndTime(int plusDays, int plusHours, int plusMinutes) {
         LocalDateTime date = LocalDateTime.now().plusDays(plusDays).plusHours(plusHours).plusMinutes(plusMinutes);
+        System.out.println(date);
         driver.findElement(dateInput).sendKeys(date.format(DateTimeFormatter.ofPattern("dd.MM.YYYY")));
         setTime(date);
+        System.out.println(date);
     }
 
     public void setTime(LocalDateTime dateTime) {
         Custom custom = new Custom(driver);
         Actions actions = new Actions(driver);
-        String hour = dateTime.format(DateTimeFormatter.ofPattern("HH:mm")).split(":")[0];
+        String hour = dateTime.format(DateTimeFormatter.ofPattern("H:mm")).split(":")[0];
+        System.out.println(hour);
 
         String minute = dateTime.format(DateTimeFormatter.ofPattern("HH:mm")).split(":")[1];
 
@@ -211,9 +214,9 @@ public class CreateCampaignPage {
                 break;
             }
         }
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div[class*=\"hours\"][style=\"visibility: visible;\"]>div[class*=\"jqclockpicker-tick\"]")));
+//        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div[class*=\"hours\"][style=\"visibility: visible;\"]>div[class*=\"jqclockpicker-tick\"]")));
 
-        Timer.waitSeconds(1);
+        Timer.waitSeconds(0.5);
 
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[class*=\"minutes\"][style=\"visibility: visible;\"]>[class*=\"jqclockpicker-tick\"]")));
@@ -223,7 +226,7 @@ public class CreateCampaignPage {
             if (mt.equals(minute)) {
                 actions.moveToElement(m).click().perform();
 //                m.click();
-                Timer.waitSeconds(1);
+                Timer.waitSeconds(0.5);
                 wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div[class*=\"minutes\"][style*=\"visibility: visible;\"]")));
                 break;
             }
@@ -324,6 +327,7 @@ public class CreateCampaignPage {
 
     public class AdditionalActiveItems {
         public void switchButton1() {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(button1Switch));
             button1Switch.findElement(driver).click();
         }
 

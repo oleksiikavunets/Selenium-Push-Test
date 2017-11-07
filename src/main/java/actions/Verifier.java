@@ -150,6 +150,10 @@ public class Verifier extends Assertion{
         return pass;
     }
 
+    public void assertSiteIdPresent(){
+
+    }
+
     public void assertTestPassed() {
         if (!this.m_errors.isEmpty()) {
 

@@ -119,6 +119,7 @@ public class SiteSettingsPage {
         }
         return utm;
     }
+
     public String getUtm_medium(){
         String utm =  wait.until(ExpectedConditions.visibilityOfElementLocated(UTMsource)).getText();
         return utm;

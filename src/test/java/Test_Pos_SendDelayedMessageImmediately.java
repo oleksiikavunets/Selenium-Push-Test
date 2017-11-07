@@ -1,4 +1,4 @@
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
@@ -8,7 +8,7 @@ import testdata.TestData;
 
 import java.awt.*;
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_SendDelayedMessageImmediately extends SeleniumBaseClass{
 
     @Test(groups = {"send push", "delayed push"})

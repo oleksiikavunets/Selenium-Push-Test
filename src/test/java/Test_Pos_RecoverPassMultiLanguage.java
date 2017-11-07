@@ -1,7 +1,7 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
 import com.selenium.MailService;
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
@@ -12,10 +12,10 @@ import testdata.TestData;
 
 import java.util.List;
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_RecoverPassMultiLanguage extends SeleniumBaseClass {
 
-    @Test(groups = {"mails", "recover password"})
+    @Test(groups = {"mails", "recover password"}, singleThreaded = true, threadPoolSize = 1)
     public void testRecoverPasswordMail() throws Exception {
         Logger Log = LogManager.getLogger(Test_Pos_RecoverPassMultiLanguage.class);
         LogInPage logInPage = new LogInPage(driver, wait);

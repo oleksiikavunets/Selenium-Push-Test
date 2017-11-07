@@ -1,4 +1,4 @@
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -10,7 +10,7 @@ import testdata.TestData;
 /**
  * Created by Oleksii on 31.07.2017.
  */
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_SendMessageWithAlias extends SeleniumBaseClass {
 
     @Test(groups = {"send push", "advanced settings", "alias"})

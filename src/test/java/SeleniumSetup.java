@@ -41,6 +41,17 @@ public class SeleniumSetup {
         return new ChromeDriver(capabilities);
     }
 
+    @Test
+    public void test1 (){
+        Integer a = 128;
+        Integer b = 128;
+
+        System.out.println(a == b);
+        System.out.println(1 + 1);
+
+
+    }
+
 
     @Test
     public void checkNewSiteMail(){

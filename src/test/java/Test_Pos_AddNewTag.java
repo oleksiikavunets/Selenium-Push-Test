@@ -1,6 +1,6 @@
 import actions.UserActions;
 import com.selenium.ConfigTest;
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -10,7 +10,7 @@ import pageobjects.MainAdminPage;
 import pageobjects.TagListPage;
 import testdata.TestData;
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_AddNewTag extends SeleniumBaseClass {
 
     @Test (groups = {"subscription", "advanced settings", "tags"})

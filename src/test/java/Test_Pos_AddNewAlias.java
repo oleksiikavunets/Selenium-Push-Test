@@ -1,11 +1,11 @@
 import actions.UserActions;
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.TestData;
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_AddNewAlias extends SeleniumBaseClass {
 
     @Test (groups = {"subscription", "advanced settings", "alias"})

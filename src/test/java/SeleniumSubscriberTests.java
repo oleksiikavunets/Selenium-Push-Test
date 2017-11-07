@@ -4,7 +4,7 @@ import com.selenium.pojo.Alias;
 import com.selenium.pojo.Message;
 import com.selenium.pojo.Tag;
 import com.selenium.utils.RandomGenerator;
-import com.selenium.utils.SiteIdListener;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,6 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 
 import java.util.HashSet;
@@ -105,7 +104,7 @@ public class SeleniumSubscriberTests extends SeleniumBaseClass {
     public void tags() {
     }
 
-    private static void startFF() {
+    private  void startFF() {
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
         FirefoxOptions options = new FirefoxOptions();
         FirefoxProfile profile = new FirefoxProfile();

@@ -1,14 +1,13 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
-import com.selenium.utils.Listener;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import testutils.Listeners.LogListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_SendMessageWithUTM extends SeleniumBaseClass{
 
     @Test(groups = {"send push", "UTM"})
@@ -23,8 +22,8 @@ public class Test_Pos_SendMessageWithUTM extends SeleniumBaseClass{
             SideBar sideBar = mainAdminPage.openSite(new ConfigTest().getTestSiteUrl());
             SiteSettingsPage siteSettingsPage = sideBar.openSiteSettingsPage();
 
-            String utm_source = wait.until(ExpectedConditions.visibilityOfElementLocated(siteSettingsPage.UTMsource)).getText() ;
-            String utm_medium = siteSettingsPage.UTMmedium.findElement(driver).getText();
+            String utm_source = siteSettingsPage.getUtm_source();
+            String utm_medium = siteSettingsPage.getUtm_medium();
 
             CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
             createCampaignPage.setTitle(title);

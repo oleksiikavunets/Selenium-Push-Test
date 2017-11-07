@@ -1,6 +1,6 @@
 import actions.UserActions;
 import com.selenium.ConfigTest;
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
@@ -9,10 +9,10 @@ import pageobjects.LogInPage;
 /**
  * Created by Rayant on 11.04.2017.
  */
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_Registration extends SeleniumBaseClass {
 
-    @Test(groups = {"mails", "registration"})
+    @Test(groups = {"mails", "registration"}, singleThreaded = true, threadPoolSize = 1)
     public void registration() throws Exception {
         HeaderMenu headerMenu = new HeaderMenu(driver, wait);
         UserActions userActions = new UserActions(driver, wait);

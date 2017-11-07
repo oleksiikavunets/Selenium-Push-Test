@@ -2,7 +2,7 @@ import actions.Timer;
 import actions.UserActions;
 import actions.Verifier;
 import com.selenium.ConfigTest;
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import com.selenium.utils.Log;
 import com.selenium.utils.RandomGenerator;
 import org.testng.SkipException;
@@ -15,7 +15,7 @@ import pageobjects.WelcomeMessagePage;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_CreateWMWithBigImage extends SeleniumBaseClass {
 
     @Test(groups = {"WM"})

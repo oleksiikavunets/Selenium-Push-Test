@@ -1,7 +1,7 @@
 import actions.UserActions;
 import actions.Verifier;
 import com.selenium.ConfigTest;
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.testng.SkipException;
 import org.testng.annotations.Listeners;
@@ -13,7 +13,7 @@ import pageobjects.WelcomeMessagePage;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_EditWM extends SeleniumBaseClass {
 
     @Test(groups = {"WM"})

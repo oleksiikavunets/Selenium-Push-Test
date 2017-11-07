@@ -1,9 +1,11 @@
 package pageobjects;
 
+import actions.Timer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
+import org.testng.Assert;
 
 public class SideBar {
     By createCampaignButton = By.cssSelector("span[ng-bind*=\"'LMENU_NEW_CAMP'\"]");
@@ -23,33 +25,58 @@ public class SideBar {
     }
 
     public CreateCampaignPage openCreateCampaignPage(){
+        String currentUrl = driver.getCurrentUrl();
         wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignButton)).click();
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
+        assertSiteIdPresent();
         return new CreateCampaignPage(driver, wait);
     }
 
     public WelcomeMessagePage openWelcomeMessagePage(){
+        String currentUrl = driver.getCurrentUrl();
         wait.until(ExpectedConditions.presenceOfElementLocated(welcomeMessagesButton)).click();
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
+        assertSiteIdPresent();
         return new WelcomeMessagePage(driver, wait);
     }
 
     public CampaignHistoryPage openCampaignHistoryPage(){
+        String currentUrl = driver.getCurrentUrl();
         wait.until(ExpectedConditions.visibilityOfElementLocated(campaignHistoryButton)).click();
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
+        assertSiteIdPresent();
         return new CampaignHistoryPage(driver, wait);
     }
 
     public SubscribersPage openSubscribersPage(){
+        String currentUrl = driver.getCurrentUrl();
         wait.until(ExpectedConditions.visibilityOfElementLocated(subscribersButton)).click();
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
+        assertSiteIdPresent();
         return new SubscribersPage(driver, wait);
     }
 
     public TagListPage openTagListPage(){
+        String currentUrl = driver.getCurrentUrl();
         wait.until(ExpectedConditions.visibilityOfElementLocated(tagListButton)).click();
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
+        assertSiteIdPresent();
         return new TagListPage(driver, wait);
     }
 
     public SiteSettingsPage openSiteSettingsPage(){
+        String currentUrl = driver.getCurrentUrl();
         wait.until(ExpectedConditions.visibilityOfElementLocated(siteSettingsButton)).click();
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
+        assertSiteIdPresent();
         return new SiteSettingsPage(driver, wait);
+    }
+
+    public void assertSiteIdPresent(){
+        Timer.waitSeconds(0.3);
+        String currentUrl = driver.getCurrentUrl();
+        String cut = currentUrl.split("sites")[1];
+        Assert.assertFalse(cut.contains("//"), "No siteId in current URL: " + currentUrl);
     }
 
 

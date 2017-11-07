@@ -32,7 +32,9 @@ import java.util.logging.Level;
 public class SeleniumBaseClass {
 
 
-    protected static WebDriver driver;
+    public String browserName;
+    protected WebDriver driver = null;
+
     public static GravitecServer gravitecServer;
 
     protected static Properties prop = new Properties();
@@ -66,8 +68,10 @@ public class SeleniumBaseClass {
     @Parameters("browser")
     @BeforeClass(alwaysRun = true)
     public void configureWebDriver(@Optional("chrome") String browser) {
-        if(driver == null) {
-            driver = getConfiguredWebDriver(browser, false);
+        if (browser.equalsIgnoreCase("chrome")) {
+            driver = getChromeDriver();
+        } else if (browser.equalsIgnoreCase("firefox")) {
+            driver = getFirefoxDriver();
         }
         wait = new FluentWait<WebDriver>(driver).withMessage("Element was not found").withTimeout(30, TimeUnit.SECONDS)
                 .pollingEvery(500, TimeUnit.MILLISECONDS)
@@ -75,37 +79,60 @@ public class SeleniumBaseClass {
     }
 
     @Parameters("browser")
-    @AfterClass( alwaysRun = true)
+    @AfterClass(alwaysRun = true)
     public void closeWebDriver(@Optional("chrome") String browser) throws AWTException {
-            try {
-                driver.findElement(new HeaderMenu(driver, wait).logOutButton).click();
-            }catch (org.openqa.selenium.NoSuchElementException noEl){
-            }catch (org.openqa.selenium.StaleElementReferenceException staleEl){
-            }
-
-        if (browser.equalsIgnoreCase("chrome")) {
-//            driver.close();
-//            driver.quit();
-        }else if(browser.equalsIgnoreCase("firefox")) {
-            driver.close();
-            driver.quit();
-        }else if(browser.equalsIgnoreCase("opera")){
-
-//            try {
-//                Runtime.getRuntime().exec("taskkill/f /im opera.exe");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+        try {
+            driver.findElement(new HeaderMenu(driver, wait).logOutButton).click();
+        } catch (org.openqa.selenium.NoSuchElementException noEl) {
+        } catch (org.openqa.selenium.StaleElementReferenceException staleEl) {
         }
 
+        if (browser.equalsIgnoreCase("chrome")) {
+            driver.close();
+            driver.quit();
+        } else if (browser.equalsIgnoreCase("firefox")) {
+            driver.quit();
+        } else if (browser.equalsIgnoreCase("opera")) {
+
+        }
     }
 
     @Parameters("browser")
     @AfterSuite
-    public void endTest(@Optional("chrome") String browser){
-        driver.close();
-        driver.quit();
-  }
+    public void endTest(@Optional("chrome") String browser) {
+        if (browser.equalsIgnoreCase("chrome")) {
+//            driver.close();
+//            driver.quit();
+        } else if (browser.equalsIgnoreCase("firefox")) {
+//            driver.quit();
+        }
+    }
+
+    protected WebDriver getChromeDriver() {
+        System.setProperty("webdriver.chrome.driver", new File("src/main/resources/WebDrivers/chromedriver 2.33/chromedriver.exe").getAbsolutePath());
+        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("test-type");
+        options.addArguments("start-maximized");
+        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+        chromePrefs.put("profile.default_content_setting_values.notifications", 1);
+        chromePrefs.put("download.default_directory", "D:\\work\\pushnotifications\\Selenium\\src\\main\\resources");
+        options.setExperimentalOption("prefs", chromePrefs);
+        LoggingPreferences logPrefs = new LoggingPreferences();
+        logPrefs.enable(LogType.BROWSER, Level.ALL);
+        logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
+        capabilities.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+        capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        driver = new ChromeDriver(capabilities);
+        return driver;
+    }
+
+    protected WebDriver getFirefoxDriver() {
+        System.setProperty("webdriver.gecko.driver", new File("src/main/resources/WebDrivers/geckodriver 0.19 win64/geckodriver.exe").getAbsolutePath());
+        driver = new FirefoxDriver();
+        return driver;
+    }
 
     protected static WebDriver getConfiguredWebDriver(String browser, boolean addBlockAnabled) {
         WebDriver driver = null;
@@ -129,18 +156,18 @@ public class SeleniumBaseClass {
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
             driver = new ChromeDriver(capabilities);
         } else if (browser.equalsIgnoreCase("firefox")) {
-            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+//            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
             System.setProperty("webdriver.gecko.driver", new File("src/main/resources/WebDrivers/geckodriver 0.19 win64/geckodriver.exe").getAbsolutePath());
-            FirefoxOptions options = new FirefoxOptions();
-            ProfilesIni profile = new ProfilesIni();
-            capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-            capabilities.acceptInsecureCerts();
-            capabilities.setJavascriptEnabled(true);
-            driver = new FirefoxDriver(capabilities);
+//            FirefoxOptions options = new FirefoxOptions();
+//            ProfilesIni profile = new ProfilesIni();
+//            capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+//            capabilities.acceptInsecureCerts();
+//            capabilities.setJavascriptEnabled(true);
+            driver = new FirefoxDriver();
         } else if (browser.equalsIgnoreCase("opera")) {
-            System.setProperty("webdriver.opera.driver", new File("src/main/resources/WebDrivers/operadriver 2.30/operadriver.exe").getAbsolutePath());
+            System.setProperty("webdriver.opera.driver", new File("src/main/resources/WebDrivers/operadriver 2.27/operadriver.exe").getAbsolutePath());
             OperaOptions options = new OperaOptions();
-            options.setBinary("C:\\Program Files\\Opera\\47.0.2631.80\\opera.exe");
+            options.setBinary("D:\\Program Files\\Opera\\48.0.2685.52\\opera.exe");
             HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
             chromePrefs.put("profile.default_content_setting_values.notifications", 1);
             chromePrefs.put("download.default_directory", "D:\\work\\pushnotifications\\Selenium\\src\\main\\resources");
@@ -151,6 +178,8 @@ public class SeleniumBaseClass {
         }
         return driver;
     }
+
+
 
 
 }

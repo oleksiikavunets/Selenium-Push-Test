@@ -1,5 +1,5 @@
 import actions.Verifier;
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,7 +13,7 @@ import testrestrictions.BetaFeatures;
  * Created by Oleksii on 31.07.2017.
  */
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_SendMessageWithBigImage extends SeleniumBaseClass {
 
 

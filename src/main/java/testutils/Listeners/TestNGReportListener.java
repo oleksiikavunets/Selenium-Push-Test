@@ -1,4 +1,4 @@
-package com.selenium.utils;
+package testutils.Listeners;
 
 import com.selenium.ConfigTest;
 import javafx.scene.control.DatePicker;
@@ -169,7 +169,8 @@ public class TestNGReportListener implements IReporter{
                     Throwable exception=testResult.getThrowable();
                     boolean hasThrowable = exception != null;
                     if(hasThrowable){
-                        String str = Utils.stackTrace(exception, true)[0];
+//                        String str = Utils.stackTrace(exception, true)[0];
+                        String str = Utils.longStackTrace(exception, true);
                         Scanner scanner = new Scanner(str);
                         firstLine = scanner.nextLine();
                     }
@@ -346,7 +347,8 @@ public class TestNGReportListener implements IReporter{
 
     protected void generateExceptionReport(Throwable exception, ITestNGMethod method) {
         writer.print("<div class=\"stacktrace\">");
-        writer.print(Utils.stackTrace(exception, true)[0]);
+//        writer.print(Utils.stackTrace(exception, true)[0]);
+        writer.print(Utils.longStackTrace(exception, true));
         writer.println("</div>");
     }
 

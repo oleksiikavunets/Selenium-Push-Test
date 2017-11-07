@@ -1,7 +1,5 @@
 import actions.Verifier;
-import com.selenium.utils.Listener;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
+import testutils.Listeners.LogListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
@@ -9,7 +7,7 @@ import testdata.TestData;
 
 import java.awt.*;
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_EditDelayedMessage extends SeleniumBaseClass {
 
     @Test(groups = {"send push", "delayed push"})

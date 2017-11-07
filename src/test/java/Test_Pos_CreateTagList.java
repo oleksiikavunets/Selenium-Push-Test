@@ -1,5 +1,5 @@
 import com.selenium.ConfigTest;
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
@@ -11,7 +11,7 @@ import testdata.TestData;
  * Created by Oleksii on 31.07.2017.
  */
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Pos_CreateTagList extends SeleniumBaseClass {
 
 

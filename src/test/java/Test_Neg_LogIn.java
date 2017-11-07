@@ -2,7 +2,7 @@
 import actions.Timer;
 import actions.Verifier;
 
-import com.selenium.utils.Listener;
+import testutils.Listeners.LogListener;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Listeners;
@@ -20,7 +20,7 @@ import java.util.List;
  * Created by Oleksii on 31.07.2017.
  */
 
-@Listeners(Listener.class)
+@Listeners(LogListener.class)
 public class Test_Neg_LogIn extends SeleniumBaseClass {
 
     @Test(groups = { "negative" })

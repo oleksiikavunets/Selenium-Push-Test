@@ -80,6 +80,14 @@ public class MainAdminPage {
 
     }
 
+/*
+    public SideBar openSite(String site){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(site))).click();
+        Log.info("TEST SITE: " + site);
+        return new SideBar(driver, wait);
+    }
+*/
+
     public void verifySiteToBeDeleted(String siteUrl) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(siteList));
         List<WebElement> siteList = driver.findElements(siteName);
