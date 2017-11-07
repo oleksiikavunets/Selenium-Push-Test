@@ -21,9 +21,9 @@ public class ConfigTest {
     String startUrl;
     String pattern;
 
-    public static String iTest = "prod";
+//    public static String iTest = "prod";
 //    public static String iTest = "7600";
-//    public static String iTest = "7700";
+    public static String iTest = "7700";
 //    public static String iTest = "kyivstar";
 //    public static String iTest = "push2b";
 //    public static String iTest = "kyivstar7700";

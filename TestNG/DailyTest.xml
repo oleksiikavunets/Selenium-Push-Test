@@ -12,12 +12,12 @@
     <test name="Dayly Test" parallel="classes" thread-count="3">
         <classes>
             <class name="Test_Pos_LogInLogOut"/>
-            <class name="Test_Neg_EditUTM"/>
             <class name="Test_Neg_Registration"/>
             <class name="Test_Neg_RestorePassword"/>
             <class name="Test_Neg_SendMessage"/>
             <class name="Test_Neg_CreateTagList"/>
             <class name="Test_Pos_SmokePayment"/>
+            <!--<class name="Test_Neg_EditUTM"/>-->
         </classes>
     </test>
 </suite>

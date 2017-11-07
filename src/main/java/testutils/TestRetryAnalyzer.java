@@ -5,7 +5,7 @@ import org.testng.ITestResult;
 public class TestRetryAnalyzer implements IRetryAnalyzer {
 
     int count=0;
-    private int iterationTimes = 1; // These many number of times Test methods will be re executed
+    private int iterationTimes = 2; // These many number of times Test methods will be re executed
 
     @Override
     public boolean retry(ITestResult result) {

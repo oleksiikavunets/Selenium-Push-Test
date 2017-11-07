@@ -40,12 +40,12 @@
             <class name="Test_Pos_SendMessageWithUTM"/>
             <class name="Test_Pos_SendMessageWithButtons"/>
             <class name="Test_Pos_SendMessageWithBigImage"/>
-            <!--<class name="Test_Pos_CopyCampaign"/> bug not fixed yet!!! -->
+            <class name="Test_Pos_CopyCampaign"/>
         </classes>
     </test>
     <test name="NEGATIVE">
         <classes>
-            <!--<class name="Test_Neg_LogIn"/> bug not fixed yet!!! -->
+            <class name="Test_Neg_LogIn"/>
             <class name="Test_Neg_Registration"/>
             <class name="Test_Neg_RestorePassword"/>
             <class name="Test_Neg_CreateSite"/>
@@ -62,15 +62,15 @@
             <class name="Test_Pos_CreateWM"/>
             <class name="Test_Pos_CreateWMWithButtons"/>
             <class name="Test_Pos_CreateWMWithBigImage"/>
-            <!--<class name="Test_Pos_Subscription"/>-->
+            <class name="Test_Pos_Subscription"/>
             <class name="Test_Pos_ChangeSiteIcon"/>
             <class name="Test_Pos_EditUTM"/>
         </classes>
     </test>
     <test name="ADVANCED SETTINGS AND TARGETING">
         <classes>
-            <!--<class name="Test_Pos_AddNewTag"/>-->
-            <!--<class name="Test_Pos_AddNewAlias"/>-->
+            <class name="Test_Pos_AddNewTag"/>
+            <class name="Test_Pos_AddNewAlias"/>
             <class name="Test_Pos_CreateTagList"/>
             <class name="Test_Pos_UseTagsInCampaignFromTagListPage"/>
         </classes>
