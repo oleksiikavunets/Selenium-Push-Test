@@ -26,7 +26,7 @@ public class Test_Pos_CreateWM extends SeleniumBaseClass {
         WelcomeMessagePage welcomeMessagePage = new WelcomeMessagePage(driver, wait);
         CreateWMPage createWMPage = new CreateWMPage(driver, wait);
         Verifier verifier = new Verifier();
-        String siteUrl = "http://" + RandomGenerator.nextString() + ".com";
+        String siteUrl = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
 
 
         userActions.createSite(TestData.email, TestData.pass, siteUrl);

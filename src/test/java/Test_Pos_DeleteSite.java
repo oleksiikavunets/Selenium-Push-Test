@@ -1,4 +1,5 @@
 import actions.UserActions;
+import testdata.TestData;
 import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,7 +22,7 @@ public class Test_Pos_DeleteSite extends SeleniumBaseClass {
         MainAdminPage main = new MainAdminPage(driver, wait);
         UserActions userActions = new UserActions(driver, wait);
 
-        String siteUrl = "http://" + RandomGenerator.nextString() + ".com";
+        String siteUrl = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
         userActions.createSite(siteUrl);
         userActions.checkCreateSiteMail(siteUrl, browser);
 

@@ -1,3 +1,4 @@
+import com.selenium.ConfigTest;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -56,7 +57,7 @@ public class SeleniumSetup {
     @Test
     public void checkNewSiteMail(){
         CreateSiteMails createSiteMails = new CreateSiteMails();
-        HashMap<String, List> mails = createSiteMails.getMails("prod");
+        HashMap<String, List> mails = createSiteMails.getMails(ConfigTest.iTest);
         List<String> mailEn = mails.get("en");
         List<String> mailRu = mails.get("ru");
         List<String> mailPl = mails.get("pl");
@@ -85,7 +86,7 @@ public class SeleniumSetup {
 @Test
 public void checkRegMail(){
     RegistrationMails registrationMails = new RegistrationMails();
-    HashMap<String, List> mails = registrationMails.getMails("prod");
+    HashMap<String, List> mails = registrationMails.getMails(ConfigTest.iTest);
     List<String> mailEn = mails.get("en");
     List<String> mailRu = mails.get("ru");
     List<String> mailPl = mails.get("pl");
@@ -113,7 +114,7 @@ public void checkRegMail(){
     @Test
     public void checkPassMail(){
         PasswordRecoveryMails passwordRecoveryMails = new PasswordRecoveryMails();
-        HashMap<String, List> mails = passwordRecoveryMails.getMails("prod");
+        HashMap<String, List> mails = passwordRecoveryMails.getMails(ConfigTest.iTest);
         List<String> mailEn = mails.get("en");
         List<String> mailRu = mails.get("ru");
         List<String> mailPl = mails.get("pl");

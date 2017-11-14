@@ -48,7 +48,7 @@ public class Test_Pos_RegistrationEmailsMultiLanguage extends SeleniumBaseClass 
                 config.setEmailNumber(emailNumber);
                 config.setPassword(pass);
                 Log.info(message);
-                verifier.assertTrue(verifier.verifyRegistrationMail(message, ConfigTest.iTest, siteLang));
+                verifier.assertTrue(verifier.verifyRegistrationMail(message, siteLang));
                 String link = "https://" + message.split(" https://")[1].split("\\n")[0];
                 Log.info("CONFIRMATION LINK: " + link);
                 driver.navigate().to(link);

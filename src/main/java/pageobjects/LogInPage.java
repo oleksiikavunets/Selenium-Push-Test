@@ -34,11 +34,9 @@ public class LogInPage {
         Logger Log = LogManager.getLogger(LogInPage.class);
 
         ConfigTest config = new ConfigTest();
-        //pass = gravitecServer.checkPass(login, pass) ? pass : "b12345678";
-        //gravitecServer.login(login, pass);
 
         driver.navigate().to(config.getStartUrl() + "/login");
-        Log.info("LOGIN: " + login + " PASSWORD: " + pass);
+//        Log.info("LOGIN: " + login + " PASSWORD: " + pass);
 
 
         for (int i = 0; i <= 100; i++) {

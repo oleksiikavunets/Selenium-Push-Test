@@ -48,7 +48,7 @@ public class Test_Pos_RecoverPassMultiLanguage extends SeleniumBaseClass {
             recoverPasswordPage.requestPasswordReset(email);
             String message = MailService.getRecoverPasswordMail();
             Log.info(message);
-            verifier.assertTrue(verifier.verifyRecoverPasswordMail(message, ConfigTest.iTest, siteLang));
+            verifier.assertTrue(verifier.verifyRecoverPasswordMail(message, siteLang));
 
             String link = "https://" + message.split("https://")[3].split("\\n")[0];
             driver.get(link);

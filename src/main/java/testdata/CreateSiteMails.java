@@ -1,9 +1,13 @@
 package testdata;
 
+import com.selenium.enums.Server;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.selenium.enums.Server.*;
 
 public class CreateSiteMails {
 
@@ -67,19 +71,21 @@ public class CreateSiteMails {
             "Скасувати підписку"
     ));
 
-
-
     private HashMap<String, List> gravitecMails = new HashMap<>();
     private HashMap<String, List> wpushMails = new HashMap<>();
     private HashMap<String, List> push2bMails = new HashMap<>();
     private HashMap<String, List> mails;
-    public HashMap<String, List> getMails(String port) {
-        if(port.equals("prod")||port.equals("7700")||port.equals("7600")) {
+
+    public HashMap<String, List> getMails(Server serverUnderTest) {
+        if(serverUnderTest.equals(GRV)
+                ||serverUnderTest.equals(GRV_7700)||
+                serverUnderTest.equals(GRV_7600)) {
             mails = getGravitecMails();
         }
-        else if(port.equals("kyivstar")||port.equals("kyivstar7700")){
+        else if(serverUnderTest.equals(WPUSH)||
+                serverUnderTest.equals(WPUSH_7700)){
             mails = getWpushMails();
-        }else if(port.equals("push2b")){
+        }else if(serverUnderTest.equals(P2B)){
             mails = getPush2bMails();
         }
         return mails;

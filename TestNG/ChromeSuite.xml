@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="ChromeSuite" parallel="tests" thread-count="3">
+<suite name="ChromeSuite" parallel="tests" thread-count="2">
     <parameter name="browser" value="chrome"/>
     <listeners>
         <listener class-name="testutils.Listeners.TestRetryListener"/>
@@ -9,7 +9,7 @@
     </listeners>
 
 
-    <test name="SANITY" parallel="false">
+    <test name="SANITY">
         <classes>
             <class name="Test_Pos_LogInLogOut"/>
         </classes>

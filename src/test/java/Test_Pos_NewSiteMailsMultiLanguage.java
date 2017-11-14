@@ -2,6 +2,7 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
 import com.selenium.MailService;
+import testdata.TestData;
 import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.apache.logging.log4j.LogManager;
@@ -39,12 +40,12 @@ public class Test_Pos_NewSiteMailsMultiLanguage extends SeleniumBaseClass {
 
         for (int i = 1; i <= langs.size(); i++) {
             siteLang = headerMenu.checkLanguage();
-            String siteUrl = "http://" + RandomGenerator.nextString() + ".com";
+            String siteUrl = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
 
             addNewSitePage.createSite(siteUrl);
             String message = MailService.getCreatedSiteMail();
             Log.info(message);
-            verifier.assertTrue(verifier.verifyCreateSiteMail(message, ConfigTest.iTest, siteLang));
+            verifier.assertTrue(verifier.verifyCreateSiteMail(message, siteLang));
             headerMenu.clickLogo();
             mainAdminPage.verifySitePresent(siteUrl);
             if (i == langs.size()) {

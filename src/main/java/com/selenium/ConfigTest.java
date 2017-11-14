@@ -1,5 +1,7 @@
 package com.selenium;
 
+import com.selenium.enums.Server;
+
 import java.io.*;
 import java.util.Properties;
 
@@ -21,47 +23,45 @@ public class ConfigTest {
     String startUrl;
     String pattern;
 
-//    public static String iTest = "prod";
-//    public static String iTest = "7600";
-    public static String iTest = "7700";
-//    public static String iTest = "kyivstar";
-//    public static String iTest = "push2b";
-//    public static String iTest = "kyivstar7700";
+    public static Server iTest;
 
-    public ConfigTest(){
-
+    public static void setTestServer(Server serverToTest){
+        iTest = serverToTest;
     }
 
+    public ConfigTest(){
+    }
 
-    public String setPath() {
+    public ConfigTest(Server serverToTest){
+        iTest = serverToTest;
+    }
+
+    private String setPath() {
         switch (iTest) {
-            case ("prod"):
-                propertyPath = "src/main/data/prod.property";
+            case GRV:
+                propertyPath = "src/main/data/GRV.property";
                 break;
-
-            case ("kyivstar"):
-                propertyPath = "src/main/data/kyivstar.property";
+            case WPUSH:
+                propertyPath = "src/main/data/WPUSH.property";
                 break;
-
-            case ("7700") :
-                propertyPath = "src/main/data/7700.property";
+            case GRV_7700:
+                propertyPath = "src/main/data/GRV_7700.property";
                 break;
-
-            case ("7600") :
-                propertyPath = "src/main/data/7600.property";
+            case GRV_7600:
+                propertyPath = "src/main/data/GRV_7600.property";
                 break;
-            case ("push2b") :
-                propertyPath = "src/main/data/push2b.property";
+            case P2B:
+                propertyPath = "src/main/data/P2B.property";
                 break;
-            case ("kyivstar7700") :
-                propertyPath = "src/main/data/kyivstar7700.property";
+            case WPUSH_7700:
+                propertyPath = "src/main/data/WPUSH_7700.property";
         }
         return propertyPath;
     }
 
     public String getStartUrl(){
         switch (iTest){
-            case ("kyivstar"):
+            case WPUSH:
                 startUrl = getHostUrl();
                 break;
             default:
@@ -72,10 +72,13 @@ public class ConfigTest {
 
     public String pattern(){
         switch (iTest){
-            case ("kyivstar") :
+            case WPUSH:
                 pattern = ".*Wpush.*";
                 break;
-            case ("push2b") :
+            case WPUSH_7700:
+                pattern = ".*Wpush.*";
+                break;
+            case P2B:
                 pattern = ".*Push2b*.";
                 break;
             default:

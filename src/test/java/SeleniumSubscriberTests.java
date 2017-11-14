@@ -1,35 +1,9 @@
 
-import com.selenium.ConfigTest;
-import com.selenium.pojo.Alias;
-import com.selenium.pojo.Message;
-import com.selenium.pojo.Tag;
-import com.selenium.utils.RandomGenerator;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.testng.annotations.Parameters;
-
-import java.util.HashSet;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
 public class SeleniumSubscriberTests extends SeleniumBaseClass {
-@Parameters("browser")
+/**@Parameters("browser")
     @Before
     public void configureWebDriver(String browser) {
-        driver = getConfiguredWebDriver(browser, false);
+        driver = WebDriverManager.getDriver(browser);
         wait = new FluentWait<WebDriver>(driver).withMessage("Element was not found").withTimeout(30, TimeUnit.SECONDS)
                 .pollingEvery(100, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class);
@@ -111,6 +85,7 @@ public class SeleniumSubscriberTests extends SeleniumBaseClass {
         profile.setAcceptUntrustedCertificates(true);
         profile.setAssumeUntrustedCertificateIssuer(true);
         options.setProfile(profile);
+
         System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
 
         capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
@@ -125,5 +100,5 @@ public class SeleniumSubscriberTests extends SeleniumBaseClass {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("modal-body-button-text")));
         driver.findElement(By.className("modal-body-button-text")).click();
         Thread.sleep(2000L);
-    }
+    }*/
 }

@@ -38,7 +38,7 @@ public class Test_Pos_SendDelayedMessage extends SeleniumBaseClass {
         MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
         SideBar sideBar = mainAdminPage.openSite(testSite);
         CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
-        Log.info("DELAYED PUSH DATA> TITLE: " + title + "; TEXT: " + text + "; REDIRECT URL: " + siteUrl + "; DATE: " + date);
+//        Log.info("DELAYED PUSH DATA> TITLE: " + title + "; TEXT: " + text + "; REDIRECT URL: " + siteUrl + "; DATE: " + date);
 
         createCampaignPage.setTitle(title);
         createCampaignPage.setText(text);

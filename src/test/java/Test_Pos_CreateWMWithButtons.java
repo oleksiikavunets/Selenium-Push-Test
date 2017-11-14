@@ -24,7 +24,7 @@ public class Test_Pos_CreateWMWithButtons extends SeleniumBaseClass {
         WelcomeMessagePage welcomeMessagePage = new WelcomeMessagePage(driver, wait);
                 SideBar sideBar = new SideBar(driver, wait);
         Verifier verifier = new Verifier();
-        String testSite = "http://" + RandomGenerator.nextString() + ".com";
+        String testSite = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
 
 
         if (BetaFeatures.verifyBetaToTest("WMwithButtonsAndBigImage")) {

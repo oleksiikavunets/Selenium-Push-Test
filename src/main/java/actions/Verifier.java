@@ -1,5 +1,6 @@
 package actions;
 
+import com.selenium.ConfigTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -9,13 +10,16 @@ import org.testng.collections.Maps;
 import testdata.CreateSiteMails;
 import testdata.PasswordRecoveryMails;
 import testdata.RegistrationMails;
+import testutils.ScreenShooter;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class Verifier extends Assertion{
+
     public Verifier(){}
 
     private final Map<AssertionError, IAssert<?>> m_errors = Maps.newLinkedHashMap();
@@ -33,6 +37,14 @@ public class Verifier extends Assertion{
             this.onAfterAssert(var1);
         }
 
+    }
+    @Override
+    public void onAssertFailure(IAssert<?> assertCommand, AssertionError ex) {
+        try {
+            ScreenShooter.captureScreenshot(ex.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public int verify(String actual, String expected) {
@@ -103,9 +115,9 @@ public class Verifier extends Assertion{
         Logger Log = LogManager.getLogger(Verifier.class);
         //Log.info(r + "\n" + error);
     }
-    public boolean verifyRegistrationMail(String message, String port,  String key ){
+    public boolean verifyRegistrationMail(String message, String key ){
         RegistrationMails registrationMails = new RegistrationMails();
-        HashMap<String, List> mails = registrationMails.getMails(port);
+        HashMap<String, List> mails = registrationMails.getMails(ConfigTest.iTest);
         List<String> mail = mails.get(key);
         boolean pass = false;
         int errorCount = 0;
@@ -116,9 +128,9 @@ public class Verifier extends Assertion{
         if (errorCount == 0)pass = true;
         return pass;
     }
-    public boolean verifyRecoverPasswordMail(String message, String port, String key){
+    public boolean verifyRecoverPasswordMail(String message, String key){
         PasswordRecoveryMails passwordRecoveryMails = new PasswordRecoveryMails();
-        HashMap<String, List> mails = passwordRecoveryMails.getMails(port);
+        HashMap<String, List> mails = passwordRecoveryMails.getMails(ConfigTest.iTest);
         List<String> mail = mails.get(key);
         boolean pass = false;
         int errorCount = 0;
@@ -130,9 +142,9 @@ public class Verifier extends Assertion{
         if(errorCount == 0 )pass = true;
         return pass;
     }
-    public boolean verifyCreateSiteMail(String message, String port, String key){
+    public boolean verifyCreateSiteMail(String message,  String key){
         CreateSiteMails createSiteMails = new CreateSiteMails();
-        HashMap<String, List> mails = createSiteMails.getMails(port);
+        HashMap<String, List> mails = createSiteMails.getMails(ConfigTest.iTest);
         List<String> mail = mails.get(key);
 
         System.out.println("MY MAIL PATTERN:");
@@ -148,10 +160,6 @@ public class Verifier extends Assertion{
         }
         if(errorCount == 0 )pass = true;
         return pass;
-    }
-
-    public void assertSiteIdPresent(){
-
     }
 
     public void assertTestPassed() {

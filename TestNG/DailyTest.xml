@@ -4,7 +4,7 @@
     <parameter name="browser" value="chrome"/>
     <listeners>
         <listener class-name="testutils.Listeners.TestRetryListener"/>
-        <listener class-name="testutils.Listeners.TestNGReportListener"/>
+        <!--<listener class-name="testutils.Listeners.TestNGReportListener"/>-->
         <listener class-name="org.uncommons.reportng.HTMLReporter"/>
     </listeners>
 

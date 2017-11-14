@@ -5,12 +5,10 @@ import org.apache.logging.log4j.Logger;
 import com.selenium.ConfigTest;
 import com.selenium.MailService;
 import org.openqa.selenium.*;
-
-
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
-
 import pageobjects.*;
+import static com.selenium.enums.Server.*;
 
 
 public class UserActions {
@@ -104,30 +102,40 @@ public class UserActions {
         Timer.waitSeconds(10);
     }
 
-    public void subscribe(String site) {
+    public void subscribe(String browser, String site) {
         driver.get(site);
-        if (ConfigTest.iTest.equals("7700") || ConfigTest.iTest.equals("prod")) { //double click subscription
+        if(browser.equalsIgnoreCase("firefox")){
+            oneClickSubsribe();
+        }else{
+            if(ConfigTest.iTest.equals(GRV_7700)||
+                    ConfigTest.iTest.equals(GRV)||
+                    ConfigTest.iTest.equals(GRV_7600)){
 
-//            handleAds();
+                twoClicksSubscribe();
+            }
+        }
+    }
+
+    private void oneClickSubsribe(){
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("span[class=\"modal-body-button-text\"]"))).click();
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+        wait.until(ExpectedConditions.numberOfWindowsToBe(1));
+    }
+
+    private void twoClicksSubscribe(){
+        try {
+            driver.findElement(By.cssSelector("button[id=\"gravitec-prompt-allow-button\"]")).click();
+            wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+            wait.until(ExpectedConditions.numberOfWindowsToBe(1));
+        } catch (NoSuchElementException no) {
+            Timer.waitSeconds(5);
             try {
                 driver.findElement(By.cssSelector("button[id=\"gravitec-prompt-allow-button\"]")).click();
                 wait.until(ExpectedConditions.numberOfWindowsToBe(2));
                 wait.until(ExpectedConditions.numberOfWindowsToBe(1));
-            } catch (NoSuchElementException no) {
-                Timer.waitSeconds(5);
-                try {
-                    driver.findElement(By.cssSelector("button[id=\"gravitec-prompt-allow-button\"]")).click();
-                    wait.until(ExpectedConditions.numberOfWindowsToBe(2));
-                    wait.until(ExpectedConditions.numberOfWindowsToBe(1));
-                } catch (NoSuchElementException noEl) {
+            } catch (NoSuchElementException noEl) {
 
-                }
             }
-
-        } else { //one click subscription
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("span[class=\"modal-body-button-text\"]"))).click();
-            wait.until(ExpectedConditions.numberOfWindowsToBe(2));
-            wait.until(ExpectedConditions.numberOfWindowsToBe(1));
         }
     }
 
@@ -140,10 +148,10 @@ public class UserActions {
         }
     }
 
-    public void addNewTag(String testSite, String newTag) throws Exception {
+    public void addNewTag(String browser, String testSite, String newTag) throws Exception {
         JSRunner jsRunner = new JSRunner(driver);
         try {
-            subscribe(testSite);
+            subscribe(browser, testSite);
         } catch (TimeoutException | NoSuchElementException timeExc) {
             Log.info("Looks like you are already subscribed. Let`s try to add a tag");
         }
@@ -153,10 +161,10 @@ public class UserActions {
         Log.info("New tag: " + newTag);
     }
 
-    public void addNewAlias(String testSite, String alias) throws Exception {
+    public void addNewAlias(String browser, String testSite, String alias) throws Exception {
         JSRunner jsRunner = new JSRunner(driver);
         try {
-            subscribe(testSite);
+            subscribe(browser, testSite);
         } catch (TimeoutException | NoSuchElementException timeExc) {
             Log.info("Looks like you are already subscribed. Let`s try to set alias");
         }

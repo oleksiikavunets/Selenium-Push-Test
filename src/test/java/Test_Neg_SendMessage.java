@@ -73,7 +73,7 @@ public class Test_Neg_SendMessage extends SeleniumBaseClass {
 
             headerMenu.switchLanguage(i);
         }
-        verifier.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignPage.iconError)).isDisplayed());
+        verifier.assertTrue(createCampaignPage.getIconTooBigError().isDisplayed());
         //checks error "Img too big"
         headerMenu.logout();
         verifier.assertTestPassed();

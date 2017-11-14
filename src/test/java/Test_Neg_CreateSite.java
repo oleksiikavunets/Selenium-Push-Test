@@ -74,7 +74,7 @@ public class Test_Neg_CreateSite extends SeleniumBaseClass {
             headerMenu.switchLanguage(c);
         }
         addNewSitePage.uploadIcon(TestData.bigIcon);
-        verifier.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(addNewSitePage.iconError)).isDisplayed());
+        verifier.assertTrue(addNewSitePage.getIconTooBigError().isDisplayed());
 
         //checks error "Too big size of picture"
         headerMenu.logout();

@@ -2,6 +2,7 @@ package pageobjects;
 
 import actions.Custom;
 import actions.Timer;
+import com.selenium.ConfigTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -15,6 +16,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Random;
+
+import static com.selenium.enums.Server.GRV_7700;
 
 /**
  * Created by Oleksii on 14.07.2017.
@@ -77,6 +80,7 @@ public class CreateCampaignPage {
     public By requiredText = By.xpath("//div[contains(@ng-show,'mainForm.text.$error.required')]/p");
     public By linkFormat = By.xpath("//div[contains(@ng-show,'redirect.$error.pattern')]/p");
     public By iconError = By.cssSelector("p[ng-bind*=imgErrorMessage]");
+    public By iconError7700 = By.cssSelector("[ng-if*=\"iconErrorMessage\"]");
     public By button1TitelError = By.cssSelector("[ng-if*=\"button1Title.$error\"]");
     public By button1URLError = By.cssSelector("[ng-if*=\"url1.$error\"]");
     public By button2TitleError = By.cssSelector("[ng-if*=\"button2Title.$error\"]");
@@ -176,6 +180,16 @@ public class CreateCampaignPage {
             checkboxUTM.findElement(driver).click();
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(inputUTMcampaign)).sendKeys(utm);
+    }
+
+    public WebElement getIconTooBigError(){
+        By locator;
+        if(ConfigTest.iTest.equals(GRV_7700)){
+            locator = iconError7700;
+        }else {
+            locator = iconError;
+        }
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public void setDateAndTime(int year, int month, int day, int hour, int minute) {

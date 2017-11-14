@@ -2,6 +2,7 @@
 import actions.UserActions;
 
 
+import testdata.TestData;
 import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 
@@ -26,7 +27,7 @@ public class Test_Pos_CreateHTTPSite extends SeleniumBaseClass {
         MainAdminPage mainAdminPage = new MainAdminPage(driver, wait);
         HeaderMenu headerMenu = new HeaderMenu(driver, wait);
         UserActions userActions = new UserActions(driver, wait);
-        String siteUrl = "http://" + RandomGenerator.nextString() + ".com";
+        String siteUrl = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
         userActions.createSite(siteUrl);
         userActions.checkCreateSiteMail(siteUrl, browser);
 

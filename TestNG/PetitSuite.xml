@@ -3,6 +3,7 @@
 <suite name="Petit">
     <parameter name="browser" value="chrome"/>
     <listeners>
+        <listener class-name="testutils.Listeners.ScreenshotListener"/>
         <listener class-name="testutils.Listeners.TestRetryListener"/>
         <listener class-name="testutils.Listeners.TestNGReportListener"/>
         <listener class-name="org.uncommons.reportng.HTMLReporter"/>
@@ -10,7 +11,7 @@
     <test name="petit test">
         <classes>
             <!--<class name="Test_Pos_Subscription"/>-->
-            <class name="Test_Pos_LogInLogOut"/>
+            <class name="Test_Neg_LogIn"/>
         </classes>
     </test>
 </suite>

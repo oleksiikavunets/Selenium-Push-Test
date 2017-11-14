@@ -1,21 +1,9 @@
 package testutils.Listeners;
 
-import com.selenium.ConfigTest;
-import javafx.scene.control.DatePicker;
-import org.testng.IInvokedMethod;
-import org.testng.IReporter;
-import org.testng.IResultMap;
-import org.testng.ISuite;
-import org.testng.ISuiteResult;
-import org.testng.ITestClass;
-import org.testng.ITestContext;
-import org.testng.ITestNGMethod;
-import org.testng.ITestResult;
-import org.testng.Reporter;
+import org.testng.*;
 import org.testng.collections.Lists;
 import org.testng.internal.Utils;
 import org.testng.xml.XmlSuite;
-import sun.util.calendar.BaseCalendar;
 
 import java.io.*;
 import java.text.DateFormat;
@@ -36,8 +24,8 @@ public class TestNGReportListener implements IReporter{
     private int m_row;
     private Integer m_testIndex;
     private int m_methodIndex;
-    private String reportTitle= ConfigTest.iTest.toUpperCase() + " Test Report";
-    private String reportFileName = testDate.toString() + " " + ConfigTest.iTest.toUpperCase() + " Test Report.html";
+    private String reportTitle= "TEST REPORT";
+    private String reportFileName = testDate.toString() + " TEST REPORT.html";
 
     /** Creates summary of the run */
     @Override

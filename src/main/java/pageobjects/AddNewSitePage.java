@@ -1,8 +1,8 @@
 package pageobjects;
 
-import actions.BrowserMaster;
+
 import actions.Custom;
-import actions.Verifier;
+import com.selenium.ConfigTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.Wait;
 import testdata.TestData;
 
 import java.io.File;
+
+import static com.selenium.enums.Server.GRV_7700;
 
 /**
  * Created by Oleksii on 17.07.2017.
@@ -31,6 +33,7 @@ public class AddNewSitePage {
     public By protocolMessage = By.cssSelector("div[ng-bind=\"vmAdd.errors.protocolErr | translate\"]");
     public By existsError = By.cssSelector("span[ng-bind=\"'ADD_ALRD_EXIST' | translate\"]");
     public By iconError = By.cssSelector("p[ng-bind=\"vmAdd.imgErrorMessage | translate\"]");
+    public By iconError7700 = By.cssSelector("[ng-if*=\"errorIcon\"]");
 
 
     public AddNewSitePage(WebDriver driver, Wait<WebDriver> wait) {
@@ -70,10 +73,18 @@ public class AddNewSitePage {
     public void clickAdd() {
         Custom custom = new Custom(driver);
 
-        WebElement el = driver.findElement(addSiteButton);
+        WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(addSiteButton));
         custom.clickAt(el);
+    }
 
-
+    public WebElement getIconTooBigError(){
+        By locator;
+        if(ConfigTest.iTest.equals(GRV_7700)){
+            locator = iconError7700;
+        }else {
+            locator = iconError;
+        }
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
 

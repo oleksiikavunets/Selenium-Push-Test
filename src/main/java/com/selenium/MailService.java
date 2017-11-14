@@ -1,9 +1,5 @@
 package com.selenium;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
 import javax.mail.*;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.search.FromStringTerm;
@@ -20,7 +16,7 @@ public class MailService {
 
     static {
         try {
-            InputStream input = new FileInputStream("src/main/data/prod.property");
+            InputStream input = new FileInputStream("src/main/data/GRV.property");
             ConfigTest config = new ConfigTest();
             prop.load(input);
             int port = Integer.valueOf(config.getPort());
@@ -172,7 +168,7 @@ public class MailService {
                         mail.contains("Resetuj hasło") ||
                         mail.contains("Сбросить пароль") ||
                         mail.contains("Passwort zurücksetzen") ||
-                        mail.contains("Сбросить пароль")) { //must put ukrainian text for kyivstar
+                        mail.contains("Змінити пароль")) { //must put ukrainian text for kyivstar
                     recoverPasswordMail = mail;
                     break;
                 } else {
@@ -212,15 +208,15 @@ public class MailService {
     public static String getConfirmationLink() throws Exception {
         String messageBody = getRegistrationMail();
         String confirmationLink;
-        if (ConfigTest.iTest.equals("7700") || ConfigTest.iTest.equals("prod") || ConfigTest.iTest.equals("kyivstar7700") || ConfigTest.iTest.equals("kyivstar") || ConfigTest.iTest.equals("7600") || ConfigTest.iTest.equals("push2b")) {
+//        if (ConfigTest.iTest.equals("7700") || ConfigTest.iTest.equals("GRV") || ConfigTest.iTest.equals("kyivstar7700") || ConfigTest.iTest.equals("kyivstar") || ConfigTest.iTest.equals("7600") || ConfigTest.iTest.equals("push2b")) {
             System.out.println(messageBody);
             confirmationLink = messageBody.split(" https://")[1].split("\\n")[0];
             //return  "https://" + messageBody;
-        } else {
-            Document doc = Jsoup.parse(messageBody);
-            Elements links = doc.select("a[href]");
-            confirmationLink = links.get(4).attr("href").split("https://")[1];
-        }
+//        } else {
+//            Document doc = Jsoup.parse(messageBody);
+//            Elements links = doc.select("a[href]");
+//            confirmationLink = links.get(4).attr("href").split("https://")[1];
+//        }
         return "https://" + confirmationLink;
 
     }
@@ -230,14 +226,14 @@ public class MailService {
 
         String messageBody = getRecoverPasswordMail();
         String recoverLink;
-        if (ConfigTest.iTest.equals("7700") || ConfigTest.iTest.equals("prod") || ConfigTest.iTest.equals("kyivstar7700") || ConfigTest.iTest.equals("kyivstar") || ConfigTest.iTest.equals("7600") || ConfigTest.iTest.equals("push2b")) {
+//        if (ConfigTest.iTest.equals("7700") || ConfigTest.iTest.equals("prod") || ConfigTest.iTest.equals("kyivstar7700") || ConfigTest.iTest.equals("kyivstar") || ConfigTest.iTest.equals("7600") || ConfigTest.iTest.equals("push2b")) {
             System.out.println(messageBody);
             recoverLink = messageBody.split("https://")[3].split("\\n")[0];
-        } else {
-            Document doc = Jsoup.parse(messageBody);
-            Elements links = doc.select("a[href]");
-            recoverLink = links.get(4).attr("href").split("https://")[1];
-        }
+//        } else {
+//            Document doc = Jsoup.parse(messageBody);
+//            Elements links = doc.select("a[href]");
+//            recoverLink = links.get(4).attr("href").split("https://")[1];
+//        }
         return "https://" + recoverLink;
     }
 

@@ -22,7 +22,7 @@ public class Test_Pos_EditWM extends SeleniumBaseClass {
         UserActions userActions = new UserActions(driver, wait);
         SideBar sideBar = new SideBar(driver, wait);
         Verifier verifier = new Verifier();
-        String testSite = "http://" + RandomGenerator.nextString() + ".com";
+        String testSite = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
 
 
         if (BetaFeatures.verifyBetaToTest("WMwithButtonsAndBigImage")) {

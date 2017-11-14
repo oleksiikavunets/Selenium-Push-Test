@@ -1,5 +1,6 @@
 import actions.UserActions;
 import com.selenium.ConfigTest;
+import com.selenium.GravitecServer;
 import com.selenium.pojo.User;
 import com.selenium.utils.Log;
 import com.selenium.utils.RandomGenerator;
@@ -20,12 +21,15 @@ import java.time.LocalDate;
  */
 public class SeleniumBillingTests extends SeleniumBaseClass {
 
+    GravitecServer gravitecServer;
     GravitecBilling gravitecBilling = new GravitecBilling();
     boolean run = gravitecBilling.verifyBillingToRun();
 
     @BeforeMethod
     public void connectToServer(){
+
         ConfigTest configTest = new ConfigTest();
+        GravitecServer gravitecServer = new GravitecServer(configTest.getPort(), configTest.getDirectPort());
         String adminLogin = configTest.getAdminLogin();
         String adminPass = configTest.getAdminPass();
 //        String testSiteUrl = configTest.getTestSiteUrl();

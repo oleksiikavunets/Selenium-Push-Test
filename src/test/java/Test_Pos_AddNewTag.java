@@ -1,5 +1,7 @@
 import actions.UserActions;
 import com.selenium.ConfigTest;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import testutils.Listeners.LogListener;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
@@ -13,8 +15,9 @@ import testdata.TestData;
 @Listeners(LogListener.class)
 public class Test_Pos_AddNewTag extends SeleniumBaseClass {
 
+    @Parameters("browser")
     @Test (groups = {"subscription", "advanced settings", "tags"})
-    public void addNewTag() throws Exception {
+    public void addNewTag(@Optional("chrome") String browser) throws Exception {
         ConfigTest config = new ConfigTest();
         LogInPage logInPage = new LogInPage(driver, wait);
         TagListPage tagListPage = new TagListPage(driver, wait);
@@ -25,7 +28,7 @@ public class Test_Pos_AddNewTag extends SeleniumBaseClass {
 
         driver.manage().deleteAllCookies();
 
-        userActions.addNewTag(testSite, newTag);
+        userActions.addNewTag(browser, testSite, newTag);
         logInPage.login(TestData.email, TestData.pass);
         mainAdminPage.openSite(testSite);
         tagListPage.openTagListPage();

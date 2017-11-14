@@ -2,6 +2,8 @@
 import actions.UserActions;
 import actions.Verifier;
 
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import testutils.Listeners.LogListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,8 +15,9 @@ import testdata.TestData;
 @Listeners(LogListener.class)
 public class Test_Pos_Subscription extends SeleniumBaseClass {
 
+    @Parameters("browser")
     @Test(groups = "subscription")
-    public void testSubscription() {
+    public void testSubscription(@Optional("chrome") String browser) {
         Logger Log = LogManager.getLogger(Test_Pos_Subscription.class);
 
         Verifier verifier = new Verifier();
@@ -30,7 +33,7 @@ public class Test_Pos_Subscription extends SeleniumBaseClass {
         Log.info("Subs before: on main page - " + totalAmountOfSubsBefore +
         " on subs page - " + amountOfSubsBefore);
         headerMenu.logout();
-        new UserActions(driver, wait).subscribe(TestData.testSite);
+        new UserActions(driver, wait).subscribe(browser, TestData.testSite);
 
         logInPage.login(TestData.email, TestData.pass);
         int totalAmountOfSubsAfter  = mainAdminPage.getAmountOfSubscribers();

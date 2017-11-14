@@ -6,6 +6,7 @@ import com.selenium.utils.RandomGenerator;
 public class TestData {
     static ConfigTest configTest = new ConfigTest();
     public static String testSite = configTest.getTestSiteUrl();
+    public static String newSitePattern = "http://seleniumtest";
     public static String welcomeMessageTitle = "Welcome Message Title: " + RandomGenerator.nextString();
     public static String welcomeMessageText = "Welcome Message Text: " + RandomGenerator.nextString();
     public static String pushTitle = "Push Title: " + RandomGenerator.nextString();
