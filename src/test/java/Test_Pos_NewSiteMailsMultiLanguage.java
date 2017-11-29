@@ -16,6 +16,8 @@ import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
 import java.util.List;
 
+import static com.selenium.enums.Server.P2B;
+
 @Listeners(LogListener.class)
 public class Test_Pos_NewSiteMailsMultiLanguage extends SeleniumBaseClass {
 
@@ -48,8 +50,8 @@ public class Test_Pos_NewSiteMailsMultiLanguage extends SeleniumBaseClass {
             verifier.assertTrue(verifier.verifyCreateSiteMail(message, siteLang));
             headerMenu.clickLogo();
             mainAdminPage.verifySitePresent(siteUrl);
-            if (i == langs.size()) {
-                headerMenu.logout();
+            if (i == langs.size() || ConfigTest.iTest.equals(P2B)) {
+//                headerMenu.logout();
                 break;
             }
             headerMenu.switchLanguage(i);

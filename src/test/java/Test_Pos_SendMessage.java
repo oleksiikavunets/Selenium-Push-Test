@@ -28,7 +28,6 @@ public class Test_Pos_SendMessage extends SeleniumBaseClass {
         CampaignHistoryPage campaignHistoryPage = createCampaignPage.sendPush();
 
         campaignHistoryPage.verifyMessageExists(title);
-        new HeaderMenu(driver, wait).logout();
     }
 
 

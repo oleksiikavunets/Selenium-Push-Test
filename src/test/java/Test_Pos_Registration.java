@@ -22,7 +22,7 @@ public class Test_Pos_Registration extends SeleniumBaseClass {
 
         String pass = config.getPassword();
         new LogInPage(driver, wait).login("grovitek+" + emailNumber + "@gmail.com", pass);
-        headerMenu.logout();
+//        headerMenu.logout();
     }
 }
 

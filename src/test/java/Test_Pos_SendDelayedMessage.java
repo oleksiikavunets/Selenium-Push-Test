@@ -48,6 +48,5 @@ public class Test_Pos_SendDelayedMessage extends SeleniumBaseClass {
 
         CampaignReportPage campaignReportPage = campaignHistoryPage.openMessage(title);
         Assert.assertTrue(campaignReportPage.verifyMessageDelayed());
-        new HeaderMenu(driver, wait).logout();
     }
 }

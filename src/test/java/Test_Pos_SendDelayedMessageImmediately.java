@@ -35,6 +35,5 @@ public class Test_Pos_SendDelayedMessageImmediately extends SeleniumBaseClass{
         createCampaignPage.cancelDate();
         createCampaignPage.clickSendPush();
         Assert.assertFalse(campaignReportPage.verifyMessageDelayed(), "Message was not sent");
-        new HeaderMenu(driver, wait).logout();
     }
 }

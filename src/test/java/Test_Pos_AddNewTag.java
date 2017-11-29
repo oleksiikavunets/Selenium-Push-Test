@@ -1,16 +1,15 @@
 import actions.UserActions;
 import com.selenium.ConfigTest;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-import testutils.Listeners.LogListener;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
 import pageobjects.TagListPage;
 import testdata.TestData;
+import testutils.Listeners.LogListener;
 
 @Listeners(LogListener.class)
 public class Test_Pos_AddNewTag extends SeleniumBaseClass {
@@ -35,6 +34,5 @@ public class Test_Pos_AddNewTag extends SeleniumBaseClass {
 
         Boolean found = tagListPage.searchForTag(newTag);
         Assert.assertTrue(found, "Could not find added tag");
-        new HeaderMenu(driver, wait).logout();
     }
 }

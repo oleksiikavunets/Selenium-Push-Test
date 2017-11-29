@@ -54,7 +54,6 @@ public class Test_Pos_SendMessageWithTags extends SeleniumBaseClass {
         for (WebElement t : sentTags) {
             sentTagsNames.add(t.getText());
         }
-        new HeaderMenu(driver, wait).logout();
         Assert.assertTrue(sentTagsNames.containsAll(tagsInPush));
     }
 }

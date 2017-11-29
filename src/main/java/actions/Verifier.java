@@ -12,7 +12,6 @@ import testdata.PasswordRecoveryMails;
 import testdata.RegistrationMails;
 import testutils.ScreenShooter;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -40,11 +39,8 @@ public class Verifier extends Assertion{
     }
     @Override
     public void onAssertFailure(IAssert<?> assertCommand, AssertionError ex) {
-        try {
-            ScreenShooter.captureScreenshot(ex.getMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+            ScreenShooter.captureScreenshot(ex.getClass().getSimpleName());
     }
 
     public int verify(String actual, String expected) {

@@ -47,7 +47,6 @@ public class Test_Pos_UseTagsInCampaignFromTagListPage extends SeleniumBaseClass
         }
         System.out.println(sentTagsNames);
         System.out.println(tagsNames);
-        Assert.assertTrue(sentTagsNames.containsAll(tagsNames));
-        new HeaderMenu(driver, wait).logout();
+        Assert.assertTrue(sentTagsNames.containsAll(tagsNames), "Tags not found in sent campaign");
     }
 }

@@ -1,22 +1,14 @@
-import testutils.Listeners.LogListener;
+import actions.Timer;
 import com.selenium.utils.RandomGenerator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.TestData;
 
-import java.awt.*;
-
-@Listeners(LogListener.class)
-public class Test_Pos_DeleteDelayedMessage extends SeleniumBaseClass{
+public class Test_Pos_SendDelayedMessageWithButtonsImmediately extends SeleniumBaseClass{
 
     @Test(groups = {"send push", "delayed push"})
-    public void deleteDelayedMessage() throws AWTException {
-        Logger Log = LogManager.getLogger(Test_Pos_DeleteDelayedMessage.class);
-
+    public void sendDelayedMessageWithButtonsImmediately(){
         LogInPage logInPage = new LogInPage(driver, wait);
 
         String testSite = TestData.testSite;
@@ -29,13 +21,29 @@ public class Test_Pos_DeleteDelayedMessage extends SeleniumBaseClass{
 
         createCampaignPage.setTitle(title);
         createCampaignPage.setText(text);
-        Log.info("DELAYED PUSH DATA> TITLE: " + title + "; TEXT: " + text);
         createCampaignPage.setDateAndTime(10, 0, 0);
-        CampaignHistoryPage campaignHistoryPage = createCampaignPage.sendPush();
+        CreateCampaignPage.AdditionalActiveItems buttons = createCampaignPage.openAdditionalActiveItems();
+
+        buttons.setButtons("Button1", "https://push.gravitec.net:7700/b1", "Button2", "https://push.gravitec.net:7700/b2");
+        buttons.setButton1Icon();
+        buttons.setButton2Icon();
+        Timer.waitSeconds(1);
+
+        CampaignHistoryPage campaignHistoryPage =  createCampaignPage.sendPush();
 
         CampaignReportPage campaignReportPage = campaignHistoryPage.openMessage(title);
         campaignReportPage.verifyMessageDelayed();
-        campaignReportPage.cancelCampaign();
-        Assert.assertFalse(campaignHistoryPage.verifyMessageExists(title), "Message was not deleted");
+        campaignReportPage.clickEditCampaign();
+        createCampaignPage.cancelDate();
+        createCampaignPage.clickSendPush();
+        Assert.assertFalse(campaignReportPage.verifyMessageDelayed(), "Message was not sent");
+
+
+
+
+
+
     }
+
+
 }

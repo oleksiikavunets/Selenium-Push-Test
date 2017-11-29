@@ -6,9 +6,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
+import pageutils.ImageUploader;
+import testrestrictions.BetaFeatures;
 
 import java.io.File;
 
@@ -64,7 +65,11 @@ public class SiteSettingsPage {
     }
 
     public void uplodIcon(String path) {
-        driver.findElement(By.cssSelector("input[type='file']")).sendKeys(new File(path).getAbsolutePath());
+        if(BetaFeatures.verifyBetaToTest("imageCropper")){
+            ImageUploader.uploadIcon(path);
+        }else {
+            driver.findElement(By.cssSelector("input[type='file']")).sendKeys(new File(path).getAbsolutePath());
+        }
     }
 
     public void clickDelete() {
@@ -121,7 +126,7 @@ public class SiteSettingsPage {
     }
 
     public String getUtm_medium(){
-        String utm =  wait.until(ExpectedConditions.visibilityOfElementLocated(UTMsource)).getText();
+        String utm =  wait.until(ExpectedConditions.visibilityOfElementLocated(UTMmedium)).getText();
         return utm;
     }
 }

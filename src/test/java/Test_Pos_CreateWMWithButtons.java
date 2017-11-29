@@ -2,18 +2,17 @@ import actions.Timer;
 import actions.UserActions;
 import actions.Verifier;
 import com.selenium.ConfigTest;
-import testutils.Listeners.LogListener;
 import com.selenium.utils.Log;
 import com.selenium.utils.RandomGenerator;
 import org.testng.SkipException;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
-import pageobjects.HeaderMenu;
 import pageobjects.SideBar;
 import pageobjects.WelcomeMessagePage;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
+import testutils.Listeners.LogListener;
 
 @Listeners(LogListener.class)
 public class Test_Pos_CreateWMWithButtons extends SeleniumBaseClass {
@@ -63,7 +62,6 @@ public class Test_Pos_CreateWMWithButtons extends SeleniumBaseClass {
             Timer.waitSeconds(1);
 
             userActions.deleteSite(testSite);
-            new HeaderMenu(driver, wait).logout();
             verifier.assertTestPassed();
         } else {
             Log.info(this.getClass().getSimpleName() + ": Current funtionality is not deployed on " + ConfigTest.iTest);

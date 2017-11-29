@@ -32,6 +32,7 @@
             <class name="Test_Pos_SendMessage"/>
             <class name="Test_Pos_SendDelayedMessage"/>
             <class name="Test_Pos_SendDelayedMessageImmediately"/>
+            <class name="Test_Pos_SendDelayedMessageWithButtonsImmediately"/>
             <class name="Test_Pos_DeleteDelayedMessage"/>
             <class name="Test_Pos_EditDelayedMessage"/>
             <class name="Test_Pos_SendMessageWithTags"/>
@@ -61,15 +62,15 @@
             <class name="Test_Pos_CreateWM"/>
             <class name="Test_Pos_CreateWMWithButtons"/>
             <class name="Test_Pos_CreateWMWithBigImage"/>
-            <!--<class name="Test_Pos_Subscription"/>-->
+            <class name="Test_Pos_Subscription"/>
             <class name="Test_Pos_ChangeSiteIcon"/>
             <class name="Test_Pos_EditUTM"/>
         </classes>
     </test>
     <test name="ADVANCED SETTINGS AND TARGETING">
         <classes>
-            <!--<class name="Test_Pos_AddNewTag"/>-->
-            <!--<class name="Test_Pos_AddNewAlias"/>-->
+            <class name="Test_Pos_AddNewTag"/>
+            <class name="Test_Pos_AddNewAlias"/>
             <class name="Test_Pos_CreateTagList"/>
             <class name="Test_Pos_UseTagsInCampaignFromTagListPage"/>
         </classes>

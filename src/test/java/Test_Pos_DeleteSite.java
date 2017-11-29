@@ -1,14 +1,13 @@
 import actions.UserActions;
-import testdata.TestData;
-import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageobjects.HeaderMenu;
 import pageobjects.MainAdminPage;
+import testdata.TestData;
+import testutils.Listeners.LogListener;
 
 /**
  * Created by Oleksii on 31.07.2017.
@@ -29,6 +28,5 @@ public class Test_Pos_DeleteSite extends SeleniumBaseClass {
         userActions.deleteSite(siteUrl);
         wait.until(ExpectedConditions.visibilityOfElementLocated(main.siteList));
         main.verifySiteToBeDeleted(siteUrl);
-        new HeaderMenu(driver, wait).logout();
     }
 }

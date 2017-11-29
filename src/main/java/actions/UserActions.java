@@ -22,7 +22,7 @@ public class UserActions {
     }
 
 
-    public void createSite(String siteUrl) throws Exception {
+    public String createSite(String siteUrl) throws Exception {
         AddNewSitePage addNewSitePage = new AddNewSitePage(driver, wait);
         LogInPage logInPage = new LogInPage(driver, wait);
         ConfigTest config = new ConfigTest();
@@ -33,7 +33,8 @@ public class UserActions {
         logInPage.login(email, pass);
         Timer.waitSeconds(3);
         driver.navigate().refresh();
-        addNewSitePage.createSite(siteUrl);
+        String script = addNewSitePage.createSite(siteUrl);
+        return script;
     }
 
     public void createSite(String email, String pass, String siteUrl) throws Exception {
@@ -105,18 +106,17 @@ public class UserActions {
     public void subscribe(String browser, String site) {
         driver.get(site);
         if(browser.equalsIgnoreCase("firefox")){
-            oneClickSubsribe();
+            oneClickSubscribe();
         }else{
-            if(ConfigTest.iTest.equals(GRV_7700)||
-                    ConfigTest.iTest.equals(GRV)||
-                    ConfigTest.iTest.equals(GRV_7600)){
-
+            if(ConfigTest.iTest.equals(WPUSH)){
+                oneClickSubscribe();
+            }else {
                 twoClicksSubscribe();
             }
         }
     }
 
-    private void oneClickSubsribe(){
+    private void oneClickSubscribe(){
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("span[class=\"modal-body-button-text\"]"))).click();
         wait.until(ExpectedConditions.numberOfWindowsToBe(2));
         wait.until(ExpectedConditions.numberOfWindowsToBe(1));

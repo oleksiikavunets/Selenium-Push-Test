@@ -40,9 +40,10 @@ public class Test_Neg_Registration extends SeleniumBaseClass {
         langs.get(0).click();
         driver.navigate().refresh();
         siteLang = headerMenu.checkLanguage();
-        headerMenu.logout();
+
 
         for (int i = 1; i <= langs.size(); i++) {
+            headerMenu.logout();
             RegistrationPage registrationPage = logInPage.clickRegister();
             registrationPage.setEmail("admin@");
             registrationPage.setPass("1111");
@@ -75,7 +76,7 @@ public class Test_Neg_Registration extends SeleniumBaseClass {
 
             headerMenu.switchLanguage(i);
             siteLang = headerMenu.checkLanguage();
-            headerMenu.logout();
+
         }
         verifier.assertTestPassed();
     }

@@ -1,4 +1,5 @@
 import actions.Verifier;
+import org.testng.SkipException;
 import testutils.Listeners.LogListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,11 +41,9 @@ public class Test_Pos_SendMessageWithBigImage extends SeleniumBaseClass {
             campaignReportPage.copyCampaign();
 
             verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignPage.bigImagePrev)).getAttribute("src"), image);
-            new HeaderMenu(driver, wait).logout();
             verifier.assertTestPassed();
         } else {
-            Log.info("Test: COPY CAMPAIGN> " +
-                    "Current functionality is not deployed on kyivstar yet");
+            throw new SkipException("");
         }
 
     }

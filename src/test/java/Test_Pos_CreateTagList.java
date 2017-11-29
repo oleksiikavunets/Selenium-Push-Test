@@ -36,6 +36,5 @@ public class Test_Pos_CreateTagList extends SeleniumBaseClass {
         driver.navigate().refresh();
         tagListPage.searchForTagList(tagListName);
         System.out.println("Tag List '" + tagListName + "' exists))");
-        new HeaderMenu(driver, wait).logout();
     }
 }

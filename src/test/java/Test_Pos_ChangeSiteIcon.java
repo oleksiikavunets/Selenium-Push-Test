@@ -1,13 +1,12 @@
 import actions.UserActions;
-import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageobjects.HeaderMenu;
 import pageobjects.SiteSettingsPage;
 import testdata.TestData;
+import testutils.Listeners.LogListener;
 
 /**
  * Created by Oleksii on 31.07.2017.
@@ -31,6 +30,5 @@ public class Test_Pos_ChangeSiteIcon extends SeleniumBaseClass {
         String newIcon = siteSettingsPage.siteIcon.findElement(driver).getAttribute("src");
         Assert.assertFalse(icon.equals(newIcon), "Icon was not changed");
         userActions.deleteSite(siteUrl);
-        new HeaderMenu(driver, wait).logout();
     }
 }

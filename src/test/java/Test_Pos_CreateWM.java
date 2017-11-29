@@ -1,15 +1,14 @@
 import actions.Timer;
 import actions.UserActions;
 import actions.Verifier;
-import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
-import pageobjects.HeaderMenu;
 import pageobjects.SideBar;
 import pageobjects.WelcomeMessagePage;
 import testdata.TestData;
+import testutils.Listeners.LogListener;
 
 /**
  * Created by Oleksii on 31.07.2017.
@@ -64,7 +63,6 @@ public class Test_Pos_CreateWM extends SeleniumBaseClass {
         Timer.waitSeconds(1);
 
         userActions.deleteSite(siteUrl);
-        new HeaderMenu(driver, wait).logout();
         verifier.assertTestPassed();
     }
 }

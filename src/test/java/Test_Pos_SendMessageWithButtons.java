@@ -63,7 +63,6 @@ public class Test_Pos_SendMessageWithButtons extends SeleniumBaseClass {
             if(notificationPreview.getButton2Preview() != null) {
                 verifier.assertEquals(notificationPreview.getButton2Preview().getText(), "Button2", "Incorrect name of Button 2 in Notification Preview after copying push");
             }
-            new HeaderMenu(driver, wait).logout();
         } else {
             Log.info("Test: COPY CAMPAIGN> " +
                     "Current functionality is not deployed on " + ConfigTest.iTest + " yet");

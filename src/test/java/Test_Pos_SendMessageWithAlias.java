@@ -35,6 +35,5 @@ public class Test_Pos_SendMessageWithAlias extends SeleniumBaseClass {
 
         Assert.assertEquals(alias,
                 wait.until(ExpectedConditions.visibilityOfElementLocated(campaignReportPage.alias)).getText());
-        new HeaderMenu(driver, wait).logout();
     }
 }

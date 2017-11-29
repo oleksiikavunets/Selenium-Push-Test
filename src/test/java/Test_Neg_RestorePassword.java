@@ -36,9 +36,10 @@ public class Test_Neg_RestorePassword extends SeleniumBaseClass {
         langs.get(0).click();
         driver.navigate().refresh();
         siteLang = headerMenu.checkLanguage();
-        headerMenu.logout();
+
 
         for (int i = 1; i <= langs.size(); i++) {
+            headerMenu.logout();
             RecoverPasswordPage recoverPasswordPage = logInPage.clickForgotPass();
             recoverPasswordPage.setEmail(TestData.inValidEmail);
             recoverPasswordPage.clickResetButton();
@@ -49,7 +50,7 @@ public class Test_Neg_RestorePassword extends SeleniumBaseClass {
             logInPage.login(TestData.email, TestData.pass);
             headerMenu.switchLanguage(i);
             siteLang = headerMenu.checkLanguage();
-            headerMenu.logout();
+
         }
         verifier.assertTestPassed();
     }

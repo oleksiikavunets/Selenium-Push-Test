@@ -29,8 +29,7 @@ public class TestNGReportListener implements IReporter{
 
     /** Creates summary of the run */
     @Override
-    public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites,
-                               String outdir) {
+    public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outdir) {
         try {
             writer = createWriter(outdir);
         } catch (IOException e) {

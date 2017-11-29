@@ -37,7 +37,6 @@ public class Test_Pos_EditUTM extends SeleniumBaseClass {
         } else {
             Log.info(this.getClass().getSimpleName() + "Current funtionality is not deployed on " + ConfigTest.iTest);
             throw new SkipException("Skipped");        }
-        new HeaderMenu(driver, wait).logout();
         verifier.assertTestPassed();
     }
 }

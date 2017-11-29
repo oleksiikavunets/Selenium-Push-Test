@@ -89,6 +89,7 @@ public class TagListPage {
 
     public CreateCampaignPage useTLinNewCampaign(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(useTLinNewCampButton)).click();
+        new SideBar(driver, wait).manageErrorPop();
         return new CreateCampaignPage(driver, wait);
     }
 

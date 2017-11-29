@@ -59,7 +59,7 @@ public class Test_Neg_CreateWM extends SeleniumBaseClass {
             headerMenu.switchLanguage(i);
         }
         userActions.deleteSite(siteUrl);
-        headerMenu.logout();
+
         verifier.assertTestPassed();
 
     }

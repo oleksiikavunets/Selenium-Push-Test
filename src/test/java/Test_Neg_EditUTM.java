@@ -54,7 +54,7 @@ public class Test_Neg_EditUTM extends SeleniumBaseClass {
             verifier.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(siteSettingsPage.UTMsource)).getText().length() < 21);
             verifier.assertTrue(siteSettingsPage.UTMmedium.findElement(driver).getText().length() < 21);
         }
-        headerMenu.logout();
+
         verifier.assertTestPassed();
 
     }

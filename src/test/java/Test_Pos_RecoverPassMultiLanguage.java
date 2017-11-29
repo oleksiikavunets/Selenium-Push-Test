@@ -1,16 +1,21 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
 import com.selenium.MailService;
-import testutils.Listeners.LogListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageobjects.*;
+import pageobjects.HeaderMenu;
+import pageobjects.LogInPage;
+import pageobjects.NewPasswordSetUpPage;
+import pageobjects.RecoverPasswordPage;
 import testdata.TestData;
+import testutils.Listeners.LogListener;
 
 import java.util.List;
+
+import static com.selenium.enums.Server.P2B;
 
 @Listeners(LogListener.class)
 public class Test_Pos_RecoverPassMultiLanguage extends SeleniumBaseClass {
@@ -55,8 +60,8 @@ public class Test_Pos_RecoverPassMultiLanguage extends SeleniumBaseClass {
             newPasswordSetUpPage.setNewPass(newPass);
             logInPage.login(email, newPass);
             config.setPassword(newPass);
-            if (i == langs.size()) {
-                headerMenu.logout();
+            if (i == langs.size() || ConfigTest.iTest.equals(P2B)) {
+//                headerMenu.logout();
                 break;
             }
             headerMenu.switchLanguage(i);

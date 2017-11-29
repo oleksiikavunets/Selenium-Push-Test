@@ -1,17 +1,16 @@
 import actions.UserActions;
 import actions.Verifier;
 import com.selenium.ConfigTest;
-import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.testng.SkipException;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
-import pageobjects.HeaderMenu;
 import pageobjects.SideBar;
 import pageobjects.WelcomeMessagePage;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
+import testutils.Listeners.LogListener;
 
 @Listeners(LogListener.class)
 public class Test_Pos_EditWM extends SeleniumBaseClass {
@@ -87,7 +86,6 @@ public class Test_Pos_EditWM extends SeleniumBaseClass {
 
 
             userActions.deleteSite(testSite);
-            new HeaderMenu(driver, wait).logout();
             verifier.assertTestPassed();
         } else {
             throw new SkipException(this.getClass().getSimpleName() + "Current funtionality is not deployed on " + ConfigTest.iTest);

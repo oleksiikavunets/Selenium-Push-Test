@@ -123,7 +123,6 @@ public class Test_Pos_CopyCampaign extends SeleniumBaseClass {
             Log.info("Test: COPY CAMPAIGN\n " +
                     "Current funtionality is not deployed on " + ConfigTest.iTest);
         }
-        new HeaderMenu(driver, wait).logout();
         verifier.assertTestPassed();
     }
 }

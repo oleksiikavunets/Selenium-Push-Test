@@ -15,6 +15,8 @@ import testdata.TestData;
 import java.io.IOException;
 import java.util.List;
 
+import static com.selenium.enums.Server.P2B;
+
 @Listeners(LogListener.class)
 public class Test_Pos_RegistrationEmailsMultiLanguage extends SeleniumBaseClass {
 
@@ -59,7 +61,7 @@ public class Test_Pos_RegistrationEmailsMultiLanguage extends SeleniumBaseClass 
             int emailNumber = Integer.valueOf(config.getEmailNumber())-2;
             pass = config.getPassword();
             logInPage.login("grovitek+" + emailNumber + "@gmail.com", pass);
-            if (i == langs.size()) {
+            if (i == langs.size() || ConfigTest.iTest.equals(P2B)) {
                 headerMenu.logout();
                 break;
             }

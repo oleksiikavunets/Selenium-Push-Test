@@ -88,7 +88,7 @@ public class Test_Neg_CreateTagList extends SeleniumBaseClass {
 
             headerMenu.switchLanguage(i);
         }
-        headerMenu.logout();
+
         verifier.assertTestPassed();
 
 

@@ -33,10 +33,10 @@ public class MainAdminPage {
         this.wait = wait;
     }
 
-    public int getAmountOfSubscribers(){
+    public int getTotalAmountOfSubscribers(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(amountOfAllSubscribers));
         Timer.waitSeconds(0.5);
-        return Integer.valueOf(driver.findElement(amountOfSiteSucsribers).getText());
+        return Integer.valueOf(driver.findElement(amountOfAllSubscribers).getText());
     }
 
     public void verifySitePresent(String site) {

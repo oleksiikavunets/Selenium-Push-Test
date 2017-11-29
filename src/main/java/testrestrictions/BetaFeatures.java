@@ -8,19 +8,22 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.selenium.enums.Server.*;
+
 public class BetaFeatures {
 
-    static List<Server> WMwithButtonsAndBigImage = new ArrayList<>(Arrays.asList(
-
+    static List<Server> WMwithButtonsAndBigImage = new ArrayList<>(Arrays.asList());
+    static List<Server> buttonsAndBigImage = new ArrayList<>(Arrays.asList());
+    static List<Server> UTM = new ArrayList<>(Arrays.asList());
+    static List<Server> copyCampaign = new ArrayList<>(Arrays.asList());
+    static List<Server> imageCropper = new ArrayList<>(Arrays.asList(
+            GRV,
+            GRV_7600,
+            GRV_7800,
+            P2B,
+            WPUSH,
+            WPUSH_7700
     ));
-
-    static List<Server> buttonsAndBigImage = new ArrayList<>(Arrays.asList(
-
-            ));
-    static List<Server> UTM = new ArrayList<>(Arrays.asList(
-            ));
-    static List<Server> copyCampaign = new ArrayList<>(Arrays.asList(
-            ));
 
     static HashMap<String, List> betaFeatures = new HashMap<>();
 
@@ -31,6 +34,7 @@ public class BetaFeatures {
         betaFeatures.put("UTM", UTM);
         betaFeatures.put("copyCampaign", copyCampaign);
         betaFeatures.put("WMwithButtonsAndBigImage", WMwithButtonsAndBigImage);
+        betaFeatures.put("imageCropper", imageCropper);
 
         List<Server> portList = betaFeatures.get(beta);
         if (portList.contains(ConfigTest.iTest)) {

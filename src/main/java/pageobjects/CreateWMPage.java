@@ -1,12 +1,13 @@
 package pageobjects;
 
 import actions.Timer;
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
+import pageutils.ImageUploader;
+import testrestrictions.BetaFeatures;
 
 import java.io.File;
 
@@ -115,7 +116,11 @@ public class CreateWMPage {
 
     public String uploadIconToWM(String path) {
 
-        uploadIcon(path);
+        if(BetaFeatures.verifyBetaToTest("imageCropper")){
+            ImageUploader.uploadIcon(path);
+        }else {
+            uploadIcon(path);
+        }
         Timer.waitSeconds(1);
         String iconLink = wait.until(ExpectedConditions.visibilityOfElementLocated(iconPreview)).getAttribute("src");
 
@@ -185,7 +190,12 @@ public class CreateWMPage {
         }
 
         public String uploadBigImage(String path) {
-            setBIGImage(path);
+            if(BetaFeatures.verifyBetaToTest("imageCropper")){
+                switchBIGImage();
+                ImageUploader.uploadBigImg(path);
+            }else {
+                setBIGImage(path);
+            }
             String imageLink = wait.until(ExpectedConditions.visibilityOfElementLocated(bigImagePreview)).getAttribute("src");
             return imageLink;
         }

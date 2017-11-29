@@ -1,32 +1,39 @@
 import com.selenium.ConfigTest;
 import com.selenium.enums.Server;
+import webdriverconfiger.WaitManager;
+import webdriverconfiger.WebDriverManager;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.HeaderMenu;
-import webdriverconfiger.WebDriverManager;
 
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
 public class SeleniumBaseClass {
 
-    static Server serverToTest = Server.GRV_7700;  //
+    Server serverToTest = Server.GRV;
+
 
     public WebDriver driver = null;
-//    public static GravitecServer gravitecServer;
+
 
 
     protected Wait<WebDriver> wait;
 
 
-    @BeforeTest(alwaysRun = true)
-    public static void initializeTestServer() {
+    @BeforeSuite
+    public void initializeTestSuite(){
         ConfigTest.setTestServer(serverToTest);
+    }
+    @BeforeTest(alwaysRun = true)
+    public void initializeTest() {
+        if (ConfigTest.iTest == null) {
+            ConfigTest.setTestServer(serverToTest);
+            System.out.println("Initialized test server again: " + serverToTest);
+        }
     }
 
     @Parameters("browser")
@@ -35,9 +42,7 @@ public class SeleniumBaseClass {
 
         driver = WebDriverManager.getDriver(browser);
 
-        wait = new FluentWait<>(driver).withMessage("Element was not found").withTimeout(30, TimeUnit.SECONDS)
-                .pollingEvery(500, TimeUnit.MILLISECONDS)
-                .ignoring(NoSuchElementException.class);
+        wait = WaitManager.getWait();
     }
 
     @AfterMethod
@@ -49,11 +54,15 @@ public class SeleniumBaseClass {
 
     @Parameters("browser")
     @AfterClass(alwaysRun = true)
-    public void closeWebDriver(@Optional("chrome") String browser) throws AWTException {
+    public void tearDownTestClass(@Optional("chrome") String browser) throws AWTException {
         try {
             driver.findElement(new HeaderMenu(driver, wait).logOutButton).click();
         } catch (NoSuchElementException | StaleElementReferenceException ex) {
             System.out.println("Looks like you`re already signed out)");
+        } catch (org.openqa.selenium.WebDriverException ex){
+            String url = driver.getCurrentUrl();
+            System.out.println("Error occurred in URL. But it`s OK) The test is over\n" +
+                    "URL: " + url);
         }
     }
 

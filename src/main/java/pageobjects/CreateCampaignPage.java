@@ -10,6 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
+import pageutils.ImageUploader;
+import testrestrictions.BetaFeatures;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -322,7 +324,11 @@ public class CreateCampaignPage {
 
     public String uploadIconToPush(String path) {
 
-        driver.findElement(iconInput).sendKeys(new File(path).getAbsolutePath());
+        if(BetaFeatures.verifyBetaToTest("imageCropper")){
+            ImageUploader.uploadIcon(path);
+        }else {
+            uploadIcon(path);
+        }
         Timer.waitSeconds(1);
         String iconLink = wait.until(ExpectedConditions.visibilityOfElementLocated(iconPrev)).getAttribute("src");
 
@@ -414,7 +420,12 @@ public class CreateCampaignPage {
         }
 
         public String uploadBigImage(String path) {
-            setBIGImage(path);
+            if(BetaFeatures.verifyBetaToTest("imageCropper")){
+                switchBIGImage();
+                ImageUploader.uploadBigImg(path);
+            }else {
+                setBIGImage(path);
+            }
             String imageLink = wait.until(ExpectedConditions.visibilityOfElementLocated(bigImagePrev)).getAttribute("src");
 
             return imageLink;

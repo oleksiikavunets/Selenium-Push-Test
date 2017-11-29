@@ -1,13 +1,14 @@
-import testutils.Listeners.LogListener;
+import com.selenium.ConfigTest;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.BillingPage;
-import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import testdata.TestData;
 import testrestrictions.GravitecBilling;
+import testutils.Listeners.LogListener;
 
 @Listeners(LogListener.class)
 public class Test_Pos_SmokePayment extends SeleniumBaseClass {
@@ -27,7 +28,9 @@ public class Test_Pos_SmokePayment extends SeleniumBaseClass {
             System.out.println(url);
             Assert.assertTrue(url.contains("fondy"));
             driver.navigate().back();
-            new HeaderMenu(driver, wait).logout();
+        } else {
+            throw new SkipException("Test " + Thread.currentThread().getClass().getSimpleName() +
+                    " is not allowed to run on " + ConfigTest.iTest);
         }
     }
 }

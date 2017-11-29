@@ -2,6 +2,7 @@ package pageobjects;
 
 import actions.Timer;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
@@ -29,6 +30,7 @@ public class SideBar {
         wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignButton)).click();
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
         assertSiteIdPresent();
+        manageErrorPop();
         return new CreateCampaignPage(driver, wait);
     }
 
@@ -53,6 +55,7 @@ public class SideBar {
         wait.until(ExpectedConditions.visibilityOfElementLocated(subscribersButton)).click();
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
         assertSiteIdPresent();
+        Timer.waitSeconds(0.5);
         return new SubscribersPage(driver, wait);
     }
 
@@ -77,6 +80,17 @@ public class SideBar {
         String currentUrl = driver.getCurrentUrl();
         String cut = currentUrl.split("sites")[1];
         Assert.assertFalse(cut.contains("//"), "No siteId in current URL: " + currentUrl);
+    }
+
+    public void manageErrorPop(){
+        try{
+            Timer.waitSeconds(1);
+            driver.findElement(By.cssSelector("div[class*=\"sweet-alert\"] button[ng-click=\"$close()\"][ng-bind]")).click();
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div[class*=\"sweet-alert\"] button[ng-click=\"$close()\"][ng-bind]")));
+            Timer.waitSeconds(1);
+        }catch (NoSuchElementException e){
+
+        }
     }
 
 

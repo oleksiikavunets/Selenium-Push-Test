@@ -28,8 +28,8 @@ public class AddNewSitePage {
     public By domainInput = By.name("domain");
     public By fileInput = By.cssSelector("input[type='file']");
     //error messages locators
-    public By errorHTTPButton = By.cssSelector("button[ng-class*=\"=== 'http://', 'btn-danger'\"]");
-    public By errorHTTPSButton = By.cssSelector("button[ng-class*=\"=== 'https://', 'btn-danger'\"]");
+    public By errorHTTPButton = By.cssSelector("[ng-click*='http'][ng-class*=\"protocolErr\"]");
+    public By errorHTTPSButton = By.cssSelector("[ng-click*='https'][ng-class*=\"protocolErr\"]");
     public By protocolMessage = By.cssSelector("div[ng-bind=\"vmAdd.errors.protocolErr | translate\"]");
     public By existsError = By.cssSelector("span[ng-bind=\"'ADD_ALRD_EXIST' | translate\"]");
     public By iconError = By.cssSelector("p[ng-bind=\"vmAdd.imgErrorMessage | translate\"]");
@@ -41,7 +41,7 @@ public class AddNewSitePage {
         this.wait = wait;
     }
 
-    public void createSite(String siteUrl) throws Exception {
+    public String createSite(String siteUrl) throws Exception {
 
         new MainAdminPage(driver, wait).clickAddNewSiteButton();
         setDomain(siteUrl);
@@ -49,6 +49,8 @@ public class AddNewSitePage {
         wait.until(ExpectedConditions.presenceOfElementLocated(fileInput));
         clickAdd();
         wait.until(ExpectedConditions.visibilityOfElementLocated(new SiteSettingsPage(driver, wait).deleteWebsiteButton));
+        String script = driver.findElement(By.xpath("//*[@id=\"client-script-tag\"]")).getText();
+        return script;
     }
 
 

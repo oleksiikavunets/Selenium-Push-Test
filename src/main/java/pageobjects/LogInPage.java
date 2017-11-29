@@ -2,10 +2,12 @@ package pageobjects;
 
 import actions.Timer;
 import com.selenium.ConfigTest;
+import com.selenium.enums.Server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
@@ -35,7 +37,12 @@ public class LogInPage {
 
         ConfigTest config = new ConfigTest();
 
-        driver.navigate().to(config.getStartUrl() + "/login");
+        String currentUrl = driver.getCurrentUrl();
+        if(!currentUrl.contains("login")) {
+            driver.navigate().to(config.getStartUrl() + "/login");
+        }
+
+        managePopUp();
 //        Log.info("LOGIN: " + login + " PASSWORD: " + pass);
 
 
@@ -61,6 +68,18 @@ public class LogInPage {
         }
 
         return new MainAdminPage(driver, wait);
+    }
+
+    public void managePopUp(){
+        if(ConfigTest.iTest.equals(Server.GRV_7700)){
+            try{
+                Timer.waitSeconds(1);
+                driver.findElement(By.cssSelector("button[ng-click=\"$close()\"]")).click();
+            }catch (NoSuchElementException e){
+                System.out.println("No pop up");
+            }
+        }
+
     }
 
     public void setLogin(String login) {

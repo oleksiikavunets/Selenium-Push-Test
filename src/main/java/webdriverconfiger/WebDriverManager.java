@@ -7,6 +7,7 @@ import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.Wait;
 import ru.stqa.selenium.factory.WebDriverPool;
 
 import java.io.File;
@@ -15,6 +16,7 @@ import java.util.logging.Level;
 
 public class WebDriverManager {
     public static WebDriver driver;
+    public static Wait<WebDriver> wait;
 
     public static WebDriver getDriver(String browser) {
         switch (browser){
@@ -31,6 +33,7 @@ public class WebDriverManager {
         return driver;
     }
 
+
     public static WebDriver getChromeDriver() {
         System.setProperty("webdriver.chrome.driver", new File("src/main/resources/WebDrivers/chromedriver 2.33/chromedriver.exe").getAbsolutePath());
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
@@ -39,7 +42,7 @@ public class WebDriverManager {
         options.addArguments("start-maximized");
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         chromePrefs.put("profile.default_content_setting_values.notifications", 1);
-        chromePrefs.put("download.default_directory", "D:\\work\\pushnotifications\\Selenium\\src\\main\\resources");
+        chromePrefs.put("download.default_directory", "src/main/resources");
         options.setExperimentalOption("prefs", chromePrefs);
         LoggingPreferences logPrefs = new LoggingPreferences();
         logPrefs.enable(LogType.BROWSER, Level.ALL);
@@ -62,7 +65,7 @@ public class WebDriverManager {
         options.setBinary("D:\\Program Files\\Opera\\49.0.2725.34\\opera.exe");
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         chromePrefs.put("profile.default_content_setting_values.notifications", 1);
-        chromePrefs.put("download.default_directory", "D:\\work\\pushnotifications\\Selenium\\src\\main\\resources");
+        chromePrefs.put("download.default_directory", "src/main/resources");
         options.setExperimentalOption("prefs", chromePrefs);
         driver = WebDriverPool.DEFAULT.getDriver(options);
         return driver;

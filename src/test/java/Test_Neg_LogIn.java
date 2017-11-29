@@ -42,15 +42,15 @@ public class Test_Neg_LogIn extends SeleniumBaseClass {
         langs.get(0).click();
         driver.navigate().refresh();
         siteLang = headerMenu.checkLanguage();
-        headerMenu.logout();
+
 
         for (int i = 1; i <= langs.size(); i++) {
+            headerMenu.logout();
             logInPage.setLogin(TestData.inValidEmail);
             logInPage.setPassword(TestData.invalidPass);
             logInPage.submit();
             verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(logInPage.error)).getText(), incorrectEmail.get(siteLang));
 
-//            softAssert.assertEquals(incorrectEmail.get(siteLang), wait.until(ExpectedConditions.visibilityOfElementLocated(logInPage.error)).getText());
             //checks error "Incorrect email"
 
             driver.findElement(logInPage.loginInput).clear();
@@ -60,7 +60,6 @@ public class Test_Neg_LogIn extends SeleniumBaseClass {
 
             verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(logInPage.error)).getText(), incorrectPassword.get(siteLang));
 
-//            softAssert.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(logInPage.error)).getText(), incorrectPassword.get(siteLang));
             //checks error "Incorrect password"
 
             if (i == langs.size()) break;
@@ -68,9 +67,7 @@ public class Test_Neg_LogIn extends SeleniumBaseClass {
 
             headerMenu.switchLanguage(i);
             siteLang = headerMenu.checkLanguage();
-            headerMenu.logout();
         }
-//        softAssert.assertAll();
         verifier.assertTestPassed();
     }
 }

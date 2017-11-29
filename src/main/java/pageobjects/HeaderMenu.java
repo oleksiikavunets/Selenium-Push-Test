@@ -1,5 +1,7 @@
 package pageobjects;
 
+import actions.Custom;
+import com.selenium.ConfigTest;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,6 +12,8 @@ import org.openqa.selenium.support.ui.Wait;
 
 import java.util.HashMap;
 import java.util.List;
+
+import static com.selenium.enums.Server.P2B;
 
 /**
  * Created by Oleksii on 13.07.2017.
@@ -62,20 +66,27 @@ public class HeaderMenu {
     }
 
     public void switchLanguage(int i) {
+        Custom custom = new Custom(driver);
 
-        String langToChange = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
-        openLanguageDropDown();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(language));
-        List<WebElement> l = driver.findElements(language);
-        wait.until(ExpectedConditions.visibilityOf(l.get(i))).click();
-        wait.until(ExpectedConditions.invisibilityOfElementWithText(logOutButton, langToChange));
+        if(!ConfigTest.iTest.equals(P2B)) //Push2b.com has only one language version
+        {
+            String langToChange = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
+            openLanguageDropDown();
+            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(language));
+            List<WebElement> ls = driver.findElements(language);
+            ls.get(i).click();
+            wait.until(ExpectedConditions.invisibilityOfElementWithText(logOutButton, langToChange));
+        }
     }
 
     public void switchLanguage() {
-        String langToChange = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
-        openLanguageDropDown();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(language)).click();
-        wait.until(ExpectedConditions.invisibilityOfElementWithText(logOutButton, langToChange));
+        if(!ConfigTest.iTest.equals(P2B)) //Push2b.com has only one language version
+        {
+            String langToChange = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
+            openLanguageDropDown();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(language)).click();
+            wait.until(ExpectedConditions.invisibilityOfElementWithText(logOutButton, langToChange));
+        }
     }
 
     public String checkLanguage() {

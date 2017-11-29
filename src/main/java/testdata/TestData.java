@@ -16,7 +16,7 @@ public class TestData {
 
     public static String icon = "src/main/resources/imgs/selenium.jpg";
     public static String bigIcon = "src/main/resources/imgs/forest-wallpaper-1920x1200-004.jpg";
-    public static String bigImage = "src/main/resources/imgs/desktopwallpapers.org.ua-9264.jpg";
+    public static String bigImage = "src/main/resources/imgs/bmw-3-series-f30-sedan-bmv-21.jpg";
 
     public static String alias = "Alex";
     public static String tag = "FF";

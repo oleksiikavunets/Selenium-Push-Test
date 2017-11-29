@@ -25,9 +25,10 @@ public class Test_Pos_Subscription extends SeleniumBaseClass {
         HeaderMenu headerMenu = new HeaderMenu(driver, wait);
 
         MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
-        int totalAmountOfSubsBefore  = mainAdminPage.getAmountOfSubscribers();
+        int totalAmountOfSubsBefore  = mainAdminPage.getTotalAmountOfSubscribers();
         SideBar sideBar = mainAdminPage.openSite(TestData.testSite);
         SubscribersPage subscribersPage = sideBar.openSubscribersPage();
+        subscribersPage.clickTodayBtn();
 
         int amountOfSubsBefore = subscribersPage.getAmountOfSubscribers();
         Log.info("Subs before: on main page - " + totalAmountOfSubsBefore +
@@ -36,20 +37,20 @@ public class Test_Pos_Subscription extends SeleniumBaseClass {
         new UserActions(driver, wait).subscribe(browser, TestData.testSite);
 
         logInPage.login(TestData.email, TestData.pass);
-        int totalAmountOfSubsAfter  = mainAdminPage.getAmountOfSubscribers();
+        int totalAmountOfSubsAfter  = mainAdminPage.getTotalAmountOfSubscribers();
         verifier.assertTrue(totalAmountOfSubsBefore < totalAmountOfSubsAfter, "Amount of subscribers did not change on main page. " +
                 "Before: " + totalAmountOfSubsBefore +
-        "After: " + totalAmountOfSubsAfter);
+        " After: " + totalAmountOfSubsAfter);
         mainAdminPage.openSite(TestData.testSite);
         sideBar.openSubscribersPage();
+        subscribersPage.clickTodayBtn();
         int amountOfSubsAfter = subscribersPage.getAmountOfSubscribers();
         Log.info("Subs after: on main page - " + totalAmountOfSubsAfter +
                 " on subs page - " + amountOfSubsAfter);
 
         verifier.assertTrue(amountOfSubsBefore < amountOfSubsAfter, "Amount of subscribers did not change on Subscribers page. " +
                 "Before: " + amountOfSubsBefore +
-                "After: " + amountOfSubsAfter);
-        headerMenu.logout();
+                " After: " + amountOfSubsAfter);
         verifier.assertTestPassed();
     }
 }

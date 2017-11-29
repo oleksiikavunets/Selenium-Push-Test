@@ -35,7 +35,6 @@ public class Test_Pos_SendMessageWithUTM extends SeleniumBaseClass{
             verifier.assertEquals(campaignReportPage.getUTM_source(), utm_source);
             verifier.assertEquals(campaignReportPage.getUTM_medium(), utm_medium);
             verifier.assertEquals(campaignReportPage.getUTM_campaign(), utm_campaign);
-            new HeaderMenu(driver, wait).logout();
         }
         verifier.assertTestPassed();
     }

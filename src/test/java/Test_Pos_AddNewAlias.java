@@ -27,6 +27,5 @@ public class Test_Pos_AddNewAlias extends SeleniumBaseClass {
         sideBar.openCreateCampaignPage();
         CreateCampaignPage.AdvancedOptions advancedOptions = createCampaignPage.openAdvancedOptions();
         advancedOptions.addAliasToCampaign(alias);
-        new HeaderMenu(driver, wait).logout();
     }
 }
