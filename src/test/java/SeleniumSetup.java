@@ -39,7 +39,7 @@ public class SeleniumSetup {
         capabilities.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
         capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        return new ChromeDriver(capabilities);
+        return new ChromeDriver();
     }
 
     @Test

@@ -1,45 +1,45 @@
 
-import actions.SiteManager;
-import actions.Timer;
 import actions.UserActions;
 import com.selenium.ConfigTest;
+import com.selenium.TestSiteManager;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
-import pageobjects.MainAdminPage;
+import pageobjects.SiteManagerPage;
 import testutils.Listeners.LogListener;
 
 
 /**
  * Created by Oleksii on 31.07.2017.
  */
-
+// mpstestdepartment@gmail.com
 @Listeners(LogListener.class)
-public class Test_Pos_CreateHTTPSite extends SeleniumBaseClass {
+public class Test_Pos_CreateHTTPSite extends BaseTestClass {
 
     @Parameters("browser")
     @Test
     public void createHttpSitePos(@Optional("chrome") String browser) throws Exception {
-        ConfigTest configTest = new ConfigTest();
-        int siteNumber = Integer.valueOf(configTest.getHttpSiteNumber());
-        MainAdminPage mainAdminPage = new MainAdminPage(driver, wait);
-        HeaderMenu headerMenu = new HeaderMenu(driver, wait);
-        UserActions userActions = new UserActions(driver, wait);
-//        String siteUrl = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
-        String siteUrl = "http://" + String.valueOf(configTest.iTest).toLowerCase() + siteNumber + SiteManager.siteDomain;
-        System.out.println(siteUrl + "New Site");
-        SiteManager.createNewSite(siteUrl);
-        String script = userActions.createSite(siteUrl);
-        userActions.checkCreateSiteMail(siteUrl, browser);
-        SiteManager.setScript(siteUrl, script);
-        driver.get(siteUrl);
-        Timer.waitSeconds(5);
-        configTest.setHttpSite(siteUrl, ++siteNumber);
+        TestSiteManager testSiteManager = new TestSiteManager();
+        int siteNumber = Integer.valueOf(testSiteManager.getHttpSiteNumber());
+        UserActions userActions = new UserActions(driver);
+        SiteManagerPage siteManagerPage = new SiteManagerPage(driver);
 
-//        headerMenu.clickLogo();
-//        mainAdminPage.verifySitePresent(siteUrl);
-//        userActions.deleteSite(siteUrl);
+        String siteUrl = generateNewHttpSiteName(siteNumber);
+
+        siteManagerPage.createNewSite(siteUrl);
+        String script = userActions.createSite(siteUrl);
+        testSiteManager.setHttpSite(siteUrl, ++siteNumber);
+        new HeaderMenu(driver).clickLogo().verifySitePresent(siteUrl);
+        userActions.checkCreateSiteMail(siteUrl, browser);
+
+        siteManagerPage.setScript(siteUrl, script);
+        driver.get(siteUrl);
+    }
+
+    private String generateNewHttpSiteName(int siteNumber) {
+        String server = String.valueOf(ConfigTest.iTest).toLowerCase().replace("_", "");
+        return "http://" + server + siteNumber + SiteManagerPage.siteDomain;
     }
 }

@@ -1,33 +1,31 @@
 //import actions.SoftAssert;
 import actions.Timer;
 import actions.Verifier;
-
-import testutils.Listeners.LogListener;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import testdata.ErrorMessages;
 import testdata.TestData;
+import testutils.Listeners.LogListener;
 
 import java.util.HashMap;
 import java.util.List;
+
+import static pageutils.TextGetter.textOf;
 
 /**
  * Created by Oleksii on 31.07.2017.
  */
 
 @Listeners(LogListener.class)
-public class Test_Neg_LogIn extends SeleniumBaseClass {
+public class Test_Neg_LogIn extends BaseTestClass {
 
     @Test(groups = { "negative" })
     public void logInNegative() throws Exception {
-        HeaderMenu headerMenu = new HeaderMenu(driver, wait);
-        LogInPage logInPage = new LogInPage(driver, wait);
-
+        HeaderMenu headerMenu = new HeaderMenu(driver);
+        LogInPage logInPage = new LogInPage(driver);
         ErrorMessages errorMessages = new ErrorMessages();
         Verifier verifier = new Verifier();
 //        SoftAssert softAssert = new SoftAssert();
@@ -49,16 +47,14 @@ public class Test_Neg_LogIn extends SeleniumBaseClass {
             logInPage.setLogin(TestData.inValidEmail);
             logInPage.setPassword(TestData.invalidPass);
             logInPage.submit();
-            verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(logInPage.error)).getText(), incorrectEmail.get(siteLang));
+            verifier.assertEquals(textOf(logInPage.getErrorMessage()), incorrectEmail.get(siteLang));
 
             //checks error "Incorrect email"
 
-            driver.findElement(logInPage.loginInput).clear();
-            logInPage.setLogin(TestData.email);
-            logInPage.submit();
+            logInPage.clearLogin().setLogin(TestData.email).submit();
             Timer.waitSeconds(0.3);
 
-            verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(logInPage.error)).getText(), incorrectPassword.get(siteLang));
+            verifier.assertEquals(textOf(logInPage.getErrorMessage()), incorrectPassword.get(siteLang));
 
             //checks error "Incorrect password"
 

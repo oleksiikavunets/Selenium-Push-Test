@@ -1,59 +1,52 @@
-import testutils.Listeners.LogListener;
+import actions.UserActions;
 import com.selenium.utils.RandomGenerator;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageobjects.*;
+import pageobjects.CampaignReportPage;
+import pageobjects.CreateCampaignPage;
+import pageobjects.LogInPage;
 import testdata.TestData;
+import testutils.Listeners.LogListener;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static pageutils.TextGetter.textOf;
 
 /**
  * Created by Oleksii on 31.07.2017.
  */
 @Listeners(LogListener.class)
-public class Test_Pos_SendMessageWithTags extends SeleniumBaseClass {
+public class Test_Pos_SendMessageWithTags extends BaseTestClass {
 
+    @Parameters("browser")
     @Test(groups = {"send push", "advanced settings", "tags"})
-    public void sendMessageWithTags() throws Exception {
-        LogInPage logInPage = new LogInPage(driver, wait);
-
-        List<String> tagsInPush = new ArrayList<>();
-        List<String> sentTagsNames = new ArrayList<>();
+    public void sendMessageWithTags(@Optional("chrome") String browser) throws Exception {
+        LogInPage logInPage = new LogInPage(driver);
         String title = RandomGenerator.nextString();
         String text = RandomGenerator.nextString();
-        String tag = TestData.tag;
         String testSite = TestData.testSite;
+        String[] newTags = new String[]{
+                "t1" + RandomGenerator.nextString(),
+                "t2" + RandomGenerator.nextString(),
+                "t3" + RandomGenerator.nextString()};
 
-        MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
-        SideBar sideBar = mainAdminPage.openSite(testSite);
+        new UserActions(driver).addNewTag(browser, testSite, newTags);
 
-        CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
-        createCampaignPage.setTitle(title);
-        createCampaignPage.setText(text);
+        CreateCampaignPage.AdvancedOptions advancedOptions = logInPage.login(TestData.email, TestData.pass)
+                .openSite(testSite).openCreateCampaignPage()
+                .setTitle(title).setText(text)
+                .openAdvancedOptions()
+                .addTagToCampaign(newTags);
 
-        CreateCampaignPage.AdvancedOptions advancedOptions = createCampaignPage.openAdvancedOptions();
-        advancedOptions.addTagToCampaign(tag);
+        List<String> tagsInPush = textOf(advancedOptions.getTagsToBeSent());
 
-        List<WebElement> allTags = driver.findElements(createCampaignPage.tagsToSend);
-        for (WebElement tagElement : allTags) {
-            tagsInPush.add(tagElement.getText());
-        }
-        for (String s : tagsInPush) {
-            System.out.println(s);
-        }
-        CampaignHistoryPage campaignHistoryPage = createCampaignPage.sendPush();
+        CampaignReportPage campaignReportPage = new CreateCampaignPage(driver).sendPush()
+                .openMessage(title);
+        List<String> sentTagsNames = textOf(campaignReportPage.getSentTags());
 
-        CampaignReportPage campaignReportPage = campaignHistoryPage.openMessage(title);
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(campaignReportPage.tag));
-        List<WebElement> sentTags = driver.findElements(campaignReportPage.tag);
-        for (WebElement t : sentTags) {
-            sentTagsNames.add(t.getText());
-        }
         Assert.assertTrue(sentTagsNames.containsAll(tagsInPush));
     }
 }

@@ -5,10 +5,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
+import pageobjects.common.AbstractPage;
 
-public class SideBar {
+public class SideBar extends AbstractPage{
+
     By createCampaignButton = By.cssSelector("span[ng-bind*=\"'LMENU_NEW_CAMP'\"]");
     By welcomeMessagesButton = By.cssSelector("span[ng-bind*=\"'WLCMMS_TL'\"]");
     By reportsButton = By.cssSelector("span[ng-bind*=\"'LMENU_STAT'\"]");
@@ -17,12 +18,9 @@ public class SideBar {
     By tagListButton = By.cssSelector("span[ng-bind*=\"'LMENU_TAGLIST'\"]");
     By siteSettingsButton = By.cssSelector("span[ng-bind*=\"'LMENU_SETT'\"]");
 
-    WebDriver driver;
-    Wait<WebDriver> wait;
 
-    public SideBar(WebDriver driver, Wait<WebDriver> wait){
-        this.driver = driver;
-        this.wait = wait;
+    public SideBar(WebDriver driver){
+        super(driver);
     }
 
     public CreateCampaignPage openCreateCampaignPage(){
@@ -31,7 +29,7 @@ public class SideBar {
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
         assertSiteIdPresent();
         manageErrorPop();
-        return new CreateCampaignPage(driver, wait);
+        return new CreateCampaignPage(driver);
     }
 
     public WelcomeMessagePage openWelcomeMessagePage(){
@@ -39,7 +37,7 @@ public class SideBar {
         wait.until(ExpectedConditions.presenceOfElementLocated(welcomeMessagesButton)).click();
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
         assertSiteIdPresent();
-        return new WelcomeMessagePage(driver, wait);
+        return new WelcomeMessagePage(driver);
     }
 
     public CampaignHistoryPage openCampaignHistoryPage(){
@@ -47,7 +45,7 @@ public class SideBar {
         wait.until(ExpectedConditions.visibilityOfElementLocated(campaignHistoryButton)).click();
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
         assertSiteIdPresent();
-        return new CampaignHistoryPage(driver, wait);
+        return new CampaignHistoryPage(driver);
     }
 
     public SubscribersPage openSubscribersPage(){
@@ -56,7 +54,7 @@ public class SideBar {
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
         assertSiteIdPresent();
         Timer.waitSeconds(0.5);
-        return new SubscribersPage(driver, wait);
+        return new SubscribersPage(driver);
     }
 
     public TagListPage openTagListPage(){
@@ -64,25 +62,26 @@ public class SideBar {
         wait.until(ExpectedConditions.visibilityOfElementLocated(tagListButton)).click();
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
         assertSiteIdPresent();
-        return new TagListPage(driver, wait);
+        return new TagListPage(driver);
     }
 
     public SiteSettingsPage openSiteSettingsPage(){
         String currentUrl = driver.getCurrentUrl();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(siteSettingsButton)).click();
+        Timer.waitSeconds(2);
+        driver.findElement(siteSettingsButton).click();
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
         assertSiteIdPresent();
-        return new SiteSettingsPage(driver, wait);
+        return new SiteSettingsPage(driver);
     }
 
-    public void assertSiteIdPresent(){
+    private void assertSiteIdPresent(){
         Timer.waitSeconds(0.3);
         String currentUrl = driver.getCurrentUrl();
         String cut = currentUrl.split("sites")[1];
         Assert.assertFalse(cut.contains("//"), "No siteId in current URL: " + currentUrl);
     }
 
-    public void manageErrorPop(){
+    private void manageErrorPop(){
         try{
             Timer.waitSeconds(1);
             driver.findElement(By.cssSelector("div[class*=\"sweet-alert\"] button[ng-click=\"$close()\"][ng-bind]")).click();

@@ -18,14 +18,13 @@ import java.util.List;
  */
 
 @Listeners(LogListener.class)
-public class Test_Neg_Registration extends SeleniumBaseClass {
+public class Test_Neg_Registration extends BaseTestClass {
 
 
     @Test(groups = {"negative"})
     public void registrationNegative() throws Exception {
-        HeaderMenu headerMenu = new HeaderMenu(driver, wait);
-        LogInPage logInPage = new LogInPage(driver, wait);
-
+        HeaderMenu headerMenu = new HeaderMenu(driver);
+        LogInPage logInPage = new LogInPage(driver);
         ErrorMessages errorMessages = new ErrorMessages();
         Verifier verifier = new Verifier();
         HashMap<String, String> invalidEmailFormat = errorMessages.getInvalidEmailFormat();

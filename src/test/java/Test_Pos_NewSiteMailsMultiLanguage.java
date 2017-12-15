@@ -19,14 +19,12 @@ import java.util.List;
 import static com.selenium.enums.Server.P2B;
 
 @Listeners(LogListener.class)
-public class Test_Pos_NewSiteMailsMultiLanguage extends SeleniumBaseClass {
+public class Test_Pos_NewSiteMailsMultiLanguage extends BaseTestClass {
 
     @Test(groups = {"mails", "new site"}, singleThreaded = true, threadPoolSize = 1)
     public void testCreateSiteMails() throws Exception {
         Logger Log = LogManager.getLogger(Test_Pos_NewSiteMailsMultiLanguage.class);
-        HeaderMenu headerMenu = new HeaderMenu(driver, wait);
-        AddNewSitePage addNewSitePage = new AddNewSitePage(driver, wait);
-        LogInPage logInPage = new LogInPage(driver, wait);
+        HeaderMenu headerMenu = new HeaderMenu(driver);
         ConfigTest configTest = new ConfigTest();
         Verifier verifier = new Verifier();
 
@@ -35,7 +33,7 @@ public class Test_Pos_NewSiteMailsMultiLanguage extends SeleniumBaseClass {
         String pass = configTest.getPassword();
         String siteLang;
 
-        MainAdminPage mainAdminPage = logInPage.login(email, pass);
+        MainAdminPage mainAdminPage = new LogInPage(driver).login(email, pass);
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         langs.get(0).click();
         driver.navigate().refresh();
@@ -44,19 +42,17 @@ public class Test_Pos_NewSiteMailsMultiLanguage extends SeleniumBaseClass {
             siteLang = headerMenu.checkLanguage();
             String siteUrl = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
 
-            addNewSitePage.createSite(siteUrl);
+            new AddNewSitePage(driver).createSite(siteUrl);
             String message = MailService.getCreatedSiteMail();
             Log.info(message);
             verifier.assertTrue(verifier.verifyCreateSiteMail(message, siteLang));
             headerMenu.clickLogo();
             mainAdminPage.verifySitePresent(siteUrl);
             if (i == langs.size() || ConfigTest.iTest.equals(P2B)) {
-//                headerMenu.logout();
                 break;
             }
             headerMenu.switchLanguage(i);
         }
-
         verifier.assertTestPassed();
     }
 }

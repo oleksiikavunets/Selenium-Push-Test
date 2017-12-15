@@ -1,4 +1,5 @@
 
+import org.testng.Assert;
 import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.testng.annotations.Listeners;
@@ -10,24 +11,19 @@ import testdata.TestData;
  * Created by Oleksii on 03.07.2017.
  */
 @Listeners(LogListener.class)
-public class Test_Pos_SendMessage extends SeleniumBaseClass {
+public class Test_Pos_SendMessage extends BaseTestClass {
 
     @Test(groups = {"send push"})
     public void sendMessage() throws Exception {
-        LogInPage logInPage = new LogInPage(driver, wait);
-        String title = RandomGenerator.nextString();
+     LogInPage logInPage = new LogInPage(driver);
+     String title = RandomGenerator.nextString();
         String text = RandomGenerator.nextString();
         String testSite = TestData.testSite;
 
-        MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
-        SideBar sideBar = mainAdminPage.openSite(testSite);
-
-        CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
-        createCampaignPage.setTitle(title);
-        createCampaignPage.setText(text);
-        CampaignHistoryPage campaignHistoryPage = createCampaignPage.sendPush();
-
-        campaignHistoryPage.verifyMessageExists(title);
+        CampaignHistoryPage campaignHistoryPage = logInPage.login(TestData.email, TestData.pass).openSite(testSite)
+                .openCreateCampaignPage().setTitle(title).setText(text)
+                .sendPush();
+        Assert.assertTrue(campaignHistoryPage.verifyMessageExists(title), "Could not find sent message");
     }
 
 

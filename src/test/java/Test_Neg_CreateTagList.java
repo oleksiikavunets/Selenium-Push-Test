@@ -15,13 +15,12 @@ import java.util.List;
  * Created by Oleksii on 31.07.2017.
  */
 @Listeners(LogListener.class)
-public class Test_Neg_CreateTagList extends SeleniumBaseClass {
+public class Test_Neg_CreateTagList extends BaseTestClass {
 
 
     @Test(groups = {"negative", "tag list"})
     public void createTagListNegative() throws Exception {
-        LogInPage logInPage = new LogInPage(driver, wait);
-        HeaderMenu headerMenu = new HeaderMenu(driver, wait);
+        HeaderMenu headerMenu = new HeaderMenu(driver);
 
         Verifier verifier = new Verifier();
         ErrorMessages errorMessages = new ErrorMessages();
@@ -32,11 +31,11 @@ public class Test_Neg_CreateTagList extends SeleniumBaseClass {
         String siteLang;
 
 
-        MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
+        MainAdminPage mainAdminPage = new LogInPage(driver).login(TestData.email, TestData.pass);
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         langs.get(0).click();
-        SideBar sideBar = mainAdminPage.openSite(testSite);
-        TagListPage tagListPage = sideBar.openTagListPage();
+        TagListPage tagListPage = mainAdminPage.openSite(testSite)
+                .openTagListPage();
 
         for (int i = 1; i <= langs.size(); i++) {
             tagListPage.saveNewTagList();
@@ -82,7 +81,6 @@ public class Test_Neg_CreateTagList extends SeleniumBaseClass {
 
             // checks message on pop-up window "Tag-list name is empty"
             tagListPage.closePopUp();
-
 
             if (i == langs.size()) break;
 

@@ -1,7 +1,6 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.AddNewSitePage;
@@ -16,18 +15,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
+import static pageutils.TextGetter.textOf;
 
-/**
- * Created by Oleksii on 31.07.2017.
- */
 @Listeners(LogListener.class)
-public class Test_Neg_CreateSite extends SeleniumBaseClass {
+public class Test_Neg_CreateSite extends BaseTestClass {
 
-
-    @Test(groups = { "negative", "new site" })// checks all error messages on page "Add New Website
+    @Test(groups = {"negative", "new site"})// checks all error messages on page "Add New Website
     public void createSiteNegative() throws Exception {
-        LogInPage logInPage = new LogInPage(driver, wait);
-        HeaderMenu headerMenu = new HeaderMenu(driver, wait);
+        LogInPage logInPage = new LogInPage(driver);
+        HeaderMenu headerMenu = new HeaderMenu(driver);
         Verifier verifier = new Verifier();
 
         ConfigTest config = new ConfigTest();
@@ -43,22 +39,19 @@ public class Test_Neg_CreateSite extends SeleniumBaseClass {
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         langs.get(0).click();
         AddNewSitePage addNewSitePage = mainAdminPage.clickAddNewSiteButton();
-        String colorBefore = wait.until(ExpectedConditions.visibilityOfElementLocated(addNewSitePage.httpButton)).getCssValue("border");
-        System.out.println(colorBefore);
+        String btnColorBefore = addNewSitePage.getHttpBtn().getCssValue("border");
+        System.out.println(btnColorBefore);
         addNewSitePage.clickAdd();
-        String colorAfter = driver.findElement(addNewSitePage.errorHTTPButton).getCssValue("border");
-        System.out.println(colorAfter);
+        String btnColorAfter = addNewSitePage.getHttpBtn().getCssValue("border");
+        System.out.println(btnColorAfter);
 
-
-        verifier.assertTrue(wait.until(ExpectedConditions.presenceOfElementLocated(addNewSitePage.errorHTTPButton)).isDisplayed());
-        verifier.assertTrue(wait.until(ExpectedConditions.presenceOfElementLocated(addNewSitePage.errorHTTPSButton)).isDisplayed());
-        verifier.assertFalse(colorBefore.equals(colorAfter));
+        verifier.assertFalse(btnColorBefore.equals(btnColorAfter));
 
         //checks error "HTTP highlight"
         for (int i = 1; i <= langs.size(); i++) {
 
             siteLang = headerMenu.checkLanguage();
-            verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(addNewSitePage.protocolMessage)).getText(), selectProtocol.get(siteLang));
+            verifier.assertEquals(textOf(addNewSitePage.getErrorProtocolMsg()), selectProtocol.get(siteLang));
             //checks error "Select protocol"
             if (i == langs.size() || ConfigTest.iTest.equals(P2B)) break;
 
@@ -67,15 +60,15 @@ public class Test_Neg_CreateSite extends SeleniumBaseClass {
         if (langs.size() > 1) {
             headerMenu.switchLanguage();
         }
-        driver.findElement(addNewSitePage.domainInput).clear();
-        addNewSitePage.setDomain(existingSite);
-        addNewSitePage.selectHTTPprotocol();
-        addNewSitePage.clickAdd();
-        verifier.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(addNewSitePage.existsError)).isDisplayed());
+        addNewSitePage.clearDomainInput()
+                .setDomain(existingSite)
+                .selectHTTPprotocol()
+                .clickAdd();
+        verifier.assertTrue(addNewSitePage.getErrorSiteExistsMsg().isDisplayed());
 
         for (int c = 1; c <= langs.size(); c++) {
             siteLang = headerMenu.checkLanguage();
-            verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(addNewSitePage.existsError)).getText(), siteExists.get(siteLang));
+            verifier.assertEquals(textOf(addNewSitePage.getErrorSiteExistsMsg()), siteExists.get(siteLang));
             //checks error "Site with such url already exists."
             if (c == langs.size()) break;
 

@@ -5,11 +5,13 @@ import com.selenium.enums.Server;
 import java.io.*;
 import java.util.Properties;
 
+import static com.selenium.enums.Server.GRV;
+
 /**
  * Created by Oleksii on 01.08.2017.
  */
 public class ConfigTest {
-    protected static Properties prop = new Properties();
+    private static Properties prop = new Properties();
     String propertyPath;
     int port;
     int directPort;
@@ -23,7 +25,7 @@ public class ConfigTest {
     String startUrl;
     String pattern;
 
-    public static Server iTest;
+    public static Server iTest = GRV;
 
     public static void setTestServer(Server serverToTest){
         iTest = serverToTest;
@@ -36,7 +38,7 @@ public class ConfigTest {
         iTest = serverToTest;
     }
 
-    private String setPath() {
+    protected String setPath() {
         switch (iTest) {
             case GRV:
                 propertyPath = "src/main/data/GRV.property";
@@ -165,7 +167,6 @@ public class ConfigTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return adminLogin;
     }
 
@@ -179,7 +180,6 @@ public class ConfigTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return adminPass;
     }
 
@@ -196,13 +196,16 @@ public class ConfigTest {
         return emailNumber;
     }
 
-    public void setEmailNumber(int num) throws IOException {
-
+    public void setEmailNumber(int num){
         try {
+            InputStream input = new FileInputStream(setPath());
+            prop.load(input);
             OutputStream output = new FileOutputStream(setPath());
             prop.setProperty("emailNumber", String.valueOf(num));
             prop.store(output, null);
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
@@ -222,6 +225,8 @@ public class ConfigTest {
 
     public void setPassword(String password) {
         try {
+            InputStream input = new FileInputStream(setPath());
+            prop.load(input);
             OutputStream output = new FileOutputStream(setPath());
             prop.setProperty("password", password);
             prop.store(output, null);
@@ -232,58 +237,5 @@ public class ConfigTest {
         }
         System.out.println(password);
     }
-
-    public void setHttpSite(String site, int testSiteNumber){
-        try {
-            OutputStream output = new FileOutputStream(setPath());
-            prop.setProperty("httpSiteUrl", site);
-            prop.setProperty("httpSiteNumber", String.valueOf(testSiteNumber));
-            prop.store(output, null);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String getHttpSiteNumber(){
-        String siteNumber = "";
-        try {
-            InputStream input = new FileInputStream(setPath());
-            prop.load(input);
-            siteNumber  = prop.getProperty("httpSiteNumber");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return siteNumber;
-    }
-
-    public void setHttpsSite(String site, int testSiteNumber){
-        try {
-            OutputStream output = new FileOutputStream(setPath());
-            prop.setProperty("httpsSiteUrl", site);
-            prop.setProperty("httpsSiteNumber", String.valueOf(testSiteNumber));
-            prop.store(output, null);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String getHttpsSiteNumber(){
-        String siteNumber = "";
-        try {
-            InputStream input = new FileInputStream(setPath());
-            prop.load(input);
-            siteNumber  = prop.getProperty("httpsSiteNumber");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return siteNumber;
-    }
 }
+// mpstestdepartment@gmail.com

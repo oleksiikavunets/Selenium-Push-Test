@@ -10,7 +10,6 @@ import org.testng.collections.Maps;
 import testdata.CreateSiteMails;
 import testdata.PasswordRecoveryMails;
 import testdata.RegistrationMails;
-import testutils.ScreenShooter;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -40,7 +39,7 @@ public class Verifier extends Assertion{
     @Override
     public void onAssertFailure(IAssert<?> assertCommand, AssertionError ex) {
 
-            ScreenShooter.captureScreenshot(ex.getClass().getSimpleName());
+//            ScreenShooter.captureScreenshot(ex.getClass().getSimpleName());
     }
 
     public int verify(String actual, String expected) {

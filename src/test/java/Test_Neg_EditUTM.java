@@ -14,14 +14,13 @@ import java.util.HashMap;
 import java.util.List;
 
 @Listeners(LogListener.class)
-public class Test_Neg_EditUTM extends SeleniumBaseClass {
+public class Test_Neg_EditUTM extends BaseTestClass {
 
     @Test(groups = {"negative", "UTM"})
     public void editUTMNegative() {
-        LogInPage logInPage = new LogInPage(driver, wait);
-
+        LogInPage logInPage = new LogInPage(driver);
         ConfigTest configTest = new ConfigTest();
-        HeaderMenu headerMenu = new HeaderMenu(driver, wait);
+        HeaderMenu headerMenu = new HeaderMenu(driver);
         ErrorMessages errorMessages = new ErrorMessages();
         Verifier verifier = new Verifier();
         String siteLang;
@@ -31,10 +30,10 @@ public class Test_Neg_EditUTM extends SeleniumBaseClass {
             MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
             List<WebElement> langs = headerMenu.getAvailableLanguages();
             langs.get(0).click();
-            SideBar sideBar = mainAdminPage.openSite(configTest.getTestSiteUrl());
-            SiteSettingsPage siteSettingsPage = sideBar.openSiteSettingsPage();
-            siteSettingsPage.clickEditUTM();
-            siteSettingsPage.clearUTMTags();
+            SiteSettingsPage siteSettingsPage = mainAdminPage.openSite(configTest.getTestSiteUrl())
+                    .openSiteSettingsPage()
+                    .clickEditUTM()
+                    .clearUTMTags();
             siteLang = headerMenu.checkLanguage();
 
             for (int i = 1; i <= langs.size(); i++) {
@@ -47,15 +46,13 @@ public class Test_Neg_EditUTM extends SeleniumBaseClass {
                 siteLang = headerMenu.checkLanguage();
             }
             for (int i = 0; i <= 22; i++) {
-                siteSettingsPage.setUTM_source("a");
-                siteSettingsPage.setUTM_medium("a");
+                siteSettingsPage.setUTM_source("a")
+                        .setUTM_medium("a");
             }
             siteSettingsPage.saveNewUTM();
             verifier.assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(siteSettingsPage.UTMsource)).getText().length() < 21);
             verifier.assertTrue(siteSettingsPage.UTMmedium.findElement(driver).getText().length() < 21);
         }
-
         verifier.assertTestPassed();
-
     }
 }

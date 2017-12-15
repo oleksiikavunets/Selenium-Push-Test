@@ -11,31 +11,25 @@ import testdata.TestData;
 import java.awt.*;
 
 @Listeners(LogListener.class)
-public class Test_Pos_DeleteDelayedMessage extends SeleniumBaseClass{
+public class Test_Pos_DeleteDelayedMessage extends BaseTestClass {
 
     @Test(groups = {"send push", "delayed push"})
     public void deleteDelayedMessage() throws AWTException {
         Logger Log = LogManager.getLogger(Test_Pos_DeleteDelayedMessage.class);
 
-        LogInPage logInPage = new LogInPage(driver, wait);
-
+        LogInPage logInPage = new LogInPage(driver);
         String testSite = TestData.testSite;
         String title = RandomGenerator.nextString();
         String text = RandomGenerator.nextString();
 
-        MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
-        SideBar sideBar = mainAdminPage.openSite(testSite);
-        CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
-
-        createCampaignPage.setTitle(title);
-        createCampaignPage.setText(text);
-        Log.info("DELAYED PUSH DATA> TITLE: " + title + "; TEXT: " + text);
-        createCampaignPage.setDateAndTime(10, 0, 0);
-        CampaignHistoryPage campaignHistoryPage = createCampaignPage.sendPush();
-
-        CampaignReportPage campaignReportPage = campaignHistoryPage.openMessage(title);
+        CampaignReportPage campaignReportPage = logInPage.login(TestData.email, TestData.pass)
+                .openSite(testSite).openCreateCampaignPage()
+                .setTitle(title).setText(text)
+                .setDateAndTime(10, 0, 0)
+                .sendPush().openMessage(title);
         campaignReportPage.verifyMessageDelayed();
-        campaignReportPage.cancelCampaign();
+        CampaignHistoryPage campaignHistoryPage = campaignReportPage.cancelCampaign();
+
         Assert.assertFalse(campaignHistoryPage.verifyMessageExists(title), "Message was not deleted");
     }
 }

@@ -1,33 +1,33 @@
 import actions.UserActions;
 import com.selenium.utils.RandomGenerator;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.SiteSettingsPage;
-import testdata.TestData;
 import testutils.Listeners.LogListener;
+
+import static testdata.TestData.*;
 
 /**
  * Created by Oleksii on 31.07.2017.
  */
 
 @Listeners(LogListener.class)
-public class Test_Pos_ChangeSiteIcon extends SeleniumBaseClass {
+public class Test_Pos_ChangeSiteIcon extends BaseTestClass {
 
 
     @Test (groups = {"site icon", "site settings", "icon"})
     public void changePicture() throws Exception {
 
-        SiteSettingsPage siteSettingsPage = new SiteSettingsPage(driver, wait);
-        UserActions userActions = new UserActions(driver, wait);
+        SiteSettingsPage siteSettingsPage = new SiteSettingsPage(driver);
+        UserActions userActions = new UserActions(driver);
 
-        String siteUrl = "http://" + RandomGenerator.nextString() + ".com";
-        userActions.createSite(TestData.email, TestData.pass, siteUrl);
-        String icon = siteSettingsPage.siteIcon.findElement(driver).getAttribute("src");
+        String siteUrl = newSitePattern + RandomGenerator.nextString() + ".com";
+        userActions.createSite(email, pass, siteUrl);
+        String icon = siteSettingsPage.getSiteIcon().getAttribute("src");
         siteSettingsPage.uplodIcon(siteSettingsPage.iconPath);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(siteSettingsPage.confirmPopUpButton)).click();
-        String newIcon = siteSettingsPage.siteIcon.findElement(driver).getAttribute("src");
+        siteSettingsPage.clickConfirmPopUpButton();
+        String newIcon = siteSettingsPage.getSiteIcon().getAttribute("src");
         Assert.assertFalse(icon.equals(newIcon), "Icon was not changed");
         userActions.deleteSite(siteUrl);
     }

@@ -3,109 +3,102 @@ package pageobjects;
 import actions.Timer;
 import com.selenium.ConfigTest;
 import com.selenium.enums.Server;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
+import pageobjects.common.AbstractPage;
 
 
 /**
  * Created by Oleksii on 12.07.2017.
  */
-public class LogInPage {
+public class LogInPage extends AbstractPage {
 
-    protected WebDriver driver;
-    Wait<WebDriver> wait;
-    public By loginInput = By.name("email");
-    public By passwordInput = By.name("password");
-    public By buttonSubmit = By.cssSelector("button[type='submit']");
-    public By registerButton = By.cssSelector("b[ng-bind*=\"'LGN_SIGN_UP'\"]");
-    public By forgotPassButton = By.cssSelector("a[ng-bind*=\"'LGN_FRGT_PSSWRD'\"]");
-    public By error = By.xpath("//p[@ng-bind=\"vmLogin.error | translate\"]");
+    private By loginInput = By.name("email");
+    private By passwordInput = By.name("password");
+    private By buttonSubmit = By.cssSelector("button[type='submit']");
+    private By registerButton = By.cssSelector("b[ng-bind*=\"'LGN_SIGN_UP'\"]");
+    private By forgotPassButton = By.cssSelector("a[ng-bind*=\"'LGN_FRGT_PSSWRD'\"]");
+    private By error = By.xpath("//p[@ng-bind=\"vmLogin.error | translate\"]");
 
-    public LogInPage(WebDriver driver, Wait<WebDriver> wait) {
-        this.driver = driver;
-        this.wait = wait;
+    public LogInPage(WebDriver driver) {
+        super(driver);
     }
 
     public MainAdminPage login(String login, String pass) {
-        Logger Log = LogManager.getLogger(LogInPage.class);
-
-        ConfigTest config = new ConfigTest();
-
-        String currentUrl = driver.getCurrentUrl();
-        if(!currentUrl.contains("login")) {
-            driver.navigate().to(config.getStartUrl() + "/login");
+        try {
+            String currentUrl = driver.getCurrentUrl();
+            if (!currentUrl.contains("login")) driver.get(new ConfigTest().getStartUrl() + "/login");
+        } catch (NullPointerException e) {
         }
-
-        managePopUp();
-//        Log.info("LOGIN: " + login + " PASSWORD: " + pass);
-
-
         for (int i = 0; i <= 100; i++) {
-            if(i%20==0){
+            if (i > 0 && i % 20 == 0) {
                 driver.navigate().refresh();
             }
-            try {
-                setLogin(login);
-                setPassword(pass);
-                driver.findElement(buttonSubmit).click();
-                Timer.waitSeconds(0.2);
-                try {
-                    Assert.assertFalse(driver.findElement(error).isDisplayed());
-                } catch (AssertionError A) {
-                    clearAll();
-                }
-
-
-            } catch (Exception e) {
-                break;//quit;
+            System.out.println("IN.....");
+            setLogin(login).setPassword(pass);
+            if (driver.findElement(loginInput).getAttribute("value").equals(login) && driver.findElement(passwordInput).getAttribute("value").equals(pass)) {
+                submit();
+                break;
+            } else {
+                clearAll();
             }
         }
-
-        return new MainAdminPage(driver, wait);
+        System.out.println("OUT.....");
+        return new MainAdminPage(driver);
     }
 
-    public void managePopUp(){
-        if(ConfigTest.iTest.equals(Server.GRV_7700)){
-            try{
+    private LogInPage managePopUp() {
+        if (ConfigTest.iTest.equals(Server.GRV_7700)) {
+            try {
                 Timer.waitSeconds(1);
                 driver.findElement(By.cssSelector("button[ng-click=\"$close()\"]")).click();
-            }catch (NoSuchElementException e){
+            } catch (NoSuchElementException e) {
                 System.out.println("No pop up");
             }
         }
-
+        return this;
     }
 
-    public void setLogin(String login) {
+    public LogInPage setLogin(String login) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(loginInput)).sendKeys(login);
+        return this;
     }
 
-    public void setPassword(String pass) {
+    public LogInPage setPassword(String pass) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(passwordInput)).sendKeys(pass);
+        return this;
     }
 
-    public void submit() {
+    public LogInPage submit() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(buttonSubmit)).click();
+        return this;
     }
 
-    public void clearAll() {
+    public LogInPage clearLogin() {
+        driver.findElement(loginInput).clear();
+        return this;
+    }
+
+    public LogInPage clearAll() {
         driver.findElement(loginInput).clear();
         driver.findElement(passwordInput).clear();
+        return this;
     }
 
     public RegistrationPage clickRegister() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(registerButton)).click();
-        return new RegistrationPage(driver, wait);
+        return new RegistrationPage(driver);
     }
 
     public RecoverPasswordPage clickForgotPass() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(forgotPassButton)).click();
-        return new RecoverPasswordPage(driver, wait);
+        return new RecoverPasswordPage(driver);
+    }
+
+    public WebElement getErrorMessage() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(error));
     }
 }

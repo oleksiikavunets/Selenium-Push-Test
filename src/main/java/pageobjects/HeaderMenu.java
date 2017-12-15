@@ -8,9 +8,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
+import pageobjects.common.AbstractPage;
 
-import java.util.HashMap;
 import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
@@ -18,10 +17,7 @@ import static com.selenium.enums.Server.P2B;
 /**
  * Created by Oleksii on 13.07.2017.
  */
-public class HeaderMenu {
-    WebDriver driver;
-    Wait<WebDriver> wait;
-
+public class HeaderMenu extends AbstractPage{
 
     public By logo = By.cssSelector("a[ui-sref=\"list\"]");
     public By logOutButton = By.cssSelector("span[ng-bind-html*=\"HDR_SGN_OUT\"]");
@@ -32,29 +28,29 @@ public class HeaderMenu {
     public By pl = By.cssSelector("img[src=\"../../../assets/img/polish.png\"]");
     public By de = By.cssSelector("img[src=\"../../../assets/img/de.png\"]");
 
-    public HeaderMenu(WebDriver driver, Wait<WebDriver> wait) {
-        this.driver = driver;
-        this.wait = wait;
-        signout.put("en", "Sign out");
-        signout.put("pl", "Wyloguj");
-        signout.put("ru", "Выйти");
-        signout.put("de", "Ausloggen");
+
+    public HeaderMenu(WebDriver driver){
+        super(driver);
     }
 
-    public HashMap<String, String> signout = new HashMap<>();
-
-    public void clickLogo() {
-        logo.findElement(driver).click();
+    public MainAdminPage clickLogo() {
+        if(driver.getCurrentUrl().contains("/sites/")) {
+            logo.findElement(driver).click();
+            wait.until(ExpectedConditions.not(ExpectedConditions.urlContains("/sites")));
+        }
+        return new MainAdminPage(driver);
     }
 
 
-    public void logout() {
+    public LogInPage logout() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(new LogInPage(driver, wait).buttonSubmit));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(logOutButton));
+        return new LogInPage(driver);
     }
 
-    public void openLanguageDropDown() {
+    public HeaderMenu openLanguageDropDown() {
         ((JavascriptExecutor) driver).executeScript("document.querySelector('a[class=\"dropdown-toggle\"]').click();");
+        return this;
     }
 
     public List<WebElement> getAvailableLanguages() {
@@ -65,7 +61,7 @@ public class HeaderMenu {
         return langs;
     }
 
-    public void switchLanguage(int i) {
+    public HeaderMenu switchLanguage(int i) {
         Custom custom = new Custom(driver);
 
         if(!ConfigTest.iTest.equals(P2B)) //Push2b.com has only one language version
@@ -77,9 +73,10 @@ public class HeaderMenu {
             ls.get(i).click();
             wait.until(ExpectedConditions.invisibilityOfElementWithText(logOutButton, langToChange));
         }
+        return this;
     }
 
-    public void switchLanguage() {
+    public HeaderMenu switchLanguage() {
         if(!ConfigTest.iTest.equals(P2B)) //Push2b.com has only one language version
         {
             String langToChange = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
@@ -87,6 +84,7 @@ public class HeaderMenu {
             wait.until(ExpectedConditions.visibilityOfElementLocated(language)).click();
             wait.until(ExpectedConditions.invisibilityOfElementWithText(logOutButton, langToChange));
         }
+        return this;
     }
 
     public String checkLanguage() {
@@ -103,7 +101,7 @@ public class HeaderMenu {
     }
 
 
-    public void switchPl() {
+    public HeaderMenu switchPl() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(languageDropDown));
         try {
             Assert.assertTrue(driver.findElement(pl).isDisplayed());
@@ -111,9 +109,10 @@ public class HeaderMenu {
             openLanguageDropDown();
             wait.until(ExpectedConditions.visibilityOfElementLocated(pl)).click();
         }
+        return this;
     }
 
-    public void switchEng() {
+    public HeaderMenu switchEng() {
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(languageDropDown));
         try {
@@ -122,9 +121,10 @@ public class HeaderMenu {
             openLanguageDropDown();
             wait.until(ExpectedConditions.visibilityOfElementLocated(en)).click();
         }
+        return this;
     }
 
-    public void switchRu() {
+    public HeaderMenu switchRu() {
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(languageDropDown));
         try {
@@ -133,9 +133,10 @@ public class HeaderMenu {
             openLanguageDropDown();
             wait.until(ExpectedConditions.visibilityOfElementLocated(ru)).click();
         }
+        return this;
     }
 
-    public void switchDe() {
+    public HeaderMenu switchDe() {
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(languageDropDown));
         try {
@@ -144,10 +145,11 @@ public class HeaderMenu {
             openLanguageDropDown();
             wait.until(ExpectedConditions.visibilityOfElementLocated(de)).click();
         }
+        return this;
     }
 
 
-    public void switchNextLanguage() {
+    public HeaderMenu switchNextLanguage() {
         String mot = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
         switch (mot) {
             case ("Sign out"):
@@ -162,7 +164,9 @@ public class HeaderMenu {
             default:
                 break;
         }
+        return this;
     }
+
 
 
 }

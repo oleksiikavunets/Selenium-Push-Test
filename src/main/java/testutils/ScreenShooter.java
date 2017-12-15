@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class ScreenShooter {
 
-    static WebDriver driver = WebDriverManager.getDriver();
+    static WebDriver driver = new WebDriverManager().getDriver();
 
 
     public static String captureScreenshot(String screenShotName)

@@ -49,7 +49,7 @@ public class ScreenshotListener extends TestListenerAdapter {
     public void onTestFailure(ITestResult failingTest) {
         try {
 
-            WebDriver driver = WebDriverManager.getDriver();
+            WebDriver driver = new WebDriverManager().getDriver();
             String screenshotDirectory = System.getProperty("C:/Users/OleksiiKavunets/Documents/Selenium/test-output/screenshots");
             String screenshotAbsolutePath = screenshotDirectory + File.separator + System.currentTimeMillis() + "_" + failingTest.getName() + ".png";
             File screenshot = new File(screenshotAbsolutePath);

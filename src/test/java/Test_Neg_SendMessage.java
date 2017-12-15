@@ -17,13 +17,13 @@ import java.util.List;
  */
 
 @Listeners(LogListener.class)
-public class Test_Neg_SendMessage extends SeleniumBaseClass {
+public class Test_Neg_SendMessage extends BaseTestClass {
 
 
     @Test(groups = { "negative", "send push" })// checks all error messages on page "Create Campaign"
     public void sendMessageNegative() throws Exception {
-        LogInPage logInPage = new LogInPage(driver, wait);
-        HeaderMenu headerMenu = new HeaderMenu(driver, wait);
+        LogInPage logInPage = new LogInPage(driver);
+        HeaderMenu headerMenu = new HeaderMenu(driver);
         BetaFeatures betaFeatures = new BetaFeatures();
         ErrorMessages errorMessages = new ErrorMessages();
         Verifier verifier = new Verifier();

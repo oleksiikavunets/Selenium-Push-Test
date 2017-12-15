@@ -16,13 +16,13 @@ import testrestrictions.BetaFeatures;
  */
 
 @Listeners(LogListener.class)
-public class Test_Pos_CopyCampaign extends SeleniumBaseClass {
+public class Test_Pos_CopyCampaign extends BaseTestClass {
 
 
     @Test(groups = {"send push", "copy campaign", "advanced settings", "tags", "alias", "active elements", "buttons", "big image"})
     public void copyCampain() throws Exception {
         Logger Log = LogManager.getLogger(Test_Pos_CopyCampaign.class);
-        LogInPage logInPage = new LogInPage(driver, wait);
+        LogInPage logInPage = new LogInPage(driver);
         Verifier verifier = new Verifier();
 
         String testSite = TestData.testSite;
@@ -48,7 +48,6 @@ public class Test_Pos_CopyCampaign extends SeleniumBaseClass {
 
             if (BetaFeatures.verifyBetaToTest("UTM")) {
                 SiteSettingsPage siteSettingsPage = sideBar.openSiteSettingsPage();
-                siteSettingsPage.openSiteSettings();
                 Timer.waitSeconds(2);
                 utm_source = wait.until(ExpectedConditions.visibilityOfElementLocated(siteSettingsPage.UTMsource)).getText();
                 utm_medium = siteSettingsPage.UTMmedium.findElement(driver).getText();
@@ -111,7 +110,7 @@ public class Test_Pos_CopyCampaign extends SeleniumBaseClass {
 
                 createCampaignPage.sendPush();
                 campaignHistoryPage.openMessage(title);
-                verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(campaignReportPage.redirect)).getText(), url);
+                verifier.assertEquals(campaignReportPage.getRedirectURL(), url);
                 if (BetaFeatures.verifyBetaToTest("UTM")) {
                     verifier.assertEquals(campaignReportPage.getUTM_source(), utm_source, "Failed on round: " + i);
                     verifier.assertEquals(campaignReportPage.getUTM_medium(), utm_medium, "Failed on round: " + i);

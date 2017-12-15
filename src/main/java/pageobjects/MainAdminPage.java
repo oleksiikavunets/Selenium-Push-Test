@@ -7,8 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
+import pageobjects.common.AbstractPage;
 
 import java.util.List;
 
@@ -16,9 +16,7 @@ import java.util.List;
 /**
  * Created by Oleksii on 13.07.2017.
  */
-public class MainAdminPage {
-    WebDriver driver;
-    Wait<WebDriver> wait;
+public class MainAdminPage extends AbstractPage{
 
     Logger Log = LogManager.getLogger(LogInPage.class);
 
@@ -28,9 +26,9 @@ public class MainAdminPage {
     public By amountOfAllSubscribers = By.cssSelector("span[ng-bind*=\"(vmList.currentUser.followers)\"]");
     public By amountOfSiteSucsribers = By.cssSelector("td[ng-bind*=\"(site.totalFollowers)\"]");
 
-    public MainAdminPage(WebDriver driver, Wait<WebDriver> wait) {
-        this.driver = driver;
-        this.wait = wait;
+
+    public MainAdminPage(WebDriver driver){
+        super(driver);
     }
 
     public int getTotalAmountOfSubscribers(){
@@ -39,64 +37,54 @@ public class MainAdminPage {
         return Integer.valueOf(driver.findElement(amountOfAllSubscribers).getText());
     }
 
-    public void verifySitePresent(String site) {
+    public boolean verifySitePresent(String site) {
+        boolean present = false;
         WebElement mySite = null;
         wait.until(ExpectedConditions.visibilityOfElementLocated(siteName));
         List<WebElement> sites = driver.findElements(siteName);
         for (WebElement s : sites) {
             if (s.getText().equals(site)) {
-                mySite = s;
+                present = true;
             }
         }
-        Assert.assertEquals(mySite.getText(), site);
+        return present;
     }
-
-
 
     public AddNewSitePage clickAddNewSiteButton(){
         wait.until(ExpectedConditions.presenceOfElementLocated(addNewSiteButton)).click();
-        return new AddNewSitePage(driver, wait);
+        return new AddNewSitePage(driver);
     }
 
     public SideBar openSite(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(siteName)).click();
-        return new SideBar(driver, wait);
+        return new SideBar(driver);
     }
 
     public SideBar openSite(String siteToOpen) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(siteName));
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(siteName));
 
         List<WebElement> siteList = driver.findElements(siteName);
 
         for (WebElement site : siteList) {
-
             if (site.getText().equalsIgnoreCase(siteToOpen)) {
                 site.click();
                 break;
             }
         }
         Log.info("TEST SITE: " + siteToOpen);
-        return new SideBar(driver, wait);
-
+        return new SideBar(driver);
     }
-
-/*
-    public SideBar openSite(String site){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(site))).click();
-        Log.info("TEST SITE: " + site);
-        return new SideBar(driver, wait);
-    }
-*/
 
     public void verifySiteToBeDeleted(String siteUrl) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(siteList));
         List<WebElement> siteList = driver.findElements(siteName);
-
         for (WebElement s : siteList) {
             Assert.assertFalse(s.getText().equals(siteUrl), "HA!!! Found your site!! It`s not deleted))");
         }
-
     }
 
-
+    public List<WebElement> getSiteList(){
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(siteName));
+        return siteName.findElements(driver);
+    }
 }

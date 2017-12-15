@@ -1,39 +1,38 @@
-import testutils.Listeners.LogListener;
+import actions.UserActions;
 import com.selenium.utils.RandomGenerator;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.TestData;
+import testutils.Listeners.LogListener;
 
 /**
  * Created by Oleksii on 31.07.2017.
  */
 @Listeners(LogListener.class)
-public class Test_Pos_SendMessageWithAlias extends SeleniumBaseClass {
+public class Test_Pos_SendMessageWithAlias extends BaseTestClass {
 
+    @Parameters("browser")
     @Test(groups = {"send push", "advanced settings", "alias"})
-    public void sendMessageWithAlias() throws Exception {
+    public void sendMessageWithAlias(@Optional("chrome") String browser) throws Exception {
+        LogInPage logInPage = new LogInPage(driver);
         String title = RandomGenerator.nextString();
         String text = RandomGenerator.nextString();
         String alias = TestData.alias;
         String testSite = TestData.testSite;
 
-        MainAdminPage mainAdminPage = new LogInPage(driver, wait).login(TestData.email, TestData.pass);
-        SideBar sideBar = mainAdminPage.openSite(testSite);
-        CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
-        createCampaignPage.setTitle(title);
-        createCampaignPage.setText(text);
+        new UserActions(driver).addNewAlias(browser, testSite, alias);
 
-        CreateCampaignPage.AdvancedOptions advancedOptions = createCampaignPage.openAdvancedOptions();
+        CreateCampaignPage.AdvancedOptions advancedOptions = logInPage.login(TestData.email, TestData.pass)
+                .openSite(testSite).openCreateCampaignPage()
+                .setTitle(title).setText(text)
+                .openAdvancedOptions();
         advancedOptions.addAliasToCampaign(alias);
 
-        CampaignHistoryPage campaignHistoryPage = createCampaignPage.sendPush();
-
-        CampaignReportPage campaignReportPage = campaignHistoryPage.openMessage(title);
-
-        Assert.assertEquals(alias,
-                wait.until(ExpectedConditions.visibilityOfElementLocated(campaignReportPage.alias)).getText());
+        CampaignReportPage campaignReportPage = new CreateCampaignPage(driver).sendPush().openMessage(title);
+        Assert.assertEquals(alias, campaignReportPage.getSentAlias().getText());
     }
 }

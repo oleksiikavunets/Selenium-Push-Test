@@ -16,14 +16,14 @@ import testdata.TestData;
 import testrestrictions.BetaFeatures;
 
 @Listeners(LogListener.class)
-public class Test_Pos_CreateWMWithBigImage extends SeleniumBaseClass {
+public class Test_Pos_CreateWMWithBigImage extends BaseTestClass {
 
     @Test(groups = {"WM"})
     public void createWMWithBigImagePos() throws Exception {
 
-        UserActions userActions = new UserActions(driver, wait);
-        SideBar sideBar = new SideBar(driver, wait);
-        WelcomeMessagePage welcomeMessagePage = new WelcomeMessagePage(driver, wait);
+        UserActions userActions = new UserActions(driver);
+        SideBar sideBar = new SideBar(driver);
+        WelcomeMessagePage welcomeMessagePage = new WelcomeMessagePage(driver);
                 Verifier verifier = new Verifier();
         String testSite = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
 
@@ -31,14 +31,12 @@ public class Test_Pos_CreateWMWithBigImage extends SeleniumBaseClass {
             userActions.createSite(TestData.email, TestData.pass, testSite);
 
             for (int i = 0; i <= 10; i++) {
-                sideBar.openWelcomeMessagePage();
-                welcomeMessagePage.switchWM();
-                CreateWMPage createWMPage = welcomeMessagePage.clickCreateNewWM();
-                createWMPage.setTitle(TestData.welcomeMessageTitle);
-                createWMPage.setText(TestData.welcomeMessageText);
+                CreateWMPage createWMPage = sideBar.openWelcomeMessagePage()
+                .switchWM().clickCreateNewWM()
+                .setTitle(TestData.welcomeMessageTitle).setText(TestData.welcomeMessageText);
 
-                CreateWMPage.AdditionalActiveItems bigImage = createWMPage.openAdditionalActiveItems();
-                bigImage.uploadBigImage(TestData.bigImage);
+                createWMPage.openAdditionalActiveItems().uploadBigImage(TestData.bigImage);
+
                 verifier.assertTrue(createWMPage.getBigImagePreview().isDisplayed(), "Big image not found in notification preview");
                 createWMPage.saveWM();
                 Boolean siteIdError = userActions.handleErrorPopUp();
@@ -60,7 +58,7 @@ public class Test_Pos_CreateWMWithBigImage extends SeleniumBaseClass {
             Timer.waitSeconds(1);
 
             userActions.deleteSite(testSite);
-            new HeaderMenu(driver, wait).logout();
+            new HeaderMenu(driver).logout();
             verifier.assertTestPassed();
         } else {
             Log.info(this.getClass().getSimpleName() + ": Current funtionality is not deployed on " + ConfigTest.iTest);

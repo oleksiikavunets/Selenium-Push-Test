@@ -5,14 +5,12 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
+import pageobjects.common.AbstractPage;
 
 /**
  * Created by Oleksii on 17.07.2017.
  */
-public class RegistrationPage {
-    WebDriver driver;
-    Wait<WebDriver> wait;
+public class RegistrationPage extends AbstractPage{
 
     public By email = By.name("email");
     public By password = By.name("password");
@@ -23,36 +21,41 @@ public class RegistrationPage {
     public By passDNTMatch = By.cssSelector("p[translate=\"PASS_DNT_MATCH\"]");
     public By errorExists = By.cssSelector("p[ng-repeat=\"error in vmRegister.errors.email track by $index\"]");
 
-    public RegistrationPage(WebDriver driver, Wait<WebDriver> wait) {
-        this.driver = driver;
-        this.wait = wait;
+    public RegistrationPage(WebDriver driver){
+        super(driver);
     }
 
-
-    public void setEmail(String login) {
+    public RegistrationPage setEmail(String login) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(email)).sendKeys(login);
+        return this;
     }
 
-    public void clearEmail(){
+    public RegistrationPage clearEmail(){
         email.findElement(driver).clear();
+        return this;
     }
 
-    public void setPass(String pass) {
+    public RegistrationPage setPass(String pass) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(password)).sendKeys(pass);
+        return this;
     }
-    public void clearPass(){
+    public RegistrationPage clearPass(){
         password.findElement(driver).clear();
+        return this;
     }
 
-    public void repeatPass(String pass) {
+    public RegistrationPage repeatPass(String pass) {
         repeatPassword.findElement(driver).sendKeys(pass);
+        return this;
     }
-    public void clearRepeatPass(){
+    public RegistrationPage clearRepeatPass(){
         repeatPassword.findElement(driver).clear();
+        return this;
     }
 
-    public void submit() {
+    public RegistrationPage submit() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(submit)).click();
+        return this;
     }
 
 

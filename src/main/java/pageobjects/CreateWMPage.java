@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
+import pageobjects.common.AbstractPage;
 import pageutils.ImageUploader;
 import testrestrictions.BetaFeatures;
 
@@ -14,9 +14,7 @@ import java.io.File;
 /**
  * Created by Oleksii on 19.07.2017.
  */
-public class CreateWMPage {
-    WebDriver driver;
-    Wait<WebDriver> wait;
+public class CreateWMPage extends AbstractPage{
 
     //push preview block
     By titlePreview = By.cssSelector("p[data-ng-bind*=\"$ctrl.mtitle \"]");
@@ -49,30 +47,33 @@ public class CreateWMPage {
     By requiredText = By.cssSelector("div[ng-show*=\"text.$error.required\"]>p");
     By errorLink = By.cssSelector("div[ng-show*=\"redirect.$error.p\"]>p");
 
-
-    public CreateWMPage(WebDriver driver, Wait<WebDriver> wait) {
-        this.driver = driver;
-        this.wait = wait;
+    public CreateWMPage(WebDriver driver){
+        super(driver);
     }
 
-    public void setTitle(String ttl) {
+    public CreateWMPage setTitle(String ttl) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(titleInput)).sendKeys(ttl);
+        return this;
     }
 
-    public void clearTitle() {
+    public CreateWMPage clearTitle() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(titleInput)).clear();
+        return this;
     }
 
-    public void clearText() {
+    public CreateWMPage clearText() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(textInput)).clear();
+        return this;
     }
 
-    public void setText(String t) {
+    public CreateWMPage setText(String t) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(textInput)).sendKeys(t);
+        return this;
     }
 
-    public void setURL(String url) {
+    public CreateWMPage setURL(String url) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(urlInput)).sendKeys(url);
+        return this;
     }
 
     public WebElement getTitlePreview() {
@@ -117,7 +118,7 @@ public class CreateWMPage {
     public String uploadIconToWM(String path) {
 
         if(BetaFeatures.verifyBetaToTest("imageCropper")){
-            ImageUploader.uploadIcon(path);
+            new ImageUploader(driver).uploadIcon(path);
         }else {
             uploadIcon(path);
         }
@@ -127,8 +128,9 @@ public class CreateWMPage {
         return iconLink;
     }
 
-    public void uploadIcon(String path) {
+    public CreateWMPage uploadIcon(String path) {
         driver.findElement(iconInput).sendKeys(new File(path).getAbsolutePath());
+        return this;
     }
 
     public AdditionalActiveItems openAdditionalActiveItems() {
@@ -137,62 +139,73 @@ public class CreateWMPage {
     }
 
     public class AdditionalActiveItems {
-        public void switchButton1() {
+        public AdditionalActiveItems switchButton1() {
             button1Switch.findElement(driver).click();
+            return this;
         }
 
-        public void switchButton2() {
+        public AdditionalActiveItems switchButton2() {
             button2Switch.findElement(driver).click();
+            return this;
         }
 
-        public void setButton1Name(String name) {
+        public AdditionalActiveItems setButton1Name(String name) {
             button1NameInput.findElement(driver).sendKeys(name);
+            return this;
         }
 
-        public void setButton2Name(String name) {
+        public AdditionalActiveItems setButton2Name(String name) {
             button2NameInput.findElement(driver).sendKeys(name);
+            return this;
         }
 
-        public void setButton1URL(String url) {
+        public AdditionalActiveItems setButton1URL(String url) {
             button1URL.findElement(driver).sendKeys(url);
+            return this;
         }
 
-        public void setButton2URL(String url) {
+        public AdditionalActiveItems setButton2URL(String url) {
             button2URL.findElement(driver).sendKeys(url);
+            return this;
         }
 
-        public void setButton1(String buttonName, String buttonURL) {
+        public AdditionalActiveItems setButton1(String buttonName, String buttonURL) {
             setButton1Name(buttonName);
             setButton1URL(buttonURL);
+            return this;
         }
 
-        public void setButton2(String buttonName, String buttonURL) {
+        public AdditionalActiveItems setButton2(String buttonName, String buttonURL) {
             setButton2Name(buttonName);
             setButton2URL(buttonURL);
+            return this;
         }
 
-        public void setButtons(String button1Name, String button1URL, String button2Name, String button2URL) {
+        public AdditionalActiveItems setButtons(String button1Name, String button1URL, String button2Name, String button2URL) {
             switchButton1();
             switchButton2();
             setButton1(button1Name, button1URL);
             setButton2(button2Name, button2URL);
+            return this;
         }
 
-        public void switchBIGImage() {
+        public AdditionalActiveItems switchBIGImage() {
             bigImageSwitch.findElement(driver).click();
+            return this;
         }
 
-        public void setBIGImage(String path) {
+        public AdditionalActiveItems setBIGImage(String path) {
             switchBIGImage();
             {
                 driver.findElement(bigImageInput).sendKeys(new File(path).getAbsolutePath());
             }
+            return this;
         }
 
         public String uploadBigImage(String path) {
             if(BetaFeatures.verifyBetaToTest("imageCropper")){
                 switchBIGImage();
-                ImageUploader.uploadBigImg(path);
+                new ImageUploader(driver).uploadBigImg(path);
             }else {
                 setBIGImage(path);
             }
@@ -213,7 +226,8 @@ public class CreateWMPage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(errorLink));
     }
 
-    public void saveWM() {
+    public WelcomeMessagePage saveWM() {
         saveWMButton.findElement(driver).click();
+        return new WelcomeMessagePage(driver);
     }
 }

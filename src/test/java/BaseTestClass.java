@@ -17,7 +17,7 @@ public class SeleniumBaseClass {
     Server serverToTest = Server.GRV;
 
 
-    public WebDriver driver = null;
+    public WebDriver driver;
 
 
 
@@ -25,7 +25,7 @@ public class SeleniumBaseClass {
 
 
     @BeforeSuite
-    public void initializeTestSuite(){
+    public void initializeTestServer(){
         ConfigTest.setTestServer(serverToTest);
     }
     @BeforeTest(alwaysRun = true)
@@ -40,9 +40,9 @@ public class SeleniumBaseClass {
     @BeforeClass(alwaysRun = true)
     public void configureWebDriver(@Optional("chrome") String browser) {
 
-        driver = WebDriverManager.getDriver(browser);
+        driver = new WebDriverManager().getDriver(browser);
 
-        wait = WaitManager.getWait();
+        wait = new WaitManager(driver).getWait();
     }
 
     @AfterMethod
@@ -69,7 +69,7 @@ public class SeleniumBaseClass {
     @Parameters("browser")
     @AfterSuite
     public void endTest(@Optional("chrome") String browser) {
-        WebDriverManager.quitAllDrivers();
+        new WebDriverManager().quitAllDrivers();
     }
 
     public WebDriver getDriver() {

@@ -18,12 +18,12 @@ import java.util.List;
  */
 
 @Listeners(LogListener.class)
-public class Test_Neg_RestorePassword extends SeleniumBaseClass {
+public class Test_Neg_RestorePassword extends BaseTestClass {
 
     @Test(groups = { "negative" })
     public void restorePasswordNegative() throws Exception {
-        HeaderMenu headerMenu = new HeaderMenu(driver, wait);
-        LogInPage logInPage = new LogInPage(driver, wait);
+        HeaderMenu headerMenu = new HeaderMenu(driver);
+        LogInPage logInPage = new LogInPage(driver);
         ErrorMessages errorMessages = new ErrorMessages();
         Verifier verifier = new Verifier();
 

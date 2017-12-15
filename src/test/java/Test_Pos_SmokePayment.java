@@ -11,18 +11,17 @@ import testrestrictions.GravitecBilling;
 import testutils.Listeners.LogListener;
 
 @Listeners(LogListener.class)
-public class Test_Pos_SmokePayment extends SeleniumBaseClass {
+public class Test_Pos_SmokePayment extends BaseTestClass {
 
     @Test(groups = "billing")
     public void smokePayment() throws Exception {
-        LogInPage logInPage = new LogInPage(driver, wait);
+        LogInPage logInPage = new LogInPage(driver);
         GravitecBilling gravitecBilling = new GravitecBilling();
 
         if (gravitecBilling.verifySmokePaymentToExecute()) {
-            BillingPage billingPage = new BillingPage(driver, wait);
+            BillingPage billingPage = new BillingPage(driver);
             logInPage.login(TestData.debtorEmail, TestData.pass);
-            billingPage.clickToPayNow();
-            billingPage.clickPopUpToPay();
+            billingPage.clickToPayNow().clickPopUpToPay();
             wait.until(ExpectedConditions.urlContains("fondy"));
             String url = driver.getCurrentUrl();
             System.out.println(url);

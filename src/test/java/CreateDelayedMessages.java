@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CreateDelayedMessages extends SeleniumBaseClass {
+public class CreateDelayedMessages extends BaseTestClass {
 
     @Test
     public void createDelayedMessages() throws Exception {
@@ -18,7 +18,7 @@ public class CreateDelayedMessages extends SeleniumBaseClass {
 //        SideBar sideBar = new SideBar(driver, wait);
 
 
-        LogInPage logInPage = new LogInPage(driver, wait);
+        LogInPage logInPage = new LogInPage(driver);
         String testSite = TestData.testSite;
         String siteUrl = "http://" + RandomGenerator.nextString() + ".com";
 
@@ -49,7 +49,7 @@ public class CreateDelayedMessages extends SeleniumBaseClass {
 
             CampaignReportPage campaignReportPage = campaignHistoryPage.openMessage(title);
             Assert.assertTrue(campaignReportPage.verifyMessageDelayed());
-            new HeaderMenu(driver, wait).logout();
+            new HeaderMenu(driver).logout();
         }
 
 

@@ -15,27 +15,23 @@ import testutils.Listeners.LogListener;
  */
 
 @Listeners(LogListener.class)
-public class Test_Pos_CreateWM extends SeleniumBaseClass {
+public class Test_Pos_CreateWM extends BaseTestClass {
 
 
     @Test(groups = {"WM"})
     public void createWM() throws Exception {
-        SideBar sideBar = new SideBar(driver, wait);
-        UserActions userActions = new UserActions(driver, wait);
-        WelcomeMessagePage welcomeMessagePage = new WelcomeMessagePage(driver, wait);
-        CreateWMPage createWMPage = new CreateWMPage(driver, wait);
+        SideBar sideBar = new SideBar(driver);
+        UserActions userActions = new UserActions(driver);
         Verifier verifier = new Verifier();
         String siteUrl = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
 
 
         userActions.createSite(TestData.email, TestData.pass, siteUrl);
         for (int i = 0; i <= 10; i++) {
-            sideBar.openWelcomeMessagePage();
-
-            welcomeMessagePage.switchWM();
-            welcomeMessagePage.clickCreateNewWM();
-            createWMPage.setTitle(TestData.welcomeMessageTitle);
-            createWMPage.setText(TestData.welcomeMessageText);
+            CreateWMPage createWMPage = sideBar.openWelcomeMessagePage()
+            .switchWM().clickCreateNewWM()
+            .setTitle(TestData.welcomeMessageTitle)
+            .setText(TestData.welcomeMessageText);
 
             verifier.assertEquals(createWMPage.getTitlePreview().getText(), TestData.welcomeMessageTitle, "Incorrect title on preview");
             verifier.assertEquals(createWMPage.getTextPreview().getText(), TestData.welcomeMessageText, "Incorrect text on preview");
@@ -51,6 +47,7 @@ public class Test_Pos_CreateWM extends SeleniumBaseClass {
                 break;
             }
         }
+        WelcomeMessagePage welcomeMessagePage = new WelcomeMessagePage(driver);
         verifier.assertTrue(welcomeMessagePage.getWMTitle().isDisplayed(), "Welcome message is not displayed on page");
 
 
@@ -58,8 +55,7 @@ public class Test_Pos_CreateWM extends SeleniumBaseClass {
             welcomeMessagePage.enableWM();
             verifier.assertTrue(welcomeMessagePage.isEnabledWM(), "Could not enable welcome message");
         }
-        welcomeMessagePage.deleteWM();
-        welcomeMessagePage.switchWM();
+        welcomeMessagePage.deleteWM().switchWM();
         Timer.waitSeconds(1);
 
         userActions.deleteSite(siteUrl);

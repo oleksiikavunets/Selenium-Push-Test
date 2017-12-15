@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import testdata.TestData;
+import webdriverconfiger.WaitManager;
 
 import java.io.File;
 
@@ -18,8 +19,8 @@ import static com.selenium.enums.Server.GRV_7700;
  * Created by Oleksii on 17.07.2017.
  */
 public class AddNewSitePage {
-    WebDriver driver;
-    Wait<WebDriver> wait;
+    private WebDriver driver;
+    private Wait<WebDriver> wait;
 
     public By addSiteButton = By.cssSelector("label[class*=\"btn-block btn-primary\"]");
 
@@ -28,55 +29,77 @@ public class AddNewSitePage {
     public By domainInput = By.name("domain");
     public By fileInput = By.cssSelector("input[type='file']");
     //error messages locators
-    public By errorHTTPButton = By.cssSelector("[ng-click*='http'][ng-class*=\"protocolErr\"]");
-    public By errorHTTPSButton = By.cssSelector("[ng-click*='https'][ng-class*=\"protocolErr\"]");
+    public By errorHTTPBtn = By.cssSelector("[ng-click*='http'][ng-class*=\"protocolErr\"]");
+    public By errorHTTPSBtn = By.cssSelector("[ng-click*='https'][ng-class*=\"protocolErr\"]");
     public By protocolMessage = By.cssSelector("div[ng-bind=\"vmAdd.errors.protocolErr | translate\"]");
     public By existsError = By.cssSelector("span[ng-bind=\"'ADD_ALRD_EXIST' | translate\"]");
     public By iconError = By.cssSelector("p[ng-bind=\"vmAdd.imgErrorMessage | translate\"]");
     public By iconError7700 = By.cssSelector("[ng-if*=\"errorIcon\"]");
 
-
-    public AddNewSitePage(WebDriver driver, Wait<WebDriver> wait) {
+    public AddNewSitePage(WebDriver driver){
         this.driver = driver;
-        this.wait = wait;
+        wait = new WaitManager(driver).getWait();
     }
 
     public String createSite(String siteUrl) throws Exception {
-
-        new MainAdminPage(driver, wait).clickAddNewSiteButton();
+        new MainAdminPage(driver).clickAddNewSiteButton();
         setDomain(siteUrl);
         uploadIcon(TestData.icon);
         wait.until(ExpectedConditions.presenceOfElementLocated(fileInput));
         clickAdd();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(new SiteSettingsPage(driver, wait).deleteWebsiteButton));
-        String script = driver.findElement(By.xpath("//*[@id=\"client-script-tag\"]")).getText();
-        return script;
+        return  new SiteSettingsPage(driver).getSiteScript();
+    }
+
+    public WebElement getHttpBtn(){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(httpButton));
+    }
+
+    public WebElement getHttpsBtn(){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(httpsButton));
+    }
+
+    public WebElement getErrorProtocolMsg(){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(protocolMessage));
+    }
+
+    public WebElement getErrorSiteExistsMsg(){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(existsError));
     }
 
 
 
-    public void selectHTTPprotocol(){
+    public AddNewSitePage selectHTTPprotocol(){
         Custom custom = new Custom(driver);
         custom.clickAt(driver.findElement(httpButton));
+        return this;
     }
-    public void selectHTTPSprotocol(){
+    public AddNewSitePage selectHTTPSprotocol(){
         Custom custom = new Custom(driver);
         custom.clickAt(driver.findElement(httpsButton));
+        return this;
     }
 
-    public void setDomain(String dom) {
+    public AddNewSitePage setDomain(String dom) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(domainInput)).sendKeys(dom);
+        return this;
     }
 
-    public void uploadIcon(String path) {
+    public AddNewSitePage clearDomainInput(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(domainInput)).clear();
+        return this;
+    }
+
+    public AddNewSitePage uploadIcon(String path) {
         driver.findElement(fileInput).sendKeys(new File(path).getAbsolutePath());
+        return this;
     }
 
-    public void clickAdd() {
+    public AddNewSitePage clickAdd() {
         Custom custom = new Custom(driver);
 
         WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(addSiteButton));
         custom.clickAt(el);
+        return this;
     }
 
     public WebElement getIconTooBigError(){

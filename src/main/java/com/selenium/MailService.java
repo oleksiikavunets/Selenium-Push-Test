@@ -129,10 +129,6 @@ public class MailService {
         return result;
     }
 
-    public static void main(String[] args) throws Exception {
-        System.out.println(getRecoverLink());
-    }
-
     public static String getRegistrationMail() {
         String registrationMail = null;
 

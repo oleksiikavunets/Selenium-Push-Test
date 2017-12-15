@@ -1,11 +1,10 @@
 package pageobjects;
 
-import actions.Timer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
+import pageobjects.common.AbstractPage;
 
 import java.util.List;
 import java.util.Random;
@@ -13,23 +12,20 @@ import java.util.Random;
 /**
  * Created by Oleksii on 17.07.2017.
  */
-public class CampaignHistoryPage {
-    WebDriver driver;
-    Wait<WebDriver> wait;
+public class CampaignHistoryPage extends AbstractPage{
 
-    public By message = By.cssSelector("span[class=\"text-strong-600 ng-binding\"]");
-    public By pageNumber = By.cssSelector("a[ng-click*=\"Pagination.changePage\"][data-ng-bind=\"page\"]");
-    public By startPagination = By.cssSelector("a[ng-click*=\"vmPagination.changePage\"]");
-    public By endPagination = By.cssSelector("a[ng-click*=\"vmPagination.getPages\"]");
+    private  By message = By.cssSelector("span[class=\"text-strong-600 ng-binding\"]");
+    private  By pageNumber = By.cssSelector("a[ng-click*=\"Pagination.changePage\"][data-ng-bind=\"page\"]");
+    private  By startPagination = By.cssSelector("a[ng-click*=\"vmPagination.changePage\"]");
+    private  By endPagination = By.cssSelector("a[ng-click*=\"vmPagination.getPages\"]");
 
-    public CampaignHistoryPage(WebDriver driver, Wait<WebDriver> wait) {
-        this.driver = driver;
-        this.wait = wait;
+    public CampaignHistoryPage(WebDriver driver){
+       super(driver);
     }
 
     public CampaignReportPage openMessage(String title) {
         searchForMessage(title).click();
-        return new CampaignReportPage(driver, wait);
+        return new CampaignReportPage(driver);
     }
 
     public WebElement searchForMessage(String mes) {

@@ -1,9 +1,6 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
 import com.selenium.MailService;
-import testutils.Listeners.LogListener;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -11,6 +8,7 @@ import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.RegistrationPage;
 import testdata.TestData;
+import testutils.Listeners.LogListener;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,14 +16,13 @@ import java.util.List;
 import static com.selenium.enums.Server.P2B;
 
 @Listeners(LogListener.class)
-public class Test_Pos_RegistrationEmailsMultiLanguage extends SeleniumBaseClass {
+public class Test_Pos_RegistrationEmailsMultiLanguage extends BaseTestClass {
 
     @Test(groups = {"mails", "registration"}, singleThreaded = true, threadPoolSize = 1)
     public void testRegistrationMails() throws IOException {
-        Logger Log = LogManager.getLogger(Test_Pos_RegistrationEmailsMultiLanguage.class);
-        LogInPage logInPage = new LogInPage(driver, wait);
-        HeaderMenu headerMenu = new HeaderMenu(driver, wait);
-        RegistrationPage register = new RegistrationPage(driver, wait);
+
+        LogInPage logInPage = new LogInPage(driver);
+        HeaderMenu headerMenu = new HeaderMenu(driver);
         ConfigTest config = new ConfigTest();
         Verifier verifier = new Verifier();
 
@@ -44,15 +41,14 @@ public class Test_Pos_RegistrationEmailsMultiLanguage extends SeleniumBaseClass 
             try {
                 logInPage.clickRegister();
                 int emailNumber = Integer.valueOf(config.getEmailNumber());
-                register.setUserCridentials("grovitek+" + emailNumber + "@gmail.com", pass);
+                new RegistrationPage(driver).setUserCridentials("grovitek+" + emailNumber + "@gmail.com", pass);
                 String message = MailService.getRegistrationMail();
                 emailNumber = emailNumber + 2;
                 config.setEmailNumber(emailNumber);
                 config.setPassword(pass);
-                Log.info(message);
+
                 verifier.assertTrue(verifier.verifyRegistrationMail(message, siteLang));
                 String link = "https://" + message.split(" https://")[1].split("\\n")[0];
-                Log.info("CONFIRMATION LINK: " + link);
                 driver.navigate().to(link);
             } catch (Exception e) {
                 e.printStackTrace();

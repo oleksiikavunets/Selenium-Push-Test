@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="ChromeSuite" parallel="tests" thread-count="2">
+<suite name="Chrome Suite" parallel="tests" thread-count="1">
     <parameter name="browser" value="chrome"/>
     <listeners>
         <listener class-name="testutils.Listeners.TestRetryListener"/>
@@ -24,9 +24,9 @@
         <classes>
             <class name="Test_Pos_Registration"/>
             <class name="Test_Pos_RestorePassword"/>
-            <class name="Test_Pos_RegistrationEmailsMultiLanguage"/>
-            <class name="Test_Pos_RecoverPassMultiLanguage"/>
-            <class name="Test_Pos_NewSiteMailsMultiLanguage"/>
+            <!--<class name="Test_Pos_RegistrationEmailsMultiLanguage"/>-->
+            <!--<class name="Test_Pos_RecoverPassMultiLanguage"/>-->
+            <!--<class name="Test_Pos_NewSiteMailsMultiLanguage"/>-->
         </classes>
     </test>
     <test name="SEND CAMPAIGNS">

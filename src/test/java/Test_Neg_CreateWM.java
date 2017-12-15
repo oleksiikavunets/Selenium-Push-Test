@@ -19,18 +19,18 @@ import java.util.List;
  * Created by Oleksii on 27.06.2017.
  */
 @Listeners(LogListener.class)
-public class Test_Neg_CreateWM extends SeleniumBaseClass {
+public class Test_Neg_CreateWM extends BaseTestClass {
 
 
     @Test(groups = { "negative", "WM" })
     public void createWMnegative() throws Exception {
-        HeaderMenu headerMenu = new HeaderMenu(driver, wait);
-        SideBar sideBar = new SideBar(driver, wait);
+        HeaderMenu headerMenu = new HeaderMenu(driver);
+        SideBar sideBar = new SideBar(driver);
 
         ErrorMessages errorMessages = new ErrorMessages();
-        UserActions userActions = new UserActions(driver, wait);
+        UserActions userActions = new UserActions(driver);
         Verifier verifier = new Verifier();
-        String siteUrl = "http://" + RandomGenerator.nextString() + ".com";
+        String siteUrl = TestData.newSitePattern  + RandomGenerator.nextString() + ".com";
         String siteLang;
 
         HashMap<String, String> requiredField = errorMessages.getRequiredField();

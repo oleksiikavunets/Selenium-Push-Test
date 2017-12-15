@@ -1,62 +1,65 @@
 package pageobjects;
 
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
+import pageobjects.common.AbstractPage;
+
+import java.util.List;
 
 /**
  * Created by Oleksii on 17.07.2017.
  */
-public class CampaignReportPage {
-    WebDriver driver;
-    Wait<WebDriver> wait;
+public class CampaignReportPage extends AbstractPage{
 
-    public By backToHistoryButton = By.cssSelector("span[ng-bind*=\"'HSTR_PUSH_BACK'\"]");
-    public By editButton = By.cssSelector("span[ng-bind*=\"'HSTR_PUSH_EDIT'\"]");
-    public By cancelButton = By.cssSelector("span[translate=\"HSTR_PUSH_CANCAMP\"]");
-    public By copyButton = By.cssSelector("span[translate=\"COPY\"]");
+    private  By backToHistoryButton = By.cssSelector("span[ng-bind*=\"'HSTR_PUSH_BACK'\"]");
+    private  By editButton = By.cssSelector("span[ng-bind*=\"'HSTR_PUSH_EDIT'\"]");
+    private  By cancelButton = By.cssSelector("span[translate=\"HSTR_PUSH_CANCAMP\"]");
+    private  By copyButton = By.cssSelector("span[translate=\"COPY\"]");
 
-    public By pushTitle = By.cssSelector("h5[ng-bind=\"vmHistoryPush.message.tl\"]");
-    public By pushText = By.cssSelector("h5[ng-bind=\"vmHistoryPush.message.tx\"]");
-    public By urlToRedirect = By.cssSelector("a[class*=\"text-info\"][ng-href]");
-    public By confirmPopUpButton = By.cssSelector("button[class*=\"confirm\"]");
-    public By okPopUpButton = By.cssSelector("button[ng-bind*=\"ok\"]");
+    private  By pushTitle = By.cssSelector("h5[ng-bind=\"vmHistoryPush.message.tl\"]");
+    private  By pushText = By.cssSelector("h5[ng-bind=\"vmHistoryPush.message.tx\"]");
+    private  By urlToRedirect = By.cssSelector("a[class*=\"text-info\"][ng-href]");
+    private  By confirmPopUpButton = By.cssSelector("button[class*=\"confirm\"]");
+    private  By okPopUpButton = By.cssSelector("button[ng-bind*=\"ok\"]");
 
 
-    public By alias = By.cssSelector("span[ng-bind=\"alias.name\"]");
-    public By tag = By.cssSelector("span[ng-bind=\"tag.name\"]");
-    public By redirect = By.cssSelector("a[class=\"text-info ng-binding\"]");
+    private  By alias = By.cssSelector("span[ng-bind=\"alias.name\"]");
+    private  By tag = By.cssSelector("span[ng-bind=\"tag.name\"]");
+    private  By redirect = By.cssSelector("a[class=\"text-info ng-binding\"]");
 
-    public CampaignReportPage(WebDriver driver, Wait<WebDriver> wait) {
-        this.driver = driver;
-        this.wait = wait;
+    public CampaignReportPage(WebDriver driver){
+        super(driver);
     }
 
-    public void copyCampaign() {
+    public CreateCampaignPage copyCampaign() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(copyButton)).click();
+        return new CreateCampaignPage(driver);
     }
 
-    public void cancelCampaign() {
+    public CampaignHistoryPage cancelCampaign() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(cancelButton)).click();
         clickConfirmPopUpButton();
         clickOkPopUpButton();
+        return new CampaignHistoryPage(driver);
     }
 
     public CreateCampaignPage clickEditCampaign() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(editButton)).click();
-        return new CreateCampaignPage(driver, wait);
+        return new CreateCampaignPage(driver);
     }
 
-    public void clickConfirmPopUpButton() {
+    public CampaignReportPage clickConfirmPopUpButton() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(confirmPopUpButton)).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(confirmPopUpButton));
+        return this;
     }
 
-    public void clickOkPopUpButton() {
+    public CampaignReportPage clickOkPopUpButton() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(okPopUpButton)).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(okPopUpButton));
+        return this;
     }
 
     public boolean verifyMessageDelayed() {
@@ -101,5 +104,14 @@ public class CampaignReportPage {
     public String getUTM_campaign() {
         String utm_campaign = wait.until(ExpectedConditions.visibilityOfElementLocated(redirect)).getText().split("utm_campaign=")[1].split("&")[0];
         return utm_campaign;
+    }
+
+    public List<WebElement> getSentTags(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(tag));
+        List<WebElement> sentTags = driver.findElements(tag);
+        return sentTags;
+    }
+    public WebElement getSentAlias(){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(alias));
     }
 }

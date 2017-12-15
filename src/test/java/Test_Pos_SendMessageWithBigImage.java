@@ -1,43 +1,38 @@
 import actions.Verifier;
-import org.testng.SkipException;
-import testutils.Listeners.LogListener;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.SkipException;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
+import testutils.Listeners.LogListener;
 
 /**
  * Created by Oleksii on 31.07.2017.
  */
 
 @Listeners(LogListener.class)
-public class Test_Pos_SendMessageWithBigImage extends SeleniumBaseClass {
+public class Test_Pos_SendMessageWithBigImage extends BaseTestClass {
 
 
     @Test(groups = {"send push", "active elements", "big image"})
     public void sendMessageWithBIGImage() {
-        Logger Log = LogManager.getLogger(Test_Pos_SendMessageWithBigImage.class);
 
         if (BetaFeatures.verifyBetaToTest("buttonsAndBigImage")) {
-            LogInPage logInPage = new LogInPage(driver, wait);
-            CreateCampaignPage createCampaignPage = new CreateCampaignPage(driver, wait);
+            LogInPage logInPage = new LogInPage(driver);
+            new CreateCampaignPage(driver);
             Verifier verifier = new Verifier();
 
-            MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
-            SideBar sideBar = mainAdminPage.openSite();
+            CreateCampaignPage createCampaignPage = logInPage.login(TestData.email, TestData.pass)
+                    .openSite().openCreateCampaignPage()
+                    .setTitle(TestData.pushTitle).setText(TestData.pushText);
 
-            sideBar.openCreateCampaignPage();
-            createCampaignPage.setTitle(TestData.pushTitle);
-            createCampaignPage.setText(TestData.pushText);
             CreateCampaignPage.AdditionalActiveItems bigImage = createCampaignPage.openAdditionalActiveItems();
             String image = bigImage.uploadBigImage(TestData.bigImage);
             verifier.assertTrue((createCampaignPage.bigImagePrev.findElement(driver)).isDisplayed());
-            CampaignHistoryPage campaignHistoryPage = createCampaignPage.sendPush();
-            CampaignReportPage campaignReportPage = campaignHistoryPage.openMessage(TestData.pushTitle);
+            CampaignReportPage campaignReportPage = createCampaignPage.sendPush()
+                    .openMessage(TestData.pushTitle);
             campaignReportPage.copyCampaign();
 
             verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignPage.bigImagePrev)).getAttribute("src"), image);

@@ -13,28 +13,26 @@ import testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
 
 @Listeners(LogListener.class)
-public class Test_Pos_EditWM extends SeleniumBaseClass {
+public class Test_Pos_EditWM extends BaseTestClass {
 
     @Test(groups = {"WM"})
     public void editWMPos() throws Exception {
 
-        UserActions userActions = new UserActions(driver, wait);
-        SideBar sideBar = new SideBar(driver, wait);
+        UserActions userActions = new UserActions(driver);
         Verifier verifier = new Verifier();
         String testSite = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
 
 
         if (BetaFeatures.verifyBetaToTest("WMwithButtonsAndBigImage")) {
             userActions.createSite(TestData.email, TestData.pass, testSite);
-            WelcomeMessagePage welcomeMessagePage = sideBar.openWelcomeMessagePage();
-            welcomeMessagePage.switchWM();
-            CreateWMPage createWMPage = welcomeMessagePage.clickCreateNewWM();
-            createWMPage.setTitle(TestData.welcomeMessageTitle);
-            createWMPage.setText(TestData.welcomeMessageText);
+            CreateWMPage createWMPage = new SideBar(driver).openWelcomeMessagePage()
+                    .switchWM().clickCreateNewWM()
+                    .setTitle(TestData.welcomeMessageTitle).setText(TestData.welcomeMessageText);
             String oldIcon = createWMPage.getIconPreview().getAttribute("src");
 
-            CreateWMPage.AdditionalActiveItems additionalActiveItems = createWMPage.openAdditionalActiveItems();
-            additionalActiveItems.setButtons(TestData.button1Name, TestData.testSite, TestData.button2Name, TestData.testSite);
+            CreateWMPage.AdditionalActiveItems additionalActiveItems = createWMPage.openAdditionalActiveItems()
+            .setButtons(TestData.button1Name, TestData.testSite, TestData.button2Name, TestData.testSite);
+
             additionalActiveItems.uploadBigImage(TestData.bigImage);
 
             verifier.assertEquals(createWMPage.getTitlePreview().getText(), TestData.welcomeMessageTitle, "Incorrect title on preview");
@@ -43,7 +41,7 @@ public class Test_Pos_EditWM extends SeleniumBaseClass {
             verifier.assertEquals(createWMPage.getButton2Preview().getText(), TestData.button2Name, "Incorrect button2 name on preview");
             verifier.assertTrue(createWMPage.getBigImagePreview().isDisplayed(), "Big image not found in notification preview");
 
-            createWMPage.saveWM();
+            WelcomeMessagePage welcomeMessagePage = createWMPage.saveWM();
 
             verifier.assertTrue(welcomeMessagePage.getWMTitle().isDisplayed(), "Welcome message is not displayed on page");
             verifier.assertNull(welcomeMessagePage.getCreateNewWMButton(), "Add new WM button is present on page when it should not");
@@ -53,16 +51,12 @@ public class Test_Pos_EditWM extends SeleniumBaseClass {
             String newTitle = "New " + TestData.welcomeMessageTitle;
             String newText = "New " + TestData.welcomeMessageText;
 
-            createWMPage.clearTitle();
-            createWMPage.clearText();
-            createWMPage.setTitle(newTitle);
-            createWMPage.setText(newText);
+            createWMPage.clearTitle().clearText().setTitle(newTitle).setText(newText);
+
             String newIcon = createWMPage.uploadIconToWM(TestData.icon);
 
             //switching off additional active items
-            additionalActiveItems.switchButton1();
-            additionalActiveItems.switchButton2();
-            additionalActiveItems.switchBIGImage();
+            additionalActiveItems.switchButton1().switchButton2().switchBIGImage();
 
             verifier.assertEquals(createWMPage.getTitlePreview().getText(), newTitle, "Incorrect new title on preview");
             verifier.assertEquals(createWMPage.getTextPreview().getText(), newText, "Incorrect new text on preview");
@@ -71,8 +65,7 @@ public class Test_Pos_EditWM extends SeleniumBaseClass {
             verifier.assertNull(createWMPage.getButton2Preview(), "Button2 was not switched off");
             verifier.assertNull(createWMPage.getBigImagePreview(), "Big image was not switched off");
 
-            createWMPage.saveWM();
-            welcomeMessagePage.clickEditWM();
+            createWMPage.saveWM().clickEditWM();
             verifier.assertEquals(createWMPage.getTitlePreview().getText(), newTitle, "Incorrect new title on preview");
             verifier.assertEquals(createWMPage.getTextPreview().getText(), newText, "Incorrect new text on preview");
             verifier.assertNotEquals(newIcon, oldIcon, "Icon was not changed");
@@ -80,10 +73,7 @@ public class Test_Pos_EditWM extends SeleniumBaseClass {
             verifier.assertNull(createWMPage.getButton2Preview(), "Button2 was not switched off");
             verifier.assertNull(createWMPage.getBigImagePreview(), "Big image was not switched off");
 
-            createWMPage.saveWM();
-            welcomeMessagePage.deleteWM();
-
-
+            createWMPage.saveWM().deleteWM();
 
             userActions.deleteSite(testSite);
             verifier.assertTestPassed();

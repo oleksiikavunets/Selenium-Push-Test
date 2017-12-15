@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Dayly Test" >
+<suite name="Daily Test" >
     <parameter name="browser" value="chrome"/>
     <listeners>
         <listener class-name="testutils.Listeners.TestRetryListener"/>
@@ -9,14 +9,14 @@
     </listeners>
 
 
-    <test name="Dayly Test" parallel="classes" thread-count="3">
+    <test name="Daily Test" parallel="classes" thread-count="2">
         <classes>
             <class name="Test_Pos_LogInLogOut"/>
-            <class name="Test_Neg_Registration"/>
-            <class name="Test_Neg_RestorePassword"/>
-            <class name="Test_Neg_SendMessage"/>
-            <class name="Test_Neg_CreateTagList"/>
-            <class name="Test_Pos_SmokePayment"/>
+            <!--<class name="Test_Neg_Registration"/>-->
+            <!--<class name="Test_Neg_RestorePassword"/>-->
+            <!--<class name="Test_Neg_SendMessage"/>-->
+            <!--<class name="Test_Neg_CreateTagList"/>-->
+            <!--<class name="Test_Pos_SmokePayment"/>-->
             <!--<class name="Test_Neg_EditUTM"/>-->
         </classes>
     </test>

@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
+import pageobjects.common.AbstractPage;
 import pageutils.ImageUploader;
 import testrestrictions.BetaFeatures;
 
@@ -24,10 +24,7 @@ import static com.selenium.enums.Server.GRV_7700;
 /**
  * Created by Oleksii on 14.07.2017.
  */
-public class CreateCampaignPage {
-
-    WebDriver driver;
-    Wait<WebDriver> wait;
+public class CreateCampaignPage extends AbstractPage{
 
     //push preview block
     public By titlePreview = By.cssSelector("p[data-ng-bind*=\"$ctrl.mtitle \"]");
@@ -92,9 +89,9 @@ public class CreateCampaignPage {
     public By sendPushButton = By.cssSelector("button[class=\"btn btn-lg btn-block btn-primary ng-binding waves-effect waves-light\"]");
     public By okPopUpButton = By.cssSelector("button[class=\"confirm ng-binding\"][ng-bind=\"ok | translate\"]");
 
-    public CreateCampaignPage(WebDriver driver, Wait<WebDriver> wait) {
-        this.driver = driver;
-        this.wait = wait;
+
+    public CreateCampaignPage(WebDriver driver) {
+        super(driver);
     }
 
     public class NotificationPreview {
@@ -155,61 +152,65 @@ public class CreateCampaignPage {
         }
     }
 
-    public void setTitle(String title) {
+    public CreateCampaignPage setTitle(String title) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(titleInput)).sendKeys(title);
+        return this;
 
     }
 
-    public void setText(String text) {
+    public CreateCampaignPage setText(String text) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(textInput)).sendKeys(text);
-
+        return this;
     }
 
-    public void clearAllInputs() {
+    public CreateCampaignPage clearAllInputs() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(titleInput)).clear();
         textInput.findElement(driver).clear();
         urlToRedirect.findElement(driver).clear();
+        return this;
     }
 
 
-    public void setUrlToRedirect(String url) {
+    public CreateCampaignPage setUrlToRedirect(String url) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(urlToRedirect)).sendKeys(url);
+        return this;
     }
 
-    public void setUTMcampaign(String utm) {
+    public CreateCampaignPage setUTMcampaign(String utm) {
         boolean checked = wait.until(ExpectedConditions.visibilityOfElementLocated(checkboxUTM)).isSelected();
-        if(!checked){
-            checkboxUTM.findElement(driver).click();
-        }
+        if (!checked) checkboxUTM.findElement(driver).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(inputUTMcampaign)).sendKeys(utm);
+        return this;
     }
 
-    public WebElement getIconTooBigError(){
+    public WebElement getIconTooBigError() {
         By locator;
-        if(ConfigTest.iTest.equals(GRV_7700)){
+        if (ConfigTest.iTest.equals(GRV_7700)) {
             locator = iconError7700;
-        }else {
+        } else {
             locator = iconError;
         }
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    public void setDateAndTime(int year, int month, int day, int hour, int minute) {
+    public CreateCampaignPage setDateAndTime(int year, int month, int day, int hour, int minute) {
         LocalDateTime date = LocalDateTime.of(year, month, day, hour, minute);
         driver.findElement(dateInput).sendKeys(date.format(DateTimeFormatter.ofPattern("dd.MM.YYYY")));
 //        ((JavascriptExecutor)driver).executeScript("document.querySelector(\"input[type='text'][time-mask]\").value='11.11';");
         setTime(date);
+        return this;
     }
 
-    public void setDateAndTime(int plusDays, int plusHours, int plusMinutes) {
+    public CreateCampaignPage setDateAndTime(int plusDays, int plusHours, int plusMinutes) {
         LocalDateTime date = LocalDateTime.now().plusDays(plusDays).plusHours(plusHours).plusMinutes(plusMinutes);
         System.out.println(date);
         driver.findElement(dateInput).sendKeys(date.format(DateTimeFormatter.ofPattern("dd.MM.YYYY")));
         setTime(date);
         System.out.println(date);
+        return this;
     }
 
-    public void setTime(LocalDateTime dateTime) {
+    public CreateCampaignPage setTime(LocalDateTime dateTime) {
         Custom custom = new Custom(driver);
         Actions actions = new Actions(driver);
         String hour = dateTime.format(DateTimeFormatter.ofPattern("H:mm")).split(":")[0];
@@ -247,11 +248,13 @@ public class CreateCampaignPage {
                 break;
             }
         }
+        return this;
     }
 
-    public void cancelDate() {
+    public CreateCampaignPage cancelDate() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(cancelDateButton)).click();
         Timer.waitSeconds(1);
+        return this;
     }
 
 
@@ -261,36 +264,46 @@ public class CreateCampaignPage {
     }
 
     public class AdvancedOptions {
-        public void addTagToCampaign(String tag) {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(tagSearch)).sendKeys(tag);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a[title='" + tag + "']"))).click();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + tag + "')]")));
+        public AdvancedOptions addTagToCampaign(String... tag) {
+            for (String t : tag) {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(tagSearch)).sendKeys(t);
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a[title='" + t + "']"))).click();
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + t + "')]")));
+            }
+            return this;
         }
 
-        public void aliasSearch(String alias) {
+        public List<WebElement> getTagsToBeSent() {
+            return driver.findElements(tagsToSend);
+        }
+
+        public AdvancedOptions aliasSearch(String alias) {
 
             ((JavascriptExecutor) driver).executeScript("function getElementByXpath(path) { " +
                     "return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;" +
                     "}" +
                     " getElementByXpath(\"//div[contains(text(),'" + alias + "')]\").click();");
+            return this;
         }
 
-        public void addAliasToCampaign(String alias) {
+        public AdvancedOptions addAliasToCampaign(String alias) {
             wait.until(ExpectedConditions.visibilityOfElementLocated(aliasSearch)).sendKeys(alias);
             wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(),'" + alias + "')]")));
             Timer.waitSeconds(0.5);
             aliasSearch(alias);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + alias + "')]")));
+            return this;
         }
 
-        public void hideBrowsers(int x) { //deselects all browsers that are selected by default before a search
+        public AdvancedOptions hideBrowsers(int x) { //deselects all browsers that are selected by default before a search
             for (int i = 0; i < x; i++) {
 
                 ((JavascriptExecutor) driver).executeScript("document.querySelector(\"span[class='close ui-select-match-close']\").click();");
             }
+            return this;
         }
 
-        public void addBrowserToCampaign(String browser) {
+        public AdvancedOptions addBrowserToCampaign(String browser) {
             Custom custom = new Custom(driver);
             List<WebElement> num = driver.findElements(browsersToList);
             hideBrowsers(num.size());
@@ -298,19 +311,21 @@ public class CreateCampaignPage {
 
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'" + browser.toUpperCase() + "')]"))).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + browser.toUpperCase() + "')]")));
+            return this;
         }
 
-        public void addCountryToCampaign(String country) {
+        public AdvancedOptions addCountryToCampaign(String country) {
             driver.findElement(countrySearch).sendKeys(country);
 
             ((JavascriptExecutor) driver).executeScript("function getElementByXpath(path) " +
                     "{ return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;" +
                     "} " +
                     "getElementByXpath(\"//*[contains(text(),'" + country + "')]\").click();");
+            return this;
         }
 
 
-        public void addCityToCampaign(String city) {
+        public AdvancedOptions addCityToCampaign(String city) {
             driver.findElement(citySearch).sendKeys(city);
 
             ((JavascriptExecutor) driver).executeScript("function getElementByXpath(path) " +
@@ -318,15 +333,16 @@ public class CreateCampaignPage {
                     "return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;" +
                     "} " +
                     "getElementByXpath(\"//*[contains(text(),'" + city + "')]\").click();");
+            return this;
         }
     }
 
 
     public String uploadIconToPush(String path) {
 
-        if(BetaFeatures.verifyBetaToTest("imageCropper")){
-            ImageUploader.uploadIcon(path);
-        }else {
+        if (BetaFeatures.verifyBetaToTest("imageCropper")) {
+            new ImageUploader(driver).uploadIcon(path);
+        } else {
             uploadIcon(path);
         }
         Timer.waitSeconds(1);
@@ -335,8 +351,9 @@ public class CreateCampaignPage {
         return iconLink;
     }
 
-    public void uploadIcon(String path) {
+    public CreateCampaignPage uploadIcon(String path) {
         driver.findElement(iconInput).sendKeys(new File(path).getAbsolutePath());
+        return this;
     }
 
 
@@ -346,49 +363,57 @@ public class CreateCampaignPage {
     }
 
     public class AdditionalActiveItems {
-        public void switchButton1() {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(button1Switch));
-            button1Switch.findElement(driver).click();
+        public AdditionalActiveItems switchButton1() {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(button1Switch)). click();
+            return this;
         }
 
-        public void switchButton2() {
+        public AdditionalActiveItems switchButton2() {
             button2Switch.findElement(driver).click();
+            return this;
         }
 
-        public void setButton1Name(String name) {
+        public AdditionalActiveItems setButton1Name(String name) {
             button1NameInput.findElement(driver).sendKeys(name);
+            return this;
         }
 
-        public void setButton2Name(String name) {
+        public AdditionalActiveItems setButton2Name(String name) {
             button2NameInput.findElement(driver).sendKeys(name);
+            return this;
         }
 
-        public void setButton1URL(String url) {
+        public AdditionalActiveItems setButton1URL(String url) {
             button1URL.findElement(driver).sendKeys(url);
+            return this;
         }
 
-        public void setButton2URL(String url) {
+        public AdditionalActiveItems setButton2URL(String url) {
             button2URL.findElement(driver).sendKeys(url);
+            return this;
         }
 
-        public void setButton1(String buttonName, String buttonURL) {
+        public AdditionalActiveItems setButton1(String buttonName, String buttonURL) {
             setButton1Name(buttonName);
             setButton1URL(buttonURL);
+            return this;
         }
 
-        public void setButton2(String buttonName, String buttonURL) {
+        public AdditionalActiveItems setButton2(String buttonName, String buttonURL) {
             setButton2Name(buttonName);
             setButton2URL(buttonURL);
+            return this;
         }
 
-        public void setButtons(String button1Name, String button1URL, String button2Name, String button2URL) {
+        public AdditionalActiveItems setButtons(String button1Name, String button1URL, String button2Name, String button2URL) {
             switchButton1();
             switchButton2();
             setButton1(button1Name, button1URL);
             setButton2(button2Name, button2URL);
+            return this;
         }
 
-        public void setButton1Icon() {
+        public AdditionalActiveItems setButton1Icon() {
             wait.until(ExpectedConditions.visibilityOfElementLocated(button1IconDropdown)).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(buttonIcon));
             List<WebElement> icons = driver.findElements(buttonIcon);
@@ -396,9 +421,10 @@ public class CreateCampaignPage {
             int index = random.nextInt(216);
             index = index + 1;
             icons.get(index).click();
+            return this;
         }
 
-        public void setButton2Icon() {
+        public AdditionalActiveItems setButton2Icon() {
             wait.until(ExpectedConditions.visibilityOfElementLocated(button2IconDropdown)).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(buttonIcon));
             List<WebElement> icons = driver.findElements(buttonIcon);
@@ -406,24 +432,27 @@ public class CreateCampaignPage {
             int index = random.nextInt(216);
             index = index + 217;
             icons.get(index).click();
+            return this;
         }
 
-        public void switchBIGImage() {
+        public AdditionalActiveItems switchBIGImage() {
             bigImageSwitch.findElement(driver).click();
+            return this;
         }
 
-        public void setBIGImage(String path) {
+        public AdditionalActiveItems setBIGImage(String path) {
             switchBIGImage();
             {
                 driver.findElement(bigImageInput).sendKeys(new File(path).getAbsolutePath());
             }
+            return this;
         }
 
         public String uploadBigImage(String path) {
-            if(BetaFeatures.verifyBetaToTest("imageCropper")){
+            if (BetaFeatures.verifyBetaToTest("imageCropper")) {
                 switchBIGImage();
-                ImageUploader.uploadBigImg(path);
-            }else {
+                new ImageUploader(driver).uploadBigImg(path);
+            } else {
                 setBIGImage(path);
             }
             String imageLink = wait.until(ExpectedConditions.visibilityOfElementLocated(bigImagePrev)).getAttribute("src");
@@ -432,26 +461,27 @@ public class CreateCampaignPage {
         }
     }
 
-    public void sendTestPush() {
+    public CreateCampaignPage sendTestPush() {
         senTestPushButton.findElement(driver).click();
         Timer.waitSeconds(0.5);
+        return this;
     }
 
     public CampaignHistoryPage sendPush() {
         clickSendPush();
-        CampaignHistoryPage campaignHistoryPage = clickOkPopUp();
-        return campaignHistoryPage;
+        return clickOkPopUp();
     }
 
-    public void clickSendPush() {
+    public CreateCampaignPage clickSendPush() {
         sendTestPush();
         Custom custom = new Custom(driver);
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(sendPushButton));
         custom.clickAt(element);
+        return this;
     }
 
-    public CampaignHistoryPage clickOkPopUp() {
+    private CampaignHistoryPage clickOkPopUp() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(okPopUpButton)).click();
-        return new CampaignHistoryPage(driver, wait);
+        return new CampaignHistoryPage(driver);
     }
 }

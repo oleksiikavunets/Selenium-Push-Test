@@ -1,6 +1,5 @@
 import actions.UserActions;
 import com.selenium.utils.RandomGenerator;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -13,20 +12,18 @@ import testutils.Listeners.LogListener;
  * Created by Oleksii on 31.07.2017.
  */
 @Listeners(LogListener.class)
-public class Test_Pos_DeleteSite extends SeleniumBaseClass {
+public class Test_Pos_DeleteSite extends BaseTestClass {
 
     @Parameters("browser")
     @Test
     public void deleteSiteTest(@Optional("chrome") String browser) throws Exception {
-        MainAdminPage main = new MainAdminPage(driver, wait);
-        UserActions userActions = new UserActions(driver, wait);
+        UserActions userActions = new UserActions(driver);
 
         String siteUrl = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
         userActions.createSite(siteUrl);
         userActions.checkCreateSiteMail(siteUrl, browser);
 
-        userActions.deleteSite(siteUrl);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(main.siteList));
+        MainAdminPage main = userActions.deleteSite(siteUrl);
         main.verifySiteToBeDeleted(siteUrl);
     }
 }
