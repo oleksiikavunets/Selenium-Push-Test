@@ -1,16 +1,17 @@
 package testdata;
 
-import com.selenium.ConfigTest;
-import com.selenium.TestSiteManager;
 import com.selenium.utils.RandomGenerator;
 
+import static testdatamanagers.TestSiteManager.*;
+import static testdatamanagers.TestUserManager.getEmail;
+import static testdatamanagers.TestUserManager.getPassword;
+
 public class TestData {
-    static ConfigTest configTest = new ConfigTest();
-    static TestSiteManager testSiteManager = new TestSiteManager();
-    public static String httpSite = testSiteManager.getHttpSiteUrl();
-    public static String httpsSite = testSiteManager.getHttpsSiteUrl();
-    public static String testSite = configTest.getTestSiteUrl();
-    public static String newSitePattern = "http://seleniumtest";
+    public static String httpSite = getHttpSiteUrl();
+    public static String httpsSite = getHttpsSiteUrl();
+    public static String testSite = getTestSiteUrl();
+    public static String newHttpSitePattern = "http://seleniumtest";
+    public static String newHttpsSitePattern = "https://seleniumtest";
     public static String welcomeMessageTitle = "Welcome Message Title: " + RandomGenerator.nextString();
     public static String welcomeMessageText = "Welcome Message Text: " + RandomGenerator.nextString();
     public static String pushTitle = "Push Title: " + RandomGenerator.nextString();
@@ -31,8 +32,8 @@ public class TestData {
     public static String newAlias = RandomGenerator.nextString();
     public static String newTag = RandomGenerator.nextString();
 
-    public static String testEmail = "grovitek+" + (Integer.valueOf(configTest.getEmailNumber()) - 2) + "@gmail.com";
-    public static String testPass = configTest.getPassword();
+    public static String testEmail = getEmail();
+    public static String testPass = getPassword();
     public static String email = "mpstestdepartment@gmail.com";
     public static String pass = "tttt1111";
     public static String pass2 = "qqqq1111";

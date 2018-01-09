@@ -1,6 +1,7 @@
 package pageobjects;
 
-import actions.Custom;
+
+import actions.Clicker;
 import actions.Timer;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -15,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static pageutils.TextGetter.textOf;
-
 /**
  * Created by Oleksii on 18.07.2017.
  */
@@ -24,26 +23,25 @@ public class TagListPage extends AbstractPage{
 
     Wait<WebDriver> wait;
 
-    public By tagListSideButton = By.cssSelector("span[ng-bind=\"'LMENU_TAGLIST' | translate\"]");
-    public By tagsTUB = By.cssSelector("a[ng-bind*=\"'TAGLST_TAGS'\"]");
-    public By tagListTUB = By.cssSelector("a[ng-bind*=\"'TAGLST_TAGLIST' \"]");
+    private By tagsTUB = By.cssSelector("a[ng-bind*=\"'TAGLST_TAGS'\"]");
+    private By tagListTUB = By.cssSelector("a[ng-bind*=\"'TAGLST_TAGLIST' \"]");
 
     private By tagSearchMask = By.cssSelector("input[ng-model$='searchingName']");
     private By searchBtn = By.cssSelector("a[class^='btn'][ng-click*='searchByName']");
-    public By tagName = By.cssSelector("span[ng-bind=\"tag.name\"]");
-    public By tagList = By.xpath("//tag-list-common-lists//td[1]/span");
-    public By pageButton = By.cssSelector("a[data-ng-bind=\"page\"]");
-    public By endPaginationButton = By.cssSelector("a[ng-click*=\"vmPagination.getPages\"]");
-    public By saveTagListButton = By.id("sa-title");
-    public By useTLinNewCampButton = By.cssSelector("a[class*='btn-send']");
-    public By okPopUpButton = By.cssSelector("button[class~='confirm'][ng-bind*=\"ok\"]");
-    public By arrowButton = By.cssSelector("i[class*='fa-arrow-circle-right']");
-    public By arrowButton2 = By.xpath("//*[@id=\"page-wrapper\"]//div[2]//tr[2]//i");
-    public By tagInNewTagList = By.cssSelector("td[ng-bind='tag.name']");
-    public By tagInNewTagList2 = By.xpath("//*[@id=\"page-wrapper\"]//tag-list//div[2]/table//tr[4]/td[1]");
-    public By tagListNameInput = By.cssSelector("input[ng-model*=\"tagListName\"]");
-    public By newTLpopUp = By.cssSelector("h2[ng-bind-html=\"title | translate\"]>em");
-    public By errorTagListPopUp = By.cssSelector("h2[ng-bind-html='title | translate']");
+    private By tagName = By.cssSelector("span[ng-bind=\"tag.name\"]");
+    private By tagList = By.xpath("//tag-list-common-lists//td[1]/span");
+    private By pageButton = By.cssSelector("a[data-ng-bind=\"page\"]");
+    private By endPaginationButton = By.cssSelector("a[ng-click*=\"vmPagination.getPages\"]");
+    private By saveTagListButton = By.id("sa-title");
+    private By useTLinNewCampButton = By.cssSelector("a[class*='btn-send']");
+    private By okPopUpButton = By.cssSelector("button[class~='confirm'][ng-bind*=\"ok\"]");
+    private By arrowButton = By.cssSelector("i[class*='fa-arrow-circle-right']");
+    private By arrowButton2 = By.xpath("//*[@id=\"page-wrapper\"]//div[2]//tr[2]//i");
+    private By tagInNewTagList = By.cssSelector("td[ng-bind='tag.name']");
+    private By tagInNewTagList2 = By.xpath("//*[@id=\"page-wrapper\"]//tag-list//div[2]/table//tr[4]/td[1]");
+    private By tagListNameInput = By.cssSelector("input[ng-model*=\"tagListName\"]");
+    private By newTLpopUp = By.cssSelector("h2[ng-bind-html=\"title | translate\"]>em");
+    private By errorTagListMsg = By.cssSelector("p[class^=\"error\"][ng-if*=\"Tags.errors\"]");
 
     public TagListPage(final WebDriver driver) {
         super(driver);
@@ -57,6 +55,14 @@ public class TagListPage extends AbstractPage{
     public TagListPage setTagListName(String name) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(tagListNameInput)).sendKeys(name);
         return this;
+    }
+
+    public List<WebElement> getAddedTags(){
+        return driver.findElements(tagInNewTagList);
+    }
+
+    public WebElement getNewTLpopUp(){
+        return newTLpopUp.findElement(driver);
     }
 
     public TagListPage saveNewTagList() {
@@ -111,31 +117,36 @@ public class TagListPage extends AbstractPage{
         return new CreateCampaignPage(driver);
     }
 
-    public boolean searchForTag(String... tags) {
-        boolean found;
+    public String[] searchForTag(String... tags) {
+        String[] foundTags = new String[tags.length];
         ArrayList<Boolean> founds = new ArrayList<>(Arrays.asList());
 
         for (int i = 0; i < tags.length; i++) {
 
             tagSearchMask.findElement(driver).sendKeys(tags[i]);
             searchBtn.findElement(driver).click();
+
 //            wait.until(ExpectedConditions.invisibilityOfElementLocated(tagName));
             Timer.waitSeconds(1);
-            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(tagName));
-            List<String> foundTagsNames = textOf(driver.findElements(tagName));
-            if (foundTagsNames.contains(tags[i])) {
-                founds.add(true);
-            } else {
-                founds.add(false);
+            if(driver.findElement(By.xpath("//span[text()='" + tags[i] + "']")).isDisplayed());{
+                foundTags[i] = tags[i];
             }
+
+//            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(tagName));
+//            List<String> foundTagsNames = textOf(driver.findElements(tagName));
+//            if (foundTagsNames.contains(tags[i])) {
+//                founds.add(true);
+//            } else {
+//                founds.add(false);
+//            }
             tagSearchMask.findElement(driver).clear();
+//        }
+//        if (!founds.contains(false)) {
+//            found = true;
+//        } else {
+//            found = false;
         }
-        if (!founds.contains(false)) {
-            found = true;
-        } else {
-            found = false;
-        }
-        return found;
+        return foundTags;
     }
 
     public boolean searchForTagList(String tagListName) {
@@ -160,11 +171,15 @@ public class TagListPage extends AbstractPage{
         return found;
     }
 
+    public WebElement getErrorMsg(){
+        return errorTagListMsg.findElement(driver);
+    }
+
     public int getPagesAmount() {
         int amount;
         try {
             WebElement element = driver.findElement(endPaginationButton);
-            new Custom(driver).clickAt(element);
+            new Clicker(driver).clickJS(element);
             wait.until(ExpectedConditions.invisibilityOfElementLocated(endPaginationButton));
             Timer.waitSeconds(0.5);
         } catch (org.openqa.selenium.NoSuchElementException e) {

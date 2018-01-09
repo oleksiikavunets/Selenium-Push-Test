@@ -22,6 +22,8 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static testdatamanagers.TestSiteManager.getTestSiteUrl;
+
 /**
  * Created by Rayant on 07.04.2017.
  */
@@ -35,7 +37,7 @@ public class GravitecServer {
     private JSONParser parser = new JSONParser();
     private String apiUrl = config.getApiUrl();
     private String hostUrl = config.getHostUrl();
-    private String testSiteUrl = config.getTestSiteUrl();
+    private String testSiteUrl = getTestSiteUrl();
 
     private static CloseableHttpClient httpClient = HttpClients.custom()
             .setMaxConnPerRoute(1000)

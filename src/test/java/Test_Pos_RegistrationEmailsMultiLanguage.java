@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
+import static com.selenium.utils.NameGenerator.generateNewUserEmail;
 
 @Listeners(LogListener.class)
 public class Test_Pos_RegistrationEmailsMultiLanguage extends BaseTestClass {
@@ -26,7 +27,6 @@ public class Test_Pos_RegistrationEmailsMultiLanguage extends BaseTestClass {
         ConfigTest config = new ConfigTest();
         Verifier verifier = new Verifier();
 
-
         String pass = config.getPassword();
         String siteLang;
         if (pass.equals("qqqq1111")) pass = "tttt1111";
@@ -38,25 +38,23 @@ public class Test_Pos_RegistrationEmailsMultiLanguage extends BaseTestClass {
         headerMenu.logout();
         for (int i = 1; i <= langs.size(); i++) {
 
-            try {
-                logInPage.clickRegister();
-                int emailNumber = Integer.valueOf(config.getEmailNumber());
-                new RegistrationPage(driver).setUserCridentials("grovitek+" + emailNumber + "@gmail.com", pass);
-                String message = MailService.getRegistrationMail();
-                emailNumber = emailNumber + 2;
-                config.setEmailNumber(emailNumber);
-                config.setPassword(pass);
+            logInPage.clickRegister();
+            int emailNumber = Integer.valueOf(config.getEmailNumber());
+            String email = generateNewUserEmail(emailNumber);
 
-                verifier.assertTrue(verifier.verifyRegistrationMail(message, siteLang));
-                String link = "https://" + message.split(" https://")[1].split("\\n")[0];
-                driver.navigate().to(link);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            new RegistrationPage(driver).setUserCridentials(email, pass);
+            String message = MailService.getRegistrationMail();
+            System.out.println(message);
+            emailNumber = emailNumber + 2;
+            config.setEmailNumber(emailNumber);
+            config.setPassword(pass);
 
-            int emailNumber = Integer.valueOf(config.getEmailNumber())-2;
+            verifier.assertTrue(verifier.verifyReceivedMail(message, siteLang));
+            String link = "https://" + message.split(" https://")[1].split("\\n")[0];
+            driver.navigate().to(link);
+
             pass = config.getPassword();
-            logInPage.login("grovitek+" + emailNumber + "@gmail.com", pass);
+            logInPage.login(email, pass);
             if (i == langs.size() || ConfigTest.iTest.equals(P2B)) {
                 headerMenu.logout();
                 break;

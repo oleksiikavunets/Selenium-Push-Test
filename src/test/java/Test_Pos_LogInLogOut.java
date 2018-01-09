@@ -1,4 +1,3 @@
-import actions.UserActions;
 import org.openqa.selenium.WebDriverException;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -14,7 +13,7 @@ public class Test_Pos_LogInLogOut extends BaseTestClass {
     public void logInOut() throws Exception {
         try {
             new LogInPage(driver).login(TestData.email, TestData.pass);
-            new UserActions(driver).deleteUnnecessarySites();
+       //     new UserActions(driver).deleteUnnecessarySites();
             new HeaderMenu(driver).logout();
         } catch(org.openqa.selenium.TimeoutException e){
             e.printStackTrace();

@@ -27,8 +27,10 @@ public class Test_Pos_SendMessageWithAlias extends BaseTestClass {
         new UserActions(driver).addNewAlias(browser, testSite, alias);
 
         CreateCampaignPage.AdvancedOptions advancedOptions = logInPage.login(TestData.email, TestData.pass)
-                .openSite(testSite).openCreateCampaignPage()
-                .setTitle(title).setText(text)
+                .openSite(testSite)
+                .openCreateCampaignPage()
+                .setTitle(title)
+                .setText(text)
                 .openAdvancedOptions();
         advancedOptions.addAliasToCampaign(alias);
 

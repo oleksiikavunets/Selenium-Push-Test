@@ -1,4 +1,6 @@
-package com.selenium;
+package testdatamanagers;
+
+import com.selenium.ConfigTest;
 
 import java.io.*;
 import java.util.Properties;
@@ -15,10 +17,10 @@ public class TestDataManager {
                 fullPath.append("GRV_data.property");
                 break;
             case GRV_7700:
-                fullPath.append("GRV_data_7700.property");
+                fullPath.append("GRV_7700_data.property");
                 break;
             case GRV_7600:
-                fullPath.append("GRV_data_7600.property");
+                fullPath.append("GRV_7600_data.property");
                 break;
             case WPUSH:
                 fullPath.append("WPUSH_data.property");

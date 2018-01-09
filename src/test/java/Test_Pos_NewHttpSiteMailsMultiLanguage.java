@@ -40,12 +40,12 @@ public class Test_Pos_NewHttpSiteMailsMultiLanguage extends BaseTestClass {
 
         for (int i = 1; i <= langs.size(); i++) {
             siteLang = headerMenu.checkLanguage();
-            String siteUrl = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
+            String siteUrl = TestData.newHttpSitePattern + RandomGenerator.nextString() + ".com";
 
             new AddNewSitePage(driver).createSite(siteUrl);
             String message = MailService.getCreatedSiteMail();
             Log.info(message);
-            verifier.assertTrue(verifier.verifyCreateSiteMail(message, siteLang));
+            verifier.assertTrue(verifier.verifyReceivedMail(message, siteLang));
             headerMenu.clickLogo();
             mainAdminPage.verifySitePresent(siteUrl);
             if (i == langs.size() || ConfigTest.iTest.equals(P2B)) {

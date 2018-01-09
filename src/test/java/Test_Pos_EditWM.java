@@ -20,7 +20,7 @@ public class Test_Pos_EditWM extends BaseTestClass {
 
         UserActions userActions = new UserActions(driver);
         Verifier verifier = new Verifier();
-        String testSite = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
+        String testSite = TestData.newHttpSitePattern + RandomGenerator.nextString() + ".com";
 
 
         if (BetaFeatures.verifyBetaToTest("WMwithButtonsAndBigImage")) {

@@ -7,9 +7,10 @@ import org.testng.Assert;
 import org.testng.asserts.Assertion;
 import org.testng.asserts.IAssert;
 import org.testng.collections.Maps;
-import testdata.CreateSiteMails;
-import testdata.PasswordRecoveryMails;
-import testdata.RegistrationMails;
+import testdata.testmails.NewHttpSiteMails;
+import testdata.testmails.NewHttpsSiteMails;
+import testdata.testmails.PasswordRecoveryMails;
+import testdata.testmails.RegistrationMails;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -110,45 +111,26 @@ public class Verifier extends Assertion{
         Logger Log = LogManager.getLogger(Verifier.class);
         //Log.info(r + "\n" + error);
     }
-    public boolean verifyRegistrationMail(String message, String key ){
-        RegistrationMails registrationMails = new RegistrationMails();
-        HashMap<String, List> mails = registrationMails.getMails(ConfigTest.iTest);
-        List<String> mail = mails.get(key);
-        boolean pass = false;
-        int errorCount = 0;
-        for(int j = 0; j < mail.size(); j++){
-            System.out.println("Verifying: " + mail.get(j));
-            errorCount += verify(message.contains(mail.get(j)), "Mail does not contain text: " + mail.get(j));
-        }
-        if (errorCount == 0)pass = true;
-        return pass;
-    }
-    public boolean verifyRecoverPasswordMail(String message, String key){
-        PasswordRecoveryMails passwordRecoveryMails = new PasswordRecoveryMails();
-        HashMap<String, List> mails = passwordRecoveryMails.getMails(ConfigTest.iTest);
-        List<String> mail = mails.get(key);
-        boolean pass = false;
-        int errorCount = 0;
 
-        for(int j = 0; j < mail.size(); j++){
-            System.out.println("Verifying: " + mail.get(j));
-            errorCount += verify(message.contains(mail.get(j)), "Mail does not contain text: " + mail.get(j));
-        }
-        if(errorCount == 0 )pass = true;
-        return pass;
-    }
-    public boolean verifyCreateSiteMail(String message,  String key){
-        CreateSiteMails createSiteMails = new CreateSiteMails();
-        HashMap<String, List> mails = createSiteMails.getMails(ConfigTest.iTest);
-        List<String> mail = mails.get(key);
-
-        System.out.println("MY MAIL PATTERN:");
-        for(String m: mail){
-            System.out.println(m);
-        }
+    public boolean verifyReceivedMail(String message, String key){
+        HashMap<String, List> mails = new HashMap<>();
         boolean pass = false;
+        switch (Thread.currentThread().getStackTrace()[2].getMethodName()){
+            case ("testRegistrationMails"):
+                mails = new RegistrationMails().getMails(ConfigTest.iTest);
+                break;
+            case ("testRecoverPasswordMail"):
+                mails = new PasswordRecoveryMails().getMails(ConfigTest.iTest);
+                break;
+            case ("testCreateHttpSiteMails"):
+                mails = new NewHttpSiteMails().getMails(ConfigTest.iTest);
+                break;
+            case ("testCreateHttpsSiteMails"):
+                mails = new NewHttpsSiteMails().getMails(ConfigTest.iTest);
+                break;
+        }
+        List<String> mail = mails.get(key);
         int errorCount = 0;
-
         for(int j = 0; j < mail.size(); j++){
             System.out.println("Verifying: " + mail.get(j));
             errorCount += verify(message.contains(mail.get(j)), "Mail does not contain text: " + mail.get(j));

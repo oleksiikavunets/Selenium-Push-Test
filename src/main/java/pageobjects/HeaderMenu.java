@@ -1,6 +1,5 @@
 package pageobjects;
 
-import actions.Custom;
 import com.selenium.ConfigTest;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -62,8 +61,6 @@ public class HeaderMenu extends AbstractPage{
     }
 
     public HeaderMenu switchLanguage(int i) {
-        Custom custom = new Custom(driver);
-
         if(!ConfigTest.iTest.equals(P2B)) //Push2b.com has only one language version
         {
             String langToChange = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
@@ -89,17 +86,17 @@ public class HeaderMenu extends AbstractPage{
 
     public String checkLanguage() {
         String lang = "";
-
         String mot = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
 
-        if (mot.equals("Sign out")) lang = "en";
-        else if (mot.equals("Wyloguj")) lang = "pl";
-        else if (mot.equals("Выйти")) lang = "ru";
-        else if (mot.equals("Ausloggen")) lang = "de";
-
+        switch (mot) {
+            case ("Sign out") : lang = "en"; break;
+            case ("Wyloguj") : lang = "pl"; break;
+            case ("Вийти") : lang = "ua"; break;
+            case ("Выйти") : lang = "ru"; break;
+            case ("Ausloggen") : lang = "de"; break;
+        }
         return lang;
     }
-
 
     public HeaderMenu switchPl() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(languageDropDown));

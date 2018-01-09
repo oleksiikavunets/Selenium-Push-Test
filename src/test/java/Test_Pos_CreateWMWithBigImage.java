@@ -25,7 +25,7 @@ public class Test_Pos_CreateWMWithBigImage extends BaseTestClass {
         SideBar sideBar = new SideBar(driver);
         WelcomeMessagePage welcomeMessagePage = new WelcomeMessagePage(driver);
                 Verifier verifier = new Verifier();
-        String testSite = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
+        String testSite = TestData.newHttpSitePattern + RandomGenerator.nextString() + ".com";
 
         if (BetaFeatures.verifyBetaToTest("WMwithButtonsAndBigImage")) {
             userActions.createSite(TestData.email, TestData.pass, testSite);

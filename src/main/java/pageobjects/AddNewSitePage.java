@@ -1,7 +1,7 @@
 package pageobjects;
 
 
-import actions.Custom;
+import actions.Clicker;
 import com.selenium.ConfigTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +13,7 @@ import webdriverconfiger.WaitManager;
 
 import java.io.File;
 
+import static com.selenium.enums.Server.GRV;
 import static com.selenium.enums.Server.GRV_7700;
 
 /**
@@ -22,19 +23,19 @@ public class AddNewSitePage {
     private WebDriver driver;
     private Wait<WebDriver> wait;
 
-    public By addSiteButton = By.cssSelector("label[class*=\"btn-block btn-primary\"]");
+    private By addSiteButton = By.cssSelector("label[class*=\"btn-block btn-primary\"]");
 
-    public By httpButton = By.cssSelector("button[ng-click*=\"http://\"]");
-    public By httpsButton = By.cssSelector("button[ng-click*=\"https://\"]");
-    public By domainInput = By.name("domain");
-    public By fileInput = By.cssSelector("input[type='file']");
+    private By httpButton = By.cssSelector("button[ng-click*=\"http://\"]");
+    private By httpsButton = By.cssSelector("button[ng-click*=\"https://\"]");
+    private By domainInput = By.name("domain");
+    private By fileInput = By.cssSelector("input[type='file']");
     //error messages locators
-    public By errorHTTPBtn = By.cssSelector("[ng-click*='http'][ng-class*=\"protocolErr\"]");
-    public By errorHTTPSBtn = By.cssSelector("[ng-click*='https'][ng-class*=\"protocolErr\"]");
-    public By protocolMessage = By.cssSelector("div[ng-bind=\"vmAdd.errors.protocolErr | translate\"]");
-    public By existsError = By.cssSelector("span[ng-bind=\"'ADD_ALRD_EXIST' | translate\"]");
-    public By iconError = By.cssSelector("p[ng-bind=\"vmAdd.imgErrorMessage | translate\"]");
-    public By iconError7700 = By.cssSelector("[ng-if*=\"errorIcon\"]");
+    private By errorHTTPBtn = By.cssSelector("[ng-click*='http'][ng-class*=\"protocolErr\"]");
+    private By errorHTTPSBtn = By.cssSelector("[ng-click*='https'][ng-class*=\"protocolErr\"]");
+    private By protocolMessage = By.cssSelector("div[ng-bind=\"vmAdd.errors.protocolErr | translate\"]");
+    private By existsError = By.cssSelector("span[ng-bind*=\"ADD_ALRD_EXIST\"]");
+    private By iconError = By.cssSelector("p[ng-bind=\"vmAdd.imgErrorMessage | translate\"]");
+    private By iconErrorGRV = By.cssSelector("[ng-if*=\"errorIcon\"]");
 
     public AddNewSitePage(WebDriver driver){
         this.driver = driver;
@@ -69,13 +70,13 @@ public class AddNewSitePage {
 
 
     public AddNewSitePage selectHTTPprotocol(){
-        Custom custom = new Custom(driver);
-        custom.clickAt(driver.findElement(httpButton));
+        Clicker clicker = new Clicker(driver);
+        clicker.clickJS(driver.findElement(httpButton));
         return this;
     }
     public AddNewSitePage selectHTTPSprotocol(){
-        Custom custom = new Custom(driver);
-        custom.clickAt(driver.findElement(httpsButton));
+        Clicker clicker = new Clicker(driver);
+        clicker.clickJS(driver.findElement(httpsButton));
         return this;
     }
 
@@ -95,17 +96,17 @@ public class AddNewSitePage {
     }
 
     public AddNewSitePage clickAdd() {
-        Custom custom = new Custom(driver);
+        Clicker clicker = new Clicker(driver);
 
         WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(addSiteButton));
-        custom.clickAt(el);
+        clicker.clickJS(el);
         return this;
     }
 
     public WebElement getIconTooBigError(){
         By locator;
-        if(ConfigTest.iTest.equals(GRV_7700)){
-            locator = iconError7700;
+        if(ConfigTest.iTest.equals(GRV_7700)||ConfigTest.iTest.equals(GRV)){
+            locator = iconErrorGRV;
         }else {
             locator = iconError;
         }

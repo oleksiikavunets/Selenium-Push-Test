@@ -1,5 +1,5 @@
 
-public class SeleniumSubscriberTests extends SeleniumBaseClass {
+public class SubscriberTestsTest extends BaseTestClass {
 /**@Parameters("browser")
     @Before
     public void configureWebDriver(String browser) {

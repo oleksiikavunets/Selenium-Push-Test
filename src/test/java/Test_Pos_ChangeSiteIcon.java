@@ -22,7 +22,7 @@ public class Test_Pos_ChangeSiteIcon extends BaseTestClass {
         SiteSettingsPage siteSettingsPage = new SiteSettingsPage(driver);
         UserActions userActions = new UserActions(driver);
 
-        String siteUrl = newSitePattern + RandomGenerator.nextString() + ".com";
+        String siteUrl = newHttpSitePattern + RandomGenerator.nextString() + ".com";
         userActions.createSite(email, pass, siteUrl);
         String icon = siteSettingsPage.getSiteIcon().getAttribute("src");
         siteSettingsPage.uplodIcon(siteSettingsPage.iconPath);

@@ -15,7 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
-import static pageutils.TextGetter.textOf;
+import static com.selenium.utils.TextGetter.textOf;
+import static testdatamanagers.TestSiteManager.getTestSiteUrl;
 
 @Listeners(LogListener.class)
 public class Test_Neg_CreateSite extends BaseTestClass {
@@ -26,10 +27,8 @@ public class Test_Neg_CreateSite extends BaseTestClass {
         HeaderMenu headerMenu = new HeaderMenu(driver);
         Verifier verifier = new Verifier();
 
-        ConfigTest config = new ConfigTest();
-
         ErrorMessages errorMessages = new ErrorMessages();
-        String existingSite = config.getTestSiteUrl();
+        String existingSite = getTestSiteUrl();
         String siteLang;
 
         HashMap<String, String> selectProtocol = errorMessages.getSelectProtocol();

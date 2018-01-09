@@ -3,7 +3,6 @@ package pageobjects;
 import actions.Custom;
 import actions.Timer;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,7 +13,7 @@ import pageobjects.common.AbstractPage;
  */
 public class WelcomeMessagePage extends AbstractPage{
 
-    private By WMSwitcher = By.cssSelector("input[type='checkbox']");
+    private By WMSwitcher = By.cssSelector("input[type=\"checkbox\"]");
     private By WMTitle = By.xpath("//*[@id=\"welcome-messages-list\"]//td[2]//strong");
     private By WMText = By.xpath("//*[@id=\"welcome-messages-list\"]//span/text()");
     private By addNewWMButton = By.cssSelector("a[ng-bind*=\"WLCMMS_ADD_MSSG\"]");
@@ -44,12 +43,13 @@ public class WelcomeMessagePage extends AbstractPage{
     }
 
     public WelcomeMessagePage switchWM() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(WMSwitcher));
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.querySelector(\"input[type='checkbox']\").click();");
+
+        new Custom(driver).clickAt(WMSwitcher);
         Timer.waitSeconds(0.5);
         return this;
     }
+
+
 
     public CreateWMPage clickCreateNewWM() {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(addNewWMButton));
@@ -64,7 +64,7 @@ public class WelcomeMessagePage extends AbstractPage{
 
     public WelcomeMessagePage enableWM() {
         new Custom(driver).clickAt(wait.until(ExpectedConditions.visibilityOfElementLocated(disabledWM)));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(disabledWM)).click();
+
         wait.until(ExpectedConditions.visibilityOfElementLocated(enabledWM)).isDisplayed();
         return this;
     }

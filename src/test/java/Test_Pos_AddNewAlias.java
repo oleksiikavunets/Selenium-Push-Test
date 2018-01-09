@@ -1,5 +1,5 @@
 import actions.UserActions;
-import com.selenium.TestDataManager;
+import testdatamanagers.TestDataManager;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;

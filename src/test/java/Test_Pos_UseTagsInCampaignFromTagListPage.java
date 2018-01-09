@@ -13,7 +13,7 @@ import testutils.Listeners.LogListener;
 
 import java.util.List;
 
-import static pageutils.TextGetter.textOf;
+import static com.selenium.utils.TextGetter.textOf;
 
 /**
  * Created by Oleksii on 31.07.2017.
@@ -38,7 +38,7 @@ public class Test_Pos_UseTagsInCampaignFromTagListPage extends BaseTestClass {
                 .openTagListPage();
         tagListPage.addTagsToNewTL(tags);
 
-        List<String> addedTags = textOf(driver.findElements(tagListPage.tagInNewTagList));
+        List<String> addedTags = textOf(tagListPage.getAddedTags());
 
         CampaignReportPage campaignReportPage = tagListPage.useTLinNewCampaign()
                 .setTitle(title)

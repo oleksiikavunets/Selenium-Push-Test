@@ -1,11 +1,15 @@
 import actions.Verifier;
-import com.selenium.ConfigTest;
-import testutils.Listeners.LogListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageobjects.*;
+import pageobjects.CampaignReportPage;
+import pageobjects.LogInPage;
+import pageobjects.SideBar;
+import pageobjects.SiteSettingsPage;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
+import testutils.Listeners.LogListener;
+
+import static testdatamanagers.TestSiteManager.getTestSiteUrl;
 
 @Listeners(LogListener.class)
 public class Test_Pos_SendMessageWithUTM extends BaseTestClass {
@@ -19,7 +23,7 @@ public class Test_Pos_SendMessageWithUTM extends BaseTestClass {
 
         if (BetaFeatures.verifyBetaToTest("UTM")) {
             SiteSettingsPage siteSettingsPage = new LogInPage(driver).login(TestData.email, TestData.pass)
-                    .openSite(new ConfigTest().getTestSiteUrl())
+                    .openSite(getTestSiteUrl())
                     .openSiteSettingsPage();
 
             String utm_source = siteSettingsPage.getUtm_source();

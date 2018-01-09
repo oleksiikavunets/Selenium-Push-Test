@@ -28,7 +28,7 @@ public class SideBar extends AbstractPage{
         wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignButton)).click();
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
         assertSiteIdPresent();
-        manageErrorPop();
+//        manageErrorPop();
         return new CreateCampaignPage(driver);
     }
 

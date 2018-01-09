@@ -13,6 +13,8 @@ import testrestrictions.BetaFeatures;
 import java.util.HashMap;
 import java.util.List;
 
+import static testdatamanagers.TestSiteManager.getTestSiteUrl;
+
 @Listeners(LogListener.class)
 public class Test_Neg_EditUTM extends BaseTestClass {
 
@@ -30,7 +32,7 @@ public class Test_Neg_EditUTM extends BaseTestClass {
             MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
             List<WebElement> langs = headerMenu.getAvailableLanguages();
             langs.get(0).click();
-            SiteSettingsPage siteSettingsPage = mainAdminPage.openSite(configTest.getTestSiteUrl())
+            SiteSettingsPage siteSettingsPage = mainAdminPage.openSite(getTestSiteUrl())
                     .openSiteSettingsPage()
                     .clickEditUTM()
                     .clearUTMTags();

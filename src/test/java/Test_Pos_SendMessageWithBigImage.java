@@ -1,9 +1,10 @@
 import actions.Verifier;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.SkipException;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageobjects.*;
+import pageobjects.CampaignReportPage;
+import pageobjects.CreateCampaignPage;
+import pageobjects.LogInPage;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
@@ -30,12 +31,13 @@ public class Test_Pos_SendMessageWithBigImage extends BaseTestClass {
 
             CreateCampaignPage.AdditionalActiveItems bigImage = createCampaignPage.openAdditionalActiveItems();
             String image = bigImage.uploadBigImage(TestData.bigImage);
-            verifier.assertTrue((createCampaignPage.bigImagePrev.findElement(driver)).isDisplayed());
+            CreateCampaignPage.NotificationPreview notificationPreview = createCampaignPage.new NotificationPreview();
+            verifier.assertTrue(notificationPreview.getBigImgPreview().isDisplayed());
             CampaignReportPage campaignReportPage = createCampaignPage.sendPush()
                     .openMessage(TestData.pushTitle);
             campaignReportPage.copyCampaign();
 
-            verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignPage.bigImagePrev)).getAttribute("src"), image);
+            verifier.assertEquals(notificationPreview.getBigImagePreview().getAttribute("src"), image);
             verifier.assertTestPassed();
         } else {
             throw new SkipException("");

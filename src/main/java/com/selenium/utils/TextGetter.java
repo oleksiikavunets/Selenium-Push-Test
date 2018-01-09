@@ -1,4 +1,4 @@
-package pageutils;
+package com.selenium.utils;
 
 import org.openqa.selenium.WebElement;
 

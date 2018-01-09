@@ -33,8 +33,13 @@ public class MainAdminPage extends AbstractPage{
 
     public int getTotalAmountOfSubscribers(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(amountOfAllSubscribers));
-        Timer.waitSeconds(0.5);
+        Timer.waitSeconds(1);
         return Integer.valueOf(driver.findElement(amountOfAllSubscribers).getText());
+    }
+
+    public int getAmountOfSiteSubscribers(String siteName){
+
+        return Integer.valueOf(driver.findElement(By.xpath("//a[text()='" + siteName + "']/parent::td[@class=\"site-name\"]/following-sibling::td")).getText());
     }
 
     public boolean verifySitePresent(String site) {

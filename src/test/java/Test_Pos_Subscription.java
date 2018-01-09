@@ -5,9 +5,15 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageobjects.*;
-import testdata.TestData;
+import pageobjects.HeaderMenu;
+import pageobjects.LogInPage;
+import pageobjects.MainAdminPage;
+import pageobjects.SubscribersPage;
 import testutils.Listeners.LogListener;
+
+import static testdatamanagers.TestSiteManager.getHttpSiteUrl;
+import static testdatamanagers.TestUserManager.getEmail;
+import static testdatamanagers.TestUserManager.getPassword;
 
 @Listeners(LogListener.class)
 public class Test_Pos_Subscription extends BaseTestClass {
@@ -19,9 +25,13 @@ public class Test_Pos_Subscription extends BaseTestClass {
         Verifier verifier = new Verifier();
         LogInPage logInPage = new LogInPage(driver);
 
-        MainAdminPage mainAdminPage = logInPage.login(TestData.testEmail, TestData.testPass);
+        String email = getEmail();
+        String pass = getPassword();
+        String httpSite = getHttpSiteUrl();
+
+        MainAdminPage mainAdminPage = logInPage.login(email, pass);
         int totalAmountOfSubsBefore = mainAdminPage.getTotalAmountOfSubscribers();
-        SubscribersPage subscribersPage = mainAdminPage.openSite(TestData.httpSite)
+        SubscribersPage subscribersPage = mainAdminPage.openSite(httpSite)
                 .openSubscribersPage()
                 .clickTodayBtn();
 
@@ -29,15 +39,15 @@ public class Test_Pos_Subscription extends BaseTestClass {
         System.out.println("Subs before: on main page - " + totalAmountOfSubsBefore +
                 " on subs page - " + amountOfSubsBefore);
         new HeaderMenu(driver).logout();
-        new UserActions(driver, wait).subscribe(browser, TestData.httpSite);
+        new UserActions(driver, wait).subscribe(browser, httpSite);
 
-        logInPage.login(TestData.testEmail, TestData.testPass);
+        logInPage.login(email, pass);
         int totalAmountOfSubsAfter = mainAdminPage.getTotalAmountOfSubscribers();
         verifier.assertTrue(totalAmountOfSubsBefore < totalAmountOfSubsAfter, "Amount of subscribers did not change on main page. " +
                 "Before: " + totalAmountOfSubsBefore +
                 " After: " + totalAmountOfSubsAfter);
 
-        mainAdminPage.openSite(TestData.httpSite).openSubscribersPage().clickTodayBtn();
+        mainAdminPage.openSite(httpSite).openSubscribersPage().clickTodayBtn();
 
         int amountOfSubsAfter = subscribersPage.getAmountOfSubscribers();
         System.out.println("Subs after: on main page - " + totalAmountOfSubsAfter +

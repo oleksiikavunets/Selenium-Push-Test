@@ -42,6 +42,7 @@ public class WebDriverManager {
         HashMap<String, Object> chromePrefs = new HashMap<>();
         chromePrefs.put("profile.default_content_setting_values.notifications", 1);
         chromePrefs.put("download.default_directory", "src/main/resources");
+//        options.addArguments("--headless", "--disable-gpu");//
         options.setExperimentalOption("prefs", chromePrefs);
         LoggingPreferences logPrefs = new LoggingPreferences();
         logPrefs.enable(LogType.BROWSER, Level.ALL);

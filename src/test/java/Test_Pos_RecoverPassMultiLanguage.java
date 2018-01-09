@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.NewPasswordSetUpPage;
+import pageobjects.RecoverPasswordPage;
 import testdata.TestData;
 import testutils.Listeners.LogListener;
 
@@ -43,10 +44,10 @@ public class Test_Pos_RecoverPassMultiLanguage extends BaseTestClass {
         headerMenu.logout();
         for (int i = 1; i <= langs.size(); i++) {
 
-            logInPage.clickForgotPass().requestPasswordReset(email);
+            new RecoverPasswordPage(driver).openRecoverPasswordPage().requestPasswordReset(email);
             String message = MailService.getRecoverPasswordMail();
             Log.info(message);
-            verifier.assertTrue(verifier.verifyRecoverPasswordMail(message, siteLang));
+            verifier.assertTrue(verifier.verifyReceivedMail(message, siteLang));
 
             String link = "https://" + message.split("https://")[3].split("\\n")[0];
             driver.get(link);

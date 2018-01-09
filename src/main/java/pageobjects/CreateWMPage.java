@@ -17,35 +17,35 @@ import java.io.File;
 public class CreateWMPage extends AbstractPage{
 
     //push preview block
-    By titlePreview = By.cssSelector("p[data-ng-bind*=\"$ctrl.mtitle \"]");
-    By textPreview = By.cssSelector("p[data-ng-bind*=\"$ctrl.body\"]");
-    By iconPreview = By.cssSelector("div[class*=\"icon\"]>img[src]");
-    By bigImagePreview = By.cssSelector("img[class=\"additional-img\"]");
-    By button1Preview = By.cssSelector("span[ng-bind*=\"$ctrl.btn1.title \"]");
-    By button2Preview = By.cssSelector("span[ng-bind*=\"$ctrl.btn2.title \"]");
+    private By titlePreview = By.cssSelector("p[data-ng-bind*=\"$ctrl.mtitle \"]");
+    private By textPreview = By.cssSelector("p[data-ng-bind*=\"$ctrl.body\"]");
+    private By iconPreview = By.cssSelector("div[class*=\"icon\"]>img[src]");
+    private By bigImagePreview = By.cssSelector("img[class=\"additional-img\"]");
+    private By button1Preview = By.cssSelector("span[ng-bind*=\"$ctrl.btn1.title \"]");
+    private By button2Preview = By.cssSelector("span[ng-bind*=\"$ctrl.btn2.title \"]");
 
     //text input fields
-    By titleInput = By.name("title");
-    By textInput = By.name("text");
-    By urlInput = By.id("redirect-url");
-    By iconInput = By.name("file");
+    private By titleInput = By.name("title");
+    private By textInput = By.name("text");
+    private By urlInput = By.id("redirect-url");
+    private By iconInput = By.name("file");
 
     //additional active items
-    By additionalActiveItems = By.cssSelector("span[ng-bind*=\"ADDTNL_ELEMNTS\"]");
-    By button1Switch = By.cssSelector("label[ng-bind*=\"'FRST_BTN'\"]");
-    By button2Switch = By.cssSelector("label[ng-bind*=\"'SND_BTN'\"]");
-    By button1NameInput = By.name("button1Title");
-    By button2NameInput = By.name("button2Title");
-    By button1URL = By.name("url1");
-    By button2URL = By.name("url2");
-    By bigImageSwitch = By.cssSelector("label[ng-bind*=\"'ADD_BIG_IMG'\"]");
-    By bigImageInput = By.cssSelector("input[ngf-select*=\"uploadFile\"]");
+    private By additionalActiveItems = By.cssSelector("span[ng-bind*=\"ADDTNL_ELEMNTS\"]");
+    private By button1Switch = By.cssSelector("label[ng-bind*=\"'FRST_BTN'\"]");
+    private By button2Switch = By.cssSelector("label[ng-bind*=\"'SND_BTN'\"]");
+    private By button1NameInput = By.name("button1Title");
+    private By button2NameInput = By.name("button2Title");
+    private By button1URL = By.name("url1");
+    private By button2URL = By.name("url2");
+    private By bigImageSwitch = By.cssSelector("label[ng-bind*=\"'ADD_BIG_IMG'\"]");
+    private By bigImageInput = By.cssSelector("input[ngf-select*=\"uploadFile\"]");
 
-    By saveWMButton = By.cssSelector("button[type=\"submit\"]");
+    private By saveWMButton = By.cssSelector("button[type=\"submit\"]");
     //errors
-    By requiredTitle = By.cssSelector("p[translate=\"REQ_FIELD\"]");
-    By requiredText = By.cssSelector("div[ng-show*=\"text.$error.required\"]>p");
-    By errorLink = By.cssSelector("div[ng-show*=\"redirect.$error.p\"]>p");
+    private By requiredTitle = By.cssSelector("p[translate=\"REQ_FIELD\"]");
+    private By requiredText = By.cssSelector("div[ng-show*=\"text.$error.required\"]>p");
+    private By errorLink = By.cssSelector("div[ng-show*=\"redirect.$error.p\"]>p");
 
     public CreateWMPage(WebDriver driver){
         super(driver);
@@ -77,11 +77,11 @@ public class CreateWMPage extends AbstractPage{
     }
 
     public WebElement getTitlePreview() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(titlePreview));
+        return titlePreview.findElement(driver);
     }
 
     public WebElement getTextPreview() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(textPreview));
+        return textPreview.findElement(driver);
     }
 
     public WebElement getIconPreview() {

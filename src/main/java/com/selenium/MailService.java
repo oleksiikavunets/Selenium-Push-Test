@@ -184,11 +184,11 @@ public class MailService {
             try {
                 String mail = getLastMessageFromGravitec();
 
-                if (mail.contains("The new website was registered!") ||
-                        mail.contains("Nowa strona została zarejestrowana!") ||
-                        mail.contains("Новый сайт создан в Вашем аккаунте") ||
-                        mail.contains("Die neue Webseite wurde registriert!") ||
-                        mail.contains("Новий сайт створений у Вашому обліковому записі")) { //must put ukrainian text for kyivstar
+                if (mail.toLowerCase().contains("the new website was registered!") ||
+                        mail.toLowerCase().contains("nowa strona została zarejestrowana!") ||
+                        mail.toLowerCase().contains("новый сайт создан в вашем аккаунте") ||
+                        mail.toLowerCase().contains("die neue webseite wurde registriert!") ||
+                        mail.toLowerCase().contains("новий сайт створений у вашому обліковому записі")) { //must put ukrainian text for kyivstar
                     createSiteMail = mail;
                     break;
                 } else {

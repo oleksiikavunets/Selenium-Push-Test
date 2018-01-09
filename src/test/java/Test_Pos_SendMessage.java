@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.TestData;
 
+import static testdatamanagers.TestSiteManager.getTestSiteUrl;
+
 /**
  * Created by Oleksii on 03.07.2017.
  */
@@ -18,7 +20,7 @@ public class Test_Pos_SendMessage extends BaseTestClass {
      LogInPage logInPage = new LogInPage(driver);
      String title = RandomGenerator.nextString();
         String text = RandomGenerator.nextString();
-        String testSite = TestData.testSite;
+        String testSite = getTestSiteUrl();
 
         CampaignHistoryPage campaignHistoryPage = logInPage.login(TestData.email, TestData.pass).openSite(testSite)
                 .openCreateCampaignPage().setTitle(title).setText(text)

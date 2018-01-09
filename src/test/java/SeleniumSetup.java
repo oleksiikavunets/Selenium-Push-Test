@@ -7,9 +7,9 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import testdata.CreateSiteMails;
-import testdata.PasswordRecoveryMails;
-import testdata.RegistrationMails;
+import testdata.testmails.NewHttpSiteMails;
+import testdata.testmails.PasswordRecoveryMails;
+import testdata.testmails.RegistrationMails;
 
 import java.io.File;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import java.util.logging.Level;
 /**
  * Created by Rayant on 11.04.2017.
  */
-public class SeleniumSetup {
+public class SeleniumSetup extends BaseTestClass{
 
     public static WebDriver getConfiguredWebDriver(boolean addBlockAnabled) {
         System.setProperty("webdriver.gecko.driver", new File("src/main/resources/geckodriver-v0.15.0-win64/geckodriver.exe").getAbsolutePath());
@@ -56,7 +56,7 @@ public class SeleniumSetup {
 
     @Test
     public void checkNewSiteMail(){
-        CreateSiteMails createSiteMails = new CreateSiteMails();
+        NewHttpSiteMails createSiteMails = new NewHttpSiteMails();
         HashMap<String, List> mails = createSiteMails.getMails(ConfigTest.iTest);
         List<String> mailEn = mails.get("en");
         List<String> mailRu = mails.get("ru");

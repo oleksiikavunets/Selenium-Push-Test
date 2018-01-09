@@ -1,12 +1,14 @@
 import actions.Verifier;
-import testutils.Listeners.LogListener;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageobjects.*;
+import pageobjects.HeaderMenu;
+import pageobjects.LogInPage;
+import pageobjects.MainAdminPage;
+import pageobjects.TagListPage;
 import testdata.ErrorMessages;
 import testdata.TestData;
+import testutils.Listeners.LogListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,10 +43,9 @@ public class Test_Neg_CreateTagList extends BaseTestClass {
             tagListPage.saveNewTagList();
 
             siteLang = headerMenu.checkLanguage();
-            String errorPopUp = wait.until(ExpectedConditions.visibilityOfElementLocated(tagListPage.errorTagListPopUp)).getText();
-            verifier.assertEquals(errorPopUp, noTags.get(siteLang));
+
+            verifier.assertEquals(tagListPage.getErrorMsg().getText(), noTags.get(siteLang));
 //            checks message on pop-up window "Tag-list must contain at least 2 tags"
-            tagListPage.closePopUp();
 
             if (i == langs.size()) break;
 
@@ -55,15 +56,12 @@ public class Test_Neg_CreateTagList extends BaseTestClass {
         }
         tagListPage.addTagsToNewTL(1);
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(tagListPage.tagInNewTagList));
         for (int i = 1; i <= langs.size(); i++) {
             siteLang = headerMenu.checkLanguage();
 
             tagListPage.saveNewTagList();
-            String errorPopUp = wait.until(ExpectedConditions.visibilityOfElementLocated(tagListPage.errorTagListPopUp)).getText();
-            verifier.assertEquals(errorPopUp, noTags.get(siteLang));
+            verifier.assertEquals(tagListPage.getErrorMsg().getText(), noTags.get(siteLang));
 
-            tagListPage.closePopUp();
             if (i == langs.size()) break;
 
             headerMenu.switchLanguage(i);
@@ -72,15 +70,13 @@ public class Test_Neg_CreateTagList extends BaseTestClass {
             headerMenu.switchLanguage();
         }
         tagListPage.addTagsToNewTL(2);
-//        driver.findElement(tagListPage.arrowButton2).click();
 
         for (int i = 1; i <= langs.size(); i++) {
             siteLang = headerMenu.checkLanguage();
             tagListPage.saveNewTagList();
-            verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(tagListPage.errorTagListPopUp)).getText(), noName.get(siteLang));
+            verifier.assertEquals(tagListPage.getErrorMsg().getText(), noName.get(siteLang));
 
             // checks message on pop-up window "Tag-list name is empty"
-            tagListPage.closePopUp();
 
             if (i == langs.size()) break;
 

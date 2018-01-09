@@ -1,7 +1,6 @@
 
 import actions.UserActions;
-import com.selenium.ConfigTest;
-import com.selenium.TestSiteManager;
+import testdatamanagers.TestSiteManager;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -10,13 +9,10 @@ import pageobjects.HeaderMenu;
 import pageobjects.SiteManagerPage;
 import testutils.Listeners.LogListener;
 
+import static com.selenium.utils.NameGenerator.generateNewHttpSiteName;
 
-/**
- * Created by Oleksii on 31.07.2017.
- */
-// mpstestdepartment@gmail.com
 @Listeners(LogListener.class)
-public class Test_Pos_CreateHTTPSite extends BaseTestClass {
+public class Test_Pos_CreateHttpSite extends BaseTestClass {
 
     @Parameters("browser")
     @Test
@@ -30,16 +26,12 @@ public class Test_Pos_CreateHTTPSite extends BaseTestClass {
 
         siteManagerPage.createNewSite(siteUrl);
         String script = userActions.createSite(siteUrl);
+        System.out.println("Site Script: " + script);
         testSiteManager.setHttpSite(siteUrl, ++siteNumber);
         new HeaderMenu(driver).clickLogo().verifySitePresent(siteUrl);
         userActions.checkCreateSiteMail(siteUrl, browser);
 
-        siteManagerPage.setScript(siteUrl, script);
+        siteManagerPage.setSiteDatas(siteUrl, script);
         driver.get(siteUrl);
-    }
-
-    private String generateNewHttpSiteName(int siteNumber) {
-        String server = String.valueOf(ConfigTest.iTest).toLowerCase().replace("_", "");
-        return "http://" + server + siteNumber + SiteManagerPage.siteDomain;
     }
 }

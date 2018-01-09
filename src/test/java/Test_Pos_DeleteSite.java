@@ -19,7 +19,7 @@ public class Test_Pos_DeleteSite extends BaseTestClass {
     public void deleteSiteTest(@Optional("chrome") String browser) throws Exception {
         UserActions userActions = new UserActions(driver);
 
-        String siteUrl = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
+        String siteUrl = TestData.newHttpSitePattern + RandomGenerator.nextString() + ".com";
         userActions.createSite(siteUrl);
         userActions.checkCreateSiteMail(siteUrl, browser);
 

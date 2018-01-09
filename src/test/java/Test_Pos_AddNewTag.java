@@ -1,7 +1,5 @@
 import actions.UserActions;
-import com.selenium.TestDataManager;
 import com.selenium.utils.RandomGenerator;
-import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -9,6 +7,7 @@ import org.testng.annotations.Test;
 import pageobjects.LogInPage;
 import pageobjects.TagListPage;
 import testdata.TestData;
+import testdatamanagers.TestDataManager;
 import testutils.Listeners.LogListener;
 
 @Listeners(LogListener.class)
@@ -31,6 +30,8 @@ public class Test_Pos_AddNewTag extends BaseTestClass {
         new TestDataManager().setTags(newTags).setSite(testSite);
         TagListPage tagListPage = logInPage.login(TestData.email, TestData.pass)
                 .openSite(testSite).openTagListPage();
-        Assert.assertTrue(tagListPage.searchForTag(newTags), "Could not find added tag/tags");
+        tagListPage.searchForTag(newTags);
+//        ArrayList<String> t = Arrays.copyOf(newTags);
+//    Assert.assertTrue(tagListPage.searchForTag(newTags), "Could not find added tag/tags");
     }
 }

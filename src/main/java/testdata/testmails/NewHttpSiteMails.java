@@ -1,4 +1,4 @@
-package testdata;
+package testdata.testmails;
 
 import com.selenium.enums.Server;
 
@@ -20,6 +20,15 @@ public class NewHttpSiteMails {
             "Best regards, Gravitec.net team",
             "Do you have any questions? Feel free to ask them by replying to this email.",
             "unsubscribe"
+    ));
+    private List<String> gravitecUA = new ArrayList<>(Arrays.asList(
+            "Новый сайт создан в Вашем аккаунте",
+            "Здравствуйте! В Вашем аккаунте в Gravitec.net был добавлен новый сайт:",
+            "Чтобы интегрировать Ваш сайт с сервисом и начать собирать push-подписчиков, скопируйте приведенный ниже код (скрипт) в HTML шаблон Вашего сайта между тегами и . Чем выше тем лучше:",
+            "Открыть настройки сайта",
+            "С уважением, команда Gravitec.net",
+            "Если у Вас есть вопросы или Вам нужна помощь в использовании сервиса, напишите нам в ответе на это письмо.",
+            "отписаться от рассылки"
     ));
     private List<String> gravitecRU = new ArrayList<>(Arrays.asList(
             "Новый сайт создан в Вашем аккаунте",
@@ -94,6 +103,7 @@ public class NewHttpSiteMails {
     private  HashMap<String, List> getGravitecMails() {
         gravitecMails.put("en", gravitecEN);
         gravitecMails.put("pl", gravitecPL);
+        gravitecMails.put("ua", gravitecUA);
         gravitecMails.put("ru", gravitecRU);
         gravitecMails.put("de", gravitecDE);
         return gravitecMails;

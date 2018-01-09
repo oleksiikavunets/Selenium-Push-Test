@@ -23,7 +23,7 @@ public class Test_Pos_CreateWM extends BaseTestClass {
         SideBar sideBar = new SideBar(driver);
         UserActions userActions = new UserActions(driver);
         Verifier verifier = new Verifier();
-        String siteUrl = TestData.newSitePattern + RandomGenerator.nextString() + ".com";
+        String siteUrl = TestData.newHttpSitePattern + RandomGenerator.nextString() + ".com";
 
 
         userActions.createSite(TestData.email, TestData.pass, siteUrl);

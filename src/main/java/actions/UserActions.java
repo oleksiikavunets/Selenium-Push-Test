@@ -2,7 +2,6 @@ package actions;
 
 import com.selenium.ConfigTest;
 import com.selenium.MailService;
-import com.selenium.TestSiteManager;
 import com.selenium.enums.Server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,11 +9,13 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import pageobjects.*;
+import testdatamanagers.TestSiteManager;
 import webdriverconfiger.WaitManager;
 
 import java.util.stream.Collectors;
 
 import static com.selenium.enums.Server.WPUSH;
+import static testdatamanagers.TestUserManager.*;
 
 
 public class UserActions {
@@ -37,10 +38,10 @@ public class UserActions {
         LogInPage logInPage = new LogInPage(driver);
         ConfigTest config = new ConfigTest();
 
-        int emailNumber = Integer.valueOf(config.getEmailNumber()) - 2;
-        String email = "grovitek+" + emailNumber + "@gmail.com";
-        String pass = config.getPassword();
-        logInPage.login(email, pass);
+//        int emailNumber = Integer.valueOf(config.getEmailNumber()) - 2;
+//        String email = "grovitek+" + emailNumber + "@gmail.com";
+//        String pass = config.getPassword();
+        logInPage.login(getEmail(), getPassword());
 
         String script = addNewSitePage.createSite(siteUrl);
         return script;
@@ -68,25 +69,29 @@ public class UserActions {
     public MainAdminPage deleteSite(String siteUrl) {
         SiteSettingsPage siteSettingsPage = new SiteSettingsPage(driver);
         try {
-            new SideBar(driver).openSiteSettingsPage();
-        } catch (NoSuchElementException e) {
-            new MainAdminPage(driver).openSite(siteUrl)
-            .openSiteSettingsPage();
-        }
-        for (int i = 0; i <= 40; i++) {
-            boolean popUp = false;
+            driver.findElement(By.xpath("//p[text()=\"App key\"]"));
+        }catch (NoSuchElementException noEl) {
             try {
-                siteSettingsPage.clickDelete();
-                Timer.waitSeconds(0.2);
-                popUp = siteSettingsPage.getConfirmPopUpBtn().isDisplayed();
-                siteSettingsPage.clickConfirmPopUpButton();
+                new SideBar(driver).openSiteSettingsPage();
             } catch (NoSuchElementException e) {
-                e.printStackTrace();
-            }catch (ElementNotVisibleException e){
-                e.printStackTrace();
+                new MainAdminPage(driver).openSite(siteUrl)
+                        .openSiteSettingsPage();
             }
-            if (popUp) break;
         }
+            for (int i = 0; i <= 40; i++) {
+                boolean popUp = false;
+                try {
+                    siteSettingsPage.clickDelete();
+                    Timer.waitSeconds(0.2);
+                    popUp = siteSettingsPage.getConfirmPopUpBtn().isDisplayed();
+                    siteSettingsPage.clickConfirmPopUpButton();
+                } catch (NoSuchElementException e) {
+                    System.out.println();
+                } catch (ElementNotVisibleException e) {
+                    System.out.println();
+                }
+                if (popUp) break;
+            }
         wait.until(ExpectedConditions.invisibilityOfElementLocated(siteSettingsPage.cancelPopUpButton));
         siteSettingsPage.clickConfirmPopUpButton();
         return new MainAdminPage(driver);
@@ -95,14 +100,15 @@ public class UserActions {
     public void createNewUser() throws Exception {
         RegistrationPage register = new RegistrationPage(driver);
         ConfigTest config = new ConfigTest();
-        int emailNumber = Integer.valueOf(config.getEmailNumber());
-        String pass = config.getPassword();
+        int emailNumber = getEmailNumber();
+        String email = "grovitek+" + emailNumber + "@gmail.com";
+        String pass = getPassword();
         if (pass.equals("qqqq1111")) pass = "tttt1111";
         try {
             driver.navigate().to(config.getStartUrl() + "/register");
             managePopUp();
             wait.until(ExpectedConditions.presenceOfElementLocated(register.submit));
-            register.setUserCridentials("grovitek+" + emailNumber + "@gmail.com", pass);
+            register.setUserCridentials(email, pass);
             String link = MailService.getConfirmationLink();
             System.out.println("CONFIRMATION LINK: " + link);
             driver.navigate().to(link);
@@ -110,9 +116,8 @@ public class UserActions {
             e.printStackTrace();
         }
         emailNumber = emailNumber + 2;
-        config.setEmailNumber(emailNumber);
-        config.setPassword(pass);
-        Timer.waitSeconds(10);
+        setEmail(email, emailNumber);
+        setPassword(pass);
     }
 
     private void managePopUp() {
@@ -233,7 +238,7 @@ public class UserActions {
 
         for (String s : main.getSiteList().stream().map(el -> el.getText())
                 .filter(s -> !s.contains(necessarySite1))
-//                .filter(s -> !s.contains(necessarySite2))
+                .filter(s -> !s.contains(necessarySite2))
                 .filter(s -> !s.contains(necessarySite3))
                 .collect(Collectors.toList())) {
             deleteSite(s);

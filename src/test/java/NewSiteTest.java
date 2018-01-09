@@ -14,7 +14,7 @@ public class NewSiteTest extends BaseTestClass {
         Timer.waitSeconds(5);
 
         driver.get(siteManagerPage.SITE_MANAGER_URL);
-        siteManagerPage.setScript(site, "<script yuioutyrfgiyg/>");
+        siteManagerPage.setSiteDatas(site, "<script yuioutyrfgiyg/>");
         Timer.waitSeconds(5);
         System.out.println("DONE!!");
     }

@@ -1,5 +1,6 @@
 package pageobjects;
 
+import actions.Clicker;
 import actions.Timer;
 import com.selenium.ConfigTest;
 import com.selenium.enums.Server;
@@ -19,8 +20,8 @@ public class LogInPage extends AbstractPage {
     private By loginInput = By.name("email");
     private By passwordInput = By.name("password");
     private By buttonSubmit = By.cssSelector("button[type='submit']");
-    private By registerButton = By.cssSelector("b[ng-bind*=\"'LGN_SIGN_UP'\"]");
-    private By forgotPassButton = By.cssSelector("a[ng-bind*=\"'LGN_FRGT_PSSWRD'\"]");
+    private By registerButton = By.cssSelector("b[ng-bind*=\"LGN_SIGN_UP\"]");
+    private By forgotPassButton = By.cssSelector("a[ng-bind*=\"LGN_FRGT_PSSWRD\"]");
     private By error = By.xpath("//p[@ng-bind=\"vmLogin.error | translate\"]");
 
     public LogInPage(WebDriver driver) {
@@ -28,16 +29,11 @@ public class LogInPage extends AbstractPage {
     }
 
     public MainAdminPage login(String login, String pass) {
-        try {
-            String currentUrl = driver.getCurrentUrl();
-            if (!currentUrl.contains("login")) driver.get(new ConfigTest().getStartUrl() + "/login");
-        } catch (NullPointerException e) {
-        }
+//        try {
+            if (!driver.getCurrentUrl().contains("login")) driver.get(new ConfigTest().getStartUrl() + "/login");
+//        } catch (NullPointerException e) {
+//        }
         for (int i = 0; i <= 100; i++) {
-            if (i > 0 && i % 20 == 0) {
-                driver.navigate().refresh();
-            }
-            System.out.println("IN.....");
             setLogin(login).setPassword(pass);
             if (driver.findElement(loginInput).getAttribute("value").equals(login) && driver.findElement(passwordInput).getAttribute("value").equals(pass)) {
                 submit();
@@ -46,7 +42,6 @@ public class LogInPage extends AbstractPage {
                 clearAll();
             }
         }
-        System.out.println("OUT.....");
         return new MainAdminPage(driver);
     }
 
@@ -89,12 +84,12 @@ public class LogInPage extends AbstractPage {
     }
 
     public RegistrationPage clickRegister() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(registerButton)).click();
+       new Clicker(driver).click(registerButton);
         return new RegistrationPage(driver);
     }
 
     public RecoverPasswordPage clickForgotPass() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(forgotPassButton)).click();
+        new Clicker(driver).click(forgotPassButton);
         return new RecoverPasswordPage(driver);
     }
 

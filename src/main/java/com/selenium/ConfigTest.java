@@ -144,19 +144,6 @@ public class ConfigTest {
         return apiUrl;
     }
 
-    public String getTestSiteUrl(){
-        try {
-            InputStream input = new FileInputStream(setPath());
-            prop.load(input);
-            testSiteUrl  = prop.getProperty("testSiteUrl");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return testSiteUrl;
-    }
-
     public String getAdminLogin(){
         try {
             InputStream input = new FileInputStream(setPath());

@@ -12,13 +12,13 @@ public class Clicker {
         this.driver = driver;
     }
 
-    public void clickAt(WebElement element){
+    public void clickJS(WebElement element){
         JSRunner jsRunner = new JSRunner(driver);
         String el = element.toString().split("selector: ")[1].split("]")[0] + "]";
         jsRunner.run("document.querySelector('" + el + "').click();");
     }
 
-    public void clickAt(By locator){
+    public void clickJS(By locator){
         JSRunner jsRunner = new JSRunner(driver);
         String el = locator.toString().split("cssSelector: ")[1].split("]")[0] + "]";
         jsRunner.run("document.querySelector('" + el + "').click();");

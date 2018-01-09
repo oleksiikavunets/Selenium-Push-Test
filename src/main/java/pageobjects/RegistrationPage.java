@@ -1,5 +1,6 @@
 package pageobjects;
 
+import com.selenium.ConfigTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -28,6 +29,11 @@ public class RegistrationPage extends AbstractPage{
     public RegistrationPage setEmail(String login) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(email)).sendKeys(login);
         return this;
+    }
+
+    public RegistrationPage openRegistrationPage(){
+        driver.navigate().to(new ConfigTest().getStartUrl() + "/forgot");
+        return new RegistrationPage(driver);
     }
 
     public RegistrationPage clearEmail(){

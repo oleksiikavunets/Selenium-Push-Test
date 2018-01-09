@@ -1,13 +1,12 @@
 import actions.Verifier;
-import testutils.Listeners.LogListener;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import testdata.ErrorMessages;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
+import testutils.Listeners.LogListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,14 +41,15 @@ public class Test_Neg_SendMessage extends BaseTestClass {
 
         createCampaignPage.setUrlToRedirect("1!@#$2345qwerцуке");
         createCampaignPage.uploadIcon(TestData.bigIcon);
+        CreateCampaignPage.AdditionalActiveItems activeItems = createCampaignPage.new AdditionalActiveItems();
         //Thread.sleep(10000);
 
         if (betaFeatures.verifyBetaToTest("buttonsAndBigImage")) {
-            CreateCampaignPage.AdditionalActiveItems activeItems = createCampaignPage.openAdditionalActiveItems();
-            activeItems.switchButton1();
-            activeItems.switchButton2();
-            activeItems.setButton1URL("11212");
-            activeItems.setButton2URL("23421");
+            createCampaignPage.openAdditionalActiveItems()
+            .switchButton1()
+            .switchButton2()
+            .setButton1URL("11212")
+            .setButton2URL("23421");
             System.out.println("OK");
         }
         createCampaignPage.clickSendPush();
@@ -57,16 +57,16 @@ public class Test_Neg_SendMessage extends BaseTestClass {
         for (int i = 1; i <= langs.size(); i++) {
             siteLang = headerMenu.checkLanguage();
 
-            verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignPage.requiredTitle)).getText(), requiredField.get(siteLang));
-            verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignPage.requiredText)).getText(), requiredField.get(siteLang));
-            verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignPage.linkFormat)).getText(), invalidLinkFormat.get(siteLang));
+            verifier.assertEquals(createCampaignPage.getTitleErrorMsg().getText(), requiredField.get(siteLang));
+            verifier.assertEquals(createCampaignPage.getTextErrorMsg().getText(), requiredField.get(siteLang));
+            verifier.assertEquals(createCampaignPage.getInvalidLinkFormatMsg().getText(), invalidLinkFormat.get(siteLang));
 
 
             if (betaFeatures.verifyBetaToTest("buttonsAndBigImage")) {
-                verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignPage.button1TitelError)).getText(), requiredField.get(siteLang));
-                verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignPage.button1URLError)).getText(), invalidLinkFormat.get(siteLang));
-                verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignPage.button2TitleError)).getText(), requiredField.get(siteLang));
-                verifier.assertEquals(wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignPage.button2URLError)).getText(), invalidLinkFormat.get(siteLang));
+                verifier.assertEquals(activeItems.getBtn1TitleError().getText(), requiredField.get(siteLang));
+                verifier.assertEquals(activeItems.getBtn1UrlError().getText(), invalidLinkFormat.get(siteLang));
+                verifier.assertEquals(activeItems.getBtn2TitleError().getText(), requiredField.get(siteLang));
+                verifier.assertEquals(activeItems.getBtn2UrlError().getText(), invalidLinkFormat.get(siteLang));
                 System.out.println("OK1");
             }
             if (i == langs.size()) break;

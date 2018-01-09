@@ -1,4 +1,4 @@
-package testdata;
+package testdata.testmails;
 
 import com.selenium.enums.Server;
 import java.util.ArrayList;
@@ -25,6 +25,15 @@ public class PasswordRecoveryMails {
             "Jeśli to nie ty prosiłeś o zmianę hasła, zignoruj tą wiadomość.",
             "Jakieś pytania? Zadaj je odpowiadając na tego maila.",
             "desubskrybuj"
+    ));
+    private List<String> gravitecUA = new ArrayList<>(Arrays.asList(
+            "Сброс пароля в Gravitec.net",
+            "Здравствуйте! Для вашей учетной записи в сервисе Gravitec",
+            "был запрошен сброс пароля. Чтобы задать новый пароль, перейдите по следующей ссылке:",
+            "Сбросить пароль",
+            "Если вы не запрашивали сброс пароля, просто проигнорируйте это письмо.",
+            "Если у вас есть вопросы или вам нужна помощь в использовании сервиса, напишите нам в ответе на это письмо.",
+            "отписаться от рассылок"
     ));
     private List<String> gravitecRU = new ArrayList<>(Arrays.asList(
             "Сброс пароля в Gravitec.net",
@@ -87,6 +96,7 @@ public class PasswordRecoveryMails {
 
     private  HashMap<String, List> getGravitecMails() {
         gravitecMails.put("en", gravitecEN);
+        gravitecMails.put("ua", gravitecUA);
         gravitecMails.put("pl", gravitecPL);
         gravitecMails.put("ru", gravitecRU);
         gravitecMails.put("de", gravitecDE);

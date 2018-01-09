@@ -26,7 +26,7 @@
             <class name="Test_Pos_RestorePassword"/>
             <!--<class name="Test_Pos_RegistrationEmailsMultiLanguage"/>-->
             <!--<class name="Test_Pos_RecoverPassMultiLanguage"/>-->
-            <!--<class name="Test_Pos_NewSiteMailsMultiLanguage"/>-->
+            <!--<class name="Test_Pos_NewHttpSiteMailsMultiLanguage"/>-->
         </classes>
     </test>
     <test name="SEND CAMPAIGNS">
@@ -47,19 +47,20 @@
     </test>
     <test name="NEGATIVE">
         <classes>
-            <class name="Test_Neg_LogIn"/>
-            <class name="Test_Neg_Registration"/>
-            <class name="Test_Neg_RestorePassword"/>
-            <class name="Test_Neg_CreateSite"/>
-            <class name="Test_Neg_CreateWM"/>
-            <class name="Test_Neg_SendMessage"/>
-            <class name="Test_Neg_EditUTM"/>
-            <class name="Test_Neg_CreateTagList"/>
+            <!--<class name="Test_Neg_LogIn"/>-->
+            <!--<class name="Test_Neg_Registration"/>-->
+            <!--<class name="Test_Neg_RestorePassword"/>-->
+            <!--<class name="Test_Neg_CreateSite"/>-->
+            <!--<class name="Test_Neg_CreateWM"/>-->
+            <!--<class name="Test_Neg_SendMessage"/>-->
+            <!--<class name="Test_Neg_EditUTM"/>-->
+            <!--<class name="Test_Neg_CreateTagList"/>-->
         </classes>
     </test>
     <test name="ADDING AND EDITING HTTP SITE">
         <classes>
-            <class name="Test_Pos_CreateHTTPSite"/>
+            <class name="Test_Pos_CreateHttpsSite"/>
+            <class name="Test_Pos_CreateHttpSite"/>
             <class name="Test_Pos_DeleteSite"/>
             <class name="Test_Pos_CreateWM"/>
             <class name="Test_Pos_CreateWMWithButtons"/>

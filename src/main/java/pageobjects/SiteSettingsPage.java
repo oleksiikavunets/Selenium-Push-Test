@@ -18,7 +18,8 @@ import java.io.File;
 public class SiteSettingsPage extends AbstractPage{
 
     private By siteScript = By.xpath("//blockquote[@id=\"client-script-tag\"]");
-    private By siteIcon = By.cssSelector("img[ng-show*=\"site.icon\"]");
+    private By btnSDK = By.cssSelector("a[ng-bind*=\"SETTNGS_DWNLD_SDK_BUT\"]");
+    private By siteIcon = By.cssSelector("img[ng-if*=\"site.icon\"]");
     public By iconInput = By.cssSelector("input[type='file']");
     public By UTMsource = By.cssSelector("span[ng-bind*=\"site.utm.source\"]");
     public By UTMmedium = By.cssSelector("span[ng-bind*=\"site.utm.medium\"]");
@@ -40,7 +41,15 @@ public class SiteSettingsPage extends AbstractPage{
     }
 
     public String getSiteScript() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(siteScript)).getText();
+        String script = wait.until(ExpectedConditions.visibilityOfElementLocated(siteScript)).getText();
+        while(script.length() == 0){
+            script = siteScript.findElement(driver).getText();
+        }
+        return script;
+    }
+
+    public String getSDKlink(){
+        return driver.findElement(btnSDK).getAttribute("href");
     }
 
     public WebElement getSiteIcon(){
@@ -53,7 +62,7 @@ public class SiteSettingsPage extends AbstractPage{
 
     public SiteSettingsPage clickConfirmPopUpButton() {
         getConfirmPopUpBtn().click();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(confirmPopUpButton));
+//        wait.until(ExpectedConditions.invisibilityOfElementLocated(confirmPopUpButton));
         return this;
     }
 

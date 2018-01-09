@@ -19,7 +19,7 @@ import java.time.LocalDate;
 /**
  * Created by Rayant on 18.04.2017.
  */
-public class SeleniumBillingTests extends SeleniumBaseClass {
+public class BillingTestsTest extends BaseTestClass {
 
     GravitecServer gravitecServer;
     GravitecBilling gravitecBilling = new GravitecBilling();
@@ -50,7 +50,7 @@ public class SeleniumBillingTests extends SeleniumBaseClass {
             new UserActions(driver, wait).createNewUser();
             int emailNumber = Integer.valueOf(configTest.getEmailNumber()) - 2;
             String pass = configTest.getPassword();
-            new LogInPage(driver, wait).login("grovitek+" + emailNumber + "@gmail.com", pass);
+            new LogInPage(driver).login("grovitek+" + emailNumber + "@gmail.com", pass);
             User user = gravitecServer.getUserFromStatus();
             Assert.assertEquals(user.getTariff().getName(), "Free");
             Assert.assertEquals(user.getNewTariff().getName(), "Free");
@@ -97,7 +97,7 @@ public class SeleniumBillingTests extends SeleniumBaseClass {
 
             int emailNumber = Integer.valueOf(configTest.getEmailNumber()) - 2;
             String pass = configTest.getPassword();
-            new LogInPage(driver, wait).login("grovitek+" + emailNumber + "@gmail.com", pass);
+            new LogInPage(driver).login("grovitek+" + emailNumber + "@gmail.com", pass);
             changeTariff("Free");
             setPrice(100);
             driver.navigate().to(gravitecServer.getHostUrl() + "/price");
@@ -156,7 +156,7 @@ public class SeleniumBillingTests extends SeleniumBaseClass {
 
             int emailNumber = Integer.valueOf(configTest.getEmailNumber()) - 2;
             String pass = configTest.getPassword();
-            new LogInPage(driver, wait).login("grovitek+" + emailNumber + "@gmail.com", pass);
+            new LogInPage(driver).login("grovitek+" + emailNumber + "@gmail.com", pass);
             setDebt(100);
             setPrice(200);
             setDiscount(50);

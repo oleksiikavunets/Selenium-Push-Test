@@ -1,28 +1,27 @@
+import actions.UserActions;
 import com.selenium.ConfigTest;
 import com.selenium.enums.Server;
-import webdriverconfiger.WaitManager;
-import webdriverconfiger.WebDriverManager;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Wait;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.HeaderMenu;
+import webdriverconfiger.WaitManager;
+import webdriverconfiger.WebDriverManager;
 
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
-public class SeleniumBaseClass {
+public class BaseTestClass {
 
     Server serverToTest = Server.GRV;
 
-
     public WebDriver driver;
 
-
-
     protected Wait<WebDriver> wait;
-
 
     @BeforeSuite
     public void initializeTestServer(){
@@ -41,7 +40,7 @@ public class SeleniumBaseClass {
     public void configureWebDriver(@Optional("chrome") String browser) {
 
         driver = new WebDriverManager().getDriver(browser);
-
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WaitManager(driver).getWait();
     }
 
@@ -56,7 +55,7 @@ public class SeleniumBaseClass {
     @AfterClass(alwaysRun = true)
     public void tearDownTestClass(@Optional("chrome") String browser) throws AWTException {
         try {
-            driver.findElement(new HeaderMenu(driver, wait).logOutButton).click();
+            driver.findElement(new HeaderMenu(driver).logOutButton).click();
         } catch (NoSuchElementException | StaleElementReferenceException ex) {
             System.out.println("Looks like you`re already signed out)");
         } catch (org.openqa.selenium.WebDriverException ex){
@@ -68,7 +67,12 @@ public class SeleniumBaseClass {
 
     @Parameters("browser")
     @AfterSuite
-    public void endTest(@Optional("chrome") String browser) {
+    public void endTest(@Optional("chrome") String browser, ITestContext iTestContext) {
+        String s = iTestContext.getCurrentXmlTest().getName();
+        System.out.println("Suite Name: " + s);
+        if(s.equals("Chrome Suite")) {
+            new UserActions(driver).deleteUnnecessarySites();
+        }
         new WebDriverManager().quitAllDrivers();
     }
 

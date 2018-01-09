@@ -1,4 +1,4 @@
-package testdata;
+package testdata.testmails;
 
 import com.selenium.ConfigTest;
 import com.selenium.enums.Server;
@@ -25,6 +25,13 @@ public class RegistrationMails {
             "Ktoś (mamy nadzieję, że ty) użył tego maila do rejestracji w Gravitec.net. Jeśli to nie ty, po prostu zignoruj tego maila. W tym wypadku konto nie będzie aktywowane.",
             "Jakieś pytania? Zadaj je odpowiadając na tego maila.",
             "desubskrybuj"));
+    private List<String> gravitecUA = new ArrayList<>(Arrays.asList(
+            "Активация вашего аккаунта в Gravitec.net",
+            "Здравствуйте! Ваш email был использован для регистрации в сервисе Gravitec.net. Чтобы активировать вашу учетную запись, пожалуйста, перейдите по следующей ссылке:",
+            "Активировать учетную запись",
+            "Если вы не регистрировались в сервисе, просто проигнорируйте это письмо: в таком случае ваша учетная запись не будет создана.",
+            "Если у вас есть вопросы или вам нужна помощь в использовании сервиса, напишите нам в ответе на это письмо.",
+            "отписаться от рассылок"));
     private List<String> gravitecRU = new ArrayList<>(Arrays.asList(
             "Активация вашего аккаунта в Gravitec.net",
             "Здравствуйте! Ваш email был использован для регистрации в сервисе Gravitec.net. Чтобы активировать вашу учетную запись, пожалуйста, перейдите по следующей ссылке:",
@@ -114,6 +121,7 @@ public class RegistrationMails {
 
     private  HashMap<String, List> getGravitecMails() {
         gravitecMails.put("en", gravitecEN);
+        gravitecMails.put("ua", gravitecUA);
         gravitecMails.put("pl", gravitecPL);
         gravitecMails.put("ru", gravitecRU);
         gravitecMails.put("de", gravitecDE);
