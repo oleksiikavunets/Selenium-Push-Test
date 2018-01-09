@@ -9,7 +9,7 @@ import java.util.List;
 
 import static com.selenium.enums.Server.*;
 
-public class CreateSiteMails {
+public class NewHttpSiteMails {
 
     private List<String> gravitecEN = new ArrayList<>(Arrays.asList(
             "The new website was registered!",

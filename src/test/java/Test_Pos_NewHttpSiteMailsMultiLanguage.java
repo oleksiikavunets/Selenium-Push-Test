@@ -19,11 +19,11 @@ import java.util.List;
 import static com.selenium.enums.Server.P2B;
 
 @Listeners(LogListener.class)
-public class Test_Pos_NewSiteMailsMultiLanguage extends BaseTestClass {
+public class Test_Pos_NewHttpSiteMailsMultiLanguage extends BaseTestClass {
 
     @Test(groups = {"mails", "new site"}, singleThreaded = true, threadPoolSize = 1)
-    public void testCreateSiteMails() throws Exception {
-        Logger Log = LogManager.getLogger(Test_Pos_NewSiteMailsMultiLanguage.class);
+    public void testCreateHttpSiteMails() throws Exception {
+        Logger Log = LogManager.getLogger(Test_Pos_NewHttpSiteMailsMultiLanguage.class);
         HeaderMenu headerMenu = new HeaderMenu(driver);
         ConfigTest configTest = new ConfigTest();
         Verifier verifier = new Verifier();
