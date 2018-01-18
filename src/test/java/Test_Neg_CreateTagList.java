@@ -4,8 +4,8 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
-import pageobjects.MainAdminPage;
 import pageobjects.TagListPage;
+import pageutils.Navigator;
 import testdata.ErrorMessages;
 import testdata.TestData;
 import testutils.Listeners.LogListener;
@@ -26,6 +26,7 @@ public class Test_Neg_CreateTagList extends BaseTestClass {
 
         Verifier verifier = new Verifier();
         ErrorMessages errorMessages = new ErrorMessages();
+        Navigator navigator = new Navigator(driver);
 
         HashMap<String, String> noTags = errorMessages.getNoTags();
         HashMap<String, String> noName = errorMessages.getNoName();
@@ -33,11 +34,10 @@ public class Test_Neg_CreateTagList extends BaseTestClass {
         String siteLang;
 
 
-        MainAdminPage mainAdminPage = new LogInPage(driver).login(TestData.email, TestData.pass);
+        new LogInPage(driver).login(TestData.email, TestData.pass);
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         langs.get(0).click();
-        TagListPage tagListPage = mainAdminPage.openSite(testSite)
-                .openTagListPage();
+        TagListPage tagListPage = navigator.open(TagListPage.class, testSite);
 
         for (int i = 1; i <= langs.size(); i++) {
             tagListPage.saveNewTagList();

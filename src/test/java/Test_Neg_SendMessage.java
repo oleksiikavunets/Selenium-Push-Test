@@ -3,6 +3,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
+import pageutils.Navigator;
 import testdata.ErrorMessages;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
@@ -10,6 +11,8 @@ import testutils.Listeners.LogListener;
 
 import java.util.HashMap;
 import java.util.List;
+
+import static testdata.TestData.testSite;
 
 /**
  * Created by Oleksii on 31.07.2017.
@@ -19,9 +22,9 @@ import java.util.List;
 public class Test_Neg_SendMessage extends BaseTestClass {
 
 
-    @Test(groups = { "negative", "send push" })// checks all error messages on page "Create Campaign"
+    @Test(groups = {"negative", "send push"})// checks all error messages on page "Create Campaign"
     public void sendMessageNegative() throws Exception {
-        LogInPage logInPage = new LogInPage(driver);
+        Navigator navigator = new Navigator(driver);
         HeaderMenu headerMenu = new HeaderMenu(driver);
         BetaFeatures betaFeatures = new BetaFeatures();
         ErrorMessages errorMessages = new ErrorMessages();
@@ -31,25 +34,21 @@ public class Test_Neg_SendMessage extends BaseTestClass {
         HashMap<String, String> invalidLinkFormat = errorMessages.getInvalidLinkFormat();
         String siteLang;
 
-
-        MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
+        new LogInPage(driver).login(TestData.email, TestData.pass);
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         langs.get(0).click();
 
-        SideBar sideBar = mainAdminPage.openSite();
-        CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
-
-        createCampaignPage.setUrlToRedirect("1!@#$2345qwerцуке");
-        createCampaignPage.uploadIcon(TestData.bigIcon);
+        CreateCampaignPage createCampaignPage = navigator.open(CreateCampaignPage.class, testSite)
+                .setUrlToRedirect("1!@#$2345qwerцуке")
+                .uploadIcon(TestData.bigIcon);
         CreateCampaignPage.AdditionalActiveItems activeItems = createCampaignPage.new AdditionalActiveItems();
-        //Thread.sleep(10000);
 
         if (betaFeatures.verifyBetaToTest("buttonsAndBigImage")) {
             createCampaignPage.openAdditionalActiveItems()
-            .switchButton1()
-            .switchButton2()
-            .setButton1URL("11212")
-            .setButton2URL("23421");
+                    .switchButton1()
+                    .switchButton2()
+                    .setButton1URL("11212")
+                    .setButton2URL("23421");
             System.out.println("OK");
         }
         createCampaignPage.clickSendPush();

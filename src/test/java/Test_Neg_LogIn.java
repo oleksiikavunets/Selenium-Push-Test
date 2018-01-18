@@ -6,6 +6,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
+import pageutils.Navigator;
 import testdata.ErrorMessages;
 import testdata.TestData;
 import testutils.Listeners.LogListener;
@@ -24,6 +25,7 @@ public class Test_Neg_LogIn extends BaseTestClass {
 
     @Test(groups = { "negative" })
     public void logInNegative() throws Exception {
+        Navigator navigator = new Navigator(driver);
         HeaderMenu headerMenu = new HeaderMenu(driver);
         LogInPage logInPage = new LogInPage(driver);
         ErrorMessages errorMessages = new ErrorMessages();

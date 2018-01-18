@@ -6,12 +6,11 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractOuterPage;
+import pageobjects.common.annotations.PartialPath;
 
-/**
- * Created by Oleksii on 17.07.2017.
- */
-public class RegistrationPage extends AbstractPage{
+@PartialPath(value = "/register")
+public class RegistrationPage extends AbstractOuterPage {
 
     public By email = By.name("email");
     public By password = By.name("password");
@@ -21,6 +20,7 @@ public class RegistrationPage extends AbstractPage{
     public By invalidFormatPass = By.cssSelector("p[ng-bind=\"'Invalid format pass' | translate\"]");
     public By passDNTMatch = By.cssSelector("p[translate=\"PASS_DNT_MATCH\"]");
     public By errorExists = By.cssSelector("p[ng-repeat=\"error in vmRegister.errors.email track by $index\"]");
+    private By okPopUpBtn = By.cssSelector("button[ng-bind*='ok']");
 
     public RegistrationPage(WebDriver driver){
         super(driver);
@@ -66,12 +66,14 @@ public class RegistrationPage extends AbstractPage{
 
 
 
-    public void setUserCridentials(String login, String pass) {
+    public RegistrationPage setUserCridentials(String login, String pass) {
         Logger Log = LogManager.getLogger(LogInPage.class);
         setEmail(login);
         setPass(pass);
         repeatPass(pass);
         submit();
-        Log.info("NEW USER REGISTERED. EMAIL: " + login + " PASSWORD:" + pass);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(okPopUpBtn)).click();
+        Log.info("NEW USER REGISTRATION REQUESTED. EMAIL: " + login + " PASSWORD:" + pass);
+        return this;
     }
 }

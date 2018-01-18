@@ -9,6 +9,7 @@ import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
 import pageobjects.SubscribersPage;
+import pageutils.Navigator;
 import testutils.Listeners.LogListener;
 
 import static testdatamanagers.TestSiteManager.getHttpSiteUrl;
@@ -22,6 +23,8 @@ public class Test_Pos_Subscription extends BaseTestClass {
     @Test(groups = "subscription")
     public void testSubscription(@Optional("chrome") String browser) {
 
+        Navigator navigator = new Navigator(driver);
+
         Verifier verifier = new Verifier();
         LogInPage logInPage = new LogInPage(driver);
 
@@ -31,9 +34,8 @@ public class Test_Pos_Subscription extends BaseTestClass {
 
         MainAdminPage mainAdminPage = logInPage.login(email, pass);
         int totalAmountOfSubsBefore = mainAdminPage.getTotalAmountOfSubscribers();
-        SubscribersPage subscribersPage = mainAdminPage.openSite(httpSite)
-                .openSubscribersPage()
-                .clickTodayBtn();
+        SubscribersPage subscribersPage = navigator.open(SubscribersPage.class, httpSite);
+//                .clickTodayBtn();
 
         int amountOfSubsBefore = subscribersPage.getAmountOfSubscribers();
         System.out.println("Subs before: on main page - " + totalAmountOfSubsBefore +
@@ -47,7 +49,7 @@ public class Test_Pos_Subscription extends BaseTestClass {
                 "Before: " + totalAmountOfSubsBefore +
                 " After: " + totalAmountOfSubsAfter);
 
-        mainAdminPage.openSite(httpSite).openSubscribersPage().clickTodayBtn();
+        navigator.open(SubscribersPage.class, httpSite);//.clickTodayBtn();
 
         int amountOfSubsAfter = subscribersPage.getAmountOfSubscribers();
         System.out.println("Subs after: on main page - " + totalAmountOfSubsAfter +

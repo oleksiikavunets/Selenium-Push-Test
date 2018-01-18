@@ -1,5 +1,6 @@
 package pageutils;
 
+import actions.Clicker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -34,8 +35,10 @@ public class ImageUploader {
         confirmUpload();
     }
 
-    public  void confirmUpload() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(confirmBtn)).click();
+    private void confirmUpload() {
+        Clicker clicker = new Clicker(driver);
+        clicker.click(confirmBtn);
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(confirmBtn)).click();
     }
 
     public  void cancelUpload() {

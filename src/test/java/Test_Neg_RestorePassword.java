@@ -1,4 +1,5 @@
 import actions.Verifier;
+import pageutils.Navigator;
 import testutils.Listeners.LogListener;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,8 +21,9 @@ import java.util.List;
 @Listeners(LogListener.class)
 public class Test_Neg_RestorePassword extends BaseTestClass {
 
-    @Test(groups = { "negative" })
+    @Test(groups = {"negative"})
     public void restorePasswordNegative() throws Exception {
+        Navigator navigator = new Navigator(driver);
         HeaderMenu headerMenu = new HeaderMenu(driver);
         LogInPage logInPage = new LogInPage(driver);
         ErrorMessages errorMessages = new ErrorMessages();
@@ -40,9 +42,9 @@ public class Test_Neg_RestorePassword extends BaseTestClass {
 
         for (int i = 1; i <= langs.size(); i++) {
             headerMenu.logout();
-            RecoverPasswordPage recoverPasswordPage = logInPage.clickForgotPass();
-            recoverPasswordPage.setEmail(TestData.inValidEmail);
-            recoverPasswordPage.clickResetButton();
+            RecoverPasswordPage recoverPasswordPage = navigator.open(RecoverPasswordPage.class)
+                    .setEmail(TestData.inValidEmail)
+                    .clickResetButton();
             verifier.assertEquals(wait.until(ExpectedConditions.presenceOfElementLocated(recoverPasswordPage.errorMessage)).getText(), emailExists.get(siteLang));
 
 

@@ -6,18 +6,20 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageobjects.LogInPage;
 import pageobjects.TagListPage;
+import pageutils.Navigator;
 import testdata.TestData;
-import testdatamanagers.TestDataManager;
 import testutils.Listeners.LogListener;
+
+import static testdatamanagers.TestDataManager.setSite;
+import static testdatamanagers.TestDataManager.setTags;
 
 @Listeners(LogListener.class)
 public class Test_Pos_AddNewTag extends BaseTestClass {
 
     @Parameters("browser")
-    @Test (groups = {"subscription", "advanced settings", "tags"})
+    @Test(groups = {"subscription", "advanced settings", "tags"})
     public void addNewTag(@Optional("chrome") String browser) throws Exception {
-
-        LogInPage logInPage = new LogInPage(driver);
+        Navigator navigator = new Navigator(driver);
         String testSite = TestData.testSite;
         String newTag = TestData.newTag;
         String[] newTags = {
@@ -27,9 +29,10 @@ public class Test_Pos_AddNewTag extends BaseTestClass {
         };
         driver.manage().deleteAllCookies();
         new UserActions(driver).addNewTag(browser, testSite, newTags);
-        new TestDataManager().setTags(newTags).setSite(testSite);
-        TagListPage tagListPage = logInPage.login(TestData.email, TestData.pass)
-                .openSite(testSite).openTagListPage();
+        setTags(newTags);
+        setSite(testSite);
+        new LogInPage(driver).login(TestData.email, TestData.pass);
+        TagListPage tagListPage = navigator.open(TagListPage.class, testSite);
         tagListPage.searchForTag(newTags);
 //        ArrayList<String> t = Arrays.copyOf(newTags);
 //    Assert.assertTrue(tagListPage.searchForTag(newTags), "Could not find added tag/tags");

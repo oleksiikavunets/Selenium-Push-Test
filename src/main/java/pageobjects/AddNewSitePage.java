@@ -7,21 +7,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
+import pageobjects.common.AbstractAdminPage;
+import pageobjects.common.annotations.PartialPath;
 import testdata.TestData;
-import webdriverconfiger.WaitManager;
 
 import java.io.File;
 
 import static com.selenium.enums.Server.GRV;
 import static com.selenium.enums.Server.GRV_7700;
 
-/**
- * Created by Oleksii on 17.07.2017.
- */
-public class AddNewSitePage {
-    private WebDriver driver;
-    private Wait<WebDriver> wait;
+@PartialPath(value = "/add/site/step1")
+public class AddNewSitePage extends AbstractAdminPage {
 
     private By addSiteButton = By.cssSelector("label[class*=\"btn-block btn-primary\"]");
 
@@ -38,8 +34,7 @@ public class AddNewSitePage {
     private By iconErrorGRV = By.cssSelector("[ng-if*=\"errorIcon\"]");
 
     public AddNewSitePage(WebDriver driver){
-        this.driver = driver;
-        wait = new WaitManager(driver).getWait();
+        super(driver);
     }
 
     public String createSite(String siteUrl) throws Exception {

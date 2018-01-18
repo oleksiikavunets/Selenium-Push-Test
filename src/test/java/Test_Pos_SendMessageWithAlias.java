@@ -5,9 +5,14 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageobjects.*;
+import pageobjects.CampaignReportPage;
+import pageobjects.CreateCampaignPage;
+import pageobjects.LogInPage;
+import pageutils.Navigator;
 import testdata.TestData;
 import testutils.Listeners.LogListener;
+
+import static testdatamanagers.TestDataManager.getAlias;
 
 /**
  * Created by Oleksii on 31.07.2017.
@@ -18,17 +23,16 @@ public class Test_Pos_SendMessageWithAlias extends BaseTestClass {
     @Parameters("browser")
     @Test(groups = {"send push", "advanced settings", "alias"})
     public void sendMessageWithAlias(@Optional("chrome") String browser) throws Exception {
-        LogInPage logInPage = new LogInPage(driver);
+
         String title = RandomGenerator.nextString();
         String text = RandomGenerator.nextString();
-        String alias = TestData.alias;
+        String alias = getAlias();
         String testSite = TestData.testSite;
 
         new UserActions(driver).addNewAlias(browser, testSite, alias);
 
-        CreateCampaignPage.AdvancedOptions advancedOptions = logInPage.login(TestData.email, TestData.pass)
-                .openSite(testSite)
-                .openCreateCampaignPage()
+        new LogInPage(driver).login(TestData.email, TestData.pass);
+        CreateCampaignPage.AdvancedOptions advancedOptions = new Navigator(driver).open(CreateCampaignPage.class, testSite)
                 .setTitle(title)
                 .setText(text)
                 .openAdvancedOptions();

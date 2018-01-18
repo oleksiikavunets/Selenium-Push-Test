@@ -79,13 +79,15 @@ public class TestSiteManager extends ConfigTest {
         return httpSite;
     }
 
-    public static void setHttpsSite(String site, int testSiteNumber){
+    public static void setHttpsSite(String site, int testSiteNumber, String owner){
+        testSiteNumber += 2;
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
             OutputStream output = new FileOutputStream(getFullPath());
             prop.setProperty("httpsSiteUrl", site);
             prop.setProperty("httpsSiteNumber", String.valueOf(testSiteNumber));
+            prop.setProperty("httpsSiteOwner", String.valueOf(owner));
             prop.store(output, null);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -94,13 +96,15 @@ public class TestSiteManager extends ConfigTest {
         }
     }
 
-    public static void setHttpSite(String site, int testSiteNumber){
+    public static void setHttpSite(String site, int testSiteNumber, String owner){
+        testSiteNumber += 2;
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
             OutputStream output = new FileOutputStream(getFullPath());
             prop.setProperty("httpSiteUrl", site);
             prop.setProperty("httpSiteNumber", String.valueOf(testSiteNumber));
+            prop.setProperty("httpSiteOwner", String.valueOf(owner));
             prop.list(System.err);
             prop.store(output, null);
         } catch (FileNotFoundException e) {

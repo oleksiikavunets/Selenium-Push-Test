@@ -9,13 +9,12 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractOuterPage;
+import pageobjects.common.annotations.PartialPath;
 
 
-/**
- * Created by Oleksii on 12.07.2017.
- */
-public class LogInPage extends AbstractPage {
+@PartialPath(value = "/login")
+public class LogInPage extends AbstractOuterPage {
 
     private By loginInput = By.name("email");
     private By passwordInput = By.name("password");
@@ -42,6 +41,7 @@ public class LogInPage extends AbstractPage {
                 clearAll();
             }
         }
+        new HeaderMenu(driver).waitForBeingLogged();
         return new MainAdminPage(driver);
     }
 

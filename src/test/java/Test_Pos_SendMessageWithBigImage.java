@@ -5,9 +5,12 @@ import org.testng.annotations.Test;
 import pageobjects.CampaignReportPage;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
+import pageutils.Navigator;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
+
+import static testdata.TestData.testSite;
 
 /**
  * Created by Oleksii on 31.07.2017.
@@ -21,13 +24,15 @@ public class Test_Pos_SendMessageWithBigImage extends BaseTestClass {
     public void sendMessageWithBIGImage() {
 
         if (BetaFeatures.verifyBetaToTest("buttonsAndBigImage")) {
-            LogInPage logInPage = new LogInPage(driver);
+
             new CreateCampaignPage(driver);
             Verifier verifier = new Verifier();
 
-            CreateCampaignPage createCampaignPage = logInPage.login(TestData.email, TestData.pass)
-                    .openSite().openCreateCampaignPage()
-                    .setTitle(TestData.pushTitle).setText(TestData.pushText);
+            new LogInPage(driver).login(TestData.email, TestData.pass);
+            CreateCampaignPage createCampaignPage = new Navigator(driver).open(CreateCampaignPage.class, testSite)
+
+                    .setTitle(TestData.pushTitle)
+                    .setText(TestData.pushText);
 
             CreateCampaignPage.AdditionalActiveItems bigImage = createCampaignPage.openAdditionalActiveItems();
             String image = bigImage.uploadBigImage(TestData.bigImage);

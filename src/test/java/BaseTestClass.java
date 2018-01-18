@@ -12,12 +12,11 @@ import pageobjects.HeaderMenu;
 import webdriverconfiger.WaitManager;
 import webdriverconfiger.WebDriverManager;
 
-import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTestClass {
 
-    Server serverToTest = Server.GRV;
+    Server serverToTest = Server.GRV_7700;
 
     public WebDriver driver;
 
@@ -53,7 +52,7 @@ public class BaseTestClass {
 
     @Parameters("browser")
     @AfterClass(alwaysRun = true)
-    public void tearDownTestClass(@Optional("chrome") String browser) throws AWTException {
+    public void tearDownTestClass(@Optional("chrome") String browser){
         try {
             driver.findElement(new HeaderMenu(driver).logOutButton).click();
         } catch (NoSuchElementException | StaleElementReferenceException ex) {
@@ -79,4 +78,7 @@ public class BaseTestClass {
     public WebDriver getDriver() {
         return driver;
     }
+
+    //accessToken=eyJ1aWQiOiJ0ZXN0QGdyYXZpdGVjLm5ldCIsInJlcXVlc3RlZFVpZCI6bnVsbCwicm9sZSI6IkFETUlOIiwidHlwZSI6IlVTRVIiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImV4cCI6MTUxNjEwMTE5MH0.e4hQ4JAsH4mYd8P3VkTB8Rd4H_CjQSJUYedWrVQ50V8
+
 }

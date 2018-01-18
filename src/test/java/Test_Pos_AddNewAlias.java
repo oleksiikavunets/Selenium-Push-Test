@@ -1,27 +1,27 @@
 import actions.UserActions;
-import testdatamanagers.TestDataManager;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
-import pageobjects.MainAdminPage;
-import pageobjects.SideBar;
+import pageutils.Navigator;
 import testdata.TestData;
+import testdatamanagers.TestDataManager;
 import testutils.Listeners.LogListener;
+
+import static testdata.TestData.newAlias;
+import static testdata.TestData.testSite;
 
 @Listeners(LogListener.class)
 public class Test_Pos_AddNewAlias extends BaseTestClass {
 
     @Parameters("browser")
-    @Test (groups = {"subscription", "advanced settings", "alias"})
+    @Test(groups = {"subscription", "advanced settings", "alias"})
     public void addNewAlias(@Optional("chrome") String browser) throws Exception {
-        LogInPage logInPage = new LogInPage(driver);
-        CreateCampaignPage createCampaignPage = new CreateCampaignPage(driver);
+        Navigator navigator = new Navigator(driver);
         UserActions userActions = new UserActions(driver, wait);
-        String testSite = TestData.testSite;
-        String alias = TestData.newAlias;
+        String alias = newAlias;
 
         driver.manage().deleteAllCookies();
 
@@ -31,10 +31,9 @@ public class Test_Pos_AddNewAlias extends BaseTestClass {
         testDataManager.setSite(testSite);
         testDataManager.setAlias(alias);
 
-        MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
-        SideBar sideBar = mainAdminPage.openSite(testSite);
-        sideBar.openCreateCampaignPage();
-        CreateCampaignPage.AdvancedOptions advancedOptions = createCampaignPage.openAdvancedOptions();
+        new LogInPage(driver).login(TestData.email, TestData.pass);
+        CreateCampaignPage.AdvancedOptions advancedOptions = navigator.open(CreateCampaignPage.class, testSite)
+                .openAdvancedOptions();
         advancedOptions.addAliasToCampaign(alias);
     }
 }

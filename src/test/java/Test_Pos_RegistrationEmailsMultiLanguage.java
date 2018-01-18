@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.RegistrationPage;
+import pageutils.Navigator;
 import testdata.TestData;
 import testutils.Listeners.LogListener;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
 import static com.selenium.utils.NameGenerator.generateNewUserEmail;
+import static testdatamanagers.TestUserManager.*;
 
 @Listeners(LogListener.class)
 public class Test_Pos_RegistrationEmailsMultiLanguage extends BaseTestClass {
@@ -24,10 +26,9 @@ public class Test_Pos_RegistrationEmailsMultiLanguage extends BaseTestClass {
 
         LogInPage logInPage = new LogInPage(driver);
         HeaderMenu headerMenu = new HeaderMenu(driver);
-        ConfigTest config = new ConfigTest();
         Verifier verifier = new Verifier();
 
-        String pass = config.getPassword();
+        String pass = getPassword();
         String siteLang;
         if (pass.equals("qqqq1111")) pass = "tttt1111";
         logInPage.login(TestData.email, TestData.pass);
@@ -37,23 +38,21 @@ public class Test_Pos_RegistrationEmailsMultiLanguage extends BaseTestClass {
         siteLang = headerMenu.checkLanguage();
         headerMenu.logout();
         for (int i = 1; i <= langs.size(); i++) {
-
-            logInPage.clickRegister();
-            int emailNumber = Integer.valueOf(config.getEmailNumber());
+            int emailNumber = getEmailNumber();
             String email = generateNewUserEmail(emailNumber);
-
-            new RegistrationPage(driver).setUserCridentials(email, pass);
+            new Navigator(driver).open(RegistrationPage.class)
+                    .setUserCridentials(email, pass);
             String message = MailService.getRegistrationMail();
             System.out.println(message);
             emailNumber = emailNumber + 2;
-            config.setEmailNumber(emailNumber);
-            config.setPassword(pass);
+            setEmail(email, emailNumber);
+            setPassword(pass);
 
             verifier.assertTrue(verifier.verifyReceivedMail(message, siteLang));
             String link = "https://" + message.split(" https://")[1].split("\\n")[0];
             driver.navigate().to(link);
 
-            pass = config.getPassword();
+            pass = getPassword();
             logInPage.login(email, pass);
             if (i == langs.size() || ConfigTest.iTest.equals(P2B)) {
                 headerMenu.logout();

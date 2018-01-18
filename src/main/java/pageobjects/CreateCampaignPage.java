@@ -1,7 +1,6 @@
 package pageobjects;
 
 import actions.Clicker;
-import actions.Timer;
 import com.selenium.ConfigTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,7 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractAdminPage;
+import pageobjects.common.annotations.PartialPath;
 import pageutils.ImageUploader;
 import testrestrictions.BetaFeatures;
 
@@ -19,13 +19,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Random;
 
+import static actions.Timer.waitSeconds;
 import static com.selenium.enums.Server.GRV;
 import static com.selenium.enums.Server.GRV_7700;
 
 /**
  * Created by Oleksii on 14.07.2017.
  */
-public class CreateCampaignPage extends AbstractPage {
+@PartialPath(value = "/sites/SITE_ID/send/")
+public class CreateCampaignPage extends AbstractAdminPage {
 
     //push preview block
     private By titlePreview = By.cssSelector("p[data-ng-bind*=\"$ctrl.mtitle \"]");
@@ -134,7 +136,7 @@ public class CreateCampaignPage extends AbstractPage {
         }
 
         public WebElement getButton1Preview() {
-            Timer.waitSeconds(0.5);
+            waitSeconds(0.5);
             WebElement element = null;
             try {
                 element = button1Prev.findElement(driver);
@@ -154,9 +156,12 @@ public class CreateCampaignPage extends AbstractPage {
 
         public WebElement getBigImagePreview() {
             WebElement element = null;
-            try {
-                element = bigImagePrev.findElement(driver);
-            } catch (org.openqa.selenium.NoSuchElementException e) {
+            for(int i = 0; i < 3; i++) {
+                try {
+                    element = bigImagePrev.findElement(driver);
+                } catch (org.openqa.selenium.NoSuchElementException e) {
+                    waitSeconds(1);
+                }
             }
             return element;
         }
@@ -240,7 +245,7 @@ public class CreateCampaignPage extends AbstractPage {
         String minute = dateTime.format(DateTimeFormatter.ofPattern("HH:mm")).split(":")[1];
 
         driver.findElement(By.cssSelector("input[type='text'][time-mask]")).click();
-        Timer.waitSeconds(1);
+        waitSeconds(1);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[class*=\"hours\"][style=\"visibility: visible;\"]>div[class*=\"jqclockpicker-tick\"]")));
         List<WebElement> hours = driver.findElements(By.cssSelector("div[class*=\"hours\"]>div[class*=\"jqclockpicker-tick\"]"));
 
@@ -252,7 +257,7 @@ public class CreateCampaignPage extends AbstractPage {
             }
         }
 
-        Timer.waitSeconds(1);
+        waitSeconds(1);
 
 
         List<WebElement> minutes = driver.findElements(By.cssSelector("div[class*=\"minutes\"]>[class*=\"jqclockpicker-tick\"]"));
@@ -260,7 +265,7 @@ public class CreateCampaignPage extends AbstractPage {
             String mt = m.getText();
             if (mt.equals(minute)) {
                 actions.moveToElement(m).click().perform();
-                Timer.waitSeconds(0.5);
+                waitSeconds(0.5);
                 wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div[class*=\"minutes\"][style*=\"visibility: visible;\"]")));
                 break;
             }
@@ -270,7 +275,7 @@ public class CreateCampaignPage extends AbstractPage {
 
     public CreateCampaignPage cancelDate() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(cancelDateButton)).click();
-        Timer.waitSeconds(1);
+        waitSeconds(1);
         return this;
     }
 
@@ -308,15 +313,14 @@ public class CreateCampaignPage extends AbstractPage {
         public AdvancedOptions addAliasToCampaign(String alias) {
             wait.until(ExpectedConditions.visibilityOfElementLocated(aliasSearch)).sendKeys(alias);
             wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(),'" + alias + "')]")));
-            Timer.waitSeconds(0.5);
+            waitSeconds(0.5);
             aliasSearch(alias);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + alias + "')]")));
             return this;
         }
 
-        public AdvancedOptions hideBrowsers(int x) { //deselects all browsers that are selected by default before a search
+        private AdvancedOptions hideBrowsers(int x) { //deselects all browsers that are selected by default before a search
             for (int i = 0; i < x; i++) {
-
                 ((JavascriptExecutor) driver).executeScript("document.querySelector(\"span[class='close ui-select-match-close']\").click();");
             }
             return this;
@@ -364,7 +368,7 @@ public class CreateCampaignPage extends AbstractPage {
         } else {
             uploadIcon(path);
         }
-        Timer.waitSeconds(1);
+        waitSeconds(1);
         String iconLink = wait.until(ExpectedConditions.visibilityOfElementLocated(iconPrev)).getAttribute("src");
 
         return iconLink;
@@ -377,7 +381,7 @@ public class CreateCampaignPage extends AbstractPage {
 
 
     public AdditionalActiveItems openAdditionalActiveItems() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(additionalActiveItems)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(additionalActiveItems)).click();
         return new AdditionalActiveItems();
     }
 
@@ -497,7 +501,7 @@ public class CreateCampaignPage extends AbstractPage {
 
     public CreateCampaignPage sendTestPush() {
         senTestPushButton.findElement(driver).click();
-        Timer.waitSeconds(0.5);
+        waitSeconds(0.5);
         return this;
     }
 

@@ -1,14 +1,17 @@
 import actions.Verifier;
-import com.selenium.ConfigTest;
-import testutils.Listeners.LogListener;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageobjects.*;
+import pageobjects.HeaderMenu;
+import pageobjects.LogInPage;
+import pageobjects.MainAdminPage;
+import pageobjects.SiteSettingsPage;
+import pageutils.Navigator;
 import testdata.ErrorMessages;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
+import testutils.Listeners.LogListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,8 +23,8 @@ public class Test_Neg_EditUTM extends BaseTestClass {
 
     @Test(groups = {"negative", "UTM"})
     public void editUTMNegative() {
+        Navigator navigator = new Navigator(driver);
         LogInPage logInPage = new LogInPage(driver);
-        ConfigTest configTest = new ConfigTest();
         HeaderMenu headerMenu = new HeaderMenu(driver);
         ErrorMessages errorMessages = new ErrorMessages();
         Verifier verifier = new Verifier();
@@ -32,8 +35,7 @@ public class Test_Neg_EditUTM extends BaseTestClass {
             MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
             List<WebElement> langs = headerMenu.getAvailableLanguages();
             langs.get(0).click();
-            SiteSettingsPage siteSettingsPage = mainAdminPage.openSite(getTestSiteUrl())
-                    .openSiteSettingsPage()
+            SiteSettingsPage siteSettingsPage = navigator.open(SiteSettingsPage.class, getTestSiteUrl())
                     .clickEditUTM()
                     .clearUTMTags();
             siteLang = headerMenu.checkLanguage();

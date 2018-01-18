@@ -15,12 +15,6 @@ public class Test_Pos_LogInLogOut extends BaseTestClass {
             new LogInPage(driver).login(TestData.email, TestData.pass);
        //     new UserActions(driver).deleteUnnecessarySites();
             new HeaderMenu(driver).logout();
-        } catch(org.openqa.selenium.TimeoutException e){
-            e.printStackTrace();
-            logInOut();
-        } catch(org.openqa.selenium.ElementNotVisibleException e){
-            e.printStackTrace();
-            logInOut();
         } catch(AssertionError e){
             e.printStackTrace();
             logInOut();

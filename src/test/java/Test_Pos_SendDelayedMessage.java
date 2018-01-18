@@ -4,7 +4,9 @@ import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CampaignReportPage;
+import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
+import pageutils.Navigator;
 import testdata.TestData;
 import testutils.Listeners.LogListener;
 
@@ -20,6 +22,7 @@ public class Test_Pos_SendDelayedMessage extends BaseTestClass {
 
     @Test(groups = {"send push", "delayed push"})
     public void sendDelayedMessage() throws Exception {
+
         LocalDateTime date = LocalDateTime.now().plusDays(10);
         int year = date.getYear();
         int month = date.getMonthValue();
@@ -32,11 +35,14 @@ public class Test_Pos_SendDelayedMessage extends BaseTestClass {
         String text = RandomGenerator.nextString();
         String siteUrl = "http://" + RandomGenerator.nextString() + ".com";
 
-        CampaignReportPage campaignReportPage = new LogInPage(driver).login(TestData.email, TestData.pass)
-                .openSite(testSite).openCreateCampaignPage()
-                .setTitle(title).setText(text).setUrlToRedirect(siteUrl)
+        new LogInPage(driver).login(TestData.email, TestData.pass);
+        CampaignReportPage campaignReportPage = new Navigator(driver).open(CreateCampaignPage.class, testSite)
+                .setTitle(title)
+                .setText(text)
+                .setUrlToRedirect(siteUrl)
                 .setDateAndTime(year, month, day, hour, min) //int parameter plus days
-                .sendPush().openMessage(title);
+                .sendPush()
+                .openMessage(title);
 
         Assert.assertTrue(campaignReportPage.verifyMessageDelayed());
     }

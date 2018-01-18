@@ -10,12 +10,16 @@ import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.NewPasswordSetUpPage;
 import pageobjects.RecoverPasswordPage;
+import pageutils.Navigator;
 import testdata.TestData;
 import testutils.Listeners.LogListener;
 
 import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
+import static testdatamanagers.TestUserManager.getEmail;
+import static testdatamanagers.TestUserManager.getPassword;
+import static testdatamanagers.TestUserManager.setPassword;
 
 @Listeners(LogListener.class)
 public class Test_Pos_RecoverPassMultiLanguage extends BaseTestClass {
@@ -23,20 +27,17 @@ public class Test_Pos_RecoverPassMultiLanguage extends BaseTestClass {
     @Test(groups = {"mails", "recover password"}, singleThreaded = true, threadPoolSize = 1)
     public void testRecoverPasswordMail() throws Exception {
         Logger Log = LogManager.getLogger(Test_Pos_RecoverPassMultiLanguage.class);
-        LogInPage logInPage = new LogInPage(driver);
         HeaderMenu headerMenu = new HeaderMenu(driver);
-
-        ConfigTest config = new ConfigTest();
         Verifier verifier = new Verifier();
-        int emailNumber = Integer.valueOf(config.getEmailNumber()) - 2;
-        String email = "grovitek+" + emailNumber + "@gmail.com";
-        String newPass = config.getPassword();
+
+        String email = getEmail();
+        String newPass = getPassword();
         String siteLang;
 
         if (newPass.equals("tttt1111")) newPass = "qqqq1111";
         else if (newPass.equals("qqqq1111")) newPass = "tttt1111";
 
-        logInPage.login(TestData.email, TestData.pass);
+        new LogInPage(driver).login(TestData.email, TestData.pass);
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         langs.get(0).click();
         driver.navigate().refresh();
@@ -44,7 +45,7 @@ public class Test_Pos_RecoverPassMultiLanguage extends BaseTestClass {
         headerMenu.logout();
         for (int i = 1; i <= langs.size(); i++) {
 
-            new RecoverPasswordPage(driver).openRecoverPasswordPage().requestPasswordReset(email);
+            new Navigator(driver).open(RecoverPasswordPage.class).requestPasswordReset(email);
             String message = MailService.getRecoverPasswordMail();
             Log.info(message);
             verifier.assertTrue(verifier.verifyReceivedMail(message, siteLang));
@@ -52,7 +53,7 @@ public class Test_Pos_RecoverPassMultiLanguage extends BaseTestClass {
             String link = "https://" + message.split("https://")[3].split("\\n")[0];
             driver.get(link);
             new NewPasswordSetUpPage(driver).setNewPass(newPass).login(email, newPass);
-            config.setPassword(newPass);
+            setPassword(newPass);
             if (i == langs.size() || ConfigTest.iTest.equals(P2B)) {
                 break;
             }

@@ -9,19 +9,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractAdminPage;
+import pageobjects.common.annotations.PartialPath;
 import webdriverconfiger.WaitManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Oleksii on 18.07.2017.
- */
-public class TagListPage extends AbstractPage{
+@PartialPath(value = "/sites/SITE_ID/tags")
+public class TagListPage extends AbstractAdminPage{
 
-    Wait<WebDriver> wait;
+    private Wait<WebDriver> wait;
 
     private By tagsTUB = By.cssSelector("a[ng-bind*=\"'TAGLST_TAGS'\"]");
     private By tagListTUB = By.cssSelector("a[ng-bind*=\"'TAGLST_TAGLIST' \"]");

@@ -6,8 +6,8 @@ import org.testng.SkipException;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
-import pageobjects.SideBar;
 import pageobjects.WelcomeMessagePage;
+import pageutils.Navigator;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
@@ -25,10 +25,13 @@ public class Test_Pos_EditWM extends BaseTestClass {
 
         if (BetaFeatures.verifyBetaToTest("WMwithButtonsAndBigImage")) {
             userActions.createSite(TestData.email, TestData.pass, testSite);
-            CreateWMPage createWMPage = new SideBar(driver).openWelcomeMessagePage()
-                    .switchWM().clickCreateNewWM()
-                    .setTitle(TestData.welcomeMessageTitle).setText(TestData.welcomeMessageText);
-            String oldIcon = createWMPage.getIconPreview().getAttribute("src");
+            CreateWMPage createWMPage = new Navigator(driver).open(WelcomeMessagePage.class, testSite)
+                    .switchWM()
+                    .clickCreateNewWM()
+                    .setTitle(TestData.welcomeMessageTitle)
+                    .setText(TestData.welcomeMessageText);
+            String oldIcon = createWMPage.getIconPreview()
+                    .getAttribute("src");
 
             CreateWMPage.AdditionalActiveItems additionalActiveItems = createWMPage.openAdditionalActiveItems()
             .setButtons(TestData.button1Name, TestData.testSite, TestData.button2Name, TestData.testSite);
@@ -51,7 +54,10 @@ public class Test_Pos_EditWM extends BaseTestClass {
             String newTitle = "New " + TestData.welcomeMessageTitle;
             String newText = "New " + TestData.welcomeMessageText;
 
-            createWMPage.clearTitle().clearText().setTitle(newTitle).setText(newText);
+            createWMPage.clearTitle()
+                    .clearText()
+                    .setTitle(newTitle)
+                    .setText(newText);
 
             String newIcon = createWMPage.uploadIconToWM(TestData.icon);
 

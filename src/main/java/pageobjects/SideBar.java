@@ -6,17 +6,17 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractAdminPage;
 
-public class SideBar extends AbstractPage{
+public class SideBar extends AbstractAdminPage {
 
-    By createCampaignButton = By.cssSelector("span[ng-bind*=\"'LMENU_NEW_CAMP'\"]");
+    By createCampaignButton = By.xpath("//span[text()='Создать рассылку']");
     By welcomeMessagesButton = By.cssSelector("span[ng-bind*=\"'WLCMMS_TL'\"]");
     By reportsButton = By.cssSelector("span[ng-bind*=\"'LMENU_STAT'\"]");
     By campaignHistoryButton = By.cssSelector("span[ng-bind*=\"'LMENU_HIST'\"]");
     By subscribersButton = By.cssSelector("span[ng-bind*=\"'LMENU_SUBS'\"]");
     By tagListButton = By.cssSelector("span[ng-bind*=\"'LMENU_TAGLIST'\"]");
-    By siteSettingsButton = By.cssSelector("span[ng-bind*=\"'LMENU_SETT'\"]");
+    By siteSettingsButton = By.cssSelector("span[ng-bind*=\"LMENU_SETT\"]");
 
 
     public SideBar(WebDriver driver){
@@ -28,7 +28,6 @@ public class SideBar extends AbstractPage{
         wait.until(ExpectedConditions.visibilityOfElementLocated(createCampaignButton)).click();
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
         assertSiteIdPresent();
-//        manageErrorPop();
         return new CreateCampaignPage(driver);
     }
 
@@ -39,6 +38,16 @@ public class SideBar extends AbstractPage{
         assertSiteIdPresent();
         return new WelcomeMessagePage(driver);
     }
+
+    public WelcomeMessagePage openReportsPage(){
+        String currentUrl = driver.getCurrentUrl();
+        wait.until(ExpectedConditions.presenceOfElementLocated(reportsButton)).click();
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
+        assertSiteIdPresent();
+        return new WelcomeMessagePage(driver);
+    }
+
+
 
     public CampaignHistoryPage openCampaignHistoryPage(){
         String currentUrl = driver.getCurrentUrl();
@@ -67,15 +76,14 @@ public class SideBar extends AbstractPage{
 
     public SiteSettingsPage openSiteSettingsPage(){
         String currentUrl = driver.getCurrentUrl();
-        Timer.waitSeconds(2);
-        driver.findElement(siteSettingsButton).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(siteSettingsButton)).click();
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
         assertSiteIdPresent();
         return new SiteSettingsPage(driver);
     }
 
     private void assertSiteIdPresent(){
-        Timer.waitSeconds(0.3);
+        Timer.waitSeconds(1);
         String currentUrl = driver.getCurrentUrl();
         String cut = currentUrl.split("sites")[1];
         Assert.assertFalse(cut.contains("//"), "No siteId in current URL: " + currentUrl);

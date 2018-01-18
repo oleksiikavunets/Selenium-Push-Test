@@ -2,40 +2,43 @@ import actions.Timer;
 import actions.UserActions;
 import actions.Verifier;
 import com.selenium.ConfigTest;
+import pageobjects.*;
+import pageutils.Navigator;
 import testutils.Listeners.LogListener;
 import com.selenium.utils.Log;
 import com.selenium.utils.RandomGenerator;
 import org.testng.SkipException;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageobjects.CreateWMPage;
-import pageobjects.HeaderMenu;
-import pageobjects.SideBar;
-import pageobjects.WelcomeMessagePage;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
+
+import static testdata.TestData.welcomeMessageText;
+import static testdata.TestData.welcomeMessageTitle;
 
 @Listeners(LogListener.class)
 public class Test_Pos_CreateWMWithBigImage extends BaseTestClass {
 
     @Test(groups = {"WM"})
     public void createWMWithBigImagePos() throws Exception {
-
+        Navigator navigator = new Navigator(driver);
         UserActions userActions = new UserActions(driver);
-        SideBar sideBar = new SideBar(driver);
         WelcomeMessagePage welcomeMessagePage = new WelcomeMessagePage(driver);
-                Verifier verifier = new Verifier();
+        Verifier verifier = new Verifier();
         String testSite = TestData.newHttpSitePattern + RandomGenerator.nextString() + ".com";
 
         if (BetaFeatures.verifyBetaToTest("WMwithButtonsAndBigImage")) {
             userActions.createSite(TestData.email, TestData.pass, testSite);
 
             for (int i = 0; i <= 10; i++) {
-                CreateWMPage createWMPage = sideBar.openWelcomeMessagePage()
-                .switchWM().clickCreateNewWM()
-                .setTitle(TestData.welcomeMessageTitle).setText(TestData.welcomeMessageText);
+                CreateWMPage createWMPage = navigator.open(WelcomeMessagePage.class, testSite)
+                        .switchWM()
+                        .clickCreateNewWM()
+                        .setTitle(welcomeMessageTitle)
+                        .setText(welcomeMessageText);
 
-                createWMPage.openAdditionalActiveItems().uploadBigImage(TestData.bigImage);
+                createWMPage.openAdditionalActiveItems()
+                        .uploadBigImage(TestData.bigImage);
 
                 verifier.assertTrue(createWMPage.getBigImagePreview().isDisplayed(), "Big image not found in notification preview");
                 createWMPage.saveWM();
@@ -44,7 +47,7 @@ public class Test_Pos_CreateWMWithBigImage extends BaseTestClass {
                     String currentUrl = driver.getCurrentUrl();
                     String siteId = currentUrl.split("sites")[1].split("welcome-messages")[0];
                     verifier.assertNotEquals(siteId, "//", "No siteId in current URL: " + currentUrl);
-                    sideBar.openSiteSettingsPage();
+                    navigator.open(SiteSettingsPage.class, testSite);
                 } else {
                     break;
                 }
@@ -62,7 +65,8 @@ public class Test_Pos_CreateWMWithBigImage extends BaseTestClass {
             verifier.assertTestPassed();
         } else {
             Log.info(this.getClass().getSimpleName() + ": Current funtionality is not deployed on " + ConfigTest.iTest);
-            throw new SkipException("Skipped");        }
+            throw new SkipException("Skipped");
+        }
     }
 }
 

@@ -8,7 +8,12 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.NewPasswordSetUpPage;
 import pageobjects.RecoverPasswordPage;
+import pageutils.Navigator;
 import testutils.Listeners.LogListener;
+
+import static testdatamanagers.TestUserManager.getEmail;
+import static testdatamanagers.TestUserManager.getPassword;
+import static testdatamanagers.TestUserManager.setPassword;
 
 /**
  * Created by Oleksii on 31.07.2017.
@@ -18,22 +23,20 @@ public class Test_Pos_RestorePassword extends BaseTestClass {
 
     @Test(groups = {"mails", "recover password"}, singleThreaded = true, threadPoolSize = 1)
     public void restorePassword() throws Exception {
-        ConfigTest config = new ConfigTest();
-        int emailNumber = Integer.valueOf(config.getEmailNumber()) - 2;
-        String newPass = config.getPassword();
+        String newPass = getPassword();
 
         if (newPass.equals("tttt1111")) newPass = "qqqq1111";
         else if (newPass.equals("qqqq1111")) newPass = "tttt1111";
 
-        driver.navigate().to(config.getStartUrl() + "/forgot");
-
-        new RecoverPasswordPage(driver).setEmail("grovitek+" + emailNumber + "@gmail.com")
+        new Navigator(driver).open(RecoverPasswordPage.class)
+                .setEmail(getEmail())
                 .clickResetButton();
         String link = MailService.getRecoverLink();
 
         driver.navigate().to(link);
-        new NewPasswordSetUpPage(driver).setNewPass(newPass).login("grovitek+" + emailNumber + "@gmail.com", newPass);
-        config.setPassword(newPass);
+        new NewPasswordSetUpPage(driver).setNewPass(newPass)
+                .login(getEmail(), newPass);
+        setPassword(newPass);
     }
 
     private void managePopUp() {

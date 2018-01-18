@@ -96,6 +96,20 @@ public class TestUserManager {
         }
     }
 
+    public static void setEmailNumber(int emailNumber){
+        try {
+            InputStream input = new FileInputStream(getFullPath());
+            prop.load(input);
+            OutputStream output = new FileOutputStream(getFullPath());
+            prop.setProperty("emailNumber", String.valueOf(emailNumber));
+            prop.store(output, null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void setPassword(String pass) {
         try {
             InputStream input = new FileInputStream(getFullPath());

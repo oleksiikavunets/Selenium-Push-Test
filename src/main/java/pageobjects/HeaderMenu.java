@@ -7,7 +7,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractAdminPage;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import static com.selenium.enums.Server.P2B;
 /**
  * Created by Oleksii on 13.07.2017.
  */
-public class HeaderMenu extends AbstractPage{
+public class HeaderMenu extends AbstractAdminPage {
 
     public By logo = By.cssSelector("a[ui-sref=\"list\"]");
     public By logOutButton = By.cssSelector("span[ng-bind-html*=\"HDR_SGN_OUT\"]");
@@ -39,7 +39,6 @@ public class HeaderMenu extends AbstractPage{
         }
         return new MainAdminPage(driver);
     }
-
 
     public LogInPage logout() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).click();
@@ -145,7 +144,6 @@ public class HeaderMenu extends AbstractPage{
         return this;
     }
 
-
     public HeaderMenu switchNextLanguage() {
         String mot = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
         switch (mot) {
@@ -164,8 +162,9 @@ public class HeaderMenu extends AbstractPage{
         return this;
     }
 
-
-
+    public void waitForBeingLogged(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton));
+    }
 }
 
 

@@ -1,6 +1,7 @@
 import actions.Timer;
 import actions.Verifier;
 import com.selenium.ConfigTest;
+import pageutils.Navigator;
 import testutils.Listeners.LogListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +23,7 @@ public class Test_Pos_CopyCampaign extends BaseTestClass {
     @Test(groups = {"send push", "copy campaign", "advanced settings", "tags", "alias", "active elements", "buttons", "big image"})
     public void copyCampain() throws Exception {
         Logger Log = LogManager.getLogger(Test_Pos_CopyCampaign.class);
+        Navigator navigator = new Navigator(driver);
         LogInPage logInPage = new LogInPage(driver);
         Verifier verifier = new Verifier();
 
@@ -43,19 +45,17 @@ public class Test_Pos_CopyCampaign extends BaseTestClass {
 
 
         if (BetaFeatures.verifyBetaToTest("copyCampaign")) {
-            MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
-            SideBar sideBar = mainAdminPage.openSite(testSite);
-
+            logInPage.login(TestData.email, TestData.pass);
             if (BetaFeatures.verifyBetaToTest("UTM")) {
-                SiteSettingsPage siteSettingsPage = sideBar.openSiteSettingsPage();
+                SiteSettingsPage siteSettingsPage = navigator.open(SiteSettingsPage.class, testSite);
                 Timer.waitSeconds(2);
                 utm_source = wait.until(ExpectedConditions.visibilityOfElementLocated(siteSettingsPage.UTMsource)).getText();
                 utm_medium = siteSettingsPage.UTMmedium.findElement(driver).getText();
             }
-            CreateCampaignPage createCampaignPage = sideBar.openCreateCampaignPage();
-            createCampaignPage.setTitle(title);
-            createCampaignPage.setText(text);
-            createCampaignPage.setUrlToRedirect(url);
+            CreateCampaignPage createCampaignPage = navigator.open(CreateCampaignPage.class, testSite)
+                    .setTitle(title)
+                    .setText(text)
+                    .setUrlToRedirect(url);
             String newIcon = createCampaignPage.uploadIconToPush(TestData.icon);
 
             if (BetaFeatures.verifyBetaToTest("UTM")) {
@@ -64,17 +64,18 @@ public class Test_Pos_CopyCampaign extends BaseTestClass {
             }
 
             if (BetaFeatures.verifyBetaToTest("buttonsAndBigImage")) { //not released on kyivstar yet
-                CreateCampaignPage.AdditionalActiveItems activeItems = createCampaignPage.openAdditionalActiveItems();
-                activeItems.setButtons("Button 1", "http://gravitec.at.ua/b1", "Button 2", "http://gravitec.at.ua/b2");
+                CreateCampaignPage.AdditionalActiveItems activeItems = createCampaignPage.openAdditionalActiveItems()
+                        .setButtons("Button 1", "http://gravitec.at.ua/b1",
+                                "Button 2", "http://gravitec.at.ua/b2");
                 bigIMG = activeItems.uploadBigImage(TestData.bigImage);
             }
-            CreateCampaignPage.AdvancedOptions advancedOptions = createCampaignPage.openAdvancedOptions();
-            advancedOptions.addTagToCampaign(tag);
-            advancedOptions.addBrowserToCampaign(browser);//set browser before alias
-            advancedOptions.addAliasToCampaign(alias);
-            advancedOptions.addCountryToCampaign(country);
-            advancedOptions.addCityToCampaign(city);
-            CampaignHistoryPage campaignHistoryPage =  createCampaignPage.sendPush();
+            createCampaignPage.openAdvancedOptions()
+                    .addTagToCampaign(tag)
+                    .addBrowserToCampaign(browser) //set browser before alias
+                    .addAliasToCampaign(alias)
+                    .addCountryToCampaign(country)
+                    .addCityToCampaign(city);
+            CampaignHistoryPage campaignHistoryPage = createCampaignPage.sendPush();
 
             CampaignReportPage campaignReportPage = campaignHistoryPage.openMessage(title);
             CreateCampaignPage.NotificationPreview notificationPreview = createCampaignPage.new NotificationPreview();
@@ -105,12 +106,12 @@ public class Test_Pos_CopyCampaign extends BaseTestClass {
 
                 //TO DO - finish encapsulation in CreateCampaign class
                 /**
-                verifier.assertEquals(createCampaignPage.tagsToSend.findElement(driver).getText(), tag, "Failed on round: " + i);
-                verifier.assertEquals(createCampaignPage.aliasToSend.findElement(driver).getText(), alias, "Failed on round: " + i);
-                verifier.assertEquals(createCampaignPage.browserToSend.findElement(driver).getText(), browser.toUpperCase(), "Failed on round: " + i);
-                verifier.assertEquals(createCampaignPage.countryTosend.findElement(driver).getText(), country, "Failed on round: " + i);
-                verifier.assertEquals(createCampaignPage.cityToSend.findElement(driver).getText(), city, "Failed on round: " + i);
-                */
+                 verifier.assertEquals(createCampaignPage.tagsToSend.findElement(driver).getText(), tag, "Failed on round: " + i);
+                 verifier.assertEquals(createCampaignPage.aliasToSend.findElement(driver).getText(), alias, "Failed on round: " + i);
+                 verifier.assertEquals(createCampaignPage.browserToSend.findElement(driver).getText(), browser.toUpperCase(), "Failed on round: " + i);
+                 verifier.assertEquals(createCampaignPage.countryTosend.findElement(driver).getText(), country, "Failed on round: " + i);
+                 verifier.assertEquals(createCampaignPage.cityToSend.findElement(driver).getText(), city, "Failed on round: " + i);
+                 */
 
                 createCampaignPage.sendPush();
                 campaignHistoryPage.openMessage(title);

@@ -9,12 +9,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractOuterPage;
 
-/**
- * Created by Oleksii on 18.07.2017.
- */
-public class NewPasswordSetUpPage extends AbstractPage{
+
+public class NewPasswordSetUpPage extends AbstractOuterPage {
 
     Logger Log = LogManager.getLogger(LogInPage.class);
 
@@ -28,13 +26,13 @@ public class NewPasswordSetUpPage extends AbstractPage{
     }
 
     public LogInPage setNewPass(String newPass) {
-        managePopUp();
+//        managePopUp();
         wait.until(ExpectedConditions.visibilityOfElementLocated(passInput)).sendKeys(newPass);
-        managePopUp();
+//        managePopUp();
         passRepeat.findElement(driver).sendKeys(newPass);
-        managePopUp();
+//        managePopUp();
         submitButton.findElement(driver).click();
-        managePopUp();
+//        managePopUp();
         Log.info("NEW PASSWORD: " + newPass);
        clickOkPopUP();
        return new LogInPage(driver);

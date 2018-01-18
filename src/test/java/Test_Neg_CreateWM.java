@@ -1,16 +1,16 @@
 import actions.UserActions;
 import actions.Verifier;
-import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
 import pageobjects.HeaderMenu;
-import pageobjects.SideBar;
 import pageobjects.WelcomeMessagePage;
+import pageutils.Navigator;
 import testdata.ErrorMessages;
 import testdata.TestData;
+import testutils.Listeners.LogListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +25,9 @@ public class Test_Neg_CreateWM extends BaseTestClass {
     @Test(groups = { "negative", "WM" })
     public void createWMnegative() throws Exception {
         HeaderMenu headerMenu = new HeaderMenu(driver);
-        SideBar sideBar = new SideBar(driver);
+//        SideBar sideBar = new SideBar(driver);
+        Navigator navigator = new Navigator(driver);
+
 
         ErrorMessages errorMessages = new ErrorMessages();
         UserActions userActions = new UserActions(driver);
@@ -37,7 +39,7 @@ public class Test_Neg_CreateWM extends BaseTestClass {
         HashMap<String, String> invalidLinkFormat = errorMessages.getInvalidLinkFormat();
 
         userActions.createSite(TestData.email, TestData.pass, siteUrl);
-        WelcomeMessagePage welcomeMessagePage = sideBar.openWelcomeMessagePage();
+        WelcomeMessagePage welcomeMessagePage = navigator.open(WelcomeMessagePage.class, siteUrl);
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         langs.get(0).click();
         //driver.navigate().refresh();

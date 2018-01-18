@@ -1,12 +1,13 @@
 package pageobjects;
 
-import actions.Custom;
+import actions.Clicker;
 import actions.Timer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractAdminPage;
+import pageobjects.common.annotations.PartialPath;
 import pageutils.ImageUploader;
 import testrestrictions.BetaFeatures;
 
@@ -15,8 +16,10 @@ import java.io.File;
 /**
  * Created by Oleksii on 19.07.2017.
  */
-public class SiteSettingsPage extends AbstractPage{
+@PartialPath(value = "/sites/SITE_ID/edit")
+public class SiteSettingsPage extends AbstractAdminPage {
 
+    private By siteSettingsMenuBtn = By.cssSelector("span[ng-bind*='LMENU_SETT']");
     private By siteScript = By.xpath("//blockquote[@id=\"client-script-tag\"]");
     private By btnSDK = By.cssSelector("a[ng-bind*=\"SETTNGS_DWNLD_SDK_BUT\"]");
     private By siteIcon = By.cssSelector("img[ng-if*=\"site.icon\"]");
@@ -38,6 +41,12 @@ public class SiteSettingsPage extends AbstractPage{
 
     public SiteSettingsPage(WebDriver driver) {
         super(driver);
+    }
+
+    public SiteSettingsPage openSiteSettingsPage(){
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(siteSettingsMenuBtn)).click();
+        return this;
     }
 
     public String getSiteScript() {
@@ -88,12 +97,12 @@ public class SiteSettingsPage extends AbstractPage{
 
     public SiteSettingsPage clickDelete() {
 
-        Custom custom = new Custom(driver);
+        Clicker clicker = new Clicker(driver);
 
         wait.until(ExpectedConditions.elementToBeClickable(deleteWebsiteButton));
 //       WebElement element = driver.findElement(deleteWebsiteButton);
 //        Timer.waitSeconds(1);
-        custom.clickAt(deleteWebsiteButton.findElement(driver));
+        clicker.clickJS(deleteWebsiteButton.findElement(driver));
         return this;
     }
 

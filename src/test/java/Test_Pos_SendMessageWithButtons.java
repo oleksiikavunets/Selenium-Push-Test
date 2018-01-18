@@ -5,9 +5,12 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
+import pageutils.Navigator;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
+
+import static testdata.TestData.testSite;
 
 @Listeners(LogListener.class)
 public class Test_Pos_SendMessageWithButtons extends BaseTestClass {
@@ -21,13 +24,16 @@ public class Test_Pos_SendMessageWithButtons extends BaseTestClass {
 
         if (BetaFeatures.verifyBetaToTest("buttonsAndBigImage")) {
 
-            CreateCampaignPage createCampaignPage = new LogInPage(driver).login(TestData.email, TestData.pass)
-                    .openSite(TestData.testSite).openCreateCampaignPage()
-                    .setTitle(title).setText(text);
+            new LogInPage(driver).login(TestData.email, TestData.pass);
+            CreateCampaignPage createCampaignPage = new Navigator(driver).open(CreateCampaignPage.class, testSite)
+                    .setTitle(title)
+                    .setText(text);
 
             createCampaignPage.openAdditionalActiveItems()
-                    .setButtons("Button1", "https://push.gravitec.net:7700/b1", "Button2", "https://push.gravitec.net:7700/b2")
-                    .setButton1Icon().setButton2Icon();
+                    .setButtons("Button1", "https://push.gravitec.net:7700/b1",
+                            "Button2", "https://push.gravitec.net:7700/b2")
+                    .setButton1Icon()
+                    .setButton2Icon();
 
             Timer.waitSeconds(1);
 

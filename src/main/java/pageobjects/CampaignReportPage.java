@@ -4,14 +4,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractAdminPage;
 
 import java.util.List;
 
 /**
  * Created by Oleksii on 17.07.2017.
  */
-public class CampaignReportPage extends AbstractPage{
+public class CampaignReportPage extends AbstractAdminPage {
 
     private  By backToHistoryButton = By.cssSelector("span[ng-bind*=\"'HSTR_PUSH_BACK'\"]");
     private  By editButton = By.cssSelector("span[ng-bind*=\"'HSTR_PUSH_EDIT'\"]");
@@ -52,12 +52,11 @@ public class CampaignReportPage extends AbstractPage{
 
     public CampaignReportPage clickConfirmPopUpButton() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(confirmPopUpButton)).click();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(confirmPopUpButton));
         return this;
     }
 
     public CampaignReportPage clickOkPopUpButton() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(okPopUpButton)).click();
+        okPopUpButton.findElement(driver).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(okPopUpButton));
         return this;
     }

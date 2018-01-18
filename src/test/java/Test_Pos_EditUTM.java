@@ -1,5 +1,6 @@
 import actions.Verifier;
 import com.selenium.ConfigTest;
+import pageutils.Navigator;
 import testutils.Listeners.LogListener;
 import com.selenium.utils.Log;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,18 +11,19 @@ import pageobjects.*;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
 
+import static testdata.TestData.testSite;
+
 @Listeners(LogListener.class)
 public class Test_Pos_EditUTM extends BaseTestClass {
 
     @Test(groups = {"site settings", "UTM"})
     public void editUTM() throws InterruptedException {
-        LogInPage logInPage = new LogInPage(driver);
         Verifier verifier = new Verifier();
         String newUTMsource = TestData.utm_source;
         String newUTMmedium = TestData.utm_medium;
         if (BetaFeatures.verifyBetaToTest("UTM")) {
-            SiteSettingsPage siteSettingsPage = logInPage.login(TestData.email, TestData.pass)
-                    .openSite().openSiteSettingsPage();
+            new LogInPage(driver).login(TestData.email, TestData.pass);
+            SiteSettingsPage siteSettingsPage = new Navigator(driver).open(SiteSettingsPage.class, testSite);
 
             String UTMsource = siteSettingsPage.getUtm_source();
             String UTMmedium = siteSettingsPage.getUtm_medium();

@@ -6,10 +6,10 @@ import java.io.*;
 import java.util.Properties;
 
 public class TestDataManager {
-    private final String path = "src/main/data/testdata/";
+    private static final String path = "src/main/data/testdata/";
     private static Properties prop = new Properties();
 
-    private String getFullPath() {
+    private static String getFullPath() {
         StringBuilder fullPath = new StringBuilder(path);
 
         switch (ConfigTest.iTest) {
@@ -35,7 +35,7 @@ public class TestDataManager {
         return fullPath.toString();
     }
 
-    public String getSite() {
+    public static String getSite() {
         String site = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -49,7 +49,7 @@ public class TestDataManager {
         return site;
     }
 
-    public String getAlias() {
+    public static String getAlias() {
         String alias = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -63,7 +63,7 @@ public class TestDataManager {
         return alias;
     }
 
-    public String getTag() {
+    public static String getTag() {
         String tag = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -77,7 +77,7 @@ public class TestDataManager {
         return tag;
     }
 
-    public String[] getTags() {
+    public static String[] getTags() {
         String[] tags = new String[3];
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -93,7 +93,7 @@ public class TestDataManager {
         return tags;
     }
 
-    public TestDataManager setAlias(String alias) {
+    public static void setAlias(String alias) {
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
@@ -106,10 +106,9 @@ public class TestDataManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return this;
     }
 
-    public TestDataManager setTags(String...tags) {
+    public static void setTags(String...tags) {
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
@@ -123,10 +122,9 @@ public class TestDataManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return this;
     }
 
-    public TestDataManager setSite(String site) {
+    public static void setSite(String site) {
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
@@ -138,6 +136,5 @@ public class TestDataManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return this;
     }
 }

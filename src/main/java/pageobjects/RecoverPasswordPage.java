@@ -6,12 +6,11 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractOuterPage;
+import pageobjects.common.annotations.PartialPath;
 
-/**
- * Created by Oleksii on 18.07.2017.
- */
-public class RecoverPasswordPage extends AbstractPage{
+@PartialPath(value = "/forgot")
+public class RecoverPasswordPage extends AbstractOuterPage {
 
     public By resetPassButton = By.cssSelector("button[type=\"submit\"]");
     public By emailInput = By.cssSelector("input[type=\"email\"]");

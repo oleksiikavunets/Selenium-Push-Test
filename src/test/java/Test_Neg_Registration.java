@@ -1,4 +1,5 @@
 import actions.Verifier;
+import pageutils.Navigator;
 import testutils.Listeners.LogListener;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,6 +24,7 @@ public class Test_Neg_Registration extends BaseTestClass {
 
     @Test(groups = {"negative"})
     public void registrationNegative() throws Exception {
+        Navigator navigator = new Navigator(driver);
         HeaderMenu headerMenu = new HeaderMenu(driver);
         LogInPage logInPage = new LogInPage(driver);
         ErrorMessages errorMessages = new ErrorMessages();
@@ -43,31 +45,30 @@ public class Test_Neg_Registration extends BaseTestClass {
 
         for (int i = 1; i <= langs.size(); i++) {
             headerMenu.logout();
-            RegistrationPage registrationPage = logInPage.clickRegister();
-            registrationPage.setEmail("admin@");
-            registrationPage.setPass("1111");
+            RegistrationPage registrationPage = navigator.open(RegistrationPage.class)
+                    .setEmail("admin@")
+                    .setPass("1111");
             verifier.assertEquals(wait.until(ExpectedConditions.presenceOfElementLocated(registrationPage.invalidFormat)).getText(), invalidEmailFormat.get(siteLang));
             //int emailNumber = Integer.valueOf((String) prop.get("emailNumber"));
-            driver.findElement(registrationPage.email).clear();
-            registrationPage.setEmail(TestData.email);
+            registrationPage.clearEmail()
+                    .setEmail(TestData.email);
 
             verifier.assertEquals(wait.until(ExpectedConditions.presenceOfElementLocated(registrationPage.invalidFormatPass)).getText(), smallPasword.get(siteLang));
             //checks error "Your password must be at least 8 characters long, must contain Latin symbols"
 
-            registrationPage.clearPass();
-
-            registrationPage.setPass(TestData.pass);
-            registrationPage.repeatPass(TestData.pass2);
+            registrationPage.clearPass()
+                    .setPass(TestData.pass)
+                    .repeatPass(TestData.pass2);
             verifier.assertEquals(wait.until(ExpectedConditions.presenceOfElementLocated(registrationPage.passDNTMatch)).getText(), passNotMatch.get(siteLang));
             //checks error "Passwords don't match"
 
-            registrationPage.clearEmail();
-            registrationPage.setEmail(TestData.email);
-            registrationPage.clearPass();
-            registrationPage.setPass(TestData.pass);
-            registrationPage.clearRepeatPass();
-            registrationPage.repeatPass(TestData.pass);
-            registrationPage.submit();
+            registrationPage.clearEmail()
+                    .setEmail(TestData.email)
+                    .clearPass()
+                    .setPass(TestData.pass)
+                    .clearRepeatPass()
+                    .repeatPass(TestData.pass)
+                    .submit();
             verifier.assertEquals(wait.until(ExpectedConditions.presenceOfElementLocated(registrationPage.errorExists)).getText(), emailxists.get(siteLang));
             //checks error "User email exists"
             if (i == langs.size()) break;

@@ -8,23 +8,22 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractAdminPage;
+import pageobjects.common.annotations.PartialPath;
 
 import java.util.List;
 
 
-/**
- * Created by Oleksii on 13.07.2017.
- */
-public class MainAdminPage extends AbstractPage{
+@PartialPath(value = "/")
+public class MainAdminPage extends AbstractAdminPage {
 
-    Logger Log = LogManager.getLogger(LogInPage.class);
+    Logger Log = LogManager.getLogger(MainAdminPage.class);
 
-    public By siteName = By.cssSelector("a[ng-bind=\"site.url\"]");
-    public By siteList = By.cssSelector("div[class*=\"table-sites-list\"]");
-    public By addNewSiteButton = By.cssSelector("span[data-ng-bind-html=\"'LIST_ADD_NEW' | translate\"]");
-    public By amountOfAllSubscribers = By.cssSelector("span[ng-bind*=\"(vmList.currentUser.followers)\"]");
-    public By amountOfSiteSucsribers = By.cssSelector("td[ng-bind*=\"(site.totalFollowers)\"]");
+    private By siteName = By.cssSelector("a[ng-bind=\"site.url\"]");
+    private By siteList = By.cssSelector("div[class*=\"table-sites-list\"]");
+    private By addNewSiteButton = By.cssSelector("span[data-ng-bind-html=\"'LIST_ADD_NEW' | translate\"]");
+    private By amountOfAllSubscribers = By.cssSelector("span[ng-bind*=\"(vmList.currentUser.followers)\"]");
+    private By amountOfSiteSucsribers = By.cssSelector("td[ng-bind*=\"(site.totalFollowers)\"]");
 
 
     public MainAdminPage(WebDriver driver){
@@ -61,12 +60,15 @@ public class MainAdminPage extends AbstractPage{
     }
 
     public SideBar openSite(){
+        String currentUrl = driver.getCurrentUrl();
         wait.until(ExpectedConditions.visibilityOfElementLocated(siteName)).click();
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
         return new SideBar(driver);
     }
 
     public SideBar openSite(String siteToOpen) {
 //        wait.until(ExpectedConditions.visibilityOfElementLocated(siteName));
+        String currentUrl = driver.getCurrentUrl();
 
         List<WebElement> siteList = driver.findElements(siteName);
 
@@ -76,6 +78,7 @@ public class MainAdminPage extends AbstractPage{
                 break;
             }
         }
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
         Log.info("TEST SITE: " + siteToOpen);
         return new SideBar(driver);
     }
@@ -91,5 +94,11 @@ public class MainAdminPage extends AbstractPage{
     public List<WebElement> getSiteList(){
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(siteName));
         return siteName.findElements(driver);
+    }
+
+    public String getSiteId(String site){
+        String a =  driver.findElement(By.xpath("//a[text()='" + site + "']/../following-sibling::td/a")).getAttribute("href").split("/")[4];
+        System.out.println(a);
+   return a;
     }
 }

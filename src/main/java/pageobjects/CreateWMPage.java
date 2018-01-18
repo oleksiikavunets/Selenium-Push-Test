@@ -5,16 +5,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractAdminPage;
+import pageobjects.common.annotations.PartialPath;
 import pageutils.ImageUploader;
 import testrestrictions.BetaFeatures;
 
 import java.io.File;
 
-/**
- * Created by Oleksii on 19.07.2017.
- */
-public class CreateWMPage extends AbstractPage{
+@PartialPath(value = "/sites/SITE_ID/welcome-messages/create")
+public class CreateWMPage extends AbstractAdminPage {
 
     //push preview block
     private By titlePreview = By.cssSelector("p[data-ng-bind*=\"$ctrl.mtitle \"]");

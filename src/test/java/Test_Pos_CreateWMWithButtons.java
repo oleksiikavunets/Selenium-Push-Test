@@ -8,8 +8,9 @@ import org.testng.SkipException;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
-import pageobjects.SideBar;
+import pageobjects.SiteSettingsPage;
 import pageobjects.WelcomeMessagePage;
+import pageutils.Navigator;
 import testdata.TestData;
 import testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
@@ -19,9 +20,9 @@ public class Test_Pos_CreateWMWithButtons extends BaseTestClass {
 
     @Test(groups = {"WM"})
     public void createWMWithButtonsPos() throws Exception {
+        Navigator navigator = new Navigator(driver);
         UserActions userActions = new UserActions(driver);
         WelcomeMessagePage welcomeMessagePage = new WelcomeMessagePage(driver);
-        SideBar sideBar = new SideBar(driver);
         Verifier verifier = new Verifier();
         String testSite = TestData.newHttpSitePattern + RandomGenerator.nextString() + ".com";
 
@@ -29,9 +30,10 @@ public class Test_Pos_CreateWMWithButtons extends BaseTestClass {
             userActions.createSite(TestData.email, TestData.pass, testSite);
             for (int i = 0; i <= 10; i++) {
 
-                sideBar.openWelcomeMessagePage().switchWM();
-                CreateWMPage createWMPage = welcomeMessagePage.clickCreateNewWM()
-                        .setTitle(TestData.welcomeMessageTitle).setText(TestData.welcomeMessageText);
+                CreateWMPage createWMPage = navigator.open(WelcomeMessagePage.class, testSite)
+                        .clickCreateNewWM()
+                        .setTitle(TestData.welcomeMessageTitle)
+                        .setText(TestData.welcomeMessageText);
 
                 createWMPage.openAdditionalActiveItems()
                         .setButtons(TestData.button1Name, TestData.testSite, TestData.button2Name, TestData.testSite);
@@ -45,7 +47,7 @@ public class Test_Pos_CreateWMWithButtons extends BaseTestClass {
                     String currentUrl = driver.getCurrentUrl();
                     String siteId = currentUrl.split("sites")[1].split("welcome-messages")[0];
                     verifier.assertNotEquals(siteId, "//", "No siteId in current URL: " + currentUrl);
-                    sideBar.openSiteSettingsPage();
+                    navigator.open(SiteSettingsPage.class, testSite);
                 } else {
                     break;
                 }

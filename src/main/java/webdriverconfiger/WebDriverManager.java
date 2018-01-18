@@ -35,7 +35,9 @@ public class WebDriverManager {
 
 
     private WebDriver getChromeDriver() {
-        System.setProperty("webdriver.chrome.driver", new File(path.append("chromedriver 2.33/chromedriver.exe").toString()).getAbsolutePath());
+        String os = getOS();
+        String driverType = os == "win" ? "/chromedriver.exe" : "/chromedriver";
+        System.setProperty("webdriver.chrome.driver", new File(path.append("chromedriver 2.33/" + os + driverType).toString()).getAbsolutePath());
         ChromeOptions options = new ChromeOptions();
         options.addArguments("test-type");
         options.addArguments("start-maximized");
@@ -48,15 +50,13 @@ public class WebDriverManager {
         logPrefs.enable(LogType.BROWSER, Level.ALL);
         logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
 
-
-
         driver = WebDriverPool.DEFAULT.getDriver(options);
         return driver;
     }
 
     private WebDriver getFirefoxDriver() {
         System.setProperty("webdriver.gecko.driver",
-                new File(path.append("geckodriver 0.19 win64/geckodriver.exe").toString()).getAbsolutePath());
+                new File(path.append("geckodriver 0.19.1/geckodriver.exe").toString()).getAbsolutePath());
         driver = WebDriverPool.DEFAULT.getDriver("firefox");
         return driver;
     }
@@ -71,6 +71,17 @@ public class WebDriverManager {
         options.setExperimentalOption("prefs", chromePrefs);
         driver = WebDriverPool.DEFAULT.getDriver(options);
         return driver;
+    }
+
+    private String getOS(){
+        String myOs = "";
+        String osName =  System.getProperty("os.name").toLowerCase();
+        System.out.println("RUNNING ON " + osName + "..................................");
+        if(osName.indexOf("win") >= 0) myOs = "win";
+        else if(osName.indexOf("mac") >= 0) myOs = "mac";
+        else if(osName.indexOf("nix") >= 0 || osName.indexOf("nux") >= 0 || osName.indexOf("aix") > 0 ) myOs = "linux";
+        else System.out.println("OS NOT SUPPORTED.............................");
+        return myOs;
     }
 
     public void quitDriver(WebDriver driver){

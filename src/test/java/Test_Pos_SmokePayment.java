@@ -21,7 +21,8 @@ public class Test_Pos_SmokePayment extends BaseTestClass {
         if (gravitecBilling.verifySmokePaymentToExecute()) {
             BillingPage billingPage = new BillingPage(driver);
             logInPage.login(TestData.debtorEmail, TestData.pass);
-            billingPage.clickToPayNow().clickPopUpToPay();
+            billingPage.clickToPayNow()
+                    .clickPopUpToPay();
             wait.until(ExpectedConditions.urlContains("fondy"));
             String url = driver.getCurrentUrl();
             System.out.println(url);

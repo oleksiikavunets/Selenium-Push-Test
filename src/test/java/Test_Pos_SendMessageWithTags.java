@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import pageobjects.CampaignReportPage;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
+import pageutils.Navigator;
 import testdata.TestData;
 import testutils.Listeners.LogListener;
 
@@ -24,7 +25,7 @@ public class Test_Pos_SendMessageWithTags extends BaseTestClass {
     @Parameters("browser")
     @Test(groups = {"send push", "advanced settings", "tags"})
     public void sendMessageWithTags(@Optional("chrome") String browser) throws Exception {
-        LogInPage logInPage = new LogInPage(driver);
+
         String title = RandomGenerator.nextString();
         String text = RandomGenerator.nextString();
         String testSite = TestData.testSite;
@@ -35,9 +36,10 @@ public class Test_Pos_SendMessageWithTags extends BaseTestClass {
 
         new UserActions(driver).addNewTag(browser, testSite, newTags);
 
-        CreateCampaignPage.AdvancedOptions advancedOptions = logInPage.login(TestData.email, TestData.pass)
-                .openSite(testSite).openCreateCampaignPage()
-                .setTitle(title).setText(text)
+        new LogInPage(driver).login(TestData.email, TestData.pass);
+        CreateCampaignPage.AdvancedOptions advancedOptions = new Navigator(driver).open(CreateCampaignPage.class, testSite)
+                .setTitle(title)
+                .setText(text)
                 .openAdvancedOptions()
                 .addTagToCampaign(newTags);
 

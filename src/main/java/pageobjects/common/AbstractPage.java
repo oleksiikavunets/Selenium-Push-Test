@@ -6,15 +6,15 @@ import webdriverconfiger.WaitManager;
 
 public abstract class AbstractPage {
 
-    protected WebDriver driver;
-    protected Wait<WebDriver> wait;
+    protected final WebDriver driver;
+    protected final Wait<WebDriver> wait;
 
     protected AbstractPage(final WebDriver driver){
         this.driver = driver;
-        wait = new WaitManager(driver).getWait();
+        wait = new WaitManager(this.driver).getWait();
     }
     protected AbstractPage(final WebDriver driver, int timeout){
         this.driver = driver;
-        wait = new WaitManager(driver).getWait(timeout);
+        wait = new WaitManager(this.driver).getWait(timeout);
     }
 }

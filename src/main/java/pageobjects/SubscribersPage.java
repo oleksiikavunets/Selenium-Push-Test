@@ -4,9 +4,11 @@ import actions.Timer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractAdminPage;
+import pageobjects.common.annotations.PartialPath;
 
-public class SubscribersPage extends AbstractPage {
+@PartialPath(value = "/sites/SITE_ID/subscribers")
+public class SubscribersPage extends AbstractAdminPage {
 
     private By totalSubscribersAmount = By.cssSelector("span[ng-bind*=\"Subscribers.daystat.total \"]");
     private By newSubscribersAmount = By.cssSelector("span[ng-bind*=\"Subscribers.daystat.totalNew\"]");

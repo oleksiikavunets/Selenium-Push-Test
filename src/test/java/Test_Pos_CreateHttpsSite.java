@@ -8,6 +8,8 @@ import pageobjects.SiteManagerPage;
 import pageobjects.SiteSettingsPage;
 
 import static com.selenium.utils.NameGenerator.generateNewHttpsSiteName;
+import static testdata.TestData.testEmail;
+import static testdatamanagers.TestSiteManager.setHttpsSite;
 
 public class Test_Pos_CreateHttpsSite extends BaseTestClass{
 
@@ -24,7 +26,7 @@ public class Test_Pos_CreateHttpsSite extends BaseTestClass{
         siteManagerPage.createNewSite(siteUrl);
         String script = userActions.createSite(siteUrl);
         String siteSDK = siteSettingsPage.getSDKlink();
-        testSiteManager.setHttpsSite(siteUrl, ++siteNumber);
+        setHttpsSite(siteUrl, siteNumber, testEmail);
         new HeaderMenu(driver).clickLogo().verifySitePresent(siteUrl);
         userActions.checkCreateSiteMail(siteUrl, browser);
         siteManagerPage.setSiteDatas(siteUrl, script, siteSDK);

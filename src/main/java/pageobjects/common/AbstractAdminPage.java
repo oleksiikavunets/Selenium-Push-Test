@@ -1,11 +1,10 @@
-package pageobjects.common.annotations;
+package pageobjects.common;
 
 import org.openqa.selenium.WebDriver;
-import pageobjects.common.AbstractPage;
 
-public class AbstractAdminPage extends AbstractPage {
+public abstract class AbstractAdminPage extends AbstractPage {
 
-    protected AbstractAdminPage(WebDriver driver) {
+    protected AbstractAdminPage(final WebDriver driver) {
         super(driver);
     }
 

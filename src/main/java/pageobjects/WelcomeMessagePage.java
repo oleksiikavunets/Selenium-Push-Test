@@ -1,17 +1,19 @@
 package pageobjects;
 
-import actions.Custom;
+import actions.Clicker;
 import actions.Timer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageobjects.common.AbstractPage;
+import pageobjects.common.AbstractAdminPage;
+import pageobjects.common.annotations.PartialPath;
 
 /**
  * Created by Oleksii on 19.07.2017.
  */
-public class WelcomeMessagePage extends AbstractPage{
+@PartialPath(value = "/sites/SITE_ID/welcome-messages")
+public class WelcomeMessagePage extends AbstractAdminPage {
 
     private By WMSwitcher = By.cssSelector("input[type=\"checkbox\"]");
     private By WMTitle = By.xpath("//*[@id=\"welcome-messages-list\"]//td[2]//strong");
@@ -44,16 +46,14 @@ public class WelcomeMessagePage extends AbstractPage{
 
     public WelcomeMessagePage switchWM() {
 
-        new Custom(driver).clickAt(WMSwitcher);
+        new Clicker(driver).clickJS(WMSwitcher);
         Timer.waitSeconds(0.5);
         return this;
     }
 
-
-
     public CreateWMPage clickCreateNewWM() {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(addNewWMButton));
-        new Custom(driver).clickAt(element);
+        new Clicker(driver).clickJS(element);
         return new CreateWMPage(driver);
     }
 
@@ -63,7 +63,7 @@ public class WelcomeMessagePage extends AbstractPage{
     }
 
     public WelcomeMessagePage enableWM() {
-        new Custom(driver).clickAt(wait.until(ExpectedConditions.visibilityOfElementLocated(disabledWM)));
+        new Clicker(driver).clickJS(wait.until(ExpectedConditions.visibilityOfElementLocated(disabledWM)));
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(enabledWM)).isDisplayed();
         return this;
@@ -76,9 +76,8 @@ public class WelcomeMessagePage extends AbstractPage{
     }
 
     public WelcomeMessagePage deleteWM() {
-        Custom custom = new Custom(driver);
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(removeWMButton));
-        custom.clickAt(element);
+        new Clicker(driver).clickJS(element);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(WMTitle));
         return this;
     }

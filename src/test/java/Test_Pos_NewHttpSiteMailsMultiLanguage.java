@@ -17,6 +17,8 @@ import pageobjects.MainAdminPage;
 import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
+import static testdatamanagers.TestUserManager.getEmail;
+import static testdatamanagers.TestUserManager.getPassword;
 
 @Listeners(LogListener.class)
 public class Test_Pos_NewHttpSiteMailsMultiLanguage extends BaseTestClass {
@@ -25,12 +27,10 @@ public class Test_Pos_NewHttpSiteMailsMultiLanguage extends BaseTestClass {
     public void testCreateHttpSiteMails() throws Exception {
         Logger Log = LogManager.getLogger(Test_Pos_NewHttpSiteMailsMultiLanguage.class);
         HeaderMenu headerMenu = new HeaderMenu(driver);
-        ConfigTest configTest = new ConfigTest();
         Verifier verifier = new Verifier();
 
-        int emailNumber = Integer.valueOf(configTest.getEmailNumber()) - 2;
-        String email = "grovitek+" + emailNumber + "@gmail.com";
-        String pass = configTest.getPassword();
+        String email = getEmail();
+        String pass = getPassword();
         String siteLang;
 
         MainAdminPage mainAdminPage = new LogInPage(driver).login(email, pass);

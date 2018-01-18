@@ -1,6 +1,5 @@
 
 import actions.UserActions;
-import testdatamanagers.TestSiteManager;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -10,6 +9,9 @@ import pageobjects.SiteManagerPage;
 import testutils.Listeners.LogListener;
 
 import static com.selenium.utils.NameGenerator.generateNewHttpSiteName;
+import static testdata.TestData.testEmail;
+import static testdatamanagers.TestSiteManager.getHttpSiteNumber;
+import static testdatamanagers.TestSiteManager.setHttpSite;
 
 @Listeners(LogListener.class)
 public class Test_Pos_CreateHttpSite extends BaseTestClass {
@@ -17,8 +19,7 @@ public class Test_Pos_CreateHttpSite extends BaseTestClass {
     @Parameters("browser")
     @Test
     public void createHttpSitePos(@Optional("chrome") String browser) throws Exception {
-        TestSiteManager testSiteManager = new TestSiteManager();
-        int siteNumber = Integer.valueOf(testSiteManager.getHttpSiteNumber());
+        int siteNumber = Integer.valueOf(getHttpSiteNumber());
         UserActions userActions = new UserActions(driver);
         SiteManagerPage siteManagerPage = new SiteManagerPage(driver);
 
@@ -27,7 +28,7 @@ public class Test_Pos_CreateHttpSite extends BaseTestClass {
         siteManagerPage.createNewSite(siteUrl);
         String script = userActions.createSite(siteUrl);
         System.out.println("Site Script: " + script);
-        testSiteManager.setHttpSite(siteUrl, ++siteNumber);
+        setHttpSite(siteUrl, siteNumber, testEmail);
         new HeaderMenu(driver).clickLogo().verifySitePresent(siteUrl);
         userActions.checkCreateSiteMail(siteUrl, browser);
 

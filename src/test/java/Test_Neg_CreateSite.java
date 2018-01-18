@@ -44,13 +44,13 @@ public class Test_Neg_CreateSite extends BaseTestClass {
         String btnColorAfter = addNewSitePage.getHttpBtn().getCssValue("border");
         System.out.println(btnColorAfter);
 
-        verifier.assertFalse(btnColorBefore.equals(btnColorAfter));
+        verifier.assertFalse(btnColorBefore.equals(btnColorAfter), "Protocol buttons are not colored in red");
 
         //checks error "HTTP highlight"
         for (int i = 1; i <= langs.size(); i++) {
 
             siteLang = headerMenu.checkLanguage();
-            verifier.assertEquals(textOf(addNewSitePage.getErrorProtocolMsg()), selectProtocol.get(siteLang));
+            verifier.assertEquals(textOf(addNewSitePage.getErrorProtocolMsg()), selectProtocol.get(siteLang), " Protocol not selected error does not match");
             //checks error "Select protocol"
             if (i == langs.size() || ConfigTest.iTest.equals(P2B)) break;
 
@@ -63,18 +63,18 @@ public class Test_Neg_CreateSite extends BaseTestClass {
                 .setDomain(existingSite)
                 .selectHTTPprotocol()
                 .clickAdd();
-        verifier.assertTrue(addNewSitePage.getErrorSiteExistsMsg().isDisplayed());
+        verifier.assertTrue(addNewSitePage.getErrorSiteExistsMsg().isDisplayed(), "Site exists error is not displayed");
 
         for (int c = 1; c <= langs.size(); c++) {
             siteLang = headerMenu.checkLanguage();
-            verifier.assertEquals(textOf(addNewSitePage.getErrorSiteExistsMsg()), siteExists.get(siteLang));
+            verifier.assertEquals(textOf(addNewSitePage.getErrorSiteExistsMsg()), siteExists.get(siteLang), "Site exists error does not match");
             //checks error "Site with such url already exists."
             if (c == langs.size()) break;
 
             headerMenu.switchLanguage(c);
         }
         addNewSitePage.uploadIcon(TestData.bigIcon);
-        verifier.assertTrue(addNewSitePage.getIconTooBigError().isDisplayed());
+        verifier.assertTrue(addNewSitePage.getIconTooBigError().isDisplayed(), "Icon error is not displayed");
 
         //checks error "Too big size of picture"
 

@@ -12,22 +12,22 @@ public class LogListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        Log.info("***** STARTING TEST METHOD: " + getTestMethodName(result) + " *****");
+        Log.info("STARTING TEST METHOD: " + getTestMethodName(result) + "...........................");
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        Log.info("TEST METHOD " + getTestMethodName(result) + ": PASSED\r");
+        Log.info("TEST METHOD " + getTestMethodName(result) + ": PASSED............................\r");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        Log.info("TEST METHOD " + getTestMethodName(result) + ": FAILED\r");
+        Log.info("TEST METHOD " + getTestMethodName(result) + ": FAILED.............................\r");
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        Log.info("TEST METHOD " + getTestMethodName(result) + ": SKIPPED\r");
+        Log.info("TEST METHOD " + getTestMethodName(result) + ": SKIPPED.................................\r");
     }
 
     @Override
