@@ -1,13 +1,15 @@
 package pageobjects;
 
 import actions.Timer;
-import testdatamanagers.TestSiteManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import pageobjects.common.AbstractPage;
+
+import static testdatamanagers.TestSiteManager.getHttpSiteUrl;
+import static testdatamanagers.TestSiteManager.getHttpsSiteUrl;
 
 public class SiteManagerPage extends AbstractPage{
 
@@ -85,28 +87,16 @@ public class SiteManagerPage extends AbstractPage{
     private SiteManagerPage openSite(String site) {
 
         driver.findElement(By.xpath("//span[text()='" + site + "']")).click();
-
-//        String siteToOpen = getSiteName(site);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(siteName));
-//        List<WebElement> sites = siteName.findElements(driver);
-//
-//        for (WebElement s : sites) {
-//            if (s.getText().equals(siteToOpen)) {
-//                s.click();
-//                System.out.println("Found and clicked");
-//            }
-//        }
         wait.until(ExpectedConditions.visibilityOfElementLocated(viewDetailsBtn)).click();
         return this;
     }
 
     private SiteManagerPage deleteOldSite(String newSite){
-        TestSiteManager testSiteManager = new TestSiteManager();
         String oldSite = "";
         if(newSite.contains("http://")){
-            oldSite = testSiteManager.getHttpSiteUrl();
+            oldSite = getHttpSiteUrl();
         } else if (newSite.contains("https://")){
-            oldSite = testSiteManager.getHttpsSiteUrl();
+            oldSite = getHttpsSiteUrl();
         }
         try {
             driver.findElement(By.xpath("//span[text()='" + oldSite + "']/following-sibling::button[@class='delete']")).click();

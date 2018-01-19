@@ -5,6 +5,9 @@ import com.selenium.ConfigTest;
 import java.io.*;
 import java.util.Properties;
 
+import static testdata.TestData.testEmail;
+import static testdatamanagers.TestSiteManager.updateSiteOwnerPass;
+
 public class TestUserManager {
 
     private static final String path = "src/main/data/testusers/";
@@ -122,5 +125,6 @@ public class TestUserManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        updateSiteOwnerPass(testEmail, pass);
     }
 }

@@ -37,12 +37,12 @@ public class TestSiteManager extends ConfigTest {
         return fullPath.toString();
     }
 
-    public static String getTestSiteUrl(){
+    public static String getTestSiteUrl() {
         String testSiteUrl = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
-            testSiteUrl  = prop.getProperty("testSiteUrl");
+            testSiteUrl = prop.getProperty("testSiteUrl");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -51,12 +51,12 @@ public class TestSiteManager extends ConfigTest {
         return testSiteUrl;
     }
 
-    public static String getHttpSiteUrl(){
+    public static String getHttpSiteUrl() {
         String httpSite = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
-            httpSite  = prop.getProperty("httpSiteUrl");
+            httpSite = prop.getProperty("httpSiteUrl");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -65,12 +65,12 @@ public class TestSiteManager extends ConfigTest {
         return httpSite;
     }
 
-    public static String getHttpsSiteUrl(){
+    public static String getHttpsSiteUrl() {
         String httpSite = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
-            httpSite  = prop.getProperty("httpsSiteUrl");
+            httpSite = prop.getProperty("httpsSiteUrl");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -79,7 +79,7 @@ public class TestSiteManager extends ConfigTest {
         return httpSite;
     }
 
-    public static void setHttpsSite(String site, int testSiteNumber, String owner){
+    public static void setHttpsSite(String site, int testSiteNumber, String ownerEmail, String ownerPass) {
         testSiteNumber += 2;
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -87,16 +87,14 @@ public class TestSiteManager extends ConfigTest {
             OutputStream output = new FileOutputStream(getFullPath());
             prop.setProperty("httpsSiteUrl", site);
             prop.setProperty("httpsSiteNumber", String.valueOf(testSiteNumber));
-            prop.setProperty("httpsSiteOwner", String.valueOf(owner));
+            prop.setProperty("httpsSiteOwner", ownerEmail + ":" + ownerPass);
             prop.store(output, null);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void setHttpSite(String site, int testSiteNumber, String owner){
+    public static void setHttpSite(String site, int testSiteNumber, String ownerEmail, String ownerPass) {
         testSiteNumber += 2;
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -104,41 +102,82 @@ public class TestSiteManager extends ConfigTest {
             OutputStream output = new FileOutputStream(getFullPath());
             prop.setProperty("httpSiteUrl", site);
             prop.setProperty("httpSiteNumber", String.valueOf(testSiteNumber));
-            prop.setProperty("httpSiteOwner", String.valueOf(owner));
+            prop.setProperty("httpSiteOwner", ownerEmail + ":" + ownerPass);
             prop.list(System.err);
             prop.store(output, null);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static String getHttpSiteNumber(){
+    public static String[] getHttpSiteOwner() {
+        String[] owner = new String[2];
+        try {
+            InputStream input = new FileInputStream(getFullPath());
+            prop.load(input);
+            String ownerCredentials = prop.getProperty("httpSiteOwner");
+            System.out.println(ownerCredentials);
+            owner[0] = ownerCredentials.split(":")[0];
+            owner[1] = ownerCredentials.split(":")[1];
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return owner;
+    }
+
+    public static String[] getHttpsSiteOwner() {
+        String[] owner = new String[2];
+        try {
+            InputStream input = new FileInputStream(getFullPath());
+            prop.load(input);
+            String ownerCredentials = prop.getProperty("httpsSiteOwner");
+            owner[0] = ownerCredentials.split(":")[0];
+            owner[1] = ownerCredentials.split(":")[1];
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return owner;
+    }
+
+    public static String getHttpSiteNumber() {
         String siteNumber = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
-            siteNumber  = prop.getProperty("httpSiteNumber");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            siteNumber = prop.getProperty("httpSiteNumber");
         } catch (IOException e) {
             e.printStackTrace();
         }
         return siteNumber;
     }
 
-    public static String getHttpsSiteNumber(){
+    public static String getHttpsSiteNumber() {
         String siteNumber = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
-            siteNumber  = prop.getProperty("httpsSiteNumber");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            siteNumber = prop.getProperty("httpsSiteNumber");
         } catch (IOException e) {
             e.printStackTrace();
         }
         return siteNumber;
     }
+
+    public static void updateSiteOwnerPass(String email, String pass) {
+        try {
+            prop.load(new FileInputStream(getFullPath()));
+            if (prop.getProperty("httpsSiteOwner").split(":")[0].equals(email)) {
+                prop.setProperty("httpsSiteOwner", email + ":" + pass);
+            }
+            if (prop.getProperty("httpSiteOwner").split(":")[0].equals(email)) {
+                prop.setProperty("httpSiteOwner", email + ":" + pass);
+            }
+            prop.store(new FileOutputStream(getFullPath()), null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

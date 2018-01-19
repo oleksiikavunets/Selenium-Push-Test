@@ -11,8 +11,8 @@ import pageobjects.RecoverPasswordPage;
 import pageutils.Navigator;
 import testutils.Listeners.LogListener;
 
-import static testdatamanagers.TestUserManager.getEmail;
-import static testdatamanagers.TestUserManager.getPassword;
+import static testdata.TestData.testEmail;
+import static testdata.TestData.testPass;
 import static testdatamanagers.TestUserManager.setPassword;
 
 /**
@@ -23,19 +23,19 @@ public class Test_Pos_RestorePassword extends BaseTestClass {
 
     @Test(groups = {"mails", "recover password"}, singleThreaded = true, threadPoolSize = 1)
     public void restorePassword() throws Exception {
-        String newPass = getPassword();
+        String newPass = testPass;
 
         if (newPass.equals("tttt1111")) newPass = "qqqq1111";
         else if (newPass.equals("qqqq1111")) newPass = "tttt1111";
 
         new Navigator(driver).open(RecoverPasswordPage.class)
-                .setEmail(getEmail())
+                .setEmail(testEmail)
                 .clickResetButton();
         String link = MailService.getRecoverLink();
 
         driver.navigate().to(link);
         new NewPasswordSetUpPage(driver).setNewPass(newPass)
-                .login(getEmail(), newPass);
+                .login(testEmail, newPass);
         setPassword(newPass);
     }
 

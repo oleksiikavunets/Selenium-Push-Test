@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BaseTestClass {
 
-    Server serverToTest = Server.GRV_7700;
+    Server serverToTest = Server.GRV;
 
     public WebDriver driver;
 

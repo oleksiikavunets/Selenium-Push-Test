@@ -26,7 +26,7 @@ import static com.selenium.enums.Server.GRV_7700;
 /**
  * Created by Oleksii on 14.07.2017.
  */
-@PartialPath(value = "/sites/SITE_ID/send/")
+@PartialPath(value = "/sites/SITE_ID/send")
 public class CreateCampaignPage extends AbstractAdminPage {
 
     //push preview block

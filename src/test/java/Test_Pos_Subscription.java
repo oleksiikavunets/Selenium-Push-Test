@@ -12,24 +12,24 @@ import pageobjects.SubscribersPage;
 import pageutils.Navigator;
 import testutils.Listeners.LogListener;
 
+import static testdatamanagers.TestSiteManager.getHttpSiteOwner;
 import static testdatamanagers.TestSiteManager.getHttpSiteUrl;
-import static testdatamanagers.TestUserManager.getEmail;
-import static testdatamanagers.TestUserManager.getPassword;
 
 @Listeners(LogListener.class)
 public class Test_Pos_Subscription extends BaseTestClass {
 
     @Parameters("browser")
     @Test(groups = "subscription")
-    public void testSubscription(@Optional("chrome") String browser) {
+    public void subscriptionTest(@Optional("chrome") String browser) {
 
         Navigator navigator = new Navigator(driver);
 
         Verifier verifier = new Verifier();
         LogInPage logInPage = new LogInPage(driver);
 
-        String email = getEmail();
-        String pass = getPassword();
+        String[] siteOwner = getHttpSiteOwner();
+        String email = siteOwner[0];
+        String pass = siteOwner[1];
         String httpSite = getHttpSiteUrl();
 
         MainAdminPage mainAdminPage = logInPage.login(email, pass);

@@ -10,6 +10,7 @@ import testutils.Listeners.LogListener;
 
 import static com.selenium.utils.NameGenerator.generateNewHttpSiteName;
 import static testdata.TestData.testEmail;
+import static testdata.TestData.testPass;
 import static testdatamanagers.TestSiteManager.getHttpSiteNumber;
 import static testdatamanagers.TestSiteManager.setHttpSite;
 
@@ -28,7 +29,7 @@ public class Test_Pos_CreateHttpSite extends BaseTestClass {
         siteManagerPage.createNewSite(siteUrl);
         String script = userActions.createSite(siteUrl);
         System.out.println("Site Script: " + script);
-        setHttpSite(siteUrl, siteNumber, testEmail);
+        setHttpSite(siteUrl, siteNumber, testEmail, testPass);
         new HeaderMenu(driver).clickLogo().verifySitePresent(siteUrl);
         userActions.checkCreateSiteMail(siteUrl, browser);
 

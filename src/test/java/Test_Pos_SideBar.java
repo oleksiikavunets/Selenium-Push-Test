@@ -16,8 +16,8 @@ public class Test_Pos_SideBar extends BaseTestClass{
         for(int i = 0; i < 10; i++) {
             SideBar sideBar = mainAdminPage.openSite();
             sideBar.openSubscribersPage();
-//            sideBar.openWelcomeMessagePage();
-//            sideBar.openSiteSettingsPage();
+            sideBar.openWelcomeMessagePage();
+            sideBar.openSiteSettingsPage();
 
             new HeaderMenu(driver).clickLogo();
             System.out.println("FINISHED LOOP #" + i);
