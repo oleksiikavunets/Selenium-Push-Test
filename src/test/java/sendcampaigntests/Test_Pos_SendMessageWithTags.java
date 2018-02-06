@@ -1,4 +1,4 @@
-package sendcampaigntests.scopehttp;
+package sendcampaigntests;
 
 import actions.UserActions;
 import com.selenium.utils.RandomGenerator;

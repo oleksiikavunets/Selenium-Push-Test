@@ -1,3 +1,5 @@
+package webapptests;
+
 import common.BaseTestClass;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;

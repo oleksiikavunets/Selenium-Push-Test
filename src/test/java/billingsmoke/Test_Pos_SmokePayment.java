@@ -1,3 +1,5 @@
+package billingsmoke;
+
 import com.selenium.ConfigTest;
 import common.BaseTestClass;
 import org.openqa.selenium.support.ui.ExpectedConditions;

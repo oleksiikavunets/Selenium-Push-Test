@@ -1,3 +1,5 @@
+package accounttests;
+
 import actions.UserActions;
 import common.BaseTestClass;
 import org.testng.annotations.Listeners;

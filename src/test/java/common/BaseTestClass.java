@@ -1,3 +1,5 @@
+package common;
+
 import actions.UserActions;
 import com.selenium.ConfigTest;
 import com.selenium.enums.Server;
@@ -18,7 +20,7 @@ public class BaseTestClass {
 
     Server serverToTest = Server.GRV;
 
-    public WebDriver driver;
+    protected WebDriver driver;
 
     protected Wait<WebDriver> wait;
 

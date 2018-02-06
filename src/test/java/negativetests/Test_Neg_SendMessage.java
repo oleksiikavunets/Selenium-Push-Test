@@ -1,4 +1,7 @@
+package negativetests;
+
 import actions.Verifier;
+import common.BaseTestClass;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;

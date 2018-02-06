@@ -1,4 +1,4 @@
-package advancedtargetingtests.scopehttp;
+package advancedtargetingtests;
 
 import actions.UserActions;
 import com.selenium.utils.RandomGenerator;

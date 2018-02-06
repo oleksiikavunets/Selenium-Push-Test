@@ -1,4 +1,7 @@
+package negativetests;
+
 import actions.Verifier;
+import common.BaseTestClass;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Listeners;
@@ -17,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.selenium.enums.Protocol.HTTP;
-import static testdatamanagers.TestSiteManager.getTestSiteUrl;
+import static testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 
 @Listeners(LogListener.class)
 public class Test_Neg_EditUTM extends BaseTestClass {
@@ -36,7 +39,7 @@ public class Test_Neg_EditUTM extends BaseTestClass {
             MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
             List<WebElement> langs = headerMenu.getAvailableLanguages();
             langs.get(0).click();
-            SiteSettingsPage siteSettingsPage = navigator.open(SiteSettingsPage.class, getTestSiteUrl(HTTP))
+            SiteSettingsPage siteSettingsPage = navigator.open(SiteSettingsPage.class, getOldTestSiteUrl(HTTP))
                     .clickEditUTM()
                     .clearUTMTags();
             siteLang = headerMenu.checkLanguage();

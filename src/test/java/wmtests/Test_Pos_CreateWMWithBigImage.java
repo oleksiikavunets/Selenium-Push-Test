@@ -1,4 +1,4 @@
-package wmtests1;
+package wmtests;
 
 import actions.Timer;
 import actions.UserActions;

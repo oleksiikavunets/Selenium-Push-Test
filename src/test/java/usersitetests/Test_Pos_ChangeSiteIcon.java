@@ -1,3 +1,5 @@
+package usersitetests;
+
 import actions.UserActions;
 import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;

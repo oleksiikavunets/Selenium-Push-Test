@@ -1,4 +1,4 @@
-package sendcampaigntests.scopehttp;
+package sendcampaigntests;
 
 import actions.Verifier;
 import common.BaseTestClass;

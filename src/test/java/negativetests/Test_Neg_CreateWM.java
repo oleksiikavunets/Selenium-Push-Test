@@ -1,6 +1,9 @@
+package negativetests;
+
 import actions.UserActions;
 import actions.Verifier;
 import com.selenium.utils.RandomGenerator;
+import common.BaseTestClass;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;

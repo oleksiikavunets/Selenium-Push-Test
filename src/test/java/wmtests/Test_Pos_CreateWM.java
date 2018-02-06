@@ -1,4 +1,4 @@
-package wmtests1;
+package wmtests;
 
 import common.BaseTestClass;
 import actions.Timer;

@@ -1,4 +1,7 @@
+package negativetests;
+
 import actions.Verifier;
+import common.BaseTestClass;
 import pageutils.Navigator;
 import testutils.Listeners.LogListener;
 import org.openqa.selenium.WebElement;

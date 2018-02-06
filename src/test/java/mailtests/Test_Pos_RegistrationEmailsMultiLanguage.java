@@ -1,3 +1,5 @@
+package mailtests;
+
 import actions.Verifier;
 import com.selenium.ConfigTest;
 import com.selenium.MailService;

@@ -1,5 +1,8 @@
+package negativetests;
+
 import actions.Verifier;
 import com.selenium.ConfigTest;
+import common.BaseTestClass;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -17,7 +20,7 @@ import java.util.List;
 import static com.selenium.enums.Protocol.HTTP;
 import static com.selenium.enums.Server.P2B;
 import static com.selenium.utils.TextGetter.textOf;
-import static testdatamanagers.TestSiteManager.getTestSiteUrl;
+import static testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 
 @Listeners(LogListener.class)
 public class Test_Neg_CreateSite extends BaseTestClass {
@@ -29,7 +32,7 @@ public class Test_Neg_CreateSite extends BaseTestClass {
         Verifier verifier = new Verifier();
 
         ErrorMessages errorMessages = new ErrorMessages();
-        String existingSite = getTestSiteUrl(HTTP);
+        String existingSite = getOldTestSiteUrl(HTTP);
         String siteLang;
 
         HashMap<String, String> selectProtocol = errorMessages.getSelectProtocol();

@@ -1,3 +1,5 @@
+package usersitetests;
+
 import actions.UserActions;
 import common.BaseTestClass;
 import testdatamanagers.TestSiteManager;

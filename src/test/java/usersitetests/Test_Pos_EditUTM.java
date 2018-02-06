@@ -1,3 +1,5 @@
+package usersitetests;
+
 import actions.Verifier;
 import com.selenium.ConfigTest;
 import common.BaseTestClass;

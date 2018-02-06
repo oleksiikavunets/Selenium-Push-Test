@@ -1,6 +1,7 @@
-//import actions.SoftAssert;
+package negativetests;//import actions.SoftAssert;
 import actions.Timer;
 import actions.Verifier;
+import common.BaseTestClass;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;

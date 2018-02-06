@@ -1,3 +1,5 @@
+package accounttests;
+
 import actions.Timer;
 import com.selenium.ConfigTest;
 import com.selenium.MailService;
