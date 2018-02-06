@@ -2,14 +2,17 @@ package testdata;
 
 import com.selenium.utils.RandomGenerator;
 
+import static com.selenium.enums.Protocol.HTTP;
+import static com.selenium.enums.Protocol.HTTPS;
+import static com.selenium.enums.Server.UBR;
 import static testdatamanagers.TestSiteManager.*;
 import static testdatamanagers.TestUserManager.getEmail;
 import static testdatamanagers.TestUserManager.getPassword;
 
 public class TestData {
-    public static String httpSite = getHttpSiteUrl();
-    public static String httpsSite = getHttpsSiteUrl();
-    public static String testSite = getTestSiteUrl();
+    public static String httpSite = getNewTestSiteUrl(HTTP);
+    public static String httpsSite = getNewTestSiteUrl(HTTPS);
+    public static String testSite = getOldTestSiteUrl(HTTP);
     public static String newHttpSitePattern = "http://seleniumtest";
     public static String newHttpsSitePattern = "https://seleniumtest";
     public static String welcomeMessageTitle = "Welcome Message Title: " + RandomGenerator.nextString();
@@ -48,5 +51,16 @@ public class TestData {
     public static String utm_campaign = "test-campaign";
 
     public static String tagListName = "taglist" + RandomGenerator.nextString();
+
+    public static Object[] provideTestSites() {
+        Object[] testSites;
+        if (iTest == UBR) {
+            testSites = new Object[]{getOldTestSiteUrl(HTTPS)};
+        } else {
+            testSites = new Object[]{getOldTestSiteUrl(HTTPS), getOldTestSiteUrl(HTTP)};
+        }
+        return testSites;
+    }
+
 
 }

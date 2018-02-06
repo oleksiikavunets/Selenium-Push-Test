@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.Random;
 
 import static actions.Timer.waitSeconds;
-import static com.selenium.enums.Server.GRV;
-import static com.selenium.enums.Server.GRV_7700;
+import static com.selenium.enums.Server.*;
 
 /**
  * Created by Oleksii on 14.07.2017.
@@ -156,7 +155,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
 
         public WebElement getBigImagePreview() {
             WebElement element = null;
-            for(int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++) {
                 try {
                     element = bigImagePrev.findElement(driver);
                 } catch (org.openqa.selenium.NoSuchElementException e) {
@@ -198,24 +197,24 @@ public class CreateCampaignPage extends AbstractAdminPage {
         return this;
     }
 
-    public WebElement getTitleErrorMsg(){
+    public WebElement getTitleErrorMsg() {
         return requiredTitle.findElement(driver);
     }
 
-    public WebElement getTextErrorMsg(){
+    public WebElement getTextErrorMsg() {
         return requiredText.findElement(driver);
     }
 
-    public WebElement getInvalidLinkFormatMsg(){
+    public WebElement getInvalidLinkFormatMsg() {
         return linkFormat.findElement(driver);
     }
 
     public WebElement getIconTooBigError() {
         By locator;
-        if (ConfigTest.iTest.equals(GRV_7700) || ConfigTest.iTest.equals(GRV)) {
-            locator = iconErrorGRV;
-        } else {
+        if (ConfigTest.iTest.equals(WPUSH)) {
             locator = iconError;
+        } else {
+            locator = iconErrorGRV;
         }
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
@@ -259,7 +258,6 @@ public class CreateCampaignPage extends AbstractAdminPage {
 
         waitSeconds(1);
 
-
         List<WebElement> minutes = driver.findElements(By.cssSelector("div[class*=\"minutes\"]>[class*=\"jqclockpicker-tick\"]"));
         for (WebElement m : minutes) {
             String mt = m.getText();
@@ -270,6 +268,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
                 break;
             }
         }
+        waitSeconds(2);
         return this;
     }
 
@@ -491,10 +490,11 @@ public class CreateCampaignPage extends AbstractAdminPage {
             return button2TitleError.findElement(driver);
         }
 
-        public WebElement getBtn1UrlError(){
+        public WebElement getBtn1UrlError() {
             return button1URLError.findElement(driver);
         }
-        public WebElement getBtn2UrlError(){
+
+        public WebElement getBtn2UrlError() {
             return button2URLError.findElement(driver);
         }
     }

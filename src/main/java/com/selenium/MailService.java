@@ -105,6 +105,7 @@ public class MailService {
                 message.setFlag(Flags.Flag.DELETED, true);
             }
             folder.close(true);
+            store.close();
             return result;
         }
     }

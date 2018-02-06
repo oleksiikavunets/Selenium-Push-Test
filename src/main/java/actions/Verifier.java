@@ -116,16 +116,16 @@ public class Verifier extends Assertion{
         HashMap<String, List> mails = new HashMap<>();
         boolean pass = false;
         switch (Thread.currentThread().getStackTrace()[2].getMethodName()){
-            case ("testRegistrationMails"):
+            case ("registrationMailsTest"):
                 mails = new RegistrationMails().getMails(ConfigTest.iTest);
                 break;
-            case ("testRecoverPasswordMail"):
+            case ("recoverPasswordMailTest"):
                 mails = new PasswordRecoveryMails().getMails(ConfigTest.iTest);
                 break;
-            case ("testCreateHttpSiteMails"):
+            case ("createHttpSiteMailsTest"):
                 mails = new NewHttpSiteMails().getMails(ConfigTest.iTest);
                 break;
-            case ("testCreateHttpsSiteMails"):
+            case ("createHttpsSiteMailsTest"):
                 mails = new NewHttpsSiteMails().getMails(ConfigTest.iTest);
                 break;
         }

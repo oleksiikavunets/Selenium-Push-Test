@@ -1,9 +1,12 @@
 package testdatamanagers;
 
 import com.selenium.ConfigTest;
+import com.selenium.enums.Protocol;
 
 import java.io.*;
 import java.util.Properties;
+
+import static com.selenium.enums.Protocol.HTTP;
 
 public class TestSiteManager extends ConfigTest {
 
@@ -33,16 +36,19 @@ public class TestSiteManager extends ConfigTest {
             case P2B:
                 fullPath.append("P2B_sites.property");
                 break;
+            case UBR:
+                fullPath.append("UBR_sites.property");
+                break;
         }
         return fullPath.toString();
     }
 
-    public static String getTestSiteUrl() {
+    public static String getOldTestSiteUrl(Protocol protocol) {
         String testSiteUrl = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
-            testSiteUrl = prop.getProperty("testSiteUrl");
+            testSiteUrl = protocol == HTTP ? prop.getProperty("testHttpSiteUrl") : prop.getProperty("testHttpsSiteUrl");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -50,6 +56,21 @@ public class TestSiteManager extends ConfigTest {
         }
         return testSiteUrl;
     }
+
+    public static String getNewTestSiteUrl(Protocol protocol) {
+        String testSiteUrl = "";
+        try {
+            InputStream input = new FileInputStream(getFullPath());
+            prop.load(input);
+            testSiteUrl = protocol == HTTP ? prop.getProperty("httpSiteUrl") : prop.getProperty("httpsSiteUrl");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return testSiteUrl;
+    }
+/*
 
     public static String getHttpSiteUrl() {
         String httpSite = "";
@@ -78,6 +99,7 @@ public class TestSiteManager extends ConfigTest {
         }
         return httpSite;
     }
+*/
 
     public static void setHttpsSite(String site, int testSiteNumber, String ownerEmail, String ownerPass) {
         testSiteNumber += 2;

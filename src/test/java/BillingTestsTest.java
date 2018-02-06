@@ -4,6 +4,7 @@ import com.selenium.GravitecServer;
 import com.selenium.pojo.User;
 import com.selenium.utils.Log;
 import com.selenium.utils.RandomGenerator;
+import common.BaseTestClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -32,7 +33,7 @@ public class BillingTestsTest extends BaseTestClass {
         GravitecServer gravitecServer = new GravitecServer(configTest.getPort(), configTest.getDirectPort());
         String adminLogin = configTest.getAdminLogin();
         String adminPass = configTest.getAdminPass();
-//        String testSiteUrl = configTest.getTestSiteUrl();
+//        String testSiteUrl = configTest.getOldTestSiteUrl();
 
         System.out.println(gravitecServer.getPort());
         gravitecServer.login(adminLogin,adminPass);

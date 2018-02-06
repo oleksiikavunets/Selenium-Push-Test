@@ -1,4 +1,5 @@
 import com.selenium.utils.RandomGenerator;
+import common.BaseTestClass;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.*;

@@ -13,8 +13,7 @@ import testdata.TestData;
 
 import java.io.File;
 
-import static com.selenium.enums.Server.GRV;
-import static com.selenium.enums.Server.GRV_7700;
+import static com.selenium.enums.Server.*;
 
 @PartialPath(value = "/add/site/step1")
 public class AddNewSitePage extends AbstractAdminPage {
@@ -100,10 +99,10 @@ public class AddNewSitePage extends AbstractAdminPage {
 
     public WebElement getIconTooBigError(){
         By locator;
-        if(ConfigTest.iTest.equals(GRV_7700)||ConfigTest.iTest.equals(GRV)){
-            locator = iconErrorGRV;
-        }else {
+        if(ConfigTest.iTest.equals(WPUSH)){
             locator = iconError;
+        }else {
+            locator = iconErrorGRV;
         }
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }

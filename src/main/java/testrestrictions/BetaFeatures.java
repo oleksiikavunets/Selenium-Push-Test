@@ -17,11 +17,8 @@ public class BetaFeatures {
     static List<Server> UTM = new ArrayList<>(Arrays.asList());
     static List<Server> copyCampaign = new ArrayList<>(Arrays.asList());
     static List<Server> imageCropper = new ArrayList<>(Arrays.asList(
-            GRV_7600,
             GRV_7800,
-            P2B,
-            WPUSH,
-            WPUSH_7700
+            WPUSH
     ));
 
     static HashMap<String, List> betaFeatures = new HashMap<>();

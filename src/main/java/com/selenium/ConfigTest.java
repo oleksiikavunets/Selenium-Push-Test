@@ -39,31 +39,15 @@ public class ConfigTest {
     }
 
     protected String setPath() {
-        switch (iTest) {
-            case GRV:
-                propertyPath = "src/main/data/GRV.property";
-                break;
-            case WPUSH:
-                propertyPath = "src/main/data/WPUSH.property";
-                break;
-            case GRV_7700:
-                propertyPath = "src/main/data/GRV_7700.property";
-                break;
-            case GRV_7600:
-                propertyPath = "src/main/data/GRV_7600.property";
-                break;
-            case P2B:
-                propertyPath = "src/main/data/P2B.property";
-                break;
-            case WPUSH_7700:
-                propertyPath = "src/main/data/WPUSH_7700.property";
-        }
-        return propertyPath;
+        return String.format("src/main/data/%s.property", iTest);
     }
 
     public String getStartUrl(){
         switch (iTest){
             case WPUSH:
+                startUrl = getHostUrl();
+                break;
+            case UBR:
                 startUrl = getHostUrl();
                 break;
             default:

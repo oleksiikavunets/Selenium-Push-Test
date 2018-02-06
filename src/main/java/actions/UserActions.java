@@ -6,18 +6,22 @@ import com.selenium.enums.Server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import pageobjects.*;
 import pageutils.Navigator;
-import testdatamanagers.TestSiteManager;
 import webdriverconfiger.WaitManager;
 
 import java.util.stream.Collectors;
 
+import static com.selenium.enums.Protocol.HTTP;
+import static com.selenium.enums.Protocol.HTTPS;
 import static com.selenium.enums.Server.WPUSH;
 import static testdata.TestData.testEmail;
 import static testdata.TestData.testPass;
+import static testdatamanagers.TestSiteManager.getNewTestSiteUrl;
+import static testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 import static testdatamanagers.TestUserManager.*;
 
 
@@ -43,11 +47,8 @@ public class UserActions {
     }
 
     public void createSite(String email, String pass, String siteUrl) throws Exception {
-        AddNewSitePage addNewSitePage = new AddNewSitePage(driver);
-        LogInPage logInPage = new LogInPage(driver);
-
-        logInPage.login(email, pass);
-        addNewSitePage.createSite(siteUrl);
+        new LogInPage(driver).login(email, pass);
+        new AddNewSitePage(driver).createSite(siteUrl);
     }
 
     public void checkCreateSiteMail(String siteUrl, String browser) throws Exception {
@@ -117,9 +118,9 @@ public class UserActions {
         }
     }
 
-    public void subscribe(String browser, String site) {
-        driver.get(site);
-        if (browser.equalsIgnoreCase("firefox")) {
+    public void subscribe(String siteToSubscribe) {
+        driver.get(siteToSubscribe);
+        if (driver instanceof FirefoxDriver) {
             oneClickSubscribe();
         } else {
             if (ConfigTest.iTest.equals(WPUSH)) {
@@ -162,10 +163,10 @@ public class UserActions {
         }
     }
 
-    public void addNewTag(String browser, String testSite, String... newTag) throws Exception {
+    public void addNewTag(String testSite, String... newTag) throws Exception {
         JSRunner jsRunner = new JSRunner(driver);
         try {
-            subscribe(browser, testSite);
+            subscribe(testSite);
         } catch (TimeoutException | NoSuchElementException timeExc) {
             Log.info("Looks like you are already subscribed. Let`s try to add a tag");
         }
@@ -177,10 +178,10 @@ public class UserActions {
         }
     }
 
-    public void addNewAlias(String browser, String testSite, String alias) throws Exception {
+    public void addNewAlias(String testSite, String alias) throws Exception {
         JSRunner jsRunner = new JSRunner(driver);
         try {
-            subscribe(browser, testSite);
+            subscribe(testSite);
         } catch (TimeoutException | NoSuchElementException timeExc) {
             Log.info("Looks like you are already subscribed. Let`s try to set alias");
         }
@@ -211,10 +212,10 @@ public class UserActions {
     }
 
     public void deleteUnnecessarySites() {
-        TestSiteManager testSiteManager = new TestSiteManager();
-        String necessarySite1 = testSiteManager.getHttpSiteUrl();
-        String necessarySite2 = testSiteManager.getHttpsSiteUrl();
-        String necessarySite3 = testSiteManager.getTestSiteUrl();
+        String necessarySite1 = getNewTestSiteUrl(HTTP);
+        String necessarySite2 = getNewTestSiteUrl(HTTPS);
+        String necessarySite3 = getOldTestSiteUrl(HTTP);
+        String necessarySite4 = getOldTestSiteUrl(HTTPS);
 
 //        if(!driver.getCurrentUrl().contains("/login")){
 //            new LogInPage(driver).login(TestData.email, TestData.pass);
@@ -226,6 +227,7 @@ public class UserActions {
                 .filter(s -> !s.contains(necessarySite1))
                 .filter(s -> !s.contains(necessarySite2))
                 .filter(s -> !s.contains(necessarySite3))
+                .filter(s -> !s.contains(necessarySite4))
                 .collect(Collectors.toList())) {
             main.openSite(s)
                     .openSiteSettingsPage();

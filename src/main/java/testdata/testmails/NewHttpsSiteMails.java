@@ -113,8 +113,9 @@ public class NewHttpsSiteMails {
 
     public HashMap<String, List> getMails(Server serverUnderTest) {
         if (serverUnderTest.equals(GRV)
-                || serverUnderTest.equals(GRV_7700) ||
-                serverUnderTest.equals(GRV_7600)) {
+                || serverUnderTest.equals(GRV_7700)
+                || serverUnderTest.equals(GRV_7600)
+                || serverUnderTest.equals(UBR)) {
             mails = getGravitecMails();
         } else if (serverUnderTest.equals(WPUSH) ||
                 serverUnderTest.equals(WPUSH_7700)) {

@@ -1,6 +1,7 @@
 package pageobjects;
 
 import actions.Timer;
+import com.selenium.enums.Protocol;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -8,8 +9,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import pageobjects.common.AbstractPage;
 
-import static testdatamanagers.TestSiteManager.getHttpSiteUrl;
-import static testdatamanagers.TestSiteManager.getHttpsSiteUrl;
+import static com.selenium.enums.Protocol.HTTP;
+import static com.selenium.enums.Protocol.HTTPS;
+import static testdatamanagers.TestSiteManager.getNewTestSiteUrl;
 
 public class SiteManagerPage extends AbstractPage{
 
@@ -48,7 +50,6 @@ public class SiteManagerPage extends AbstractPage{
     public String createNewSite(String newSiteName) {
 
         driver.get(SITE_MANAGER_URL);
-        deleteOldSite(newSiteName);
         inputNewSiteName(newSiteName);
         clickAddBtn();
 
@@ -62,6 +63,7 @@ public class SiteManagerPage extends AbstractPage{
     }
 
     public SiteManagerPage setSiteDatas(String site, String script) {
+        String oldSite = getOldSiteUrl(site);
         driver.get(SITE_MANAGER_URL);
         openSite(site);
         wait.until(ExpectedConditions.visibilityOfElementLocated(textarea)).clear();
@@ -69,11 +71,16 @@ public class SiteManagerPage extends AbstractPage{
         textarea.findElement(driver).sendKeys(newTemplate);
         saveBtn.findElement(driver).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(textarea));
+        if(!site.equals(oldSite)){
+            deleteOldSite(oldSite);
+        }
         return this;
     }
 
     public SiteManagerPage setSiteDatas(String site, String script, String linkSDK){
+        String oldSite = getOldSiteUrl(site);
         driver.get(SITE_MANAGER_URL);
+
         openSite(site);
         wait.until(ExpectedConditions.visibilityOfElementLocated(textarea)).clear();
         String newTemplate = template.replace("putYourScriptHere", script);
@@ -81,6 +88,9 @@ public class SiteManagerPage extends AbstractPage{
         textarea.findElement(driver).sendKeys(newTemplate);
         saveBtn.findElement(driver).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(textarea));
+        if(!site.equals(oldSite)){
+            deleteOldSite(oldSite);
+        }
         return this;
     }
 
@@ -91,20 +101,21 @@ public class SiteManagerPage extends AbstractPage{
         return this;
     }
 
-    private SiteManagerPage deleteOldSite(String newSite){
-        String oldSite = "";
-        if(newSite.contains("http://")){
-            oldSite = getHttpSiteUrl();
-        } else if (newSite.contains("https://")){
-            oldSite = getHttpsSiteUrl();
-        }
+    private SiteManagerPage deleteOldSite(String oldSite){
+
         try {
             driver.findElement(By.xpath("//span[text()='" + oldSite + "']/following-sibling::button[@class='delete']")).click();
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//span[text()='" + oldSite + "']")));
+            System.out.println("DELETED OLD SITE " + oldSite + " ......................................................");
         }catch (NoSuchElementException e){
-            System.out.println("Looks like your site is already deleted");
+            System.out.println("COULD NOT FIND " + oldSite + " TO DELETE................................................");
         }
         return this;
+    }
+
+    private String getOldSiteUrl(String newSite){
+        Protocol protocol = newSite.contains("https://") ? HTTPS : HTTP;
+        return getNewTestSiteUrl(protocol);
     }
 
     private SiteManagerPage inputNewSiteName(String newSiteName) {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Chrome Suite" parallel="tests" thread-count="1">
+    <parameter name="browser" value="chrome"/>
+    <listeners>
+        <listener class-name="testutils.Listeners.TestRetryListener"/>
+        <listener class-name="testutils.Listeners.TestNGReportListener"/>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+    </listeners>
+
+    <test name="SEND CAMPAIGNS">
+        <parameter name="testSitesScope" value="http"/>
+        <classes>
+            <class name="sendcampaigntests.scopehttp.Test_Pos_SendMessage"/>
+        </classes>
+    </test>
+</suite>

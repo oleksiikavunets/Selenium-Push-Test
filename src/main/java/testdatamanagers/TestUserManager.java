@@ -35,6 +35,8 @@ public class TestUserManager {
             case P2B:
                 fullPath.append("P2B_user.property");
                 break;
+            case UBR:
+                fullPath.append("UBR_user.property");
         }
         return fullPath.toString();
     }

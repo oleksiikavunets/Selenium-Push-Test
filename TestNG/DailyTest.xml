@@ -11,13 +11,13 @@
 
     <test name="Daily Test" parallel="classes" thread-count="2">
         <classes>
-            <class name="Test_Pos_LogInLogOut"/>
-            <!--<class name="Test_Neg_Registration"/>-->
-            <!--<class name="Test_Neg_RestorePassword"/>-->
-            <!--<class name="Test_Neg_SendMessage"/>-->
-            <!--<class name="Test_Neg_CreateTagList"/>-->
-            <!--<class name="Test_Pos_SmokePayment"/>-->
-            <!--<class name="Test_Neg_EditUTM"/>-->
+            <class name="accounttests.Test_Pos_LogInLogOut"/>
+            <!--<class name="negativetests.Test_Neg_Registration"/>-->
+            <!--<class name="negativetests.Test_Neg_RestorePassword"/>-->
+            <!--<class name="negativetests.Test_Neg_SendMessage"/>-->
+            <!--<class name="negativetests.Test_Neg_CreateTagList"/>-->
+            <!--<class name="billingsmoke.Test_Pos_SmokePayment"/>-->
+            <!--<class name="negativetests.Test_Neg_EditUTM"/>-->
         </classes>
     </test>
 </suite>

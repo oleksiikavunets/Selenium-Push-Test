@@ -7,5 +7,6 @@ public enum Server {
     GRV_7800,
     WPUSH,
     WPUSH_7700,
-    P2B
+    P2B,
+    UBR
 }
