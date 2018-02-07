@@ -2,22 +2,22 @@ package tests.sendcampaigntests;
 
 import actions.Timer;
 import actions.Verifier;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import common.BaseTestClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
 import pageutils.Navigator;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testconfigs.testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
 
 @Listeners(LogListener.class)
 public class Test_Pos_SendMessageWithButtons extends BaseTestClass {
 
-    @Test(dataProvider = "testSiteProvider", groups = {"send push", "active elements", "buttons"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "active elements", "buttons"})
     public void sendMessageWithButtonsTest(String testSiteUrl) throws Exception {
         Verifier verifier = new Verifier();
         String title = TestData.pushTitle;
@@ -66,10 +66,4 @@ public class Test_Pos_SendMessageWithButtons extends BaseTestClass {
         }
         verifier.assertTestPassed();
     }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestData.provideTestSites();
-    }
-
 }

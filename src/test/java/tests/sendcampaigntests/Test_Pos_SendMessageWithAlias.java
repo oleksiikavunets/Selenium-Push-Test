@@ -4,12 +4,14 @@ import actions.UserActions;
 import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
 import pageobjects.CampaignReportPage;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
 import pageutils.Navigator;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
 
 import static testconfigs.testdatamanagers.TestDataManager.getAlias;
@@ -21,7 +23,7 @@ import static testconfigs.testdatamanagers.TestDataManager.getAlias;
 public class Test_Pos_SendMessageWithAlias extends BaseTestClass {
 
 
-    @Test(dataProvider = "testSiteProvider", groups = {"send push", "advanced settings", "alias"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "advanced settings", "alias"})
     public void sendMessageWithAliasTest(String testSiteUrl) throws Exception {
 
         String title = RandomGenerator.nextString();
@@ -39,10 +41,5 @@ public class Test_Pos_SendMessageWithAlias extends BaseTestClass {
 
         CampaignReportPage campaignReportPage = new CreateCampaignPage(driver).sendPush().openMessage(title);
         Assert.assertEquals(alias, campaignReportPage.getSentAlias().getText());
-    }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestData.provideTestSites();
     }
 }

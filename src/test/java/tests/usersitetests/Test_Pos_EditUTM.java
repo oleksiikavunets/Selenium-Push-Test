@@ -1,18 +1,19 @@
 package tests.usersitetests;
 
 import actions.Verifier;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
-import common.BaseTestClass;
-import pageutils.Navigator;
-import testutils.Listeners.LogListener;
 import com.selenium.utils.Log;
+import common.BaseTestClass;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.SkipException;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageobjects.*;
+import pageobjects.LogInPage;
+import pageobjects.SiteSettingsPage;
+import pageutils.Navigator;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
 import testconfigs.testrestrictions.BetaFeatures;
+import testutils.Listeners.LogListener;
 
 import static testconfigs.testdata.TestData.testSite;
 
@@ -20,7 +21,7 @@ import static testconfigs.testdata.TestData.testSite;
 public class Test_Pos_EditUTM extends BaseTestClass {
 
     @Test(groups = {"site settings", "UTM"})
-    public void editUTMTest() throws InterruptedException {
+    public void editUtmTest() {
         Verifier verifier = new Verifier();
         String newUTMsource = TestData.utm_source;
         String newUTMmedium = TestData.utm_medium;

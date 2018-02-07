@@ -1,14 +1,12 @@
 package tests.usersitetests;
 
 import actions.UserActions;
-import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.annotations.Listeners;
-import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageobjects.MainAdminPage;
-import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
 
 /**
@@ -18,13 +16,12 @@ import testutils.Listeners.LogListener;
 public class Test_Pos_DeleteSite extends BaseTestClass {
 
     @Parameters("browser")
-    @Test
-    public void deleteSiteTest(@Optional("chrome") String browser) throws Exception {
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getRandomSiteNames")
+    public void deleteSiteTest( String siteUrl) throws Exception {
         UserActions userActions = new UserActions(driver);
 
-        String siteUrl = TestData.newHttpSitePattern + RandomGenerator.nextString() + ".com";
         userActions.createSite(siteUrl);
-        userActions.checkCreateSiteMail(siteUrl, browser);
+        userActions.checkCreateSiteMail(siteUrl);
 
         MainAdminPage main = userActions.deleteSite(siteUrl);
         main.verifySiteToBeDeleted(siteUrl);

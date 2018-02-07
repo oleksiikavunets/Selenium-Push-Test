@@ -2,13 +2,15 @@ package tests.sendcampaigntests;
 
 import common.BaseTestClass;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
 import pageobjects.CampaignHistoryPage;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
 import pageutils.Navigator;
 import sikuli.PushHandler;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
 
 import static actions.Timer.waitSeconds;
@@ -20,7 +22,7 @@ import static actions.Timer.waitSeconds;
 public class Test_Pos_SendMessage extends BaseTestClass {
 
 
-    @Test(dataProvider = "testSiteProvider", groups = {"send push"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push"})
     public void sendMessageTest(String testSite){
 
         PushHandler pushHandler = new PushHandler();
@@ -37,10 +39,5 @@ public class Test_Pos_SendMessage extends BaseTestClass {
         Assert.assertNotNull(pushHandler.verifyPushReceived());
         pushHandler.clickOnPush();
         waitSeconds(5);
-    }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestData.provideTestSites();
     }
 }

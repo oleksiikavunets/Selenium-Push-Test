@@ -2,18 +2,18 @@ package pageobjects;
 
 
 import actions.Clicker;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
 
 import java.io.File;
 
-import static com.selenium.enums.Server.*;
+import static com.selenium.enums.Server.WPUSH;
 
 @PartialPath(value = "/add/site/step1")
 public class AddNewSitePage extends AbstractAdminPage {

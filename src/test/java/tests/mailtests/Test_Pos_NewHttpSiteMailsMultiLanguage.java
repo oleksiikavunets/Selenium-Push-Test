@@ -1,12 +1,9 @@
 package tests.mailtests;
 
 import actions.Verifier;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.MailService;
-import common.BaseTestClass;
-import testconfigs.testdata.TestData;
-import testutils.Listeners.LogListener;
 import com.selenium.utils.RandomGenerator;
+import common.BaseTestClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
@@ -16,9 +13,13 @@ import pageobjects.AddNewSitePage;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
+import testutils.Listeners.LogListener;
+
 import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
+import static testconfigs.testdata.TestData.newHttpSitePattern;
 import static testconfigs.testdatamanagers.TestUserManager.getEmail;
 import static testconfigs.testdatamanagers.TestUserManager.getPassword;
 
@@ -42,7 +43,7 @@ public class Test_Pos_NewHttpSiteMailsMultiLanguage extends BaseTestClass {
 
         for (int i = 1; i <= langs.size(); i++) {
             siteLang = headerMenu.checkLanguage();
-            String siteUrl = TestData.newHttpSitePattern + RandomGenerator.nextString() + ".com";
+            String siteUrl = newHttpSitePattern + RandomGenerator.nextString() + ".com";
 
             new AddNewSitePage(driver).createSite(siteUrl);
             String message = MailService.getCreatedSiteMail();

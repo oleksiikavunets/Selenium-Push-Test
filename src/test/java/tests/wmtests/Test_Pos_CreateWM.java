@@ -1,10 +1,10 @@
 package tests.wmtests;
 
-import common.BaseTestClass;
 import actions.Timer;
 import actions.UserActions;
 import actions.Verifier;
-import com.selenium.utils.RandomGenerator;
+import common.BaseTestClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
@@ -12,6 +12,7 @@ import pageobjects.SideBar;
 import pageobjects.WelcomeMessagePage;
 import pageutils.Navigator;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
 
 /**
@@ -22,18 +23,16 @@ import testutils.Listeners.LogListener;
 public class Test_Pos_CreateWM extends BaseTestClass {
 
 
-    @Test(groups = {"WM"})
-    public void createWMTest() throws Exception {
+    @Test(dataProvider = "testSiteProvider", groups = {"WM"})
+    public void createWMTest(String testSite) throws Exception {
         Navigator navigator = new Navigator(driver);
         SideBar sideBar = new SideBar(driver);
         UserActions userActions = new UserActions(driver);
         Verifier verifier = new Verifier();
-        String siteUrl = TestData.newHttpSitePattern + RandomGenerator.nextString() + ".com";
 
-
-        userActions.createSite(TestData.email, TestData.pass, siteUrl);
+        userActions.createSite(TestData.email, TestData.pass, testSite);
         for (int i = 0; i <= 10; i++) {
-            CreateWMPage createWMPage = navigator.open(WelcomeMessagePage.class, siteUrl)
+            CreateWMPage createWMPage = navigator.open(WelcomeMessagePage.class, testSite)
                     .switchWM()
                     .clickCreateNewWM()
                     .setTitle(TestData.welcomeMessageTitle)
@@ -56,7 +55,6 @@ public class Test_Pos_CreateWM extends BaseTestClass {
         WelcomeMessagePage welcomeMessagePage = new WelcomeMessagePage(driver);
         verifier.assertTrue(welcomeMessagePage.getWMTitle().isDisplayed(), "Welcome message is not displayed on page");
 
-
         if (welcomeMessagePage.isDisabledWM()) {
             welcomeMessagePage.enableWM();
             verifier.assertTrue(welcomeMessagePage.isEnabledWM(), "Could not enable welcome message");
@@ -64,7 +62,12 @@ public class Test_Pos_CreateWM extends BaseTestClass {
         welcomeMessagePage.deleteWM().switchWM();
         Timer.waitSeconds(1);
 
-        userActions.deleteSite(siteUrl);
+        userActions.deleteSite(testSite);
         verifier.assertTestPassed();
+    }
+
+    @DataProvider(name = "testSiteProvider")
+    public Object[] provideTestSites() {
+        return TestDataProvider.getRandomSiteNames();
     }
 }

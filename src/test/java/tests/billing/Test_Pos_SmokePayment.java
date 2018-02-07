@@ -1,6 +1,5 @@
 package tests.billing;
 
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import common.BaseTestClass;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -9,6 +8,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.BillingPage;
 import pageobjects.LogInPage;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
 import testconfigs.testrestrictions.GravitecBilling;
 import testutils.Listeners.LogListener;

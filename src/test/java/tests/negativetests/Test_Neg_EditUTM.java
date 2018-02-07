@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.selenium.enums.Protocol.HTTP;
-import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.getOldTestSiteUrl;
+import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 
 @Listeners(LogListener.class)
 public class Test_Neg_EditUTM extends BaseTestClass {

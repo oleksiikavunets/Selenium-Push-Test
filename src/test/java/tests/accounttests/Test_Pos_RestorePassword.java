@@ -1,7 +1,6 @@
 package tests.accounttests;
 
 import actions.Timer;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.MailService;
 import com.selenium.enums.Server;
 import common.BaseTestClass;
@@ -12,6 +11,7 @@ import org.testng.annotations.Test;
 import pageobjects.NewPasswordSetUpPage;
 import pageobjects.RecoverPasswordPage;
 import pageutils.Navigator;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testutils.Listeners.LogListener;
 
 import static testconfigs.testdata.TestData.testEmail;

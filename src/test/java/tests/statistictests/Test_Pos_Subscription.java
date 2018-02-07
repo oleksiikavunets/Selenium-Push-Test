@@ -12,11 +12,11 @@ import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
 import pageobjects.SubscribersPage;
 import pageutils.Navigator;
-import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
 
-import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.getHttpSiteOwner;
-import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.getNewTestSiteUrl;
+import static testconfigs.testdatamanagers.TestSiteManager.getHttpSiteOwner;
+import static testconfigs.testdatamanagers.TestSiteManager.getNewTestSiteUrl;
 
 @Listeners(LogListener.class)
 public class Test_Pos_Subscription extends BaseTestClass {
@@ -67,7 +67,7 @@ public class Test_Pos_Subscription extends BaseTestClass {
 
     @DataProvider(name = "testSiteProvider")
     public Object[] provideTestSites() {
-        return TestData.provideTestSites();
+        return TestDataProvider.provideTestSites();
     }
 
 }

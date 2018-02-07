@@ -9,7 +9,7 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.HeaderMenu;
-import testconfigs.baseconfiguration.TestParameterazer;
+import testconfigs.baseconfiguration.TestParameterizer;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import webdriverconfiger.WaitManager;
 import webdriverconfiger.WebDriverManager;
@@ -26,10 +26,10 @@ public class BaseTestClass {
 
     @BeforeSuite
     public void configureTestSuite(){
-        TestParameterazer.setTestServer(serverToTest);
-        TestParameterazer.setTestSitesScope(testSitesScope);
-        TestParameterazer.setClickOnPush(clickOnPush);
-        TestParameterazer.setFailedTestsRetryCount(failedTestsRetryCount);
+        TestParameterizer.setTestServer(serverToTest);
+        TestParameterizer.setTestSitesScope(testSitesScope);
+        TestParameterizer.setClickOnPush(clickOnPush);
+        TestParameterizer.setFailedTestsRetryCount(failedTestsRetryCount);
     }
 
     @BeforeTest(alwaysRun = true)

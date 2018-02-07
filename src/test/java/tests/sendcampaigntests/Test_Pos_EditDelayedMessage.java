@@ -2,21 +2,22 @@ package tests.sendcampaigntests;
 
 import actions.Verifier;
 import common.BaseTestClass;
-import org.testng.annotations.DataProvider;
-import pageutils.Navigator;
-import testutils.Listeners.LogListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageobjects.*;
+import pageobjects.CampaignReportPage;
+import pageobjects.CreateCampaignPage;
+import pageobjects.LogInPage;
+import pageobjects.SiteSettingsPage;
+import pageutils.Navigator;
 import testconfigs.testdata.TestData;
-
-import java.awt.*;
+import testconfigs.testdata.TestDataProvider;
+import testutils.Listeners.LogListener;
 
 @Listeners(LogListener.class)
 public class Test_Pos_EditDelayedMessage extends BaseTestClass {
 
-    @Test(dataProvider = "testSiteProvider", groups = {"send push", "delayed push"})
-    public void editDelayedMessageTest(String testSiteUrl) throws AWTException {
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "delayed push"})
+    public void editDelayedMessageTest(String testSiteUrl)  {
         Navigator navigator = new Navigator(driver);
         Verifier verifier = new Verifier();
         String title = TestData.pushTitle;
@@ -61,10 +62,4 @@ public class Test_Pos_EditDelayedMessage extends BaseTestClass {
         verifier.assertEquals(campaignReportPage.getUTM_campaign(), utm_campaign + edit, "utm_campaign was not edited");
         verifier.assertTestPassed();
     }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestData.provideTestSites();
-    }
-
 }

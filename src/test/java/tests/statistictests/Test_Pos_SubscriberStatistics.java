@@ -8,8 +8,7 @@ import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
 import pageobjects.SubscribersPage;
 import pageutils.Navigator;
-import testconfigs.testdata.TestData;
-
+import testconfigs.testdata.TestDataProvider;
 import static testconfigs.testdata.TestData.*;
 
 public class Test_Pos_SubscriberStatistics extends BaseTestClass {
@@ -33,7 +32,7 @@ public class Test_Pos_SubscriberStatistics extends BaseTestClass {
 
     @DataProvider(name = "testSiteProvider")
     public Object[] provideTestSites() {
-        return TestData.provideTestSites();
+        return TestDataProvider.provideTestSites();
     }
 
 }

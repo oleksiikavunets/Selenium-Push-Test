@@ -4,15 +4,17 @@ import actions.Timer;
 import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pageobjects.*;
+import pageobjects.CampaignReportPage;
+import pageobjects.CreateCampaignPage;
+import pageobjects.LogInPage;
 import pageutils.Navigator;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 
 public class Test_Pos_SendDelayedMessageWithButtonsImmediately extends BaseTestClass {
 
-    @Test(dataProvider = "testSiteProvider", groups = {"send push", "delayed push"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "delayed push"})
     public void sendDelayedMessageWithButtonsImmediatelyTest(String testSite) {
 
         String title = RandomGenerator.nextString();
@@ -38,11 +40,4 @@ public class Test_Pos_SendDelayedMessageWithButtonsImmediately extends BaseTestC
                 .clickSendPush();
         Assert.assertFalse(campaignReportPage.verifyMessageDelayed(), "Message was not sent");
     }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestData.provideTestSites();
-    }
-
-
 }

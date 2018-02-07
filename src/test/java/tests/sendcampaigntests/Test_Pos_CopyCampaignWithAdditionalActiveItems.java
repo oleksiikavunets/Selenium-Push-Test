@@ -6,12 +6,12 @@ import common.BaseTestClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import pageutils.Navigator;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testconfigs.testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
 
@@ -22,7 +22,7 @@ import static testconfigs.baseconfiguration.TestServerConfiguretion.iTest;
 public class Test_Pos_CopyCampaignWithAdditionalActiveItems extends BaseTestClass {
 
 
-    @Test(dataProvider = "testSiteProvider",  groups = {"send push", "copy campaign", "advanced settings", "tags", "alias", "active elements", "buttons", "big image"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider",  groups = {"send push", "copy campaign", "advanced settings", "tags", "alias", "active elements", "buttons", "big image"})
     public void copyCampaignWithAdditionalActiveItemsTest(String testSiteUrl) throws Exception {
         Logger Log = LogManager.getLogger(Test_Pos_CopyCampaignWithAdditionalActiveItems.class);
         Navigator navigator = new Navigator(driver);
@@ -106,10 +106,5 @@ public class Test_Pos_CopyCampaignWithAdditionalActiveItems extends BaseTestClas
                     "Current functionality is not deployed on " + iTest);
         }
         verifier.assertTestPassed();
-    }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestData.provideTestSites();
     }
 }

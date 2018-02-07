@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.selenium.enums.Protocol.HTTP;
-import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.getOldTestSiteUrl;
+import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 
 /**
  * Created by Rayant on 07.04.2017.

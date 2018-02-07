@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.Properties;
 
 public class TestDataManager {
-    private static final String path = "src/main/data/testconfigs.testdata/";
+    private static final String path = "src/main/data/testdata/";
     private static Properties prop = new Properties();
 
     private static String getFullPath() {

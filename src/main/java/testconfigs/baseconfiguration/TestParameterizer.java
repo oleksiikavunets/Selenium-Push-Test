@@ -4,7 +4,7 @@ import com.selenium.enums.Server;
 import com.selenium.enums.TestSitesScope;
 
 
-public class TestParameterazer {
+public class TestParameterizer {
 
     public static Server testServer ;
     public static TestSitesScope testSitesScope;

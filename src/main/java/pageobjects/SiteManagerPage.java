@@ -11,7 +11,7 @@ import pageobjects.common.AbstractPage;
 
 import static com.selenium.enums.Protocol.HTTP;
 import static com.selenium.enums.Protocol.HTTPS;
-import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.getNewTestSiteUrl;
+import static testconfigs.testdatamanagers.TestSiteManager.getNewTestSiteUrl;
 
 public class SiteManagerPage extends AbstractPage{
 

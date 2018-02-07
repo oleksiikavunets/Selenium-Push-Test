@@ -4,7 +4,6 @@ import actions.UserActions;
 import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -13,6 +12,7 @@ import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
 import pageutils.Navigator;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
 
 import java.util.List;
@@ -23,7 +23,7 @@ import static com.selenium.utils.TextGetter.textOf;
 public class Test_Pos_SendMessageWithTags extends BaseTestClass {
 
     @Parameters("browser")
-    @Test(dataProvider = "testSiteProvider", groups = {"send push", "advanced settings", "tags"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "advanced settings", "tags"})
     public void sendMessageWithTagsTest(String testSiteUrl) throws Exception {
 
         String title = RandomGenerator.nextString();
@@ -50,10 +50,4 @@ public class Test_Pos_SendMessageWithTags extends BaseTestClass {
 
         Assert.assertTrue(sentTagsNames.containsAll(tagsInPush));
     }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestData.provideTestSites();
-    }
-
 }

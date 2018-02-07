@@ -1,7 +1,6 @@
 package tests.mailtests;
 
 import actions.Verifier;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.MailService;
 import com.selenium.utils.Log;
 import com.selenium.utils.RandomGenerator;
@@ -12,6 +11,7 @@ import pageobjects.AddNewSitePage;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
 
 import java.util.List;

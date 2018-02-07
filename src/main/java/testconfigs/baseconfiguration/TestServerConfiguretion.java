@@ -23,7 +23,7 @@ public class TestServerConfiguretion {
     String startUrl;
     String pattern;
 
-    public static Server iTest = TestParameterazer.testServer;
+    public static Server iTest = TestParameterizer.testServer;
 
     public static void setTestServer(Server serverToTest){
         iTest = serverToTest;

@@ -2,29 +2,28 @@ package tests.wmtests;
 
 import actions.UserActions;
 import actions.Verifier;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
-import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.SkipException;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
 import pageobjects.WelcomeMessagePage;
 import pageutils.Navigator;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testconfigs.testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
 
 @Listeners(LogListener.class)
 public class Test_Pos_EditWM extends BaseTestClass {
 
-    @Test(groups = {"WM"})
-    public void editWMTest() throws Exception {
+    @Test(dataProvider = "testSiteProvider",groups = {"WM"})
+    public void editWMTest(String testSite) throws Exception {
 
         UserActions userActions = new UserActions(driver);
         Verifier verifier = new Verifier();
-        String testSite = TestData.newHttpSitePattern + RandomGenerator.nextString() + ".com";
-
 
         if (BetaFeatures.verifyBetaToTest("WMwithButtonsAndBigImage")) {
             userActions.createSite(TestData.email, TestData.pass, testSite);
@@ -89,6 +88,10 @@ public class Test_Pos_EditWM extends BaseTestClass {
         } else {
             throw new SkipException(this.getClass().getSimpleName() + "Current funtionality is not deployed on " + TestServerConfiguretion.iTest);
         }
+    }
 
+    @DataProvider(name = "testSiteProvider")
+    public Object[] provideTestSites() {
+        return TestDataProvider.getRandomSiteNames();
     }
 }

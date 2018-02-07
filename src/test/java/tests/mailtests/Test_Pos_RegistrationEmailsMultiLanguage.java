@@ -1,7 +1,6 @@
 package tests.mailtests;
 
 import actions.Verifier;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.MailService;
 import common.BaseTestClass;
 import org.openqa.selenium.WebElement;
@@ -11,6 +10,7 @@ import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.RegistrationPage;
 import pageutils.Navigator;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
 import testutils.Listeners.LogListener;
 

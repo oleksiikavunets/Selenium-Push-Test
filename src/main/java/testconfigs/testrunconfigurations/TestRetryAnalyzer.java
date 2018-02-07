@@ -2,12 +2,12 @@ package testconfigs.testrunconfigurations;
 
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
-import testconfigs.baseconfiguration.TestParameterazer;
+import testconfigs.baseconfiguration.TestParameterizer;
 
 public class TestRetryAnalyzer implements IRetryAnalyzer {
 
     int  count=0;
-    private static int iterationTimes = TestParameterazer.failedTestsRetryCount; // A number of times Test methods to be re executed
+    private static int iterationTimes = TestParameterizer.failedTestsRetryCount; // A number of times Test methods to be re executed
 
     @Override
     public boolean retry(ITestResult result) {

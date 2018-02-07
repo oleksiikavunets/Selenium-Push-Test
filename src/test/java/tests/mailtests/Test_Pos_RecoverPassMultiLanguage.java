@@ -1,7 +1,6 @@
 package tests.mailtests;
 
 import actions.Verifier;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.MailService;
 import common.BaseTestClass;
 import org.apache.logging.log4j.LogManager;
@@ -14,15 +13,14 @@ import pageobjects.LogInPage;
 import pageobjects.NewPasswordSetUpPage;
 import pageobjects.RecoverPasswordPage;
 import pageutils.Navigator;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
 import testutils.Listeners.LogListener;
 
 import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
-import static testconfigs.testdatamanagers.TestUserManager.getEmail;
-import static testconfigs.testdatamanagers.TestUserManager.getPassword;
-import static testconfigs.testdatamanagers.TestUserManager.setPassword;
+import static testconfigs.testdatamanagers.TestUserManager.*;
 
 @Listeners(LogListener.class)
 public class Test_Pos_RecoverPassMultiLanguage extends BaseTestClass {

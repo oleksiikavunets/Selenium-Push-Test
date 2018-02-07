@@ -4,13 +4,13 @@ import actions.UserActions;
 import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.LogInPage;
 import pageobjects.TagListPage;
 import pageutils.Navigator;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
 
 /**
@@ -20,7 +20,7 @@ import testutils.Listeners.LogListener;
 @Listeners(LogListener.class)
 public class Test_Pos_CreateTagList extends BaseTestClass {
 
-    @Test(dataProvider = "testSiteProvider", groups = {"tag list"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"tag list"})
     public void createTagListTest(String testSite) throws Exception {
         Navigator navigator = new Navigator(driver);
 
@@ -41,10 +41,5 @@ public class Test_Pos_CreateTagList extends BaseTestClass {
         driver.navigate().refresh();
         tagListPage.searchForTagList(tagListName);
         System.out.println("Tag List '" + tagListName + "' exists))");
-    }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestData.provideTestSites();
     }
 }

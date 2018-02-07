@@ -2,8 +2,6 @@ package tests.negativetests;
 
 import actions.Verifier;
 import common.BaseTestClass;
-import pageutils.Navigator;
-import testutils.Listeners.LogListener;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Listeners;
@@ -11,8 +9,10 @@ import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.RegistrationPage;
+import pageutils.Navigator;
 import testconfigs.testdata.ErrorMessages;
 import testconfigs.testdata.TestData;
+import testutils.Listeners.LogListener;
 
 import java.util.HashMap;
 import java.util.List;

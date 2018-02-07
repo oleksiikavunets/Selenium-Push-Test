@@ -1,13 +1,11 @@
 package testconfigs.testdata;
 
-import com.selenium.enums.TestSitesScope;
 import com.selenium.utils.RandomGenerator;
-import testconfigs.baseconfiguration.TestParameterazer;
 
 import static com.selenium.enums.Protocol.HTTP;
 import static com.selenium.enums.Protocol.HTTPS;
-import static com.selenium.enums.Server.UBR;
-import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.*;
+import static testconfigs.testdatamanagers.TestSiteManager.getNewTestSiteUrl;
+import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 import static testconfigs.testdatamanagers.TestUserManager.getEmail;
 import static testconfigs.testdatamanagers.TestUserManager.getPassword;
 
@@ -54,23 +52,6 @@ public class TestData {
 
     public static String tagListName = "taglist" + RandomGenerator.nextString();
 
-    public static Object[] provideTestSites() {
-//        Object[] testSites;
-        return iTest == UBR ? new Object[]{getOldTestSiteUrl(HTTPS)} :
-                TestParameterazer.testSitesScope == TestSitesScope.TEST_BOTH ?
-                        new Object[]{getOldTestSiteUrl(HTTPS), getOldTestSiteUrl(HTTP)} :
-                        TestParameterazer.testSitesScope == TestSitesScope.TEST_HTTPS_ONLY ?
-                                new Object[]{getOldTestSiteUrl(HTTPS)} :
-                                TestParameterazer.testSitesScope == TestSitesScope.TEST_HTTP_ONLY ?
-                                        new Object[]{getOldTestSiteUrl(HTTP)} : null;
-
-//        if (iTest == UBR) {
-//            testSites = new Object[]{getOldTestSiteUrl(HTTPS)};
-//        } else {
-//            testSites = new Object[]{getOldTestSiteUrl(HTTPS), getOldTestSiteUrl(HTTP)};
-//        }
-//        return testSites;
-    }
 
 
 }

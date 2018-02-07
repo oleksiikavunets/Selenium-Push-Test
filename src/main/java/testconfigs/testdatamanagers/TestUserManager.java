@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.Properties;
 
 import static testconfigs.testdata.TestData.testEmail;
-import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.updateSiteOwnerPass;
+import static testconfigs.testdatamanagers.TestSiteManager.updateSiteOwnerPass;
 
 public class TestUserManager {
 

@@ -1,15 +1,16 @@
 package tests.usersitetests;
 
 import actions.UserActions;
-import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.SiteSettingsPage;
+import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
 
-import static testconfigs.testdata.TestData.*;
+import static testconfigs.testdata.TestData.email;
+import static testconfigs.testdata.TestData.pass;
 
 /**
  * Created by Oleksii on 31.07.2017.
@@ -19,13 +20,12 @@ import static testconfigs.testdata.TestData.*;
 public class Test_Pos_ChangeSiteIcon extends BaseTestClass {
 
 
-    @Test (groups = {"site icon", "site settings", "icon"})
-    public void changePictureTest() throws Exception {
+    @Test (dataProviderClass = TestDataProvider.class, dataProvider = "getRandomSiteNames",groups = {"site icon", "site settings", "icon"})
+    public void changePictureTest(String siteUrl) throws Exception {
 
         SiteSettingsPage siteSettingsPage = new SiteSettingsPage(driver);
         UserActions userActions = new UserActions(driver);
 
-        String siteUrl = newHttpSitePattern + RandomGenerator.nextString() + ".com";
         userActions.createSite(email, pass, siteUrl);
         String icon = siteSettingsPage.getSiteIcon().getAttribute("src");
         siteSettingsPage.uplodIcon(siteSettingsPage.iconPath);

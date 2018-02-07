@@ -3,7 +3,6 @@ package tests.sendcampaigntests;
 import actions.Verifier;
 import common.BaseTestClass;
 import org.testng.SkipException;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CampaignReportPage;
@@ -11,6 +10,7 @@ import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
 import pageutils.Navigator;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testconfigs.testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
 
@@ -22,7 +22,7 @@ import testutils.Listeners.LogListener;
 public class Test_Pos_SendMessageWithBigImage extends BaseTestClass {
 
 
-    @Test(dataProvider = "testSiteProvider", groups = {"send push", "active elements", "big image"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "active elements", "big image"})
     public void sendMessageWithBIGImageTest(String testSiteUrl) {
 
         if (BetaFeatures.verifyBetaToTest("buttonsAndBigImage")) {
@@ -49,11 +49,6 @@ public class Test_Pos_SendMessageWithBigImage extends BaseTestClass {
         } else {
             throw new SkipException("");
         }
-    }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestData.provideTestSites();
     }
 
 }

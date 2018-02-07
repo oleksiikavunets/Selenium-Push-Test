@@ -1,7 +1,6 @@
 package tests.negativetests;
 
 import actions.Verifier;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import common.BaseTestClass;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Listeners;
@@ -10,6 +9,7 @@ import pageobjects.AddNewSitePage;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.ErrorMessages;
 import testconfigs.testdata.TestData;
 import testutils.Listeners.LogListener;
@@ -20,7 +20,7 @@ import java.util.List;
 import static com.selenium.enums.Protocol.HTTP;
 import static com.selenium.enums.Server.P2B;
 import static com.selenium.utils.TextGetter.textOf;
-import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.getOldTestSiteUrl;
+import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 
 @Listeners(LogListener.class)
 public class Test_Neg_CreateSite extends BaseTestClass {

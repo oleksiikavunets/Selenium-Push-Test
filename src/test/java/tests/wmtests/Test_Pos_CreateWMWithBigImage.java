@@ -3,11 +3,10 @@ package tests.wmtests;
 import actions.Timer;
 import actions.UserActions;
 import actions.Verifier;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.utils.Log;
-import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.SkipException;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
@@ -15,7 +14,9 @@ import pageobjects.HeaderMenu;
 import pageobjects.SiteSettingsPage;
 import pageobjects.WelcomeMessagePage;
 import pageutils.Navigator;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testconfigs.testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
 
@@ -25,13 +26,12 @@ import static testconfigs.testdata.TestData.welcomeMessageTitle;
 @Listeners(LogListener.class)
 public class Test_Pos_CreateWMWithBigImage extends BaseTestClass {
 
-    @Test(groups = {"WM"})
-    public void createWMWithBigImageTest() throws Exception {
+    @Test(dataProvider = "testSiteProvider", groups = {"WM"})
+    public void createWMWithBigImageTest(String testSite) throws Exception {
         Navigator navigator = new Navigator(driver);
         UserActions userActions = new UserActions(driver);
         WelcomeMessagePage welcomeMessagePage = new WelcomeMessagePage(driver);
         Verifier verifier = new Verifier();
-        String testSite = TestData.newHttpSitePattern + RandomGenerator.nextString() + ".com";
 
         if (BetaFeatures.verifyBetaToTest("WMwithButtonsAndBigImage")) {
             userActions.createSite(TestData.email, TestData.pass, testSite);
@@ -73,6 +73,11 @@ public class Test_Pos_CreateWMWithBigImage extends BaseTestClass {
             Log.info(this.getClass().getSimpleName() + ": Current funtionality is not deployed on " + TestServerConfiguretion.iTest);
             throw new SkipException("Skipped");
         }
+    }
+
+    @DataProvider(name = "testSiteProvider")
+    public Object[] provideTestSites() {
+        return TestDataProvider.getRandomSiteNames();
     }
 }
 

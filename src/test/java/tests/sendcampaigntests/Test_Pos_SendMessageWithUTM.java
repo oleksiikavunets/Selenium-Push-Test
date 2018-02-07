@@ -2,7 +2,6 @@ package tests.sendcampaigntests;
 
 import actions.Verifier;
 import common.BaseTestClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CampaignReportPage;
@@ -11,13 +10,14 @@ import pageobjects.LogInPage;
 import pageobjects.SiteSettingsPage;
 import pageutils.Navigator;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testconfigs.testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
 
 @Listeners(LogListener.class)
 public class Test_Pos_SendMessageWithUTM extends BaseTestClass {
 
-    @Test(dataProvider = "testSiteProvider", groups = {"send push", "UTM"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "UTM"})
     public void sendMessageWithUTMTest(String testSiteUrl) throws InterruptedException {
         Navigator navigator = new Navigator(driver);
 
@@ -45,11 +45,5 @@ public class Test_Pos_SendMessageWithUTM extends BaseTestClass {
         }
         verifier.assertTestPassed();
     }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestData.provideTestSites();
-    }
-
 }
 

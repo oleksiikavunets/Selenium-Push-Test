@@ -1,41 +1,44 @@
 package tests.usersitetests;
 
 import actions.UserActions;
+import com.selenium.enums.TestSitesScope;
 import common.BaseTestClass;
 import org.testng.annotations.Listeners;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.SiteManagerPage;
+import testconfigs.baseconfiguration.TestParameterizer;
 import testutils.Listeners.LogListener;
 
 import static com.selenium.utils.NameGenerator.generateNewHttpSiteName;
 import static testconfigs.testdata.TestData.testEmail;
 import static testconfigs.testdata.TestData.testPass;
-import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.getHttpSiteNumber;
-import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.setHttpSite;
+import static testconfigs.testdatamanagers.TestSiteManager.getHttpSiteNumber;
+import static testconfigs.testdatamanagers.TestSiteManager.setHttpSite;
 
 @Listeners(LogListener.class)
 public class Test_Pos_CreateHttpSite extends BaseTestClass {
 
-    @Parameters("browser")
     @Test
-    public void createHttpSiteTest(@Optional("chrome") String browser) throws Exception {
-        int siteNumber = Integer.valueOf(getHttpSiteNumber());
-        UserActions userActions = new UserActions(driver);
-        SiteManagerPage siteManagerPage = new SiteManagerPage(driver);
+    public void createHttpSiteTest() throws Exception {
+        if(!(TestParameterizer.testSitesScope == TestSitesScope.TEST_HTTPS_ONLY)) {
+            int siteNumber = Integer.valueOf(getHttpSiteNumber());
+            UserActions userActions = new UserActions(driver);
+            SiteManagerPage siteManagerPage = new SiteManagerPage(driver);
 
-        String siteUrl = generateNewHttpSiteName(siteNumber);
+            String siteUrl = generateNewHttpSiteName(siteNumber);
 
-        siteManagerPage.createNewSite(siteUrl);
-        String script = userActions.createSite(siteUrl);
-        System.out.println("Site Script: " + script);
-        setHttpSite(siteUrl, siteNumber, testEmail, testPass);
-        new HeaderMenu(driver).clickLogo().verifySitePresent(siteUrl);
-        userActions.checkCreateSiteMail(siteUrl, browser);
+            siteManagerPage.createNewSite(siteUrl);
+            String script = userActions.createSite(siteUrl);
+            System.out.println("Site Script: " + script);
+            setHttpSite(siteUrl, siteNumber, testEmail, testPass);
+            new HeaderMenu(driver).clickLogo().verifySitePresent(siteUrl);
+            userActions.checkCreateSiteMail(siteUrl);
 
-        siteManagerPage.setSiteDatas(siteUrl, script);
-        driver.get(siteUrl);
+            siteManagerPage.setSiteDatas(siteUrl, script);
+            driver.get(siteUrl);
+        }else {
+            System.out.println("CURRENT TEST OFF SCOPE.............................");
+        }
     }
 }

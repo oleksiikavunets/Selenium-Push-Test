@@ -8,7 +8,7 @@ import java.util.Properties;
 
 import static com.selenium.enums.Protocol.HTTP;
 
-public class TestServerConfiguretionSiteManager extends TestServerConfiguretion {
+public class TestSiteManager extends TestServerConfiguretion {
 
     private static String path = "src/main/data/testsites/";
 

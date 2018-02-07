@@ -1,5 +1,6 @@
 package actions;
 
+import org.openqa.selenium.chrome.ChromeDriver;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.MailService;
 import com.selenium.enums.Server;
@@ -20,8 +21,8 @@ import static com.selenium.enums.Protocol.HTTPS;
 import static com.selenium.enums.Server.WPUSH;
 import static testconfigs.testdata.TestData.testEmail;
 import static testconfigs.testdata.TestData.testPass;
-import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.getNewTestSiteUrl;
-import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.getOldTestSiteUrl;
+import static testconfigs.testdatamanagers.TestSiteManager.getNewTestSiteUrl;
+import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 import static testconfigs.testdatamanagers.TestUserManager.*;
 
 
@@ -51,11 +52,11 @@ public class UserActions {
         new AddNewSitePage(driver).createSite(siteUrl);
     }
 
-    public void checkCreateSiteMail(String siteUrl, String browser) throws Exception {
+    public void checkCreateSiteMail(String siteUrl) throws Exception {
         BrowserMaster browserMaster = new BrowserMaster(driver);
         Verifier verifier = new Verifier();
         String createdSite = MailService.getCreatedSiteUrl();
-        if (browser.equalsIgnoreCase("chrome")) {
+        if (driver instanceof ChromeDriver) {
             browserMaster.openNewTab(createdSite);
             verifier.assertTrue(driver.getCurrentUrl().contains(siteUrl));
             browserMaster.switchToMainTab();
@@ -218,7 +219,7 @@ public class UserActions {
         String necessarySite4 = getOldTestSiteUrl(HTTPS);
 
 //        if(!driver.getCurrentUrl().contains("/login")){
-//            new LogInPage(driver).login(TestData.email, TestData.pass);
+//            new LogInPage(driver).login(TestDataProvider.email, TestDataProvider.pass);
 //        }
 
         MainAdminPage main = new HeaderMenu(driver).clickLogo();

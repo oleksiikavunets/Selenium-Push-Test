@@ -13,7 +13,7 @@ import testutils.Listeners.LogListener;
 public class Test_Pos_LogInLogOut extends BaseTestClass {
 
     @Test
-    public void logInOutTest() throws Exception {
+    public void logInOutTest()  {
 
         System.out.println(driver instanceof OperaDriver);
         new LogInPage(driver).login(TestData.email, TestData.pass);

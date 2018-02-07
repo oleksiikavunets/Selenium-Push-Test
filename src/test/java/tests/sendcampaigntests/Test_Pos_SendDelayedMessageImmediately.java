@@ -3,7 +3,6 @@ package tests.sendcampaigntests;
 import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CampaignReportPage;
@@ -11,15 +10,14 @@ import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
 import pageutils.Navigator;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
-
-import java.awt.*;
 
 @Listeners(LogListener.class)
 public class Test_Pos_SendDelayedMessageImmediately extends BaseTestClass {
 
-    @Test(dataProvider = "testSiteProvider", groups = {"send push", "delayed push"})
-    public void sendDelayedMessageImmediatelyTest(String testSiteUrl) throws AWTException {
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "delayed push"})
+    public void sendDelayedMessageImmediatelyTest(String testSiteUrl)  {
 
         String title = RandomGenerator.nextString();
         String text = RandomGenerator.nextString();
@@ -37,11 +35,4 @@ public class Test_Pos_SendDelayedMessageImmediately extends BaseTestClass {
                 .clickSendPush();
         Assert.assertFalse(campaignReportPage.verifyMessageDelayed(), "Message was not sent immediately");
     }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestData.provideTestSites();
-    }
-
-
 }

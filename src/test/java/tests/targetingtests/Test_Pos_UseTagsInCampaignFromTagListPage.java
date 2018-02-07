@@ -4,7 +4,6 @@ import actions.UserActions;
 import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CampaignReportPage;
@@ -12,6 +11,7 @@ import pageobjects.LogInPage;
 import pageobjects.TagListPage;
 import pageutils.Navigator;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
 
 import java.util.List;
@@ -23,7 +23,7 @@ import static testconfigs.testdata.TestData.pass;
 @Listeners(LogListener.class)
 public class Test_Pos_UseTagsInCampaignFromTagListPage extends BaseTestClass {
 
-    @Test(dataProvider = "testSiteProvider", groups = {"send push", "tags", "tag list"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "tags", "tag list"})
     public void useTagsInNewCampaignFromTagListPageTest(String testSite) throws Exception {
         String title = TestData.pushTitle;
         String text = TestData.pushText;
@@ -49,10 +49,5 @@ public class Test_Pos_UseTagsInCampaignFromTagListPage extends BaseTestClass {
         System.out.println(sentTags);
         System.out.println(addedTags);
         Assert.assertTrue(sentTags.containsAll(addedTags), "Tags not found in sent campaign report");
-    }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestData.provideTestSites();
     }
 }
