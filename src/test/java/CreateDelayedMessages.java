@@ -3,7 +3,7 @@ import common.BaseTestClass;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.*;
-import testdata.TestData;
+import testconfigs.testdata.TestData;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

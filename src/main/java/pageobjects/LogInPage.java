@@ -2,7 +2,7 @@ package pageobjects;
 
 import actions.Clicker;
 import actions.Timer;
-import com.selenium.ConfigTest;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.enums.Server;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -29,7 +29,7 @@ public class LogInPage extends AbstractOuterPage {
 
     public MainAdminPage login(String login, String pass) {
 //        try {
-            if (!driver.getCurrentUrl().contains("login")) driver.get(new ConfigTest().getStartUrl() + "/login");
+            if (!driver.getCurrentUrl().contains("login")) driver.get(new TestServerConfiguretion().getStartUrl() + "/login");
 //        } catch (NullPointerException e) {
 //        }
         for (int i = 0; i <= 100; i++) {
@@ -46,7 +46,7 @@ public class LogInPage extends AbstractOuterPage {
     }
 
     private LogInPage managePopUp() {
-        if (ConfigTest.iTest.equals(Server.GRV_7700)) {
+        if (TestServerConfiguretion.iTest.equals(Server.GRV_7700)) {
             try {
                 Timer.waitSeconds(1);
                 driver.findElement(By.cssSelector("button[ng-click=\"$close()\"]")).click();

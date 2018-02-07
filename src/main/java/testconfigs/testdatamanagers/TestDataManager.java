@@ -1,0 +1,140 @@
+package testconfigs.testdatamanagers;
+
+import testconfigs.baseconfiguration.TestServerConfiguretion;
+
+import java.io.*;
+import java.util.Properties;
+
+public class TestDataManager {
+    private static final String path = "src/main/data/testconfigs.testdata/";
+    private static Properties prop = new Properties();
+
+    private static String getFullPath() {
+        StringBuilder fullPath = new StringBuilder(path);
+
+        switch (TestServerConfiguretion.iTest) {
+            case GRV:
+                fullPath.append("GRV_data.property");
+                break;
+            case GRV_7700:
+                fullPath.append("GRV_7700_data.property");
+                break;
+            case GRV_7600:
+                fullPath.append("GRV_7600_data.property");
+                break;
+            case WPUSH:
+                fullPath.append("WPUSH_data.property");
+                break;
+            case WPUSH_7700:
+                fullPath.append("WPUSH_7700_data.property");
+                break;
+            case P2B:
+                fullPath.append("P2B_data.property");
+                break;
+        }
+        return fullPath.toString();
+    }
+
+    public static String getSite() {
+        String site = "";
+        try {
+            InputStream input = new FileInputStream(getFullPath());
+            prop.load(input);
+            site = prop.getProperty("site");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return site;
+    }
+
+    public static String getAlias() {
+        String alias = "";
+        try {
+            InputStream input = new FileInputStream(getFullPath());
+            prop.load(input);
+            alias = prop.getProperty("alias");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return alias;
+    }
+
+    public static String getTag() {
+        String tag = "";
+        try {
+            InputStream input = new FileInputStream(getFullPath());
+            prop.load(input);
+            tag = prop.getProperty("tag1");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return tag;
+    }
+
+    public static String[] getTags() {
+        String[] tags = new String[3];
+        try {
+            InputStream input = new FileInputStream(getFullPath());
+            prop.load(input);
+            tags[0] = prop.getProperty("tag");
+            tags[1] = prop.getProperty("tag1");
+            tags[2] = prop.getProperty("tag2");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return tags;
+    }
+
+    public static void setAlias(String alias) {
+        try {
+            InputStream input = new FileInputStream(getFullPath());
+            prop.load(input);
+            OutputStream output = new FileOutputStream(getFullPath());
+            prop.setProperty("alias", alias);
+            prop.list(System.err);
+            prop.store(output, null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setTags(String...tags) {
+        try {
+            InputStream input = new FileInputStream(getFullPath());
+            prop.load(input);
+            OutputStream output = new FileOutputStream(getFullPath());
+            for(int i = 1; i <= tags.length; i++){
+                prop.setProperty("tag" + i, tags[i-1]);
+            }
+            prop.store(output, null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setSite(String site) {
+        try {
+            InputStream input = new FileInputStream(getFullPath());
+            prop.load(input);
+            OutputStream output = new FileOutputStream(getFullPath());
+            prop.setProperty("site", site);
+            prop.store(output, null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

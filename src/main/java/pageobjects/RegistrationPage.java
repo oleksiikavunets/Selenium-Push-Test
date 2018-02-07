@@ -1,6 +1,6 @@
 package pageobjects;
 
-import com.selenium.ConfigTest;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -32,7 +32,7 @@ public class RegistrationPage extends AbstractOuterPage {
     }
 
     public RegistrationPage openRegistrationPage(){
-        driver.navigate().to(new ConfigTest().getStartUrl() + "/forgot");
+        driver.navigate().to(new TestServerConfiguretion().getStartUrl() + "/forgot");
         return new RegistrationPage(driver);
     }
 

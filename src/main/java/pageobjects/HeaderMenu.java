@@ -1,6 +1,6 @@
 package pageobjects;
 
-import com.selenium.ConfigTest;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -60,7 +60,7 @@ public class HeaderMenu extends AbstractAdminPage {
     }
 
     public HeaderMenu switchLanguage(int i) {
-        if(!ConfigTest.iTest.equals(P2B)) //Push2b.com has only one language version
+        if(!TestServerConfiguretion.iTest.equals(P2B)) //Push2b.com has only one language version
         {
             String langToChange = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
             openLanguageDropDown();
@@ -73,7 +73,7 @@ public class HeaderMenu extends AbstractAdminPage {
     }
 
     public HeaderMenu switchLanguage() {
-        if(!ConfigTest.iTest.equals(P2B)) //Push2b.com has only one language version
+        if(!TestServerConfiguretion.iTest.equals(P2B)) //Push2b.com has only one language version
         {
             String langToChange = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
             openLanguageDropDown();

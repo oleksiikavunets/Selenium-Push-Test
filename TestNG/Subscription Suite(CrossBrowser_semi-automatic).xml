@@ -9,7 +9,7 @@
     <test name="Chrome Subscription">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="statistictests.scopehttps.Test_Pos_Subscription"/>
+            <class name="tests.statistictests.scopehttps.Test_Pos_Subscription"/>
             <class name="Test_Pos_AddNewTag"/>
             <class name="Test_Pos_AddNewAlias"/>
         </classes>
@@ -17,7 +17,7 @@
     <test name="Firefox Subscription(semi-automatic)">
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="statistictests.scopehttps.Test_Pos_Subscription"/>
+            <class name="tests.statistictests.scopehttps.Test_Pos_Subscription"/>
             <class name="Test_Pos_AddNewTag"/>
             <class name="Test_Pos_AddNewAlias"/>
         </classes>
@@ -25,7 +25,7 @@
     <test name="Opera Subscription(semi-automatic)">
         <parameter name="browser" value="opera"/>
         <classes>
-            <class name="statistictests.scopehttps.Test_Pos_Subscription"/>
+            <class name="tests.statistictests.scopehttps.Test_Pos_Subscription"/>
             <class name="Test_Pos_AddNewTag"/>
             <class name="Test_Pos_AddNewAlias"/>
         </classes>

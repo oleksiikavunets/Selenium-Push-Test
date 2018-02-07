@@ -1,16 +1,16 @@
 package actions;
 
-import com.selenium.ConfigTest;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.asserts.Assertion;
 import org.testng.asserts.IAssert;
 import org.testng.collections.Maps;
-import testdata.testmails.NewHttpSiteMails;
-import testdata.testmails.NewHttpsSiteMails;
-import testdata.testmails.PasswordRecoveryMails;
-import testdata.testmails.RegistrationMails;
+import testconfigs.testdata.testmails.NewHttpSiteMails;
+import testconfigs.testdata.testmails.NewHttpsSiteMails;
+import testconfigs.testdata.testmails.PasswordRecoveryMails;
+import testconfigs.testdata.testmails.RegistrationMails;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -117,16 +117,16 @@ public class Verifier extends Assertion{
         boolean pass = false;
         switch (Thread.currentThread().getStackTrace()[2].getMethodName()){
             case ("registrationMailsTest"):
-                mails = new RegistrationMails().getMails(ConfigTest.iTest);
+                mails = new RegistrationMails().getMails(TestServerConfiguretion.iTest);
                 break;
             case ("recoverPasswordMailTest"):
-                mails = new PasswordRecoveryMails().getMails(ConfigTest.iTest);
+                mails = new PasswordRecoveryMails().getMails(TestServerConfiguretion.iTest);
                 break;
             case ("createHttpSiteMailsTest"):
-                mails = new NewHttpSiteMails().getMails(ConfigTest.iTest);
+                mails = new NewHttpSiteMails().getMails(TestServerConfiguretion.iTest);
                 break;
             case ("createHttpsSiteMailsTest"):
-                mails = new NewHttpsSiteMails().getMails(ConfigTest.iTest);
+                mails = new NewHttpsSiteMails().getMails(TestServerConfiguretion.iTest);
                 break;
         }
         List<String> mail = mails.get(key);

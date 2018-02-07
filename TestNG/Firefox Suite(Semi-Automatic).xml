@@ -10,58 +10,58 @@
 
     <test name="SANITY" parallel="false">
         <classes>
-            <class name="accounttests.Test_Pos_LogInLogOut"/>
+            <class name="tests.accounttests.Test_Pos_LogInLogOut"/>
         </classes>
     </test>
 
     <test name="MAILING TEST">
         <classes>
-            <class name="accounttests.Test_Pos_Registration"/>
-            <class name="accounttests.Test_Pos_RestorePassword"/>
-            <!--<class name="mailtests.Test_Pos_RegistrationEmailsMultiLanguage"/>-->
-            <!--<class name="mailtests.Test_Pos_RecoverPassMultiLanguage"/>-->
+            <class name="tests.accounttests.Test_Pos_Registration"/>
+            <class name="tests.accounttests.Test_Pos_RestorePassword"/>
+            <!--<class name="tests.mailtests.Test_Pos_RegistrationEmailsMultiLanguage"/>-->
+            <!--<class name="tests.mailtests.Test_Pos_RecoverPassMultiLanguage"/>-->
             <!--<class name="Test_Pos_NewSiteMailsMultiLanguage"/>-->
         </classes>
     </test>
     <test name="SEND CAMPAIGNS">
         <classes>
-            <class name="sendcampaigntests.scopehttp.Test_Pos_SendMessage"/>
-            <class name="sendcampaigntests.Test_Pos_SendDelayedMessage"/>
-            <class name="sendcampaigntests.Test_Pos_SendDelayedMessageImmediately"/>
-            <class name="sendcampaigntests.Test_Pos_SendDelayedMessageWithButtonsImmediately"/>
-            <class name="sendcampaigntests.Test_Pos_DeleteDelayedMessage"/>
-            <class name="sendcampaigntests.Test_Pos_EditDelayedMessage"/>
-            <class name="sendcampaigntests.Test_Pos_SendMessageWithTags"/>
-            <class name="sendcampaigntests.Test_Pos_SendMessageWithAlias"/>
-            <class name="sendcampaigntests.Test_Pos_SendMessageWithUTM"/>
-            <class name="sendcampaigntests.Test_Pos_SendMessageWithButtons"/>
-            <class name="sendcampaigntests.Test_Pos_SendMessageWithBigImage"/>
+            <class name="tests.sendcampaigntests.scopehttp.Test_Pos_SendMessage"/>
+            <class name="tests.sendcampaigntests.Test_Pos_SendDelayedMessage"/>
+            <class name="tests.sendcampaigntests.Test_Pos_SendDelayedMessageImmediately"/>
+            <class name="tests.sendcampaigntests.Test_Pos_SendDelayedMessageWithButtonsImmediately"/>
+            <class name="tests.sendcampaigntests.Test_Pos_DeleteDelayedMessage"/>
+            <class name="tests.sendcampaigntests.Test_Pos_EditDelayedMessage"/>
+            <class name="tests.sendcampaigntests.Test_Pos_SendMessageWithTags"/>
+            <class name="tests.sendcampaigntests.Test_Pos_SendMessageWithAlias"/>
+            <class name="tests.sendcampaigntests.Test_Pos_SendMessageWithUTM"/>
+            <class name="tests.sendcampaigntests.Test_Pos_SendMessageWithButtons"/>
+            <class name="tests.sendcampaigntests.Test_Pos_SendMessageWithBigImage"/>
             <!--<class name="Test_Pos_CopyCampaign"/> bug not fixed yet!!! -->
         </classes>
     </test>
     <test name="NEGATIVE">
         <classes>
-            <!--<class name="negativetests.Test_Neg_LogIn"/> bug not fixed yet!!! -->
-            <class name="negativetests.Test_Neg_Registration"/>
-            <class name="negativetests.Test_Neg_RestorePassword"/>
-            <class name="negativetests.Test_Neg_CreateSite"/>
-            <class name="negativetests.Test_Neg_CreateWM"/>
-            <class name="negativetests.Test_Neg_SendMessage"/>
-            <class name="negativetests.Test_Neg_EditUTM"/>
-            <class name="negativetests.Test_Neg_CreateTagList"/>
+            <!--<class name="tests.negativetests.Test_Neg_LogIn"/> bug not fixed yet!!! -->
+            <class name="tests.negativetests.Test_Neg_Registration"/>
+            <class name="tests.negativetests.Test_Neg_RestorePassword"/>
+            <class name="tests.negativetests.Test_Neg_CreateSite"/>
+            <class name="tests.negativetests.Test_Neg_CreateWM"/>
+            <class name="tests.negativetests.Test_Neg_SendMessage"/>
+            <class name="tests.negativetests.Test_Neg_EditUTM"/>
+            <class name="tests.negativetests.Test_Neg_CreateTagList"/>
         </classes>
     </test>
     <test name="ADDING AND EDITING HTTP SITE">
         <classes>
-            <class name="usersitetests.Test_Pos_CreateHttpSite"/>
-            <class name="usersitetests.Test_Pos_CreateHttpsSite"/>
-            <class name="usersitetests.Test_Pos_DeleteSite"/>
-            <class name="wmtests.Test_Pos_CreateWM"/>
+            <class name="tests.usersitetests.Test_Pos_CreateHttpSite"/>
+            <class name="tests.usersitetests.Test_Pos_CreateHttpsSite"/>
+            <class name="tests.usersitetests.Test_Pos_DeleteSite"/>
+            <class name="tests.wmtests.Test_Pos_CreateWM"/>
             <class name="Test_Pos_CreateWMWithButtons"/>
             <class name="Test_Pos_CreateWMWithBigImage"/>
-            <class name="statistictests.scopehttps.Test_Pos_Subscription"/>
-            <class name="usersitetests.Test_Pos_ChangeSiteIcon"/>
-            <class name="usersitetests.Test_Pos_EditUTM"/>
+            <class name="tests.statistictests.scopehttps.Test_Pos_Subscription"/>
+            <class name="tests.usersitetests.Test_Pos_ChangeSiteIcon"/>
+            <class name="tests.usersitetests.Test_Pos_EditUTM"/>
         </classes>
     </test>
     <test name="ADVANCED SETTINGS AND TARGETING">

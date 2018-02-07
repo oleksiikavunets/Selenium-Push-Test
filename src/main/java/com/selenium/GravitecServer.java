@@ -17,19 +17,20 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.selenium.enums.Protocol.HTTP;
-import static testdatamanagers.TestSiteManager.getOldTestSiteUrl;
+import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.getOldTestSiteUrl;
 
 /**
  * Created by Rayant on 07.04.2017.
  */
 public class GravitecServer {
-    ConfigTest config = new ConfigTest();
+    TestServerConfiguretion config = new TestServerConfiguretion();
 
     private String token;
     private int port = config.getPort();

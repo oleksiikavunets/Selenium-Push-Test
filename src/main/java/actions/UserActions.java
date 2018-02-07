@@ -1,6 +1,6 @@
 package actions;
 
-import com.selenium.ConfigTest;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.MailService;
 import com.selenium.enums.Server;
 import org.apache.logging.log4j.LogManager;
@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 import static com.selenium.enums.Protocol.HTTP;
 import static com.selenium.enums.Protocol.HTTPS;
 import static com.selenium.enums.Server.WPUSH;
-import static testdata.TestData.testEmail;
-import static testdata.TestData.testPass;
-import static testdatamanagers.TestSiteManager.getNewTestSiteUrl;
-import static testdatamanagers.TestSiteManager.getOldTestSiteUrl;
-import static testdatamanagers.TestUserManager.*;
+import static testconfigs.testdata.TestData.testEmail;
+import static testconfigs.testdata.TestData.testPass;
+import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.getNewTestSiteUrl;
+import static testconfigs.testdatamanagers.TestServerConfiguretionSiteManager.getOldTestSiteUrl;
+import static testconfigs.testdatamanagers.TestUserManager.*;
 
 
 public class UserActions {
@@ -108,7 +108,7 @@ public class UserActions {
     }
 
     private void managePopUp(){
-        if (ConfigTest.iTest.equals(Server.GRV_7700)) {
+        if (TestServerConfiguretion.iTest.equals(Server.GRV_7700)) {
             try {
                 Timer.waitSeconds(1);
                 driver.findElement(By.cssSelector("button[ng-click=\"$close()\"]")).click();
@@ -123,7 +123,7 @@ public class UserActions {
         if (driver instanceof FirefoxDriver) {
             oneClickSubscribe();
         } else {
-            if (ConfigTest.iTest.equals(WPUSH)) {
+            if (TestServerConfiguretion.iTest.equals(WPUSH)) {
                 oneClickSubscribe();
             } else {
                 twoClicksSubscribe();

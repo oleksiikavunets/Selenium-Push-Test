@@ -2,14 +2,14 @@ package pageobjects;
 
 
 import actions.Clicker;
-import com.selenium.ConfigTest;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
-import testdata.TestData;
+import testconfigs.testdata.TestData;
 
 import java.io.File;
 
@@ -99,7 +99,7 @@ public class AddNewSitePage extends AbstractAdminPage {
 
     public WebElement getIconTooBigError(){
         By locator;
-        if(ConfigTest.iTest.equals(WPUSH)){
+        if(TestServerConfiguretion.iTest.equals(WPUSH)){
             locator = iconError;
         }else {
             locator = iconErrorGRV;

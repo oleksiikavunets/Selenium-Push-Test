@@ -1,8 +1,6 @@
 package common;
 
 import actions.UserActions;
-import com.selenium.ConfigTest;
-import com.selenium.enums.Server;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -11,27 +9,33 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.HeaderMenu;
+import testconfigs.baseconfiguration.TestParameterazer;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import webdriverconfiger.WaitManager;
 import webdriverconfiger.WebDriverManager;
 
 import java.util.concurrent.TimeUnit;
 
-public class BaseTestClass {
+import static common.TestConfiguration.*;
 
-    Server serverToTest = Server.GRV;
+public class BaseTestClass {
 
     protected WebDriver driver;
 
     protected Wait<WebDriver> wait;
 
     @BeforeSuite
-    public void initializeTestServer(){
-        ConfigTest.setTestServer(serverToTest);
+    public void configureTestSuite(){
+        TestParameterazer.setTestServer(serverToTest);
+        TestParameterazer.setTestSitesScope(testSitesScope);
+        TestParameterazer.setClickOnPush(clickOnPush);
+        TestParameterazer.setFailedTestsRetryCount(failedTestsRetryCount);
     }
+
     @BeforeTest(alwaysRun = true)
     public void initializeTest() {
-        if (ConfigTest.iTest == null) {
-            ConfigTest.setTestServer(serverToTest);
+        if (TestServerConfiguretion.iTest == null) {
+            TestServerConfiguretion.setTestServer(serverToTest);
             System.out.println("Initialized test server again: " + serverToTest);
         }
     }
@@ -80,7 +84,5 @@ public class BaseTestClass {
     public WebDriver getDriver() {
         return driver;
     }
-
-    //accessToken=eyJ1aWQiOiJ0ZXN0QGdyYXZpdGVjLm5ldCIsInJlcXVlc3RlZFVpZCI6bnVsbCwicm9sZSI6IkFETUlOIiwidHlwZSI6IlVTRVIiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImV4cCI6MTUxNjEwMTE5MH0.e4hQ4JAsH4mYd8P3VkTB8Rd4H_CjQSJUYedWrVQ50V8
 
 }

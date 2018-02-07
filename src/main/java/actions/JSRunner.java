@@ -1,6 +1,6 @@
 package actions;
 
-import com.selenium.ConfigTest;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.enums.Server;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -14,7 +14,7 @@ public class JSRunner {
     }
 
     WebDriver driver;
-    Server runningOn = ConfigTest.iTest;
+    Server runningOn = TestServerConfiguretion.iTest;
 
     public void run(String script){
         ((JavascriptExecutor) driver).executeScript(script);

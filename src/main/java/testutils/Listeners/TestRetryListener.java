@@ -2,9 +2,10 @@ package testutils.Listeners;
 
 import org.testng.IAnnotationTransformer;
 import org.testng.annotations.ITestAnnotation;
+import testconfigs.testrunconfigurations.TestRetryAnalyzer;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import testutils.TestRetryAnalyzer;
 
 public class TestRetryListener implements IAnnotationTransformer {
 

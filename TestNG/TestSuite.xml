@@ -4,14 +4,15 @@
     <parameter name="browser" value="chrome"/>
     <listeners>
         <listener class-name="testutils.Listeners.TestRetryListener"/>
-        <listener class-name="testutils.Listeners.TestNGReportListener"/>
-        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+        <!--<listener class-name="testutils.Listeners.TestNGReportListener"/>-->
+        <!--<listener class-name="org.uncommons.reportng.HTMLReporter"/>-->
     </listeners>
 
-    <test name="SEND CAMPAIGNS">
+    <test name="test run">
         <parameter name="testSitesScope" value="http"/>
         <classes>
-            <class name="sendcampaigntests.scopehttp.Test_Pos_SendMessage"/>
+            <class name="tests.negativetests.Test_Neg_LogIn"/>
+            <!--<class name="tests.sendcampaigntests.Test_Pos_SendMessage"/>-->
         </classes>
     </test>
 </suite>

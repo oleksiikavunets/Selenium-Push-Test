@@ -1,7 +1,7 @@
 package pageobjects;
 
 import actions.Clicker;
-import com.selenium.ConfigTest;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
 import pageutils.ImageUploader;
-import testrestrictions.BetaFeatures;
+import testconfigs.testrestrictions.BetaFeatures;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -211,7 +211,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
 
     public WebElement getIconTooBigError() {
         By locator;
-        if (ConfigTest.iTest.equals(WPUSH)) {
+        if (TestServerConfiguretion.iTest.equals(WPUSH)) {
             locator = iconError;
         } else {
             locator = iconErrorGRV;

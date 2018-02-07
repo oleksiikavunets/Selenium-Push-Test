@@ -1,5 +1,7 @@
 package com.selenium;
 
+import testconfigs.baseconfiguration.TestServerConfiguretion;
+
 import javax.mail.*;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.search.FromStringTerm;
@@ -17,7 +19,7 @@ public class MailService {
     static {
         try {
             InputStream input = new FileInputStream("src/main/data/GRV.property");
-            ConfigTest config = new ConfigTest();
+            TestServerConfiguretion config = new TestServerConfiguretion();
             prop.load(input);
             int port = Integer.valueOf(config.getPort());
             int directPort = Integer.valueOf(config.getDirectPort());
@@ -30,7 +32,7 @@ public class MailService {
     }
 
     public static String getLastMessageFromGravitec() throws Exception {
-        ConfigTest config = new ConfigTest();
+        TestServerConfiguretion config = new TestServerConfiguretion();
         Properties props = System.getProperties();
         props.setProperty("mail.store.protocol", "imaps");
 
@@ -205,7 +207,7 @@ public class MailService {
     public static String getConfirmationLink() throws Exception {
         String messageBody = getRegistrationMail();
         String confirmationLink;
-//        if (ConfigTest.iTest.equals("7700") || ConfigTest.iTest.equals("GRV") || ConfigTest.iTest.equals("kyivstar7700") || ConfigTest.iTest.equals("kyivstar") || ConfigTest.iTest.equals("7600") || ConfigTest.iTest.equals("push2b")) {
+//        if (TestServerConfiguretion.iTest.equals("7700") || TestServerConfiguretion.iTest.equals("GRV") || TestServerConfiguretion.iTest.equals("kyivstar7700") || TestServerConfiguretion.iTest.equals("kyivstar") || TestServerConfiguretion.iTest.equals("7600") || TestServerConfiguretion.iTest.equals("push2b")) {
             System.out.println(messageBody);
             confirmationLink = messageBody.split(" https://")[1].split("\\n")[0];
             //return  "https://" + messageBody;
@@ -223,7 +225,7 @@ public class MailService {
 
         String messageBody = getRecoverPasswordMail();
         String recoverLink;
-//        if (ConfigTest.iTest.equals("7700") || ConfigTest.iTest.equals("prod") || ConfigTest.iTest.equals("kyivstar7700") || ConfigTest.iTest.equals("kyivstar") || ConfigTest.iTest.equals("7600") || ConfigTest.iTest.equals("push2b")) {
+//        if (TestServerConfiguretion.iTest.equals("7700") || TestServerConfiguretion.iTest.equals("prod") || TestServerConfiguretion.iTest.equals("kyivstar7700") || TestServerConfiguretion.iTest.equals("kyivstar") || TestServerConfiguretion.iTest.equals("7600") || TestServerConfiguretion.iTest.equals("push2b")) {
             System.out.println(messageBody);
             recoverLink = messageBody.split("https://")[3].split("\\n")[0];
 //        } else {

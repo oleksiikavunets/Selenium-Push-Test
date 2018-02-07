@@ -1,6 +1,6 @@
 package pageutils;
 
-import com.selenium.ConfigTest;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import org.openqa.selenium.WebDriver;
 import pageobjects.HeaderMenu;
 import pageobjects.MainAdminPage;
@@ -21,13 +21,13 @@ public class Navigator {
     }
 
     public <T extends AbstractAdminPage> T open(Class<T> page , String site) {
-        driver.get(new ConfigTest().getStartUrl() + getPartialPath(page).replace("SITE_ID", getSiteID(site)));
+        driver.get(new TestServerConfiguretion().getStartUrl() + getPartialPath(page).replace("SITE_ID", getSiteID(site)));
         new HeaderMenu(driver).waitForBeingLogged();
         return (T)getPageInstance(page);
     }
 
     public <T extends AbstractOuterPage> T open(Class<T> page) {
-        driver.get(new ConfigTest().getStartUrl() + getPartialPath(page));
+        driver.get(new TestServerConfiguretion().getStartUrl() + getPartialPath(page));
         return (T)getPageInstance(page);
     }
 

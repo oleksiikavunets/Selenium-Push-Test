@@ -1,7 +1,7 @@
 package pageobjects;
 
 import actions.Timer;
-import com.selenium.ConfigTest;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.enums.Server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,7 +39,7 @@ public class NewPasswordSetUpPage extends AbstractOuterPage {
     }
 
     public void clickOkPopUP(){
-        if(ConfigTest.iTest.equals(Server.GRV_7700)) {
+        if(TestServerConfiguretion.iTest.equals(Server.GRV_7700)) {
             try {
                 Timer.waitSeconds(0.5);
                 okPopUpButton.findElement(driver).click();
@@ -52,7 +52,7 @@ public class NewPasswordSetUpPage extends AbstractOuterPage {
     }
 
     private void managePopUp(){
-        if(ConfigTest.iTest.equals(Server.GRV_7700)){
+        if(TestServerConfiguretion.iTest.equals(Server.GRV_7700)){
             try{
                 Timer.waitSeconds(1);
                 driver.findElement(By.cssSelector("button[ng-click=\"$close()\"]")).click();

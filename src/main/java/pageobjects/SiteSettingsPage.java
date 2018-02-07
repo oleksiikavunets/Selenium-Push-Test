@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
 import pageutils.ImageUploader;
-import testrestrictions.BetaFeatures;
+import testconfigs.testrestrictions.BetaFeatures;
 
 import java.io.File;
 
