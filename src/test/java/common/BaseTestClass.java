@@ -9,14 +9,14 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.HeaderMenu;
-import testconfigs.baseconfiguration.TestParameterizer;
+import testconfigs.baseconfiguration.TestCofiguration;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import webdriverconfiger.WaitManager;
 import webdriverconfiger.WebDriverManager;
 
 import java.util.concurrent.TimeUnit;
 
-import static common.TestConfiguration.*;
+import static common.TestParameters.*;
 
 public class BaseTestClass {
 
@@ -26,10 +26,10 @@ public class BaseTestClass {
 
     @BeforeSuite
     public void configureTestSuite(){
-        TestParameterizer.setTestServer(serverToTest);
-        TestParameterizer.setTestSitesScope(testSitesScope);
-        TestParameterizer.setClickOnPush(clickOnPush);
-        TestParameterizer.setFailedTestsRetryCount(failedTestsRetryCount);
+        TestCofiguration.setTestServer(serverToTest);
+        TestCofiguration.setTestSitesScope(testSitesScope);
+        TestCofiguration.setClickOnPush(clickOnPush);
+        TestCofiguration.setFailedTestsRetryCount(failedTestsRetryCount);
     }
 
     @BeforeTest(alwaysRun = true)

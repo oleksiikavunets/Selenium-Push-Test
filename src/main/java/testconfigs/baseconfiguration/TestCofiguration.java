@@ -4,7 +4,7 @@ import com.selenium.enums.Server;
 import com.selenium.enums.TestSitesScope;
 
 
-public class TestParameterizer {
+public class TestCofiguration {
 
     public static Server testServer ;
     public static TestSitesScope testSitesScope;
@@ -27,6 +27,5 @@ public class TestParameterizer {
     public static void setFailedTestsRetryCount(int count){
         failedTestsRetryCount = count;
     }
-
-
+    
 }

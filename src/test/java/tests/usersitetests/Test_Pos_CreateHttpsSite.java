@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.SiteManagerPage;
 import pageobjects.SiteSettingsPage;
-import testconfigs.baseconfiguration.TestParameterizer;
+import testconfigs.baseconfiguration.TestCofiguration;
 import testconfigs.testdatamanagers.TestSiteManager;
 
 import static com.selenium.utils.NameGenerator.generateNewHttpsSiteName;
@@ -20,7 +20,7 @@ public class Test_Pos_CreateHttpsSite extends BaseTestClass {
     @Test
     public void createHttpsSiteTest() throws Exception{
 
-        if(!(TestParameterizer.testSitesScope == TestSitesScope.TEST_HTTP_ONLY)) {
+        if(!(TestCofiguration.testSitesScope == TestSitesScope.TEST_HTTP_ONLY)) {
 
             TestSiteManager testSiteManager = new TestSiteManager();
             int siteNumber = Integer.valueOf(testSiteManager.getHttpsSiteNumber());
