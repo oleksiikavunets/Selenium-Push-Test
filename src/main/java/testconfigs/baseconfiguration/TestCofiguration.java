@@ -27,5 +27,5 @@ public class TestCofiguration {
     public static void setFailedTestsRetryCount(int count){
         failedTestsRetryCount = count;
     }
-    
+
 }

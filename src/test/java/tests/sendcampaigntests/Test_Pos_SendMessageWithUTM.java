@@ -17,7 +17,7 @@ import testutils.Listeners.LogListener;
 @Listeners(LogListener.class)
 public class Test_Pos_SendMessageWithUTM extends BaseTestClass {
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "UTM"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "UTM"})
     public void sendMessageWithUTMTest(String testSiteUrl) throws InterruptedException {
         Navigator navigator = new Navigator(driver);
 

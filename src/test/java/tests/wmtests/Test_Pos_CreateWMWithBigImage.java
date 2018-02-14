@@ -6,7 +6,6 @@ import actions.Verifier;
 import com.selenium.utils.Log;
 import common.BaseTestClass;
 import org.testng.SkipException;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
@@ -26,7 +25,7 @@ import static testconfigs.testdata.TestData.welcomeMessageTitle;
 @Listeners(LogListener.class)
 public class Test_Pos_CreateWMWithBigImage extends BaseTestClass {
 
-    @Test(dataProvider = "testSiteProvider", groups = {"WM"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getRandomSiteNames", groups = {"WM"})
     public void createWMWithBigImageTest(String testSite) throws Exception {
         Navigator navigator = new Navigator(driver);
         UserActions userActions = new UserActions(driver);
@@ -73,11 +72,6 @@ public class Test_Pos_CreateWMWithBigImage extends BaseTestClass {
             Log.info(this.getClass().getSimpleName() + ": Current funtionality is not deployed on " + TestServerConfiguretion.iTest);
             throw new SkipException("Skipped");
         }
-    }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestDataProvider.getRandomSiteNames();
     }
 }
 

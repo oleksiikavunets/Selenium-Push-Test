@@ -4,7 +4,6 @@ import actions.UserActions;
 import actions.Verifier;
 import common.BaseTestClass;
 import org.testng.SkipException;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
@@ -19,7 +18,7 @@ import testutils.Listeners.LogListener;
 @Listeners(LogListener.class)
 public class Test_Pos_EditWM extends BaseTestClass {
 
-    @Test(dataProvider = "testSiteProvider",groups = {"WM"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getRandomSiteNames",groups = {"WM"})
     public void editWMTest(String testSite) throws Exception {
 
         UserActions userActions = new UserActions(driver);
@@ -88,10 +87,5 @@ public class Test_Pos_EditWM extends BaseTestClass {
         } else {
             throw new SkipException(this.getClass().getSimpleName() + "Current funtionality is not deployed on " + TestServerConfiguretion.iTest);
         }
-    }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestDataProvider.getRandomSiteNames();
     }
 }

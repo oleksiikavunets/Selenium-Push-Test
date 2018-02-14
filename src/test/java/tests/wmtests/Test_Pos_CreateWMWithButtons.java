@@ -6,7 +6,6 @@ import actions.Verifier;
 import com.selenium.utils.Log;
 import common.BaseTestClass;
 import org.testng.SkipException;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
@@ -22,7 +21,7 @@ import testutils.Listeners.LogListener;
 @Listeners(LogListener.class)
 public class Test_Pos_CreateWMWithButtons extends BaseTestClass {
 
-    @Test(dataProvider = "testSiteProvider", groups = {"WM"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getRandomSiteNames", groups = {"WM"})
     public void createWMWithButtonsTest(String testSite) throws Exception {
         Navigator navigator = new Navigator(driver);
         UserActions userActions = new UserActions(driver);
@@ -39,7 +38,7 @@ public class Test_Pos_CreateWMWithButtons extends BaseTestClass {
                         .setText(TestData.welcomeMessageText);
 
                 createWMPage.openAdditionalActiveItems()
-                        .setButtons(TestData.button1Name, TestData.testSite, TestData.button2Name, TestData.testSite);
+                        .setButtons(TestData.button1Name, TestData.testSite, TestData.button2Name, testSite);
                 verifier.assertEquals(createWMPage.getTitlePreview().getText(), TestData.welcomeMessageTitle, "Incorrect title on preview");
                 verifier.assertEquals(createWMPage.getTextPreview().getText(), TestData.welcomeMessageText, "Incorrect text on preview");
                 verifier.assertEquals(createWMPage.getButton1Preview().getText(), TestData.button1Name, "Incorrect button1 name on preview");
@@ -69,11 +68,6 @@ public class Test_Pos_CreateWMWithButtons extends BaseTestClass {
             Log.info(this.getClass().getSimpleName() + ": Current funtionality is not deployed on " + TestServerConfiguretion.iTest);
             throw new SkipException("Skipped");
         }
-    }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestDataProvider.getRandomSiteNames();
     }
 }
 

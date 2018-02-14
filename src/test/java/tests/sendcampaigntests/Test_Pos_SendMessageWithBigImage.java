@@ -22,7 +22,7 @@ import testutils.Listeners.LogListener;
 public class Test_Pos_SendMessageWithBigImage extends BaseTestClass {
 
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "active elements", "big image"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "active elements", "big image"})
     public void sendMessageWithBIGImageTest(String testSiteUrl) {
 
         if (BetaFeatures.verifyBetaToTest("buttonsAndBigImage")) {
@@ -39,12 +39,12 @@ public class Test_Pos_SendMessageWithBigImage extends BaseTestClass {
             CreateCampaignPage.AdditionalActiveItems bigImage = createCampaignPage.openAdditionalActiveItems();
             String image = bigImage.uploadBigImage(TestData.bigImage);
             CreateCampaignPage.NotificationPreview notificationPreview = createCampaignPage.new NotificationPreview();
-            verifier.assertTrue(notificationPreview.getBigImgPreview().isDisplayed());
+            verifier.assertTrue(notificationPreview.getBigImagePreview().isDisplayed());
             CampaignReportPage campaignReportPage = createCampaignPage.sendPush()
                     .openMessage(TestData.pushTitle);
             campaignReportPage.copyCampaign();
 
-            verifier.assertEquals(notificationPreview.getBigImagePreview().getAttribute("src"), image);
+            verifier.assertEquals(notificationPreview.getBigImagePreview().getAttribute("src"), image );
             verifier.assertTestPassed();
         } else {
             throw new SkipException("");

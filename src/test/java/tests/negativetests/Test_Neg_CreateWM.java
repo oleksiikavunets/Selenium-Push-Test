@@ -35,7 +35,7 @@ public class Test_Neg_CreateWM extends BaseTestClass {
         ErrorMessages errorMessages = new ErrorMessages();
         UserActions userActions = new UserActions(driver);
         Verifier verifier = new Verifier();
-        String siteUrl = TestData.newHttpSitePattern  + RandomGenerator.nextString() + ".com";
+        String siteUrl = TestData.newHttpsSitePattern  + RandomGenerator.nextString() + ".com";
         String siteLang;
 
         HashMap<String, String> requiredField = errorMessages.getRequiredField();

@@ -2,9 +2,7 @@ package tests.statistictests;
 
 import actions.UserActions;
 import actions.Verifier;
-import com.selenium.enums.Protocol;
 import common.BaseTestClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
@@ -15,14 +13,13 @@ import pageutils.Navigator;
 import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
 
-import static testconfigs.testdatamanagers.TestSiteManager.getHttpSiteOwner;
-import static testconfigs.testdatamanagers.TestSiteManager.getNewTestSiteUrl;
+import static testconfigs.testdatamanagers.TestSiteManager.getSiteOwner;
 
 @Listeners(LogListener.class)
 public class Test_Pos_Subscription extends BaseTestClass {
 
 
-    @Test(dataProvider = "testSiteProvider", groups = "subscription")
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getNewlyCreatedSites", groups = "subscription")
     public void subscriptionTest(String testSite) {
 
         Navigator navigator = new Navigator(driver);
@@ -30,22 +27,20 @@ public class Test_Pos_Subscription extends BaseTestClass {
         Verifier verifier = new Verifier();
         LogInPage logInPage = new LogInPage(driver);
 
-        String[] siteOwner = getHttpSiteOwner();
+        String[] siteOwner = getSiteOwner(testSite);
         String email = siteOwner[0];
         String pass = siteOwner[1];
-        String httpSite = getNewTestSiteUrl(Protocol.HTTP);
-
 
         MainAdminPage mainAdminPage = logInPage.login(email, pass);
         int totalAmountOfSubsBefore = mainAdminPage.getTotalAmountOfSubscribers();
-        SubscribersPage subscribersPage = navigator.open(SubscribersPage.class, httpSite);
+        SubscribersPage subscribersPage = navigator.open(SubscribersPage.class, testSite);
 //                .clickTodayBtn();
 
         int amountOfSubsBefore = subscribersPage.getAmountOfSubscribers();
         System.out.println("Subs before: on main page - " + totalAmountOfSubsBefore +
                 " on subs page - " + amountOfSubsBefore);
         new HeaderMenu(driver).logout();
-        new UserActions(driver, wait).subscribe(httpSite);
+        new UserActions(driver, wait).subscribe(testSite);
 
         logInPage.login(email, pass);
         int totalAmountOfSubsAfter = mainAdminPage.getTotalAmountOfSubscribers();
@@ -53,7 +48,7 @@ public class Test_Pos_Subscription extends BaseTestClass {
                 "Before: " + totalAmountOfSubsBefore +
                 " After: " + totalAmountOfSubsAfter);
 
-        navigator.open(SubscribersPage.class, httpSite);//.clickTodayBtn();
+        navigator.open(SubscribersPage.class, testSite);//.clickTodayBtn();
 
         int amountOfSubsAfter = subscribersPage.getAmountOfSubscribers();
         System.out.println("Subs after: on main page - " + totalAmountOfSubsAfter +
@@ -64,10 +59,4 @@ public class Test_Pos_Subscription extends BaseTestClass {
                 " After: " + amountOfSubsAfter);
         verifier.assertTestPassed();
     }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestDataProvider.provideTestSites();
-    }
-
 }

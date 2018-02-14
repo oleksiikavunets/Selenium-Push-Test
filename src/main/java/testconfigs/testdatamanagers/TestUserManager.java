@@ -10,7 +10,7 @@ import static testconfigs.testdatamanagers.TestSiteManager.updateSiteOwnerPass;
 
 public class TestUserManager {
 
-    private static final String path = "src/main/data/testusers/";
+    private static final String path = "src/main/resources/data/testusers/";
     private static Properties prop = new Properties();
 
     private static String getFullPath() {

@@ -14,7 +14,7 @@ import testconfigs.testdata.TestDataProvider;
 
 public class Test_Pos_SendDelayedMessageWithButtonsImmediately extends BaseTestClass {
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "delayed push"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "delayed push"})
     public void sendDelayedMessageWithButtonsImmediatelyTest(String testSite) {
 
         String title = RandomGenerator.nextString();

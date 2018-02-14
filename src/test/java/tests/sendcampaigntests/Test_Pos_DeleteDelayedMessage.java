@@ -17,7 +17,7 @@ import testutils.Listeners.LogListener;
 @Listeners(LogListener.class)
 public class Test_Pos_DeleteDelayedMessage extends BaseTestClass {
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "delayed push"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "delayed push"})
     public void deleteDelayedMessageTest(String testSiteUrl) {
         Navigator navigator = new Navigator(driver);
 

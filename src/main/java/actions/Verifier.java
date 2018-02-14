@@ -1,12 +1,12 @@
 package actions;
 
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.asserts.Assertion;
 import org.testng.asserts.IAssert;
 import org.testng.collections.Maps;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.testmails.NewHttpSiteMails;
 import testconfigs.testdata.testmails.NewHttpsSiteMails;
 import testconfigs.testdata.testmails.PasswordRecoveryMails;
@@ -17,9 +17,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Verifier extends Assertion{
+public class Verifier extends Assertion {
 
-    public Verifier(){}
+    public Verifier() {
+    }
 
     private final Map<AssertionError, IAssert<?>> m_errors = Maps.newLinkedHashMap();
 
@@ -37,6 +38,7 @@ public class Verifier extends Assertion{
         }
 
     }
+
     @Override
     public void onAssertFailure(IAssert<?> assertCommand, AssertionError ex) {
 
@@ -53,6 +55,7 @@ public class Verifier extends Assertion{
         }
         return errorCount;
     }
+
     public int verify(String actual, String expected, String message) {
         int errorCount = 0;
         try {
@@ -96,6 +99,7 @@ public class Verifier extends Assertion{
         }
         return errorCount;
     }
+
     public int verify(int i, int j, String message) {
         int errorCount = 0;
         try {
@@ -112,10 +116,9 @@ public class Verifier extends Assertion{
         //Log.info(r + "\n" + error);
     }
 
-    public boolean verifyReceivedMail(String message, String key){
+    public boolean verifyReceivedMail(String message, String key) {
         HashMap<String, List> mails = new HashMap<>();
-        boolean pass = false;
-        switch (Thread.currentThread().getStackTrace()[2].getMethodName()){
+        switch (Thread.currentThread().getStackTrace()[2].getMethodName()) {
             case ("registrationMailsTest"):
                 mails = new RegistrationMails().getMails(TestServerConfiguretion.iTest);
                 break;
@@ -131,12 +134,11 @@ public class Verifier extends Assertion{
         }
         List<String> mail = mails.get(key);
         int errorCount = 0;
-        for(int j = 0; j < mail.size(); j++){
+        for (int j = 0; j < mail.size(); j++) {
             System.out.println("Verifying: " + mail.get(j));
             errorCount += verify(message.contains(mail.get(j)), "Mail does not contain text: " + mail.get(j));
         }
-        if(errorCount == 0 )pass = true;
-        return pass;
+        return errorCount == 0;
     }
 
     public void assertTestPassed() {
@@ -146,8 +148,8 @@ public class Verifier extends Assertion{
             boolean var2 = true;
             Iterator var3 = this.m_errors.entrySet().iterator();
 
-            while(var3.hasNext()) {
-                Map.Entry var4 = (Map.Entry)var3.next();
+            while (var3.hasNext()) {
+                Map.Entry var4 = (Map.Entry) var3.next();
                 if (var2) {
                     var2 = false;
                 } else {
@@ -155,7 +157,7 @@ public class Verifier extends Assertion{
                 }
 
                 var1.append("\n\t");
-                var1.append(((AssertionError)var4.getKey()).getMessage());
+                var1.append(((AssertionError) var4.getKey()).getMessage());
             }
             throw new AssertionError(var1.toString());
         }

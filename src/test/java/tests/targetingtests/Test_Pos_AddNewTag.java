@@ -18,7 +18,7 @@ import static testconfigs.testdatamanagers.TestDataManager.setTags;
 @Listeners(LogListener.class)
 public class Test_Pos_AddNewTag extends BaseTestClass {
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"subscription", "advanced settings", "tags"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"subscription", "advanced settings", "tags"})
     public void addNewTagTest(String testSite) throws Exception {
         Navigator navigator = new Navigator(driver);
         String newTag = TestData.newTag;

@@ -155,7 +155,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
 
         public WebElement getBigImagePreview() {
             WebElement element = null;
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 5; i++) {
                 try {
                     element = bigImagePrev.findElement(driver);
                 } catch (org.openqa.selenium.NoSuchElementException e) {

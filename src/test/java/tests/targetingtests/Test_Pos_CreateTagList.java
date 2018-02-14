@@ -20,7 +20,7 @@ import testutils.Listeners.LogListener;
 @Listeners(LogListener.class)
 public class Test_Pos_CreateTagList extends BaseTestClass {
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"tag list"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"tag list"})
     public void createTagListTest(String testSite) throws Exception {
         Navigator navigator = new Navigator(driver);
 

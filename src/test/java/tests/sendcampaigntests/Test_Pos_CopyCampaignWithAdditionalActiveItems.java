@@ -22,8 +22,8 @@ import static testconfigs.baseconfiguration.TestServerConfiguretion.iTest;
 public class Test_Pos_CopyCampaignWithAdditionalActiveItems extends BaseTestClass {
 
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider",  groups = {"send push", "copy campaign", "advanced settings", "tags", "alias", "active elements", "buttons", "big image"})
-    public void copyCampaignWithAdditionalActiveItemsTest(String testSiteUrl) throws Exception {
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites",  groups = {"send push", "copy campaign", "advanced settings", "tags", "alias", "active elements", "buttons", "big image"})
+    public void copyCampaignWithAdditionalActiveItemsTest(String testSiteUrl) {
         Logger Log = LogManager.getLogger(Test_Pos_CopyCampaignWithAdditionalActiveItems.class);
         Navigator navigator = new Navigator(driver);
         Verifier verifier = new Verifier();

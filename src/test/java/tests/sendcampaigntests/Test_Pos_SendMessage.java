@@ -1,5 +1,6 @@
 package tests.sendcampaigntests;
 
+import actions.BrowserMaster;
 import common.BaseTestClass;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
@@ -13,7 +14,7 @@ import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
 
-import static actions.Timer.waitSeconds;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Oleksii on 03.07.2017.
@@ -22,12 +23,13 @@ import static actions.Timer.waitSeconds;
 public class Test_Pos_SendMessage extends BaseTestClass {
 
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push"})
-    public void sendMessageTest(String testSite){
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push"})
+    public void sendMessageTest(String testSite) {
 
-        PushHandler pushHandler = new PushHandler();
-        String title = "PUSH TITLE";
-        String text = "PUSH TEXT";
+        BrowserMaster browser = new BrowserMaster(driver);
+        PushHandler pushHandler = new PushHandler(driver);
+        String title = "SIMPLE PUSH";
+        String text = "SIMPLE PUSH";
 
         new LogInPage(driver).login(TestData.email, TestData.pass);
         CampaignHistoryPage campaignHistoryPage = new Navigator(driver).open(CreateCampaignPage.class, testSite)
@@ -37,7 +39,8 @@ public class Test_Pos_SendMessage extends BaseTestClass {
 
         Assert.assertTrue(campaignHistoryPage.verifyMessageExists(title), "Could not find sent message");
         Assert.assertNotNull(pushHandler.verifyPushReceived());
+        int numOfWindows = browser.getNumberOfWindows();
         pushHandler.clickOnPush();
-        waitSeconds(5);
+        assertEquals(pushHandler.getPushRedirectUrl(numOfWindows), testSite + "/");
     }
 }

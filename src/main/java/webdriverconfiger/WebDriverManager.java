@@ -18,19 +18,10 @@ public class WebDriverManager {
 
     private StringBuilder path = new StringBuilder("src/main/resources/WebDrivers/");
 
-    public  WebDriver getDriver(String browser) {
-        switch (browser){
-            case ("chrome"):
-                driver = getChromeDriver();
-                break;
-            case ("firefox"):
-                driver = getFirefoxDriver();
-                break;
-            case ("opera"):
-                driver = getOperaDriver();
-                break;
-        }
-        return driver;
+    public WebDriver getDriver(String browser) {
+        return browser.equalsIgnoreCase("chrome") ? getChromeDriver() :
+                browser.equalsIgnoreCase("firefox") ? getFirefoxDriver() :
+                        browser.equalsIgnoreCase("opera") ? getOperaDriver() : null;
     }
 
 
@@ -60,7 +51,8 @@ public class WebDriverManager {
         driver = WebDriverPool.DEFAULT.getDriver("firefox");
         return driver;
     }
-    private WebDriver getOperaDriver(){
+
+    private WebDriver getOperaDriver() {
         System.setProperty("webdriver.opera.driver",
                 new File(path.append("operadriver 2.27/operadriver.exe").toString()).getAbsolutePath());
         OperaOptions options = new OperaOptions();
@@ -73,26 +65,23 @@ public class WebDriverManager {
         return driver;
     }
 
-    private String getOS(){
-        String myOs = "";
-        String osName =  System.getProperty("os.name").toLowerCase();
+    private String getOS() {
+        String osName = System.getProperty("os.name").toLowerCase();
         System.out.println("RUNNING ON " + osName + "..................................");
-        if(osName.indexOf("win") >= 0) myOs = "win";
-        else if(osName.indexOf("mac") >= 0) myOs = "mac";
-        else if(osName.indexOf("nix") >= 0 || osName.indexOf("nux") >= 0 || osName.indexOf("aix") > 0 ) myOs = "linux";
-        else System.out.println("OS NOT SUPPORTED.............................");
-        return myOs;
+        return (osName.indexOf("win") >= 0) ? "win" :
+                ((osName.indexOf("mac") >= 0) ? "mac" :
+                        (((osName.indexOf("nix") >= 0) || (osName.indexOf("nux") >= 0) || (osName.indexOf("aix") > 0)) ? "linux" : null));
     }
 
-    public void quitDriver(WebDriver driver){
+    public void quitDriver(WebDriver driver) {
         WebDriverPool.DEFAULT.dismissDriver(driver);
     }
 
-    public void quitAllDrivers(){
+    public void quitAllDrivers() {
         WebDriverPool.DEFAULT.dismissAll();
     }
 
-    public WebDriver getDriver(){
+    public WebDriver getDriver() {
         return driver;
     }
 }

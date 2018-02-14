@@ -17,7 +17,7 @@ import static testconfigs.testdata.TestData.newAlias;
 @Listeners(LogListener.class)
 public class Test_Pos_AddNewAlias extends BaseTestClass {
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider",
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites",
             groups = {"subscription", "advanced settings", "alias"})
     public void addNewAliasTest(String testSite) throws Exception {
         Navigator navigator = new Navigator(driver);

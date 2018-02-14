@@ -17,20 +17,18 @@
     <test name="MAILING TEST">
         <classes>
             <class name="tests.accounttests.Test_Pos_RestorePassword"/>
-            <!--<class name="tests.mailtests.Test_Pos_RecoverPassMultiLanguage"/>-->
+            <class name="tests.mailtests.Test_Pos_RecoverPassMultiLanguage"/>
             <class name="tests.mailtests.Test_Pos_NewHttpsSiteMailsMultiLanguage"/>
         </classes>
     </test>
     <test name="SEND CAMPAIGNS">
         <classes>
-            <class name="tests.sendcampaigntests.scopehttp.Test_Pos_SendMessage"/>
+            <class name="tests.sendcampaigntests.Test_Pos_SendMessage"/>
             <class name="tests.sendcampaigntests.Test_Pos_SendDelayedMessage"/>
             <class name="tests.sendcampaigntests.Test_Pos_SendDelayedMessageImmediately"/>
             <class name="tests.sendcampaigntests.Test_Pos_SendDelayedMessageWithButtonsImmediately"/>
             <class name="tests.sendcampaigntests.Test_Pos_DeleteDelayedMessage"/>
             <class name="tests.sendcampaigntests.Test_Pos_EditDelayedMessage"/>
-            <!--<class name="tests.sendcampaigntests.Test_Pos_SendMessageWithTags"/>-->
-            <!--<class name="tests.sendcampaigntests.Test_Pos_SendMessageWithAlias"/>-->
             <class name="tests.sendcampaigntests.Test_Pos_SendMessageWithUTM"/>
             <class name="tests.sendcampaigntests.Test_Pos_SendMessageWithButtons"/>
             <class name="tests.sendcampaigntests.Test_Pos_SendMessageWithBigImage"/>
@@ -44,15 +42,14 @@
     </test>
     <test name="STATISTICS TEST">
         <classes>
-            <class name="tests.statistictests.scopehttps.Test_Pos_SubscriberStatistics"/>
+            <class name="tests.statistictests.Test_Pos_SubscriberStatistics"/>
         </classes>
     </test>
     <test name="ADDING AND EDITING SITES">
         <classes>
             <class name="tests.usersitetests.Test_Pos_CreateHttpsSite"/>
-            <!--<class name="tests.usersitetests.Test_Pos_CreateHttpSite"/>-->
             <class name="tests.usersitetests.Test_Pos_DeleteSite"/>
-            <!--<class name="tests.statistictests.scopehttps.Test_Pos_Subscription"/>-->
+            <class name="tests.statistictests.Test_Pos_Subscription"/>
             <class name="tests.wmtests.Test_Pos_CreateWM"/>
             <class name="tests.wmtests.Test_Pos_CreateWMWithButtons"/>
             <class name="tests.wmtests.Test_Pos_CreateWMWithBigImage"/>
@@ -60,14 +57,6 @@
             <class name="tests.usersitetests.Test_Pos_EditUTM"/>
         </classes>
     </test>
-    <!--<test name="ADVANCED SETTINGS AND TARGETING">-->
-        <!--<classes>-->
-            <!--<class name="Test_Pos_AddNewTag"/>-->
-            <!--<class name="Test_Pos_AddNewAlias"/>-->
-            <!--<class name="Test_Pos_CreateTagList"/>-->
-            <!--<class name="Test_Pos_UseTagsInCampaignFromTagListPage"/>-->
-        <!--</classes>-->
-    <!--</test>-->
     <test name="NEGATIVE">
         <classes>
             <!--<class name="tests.negativetests.Test_Neg_LogIn"/>-->

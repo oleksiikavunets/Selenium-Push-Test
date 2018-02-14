@@ -16,7 +16,7 @@ import testutils.Listeners.LogListener;
 @Listeners(LogListener.class)
 public class Test_Pos_EditDelayedMessage extends BaseTestClass {
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "delayed push"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "delayed push"})
     public void editDelayedMessageTest(String testSiteUrl)  {
         Navigator navigator = new Navigator(driver);
         Verifier verifier = new Verifier();

@@ -12,16 +12,15 @@ import pageobjects.SiteSettingsPage;
 import pageutils.Navigator;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
+import testconfigs.testdata.TestDataProvider;
 import testconfigs.testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
-
-import static testconfigs.testdata.TestData.testSite;
 
 @Listeners(LogListener.class)
 public class Test_Pos_EditUTM extends BaseTestClass {
 
-    @Test(groups = {"site settings", "UTM"})
-    public void editUtmTest() {
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"site settings", "UTM"})
+    public void editUtmTest(String testSite) {
         Verifier verifier = new Verifier();
         String newUTMsource = TestData.utm_source;
         String newUTMmedium = TestData.utm_medium;

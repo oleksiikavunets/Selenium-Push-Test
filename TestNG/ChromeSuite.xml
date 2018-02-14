@@ -18,16 +18,12 @@
     <test name="MAILING TEST">
         <classes>
             <class name="tests.accounttests.Test_Pos_Registration"/>
-            <class name="tests.accounttests.Test_Pos_RestorePassword"/>
-            <class name="tests.mailtests.Test_Pos_RegistrationEmailsMultiLanguage"/>
-            <class name="tests.mailtests.Test_Pos_RecoverPassMultiLanguage"/>
-            <class name="tests.mailtests.Test_Pos_NewHttpSiteMailsMultiLanguage"/>
-            <class name="tests.mailtests.Test_Pos_NewHttpsSiteMailsMultiLanguage"/>
+            <!--<class name="tests.accounttests.Test_Pos_RestorePassword"/>-->
         </classes>
     </test>
-    <test name="SEND CAMPAIGNS">
+    <test name="SEND CAMPAIGNS" parallel="classes" thread-count="3">
         <classes>
-            <class name="tests.sendcampaigntests.scopehttp.Test_Pos_SendMessage"/>
+            <class name="tests.sendcampaigntests.Test_Pos_SendMessage"/>
             <class name="tests.sendcampaigntests.Test_Pos_SendDelayedMessage"/>
             <class name="tests.sendcampaigntests.Test_Pos_SendDelayedMessageImmediately"/>
             <class name="tests.sendcampaigntests.Test_Pos_SendDelayedMessageWithButtonsImmediately"/>
@@ -48,15 +44,15 @@
     </test>
     <test name="STATISTICS TEST">
         <classes>
-            <class name="tests.statistictests.scopehttp.Test_Pos_SubscriberStatistics"/>
+            <class name="tests.statistictests.Test_Pos_SubscriberStatistics"/>
         </classes>
     </test>
-    <test name="ADDING AND EDITING SITES">
+    <test name="ADDING AND EDITING SITES" parallel="classes" thread-count="3">
         <classes>
             <class name="tests.usersitetests.Test_Pos_CreateHttpsSite"/>
             <class name="tests.usersitetests.Test_Pos_CreateHttpSite"/>
             <class name="tests.usersitetests.Test_Pos_DeleteSite"/>
-            <class name="tests.statistictests.scopehttp.Test_Pos_Subscription"/>
+            <class name="tests.statistictests.Test_Pos_Subscription"/>
             <class name="tests.wmtests.Test_Pos_CreateWM"/>
             <class name="tests.wmtests.Test_Pos_CreateWMWithButtons"/>
             <class name="tests.wmtests.Test_Pos_CreateWMWithBigImage"/>
@@ -64,15 +60,23 @@
             <class name="tests.usersitetests.Test_Pos_EditUTM"/>
         </classes>
     </test>
-    <test name="ADVANCED SETTINGS AND TARGETING">
+    <test name="ADVANCED SETTINGS AND TARGETING" parallel="classes" thread-count="3">
         <classes>
-            <class name="Test_Pos_AddNewTag"/>
-            <class name="Test_Pos_AddNewAlias"/>
-            <class name="Test_Pos_CreateTagList"/>
-            <class name="Test_Pos_UseTagsInCampaignFromTagListPage"/>
+            <class name="tests.targetingtests.Test_Pos_AddNewTag"/>
+            <class name="tests.targetingtests.Test_Pos_AddNewAlias"/>
+            <class name="tests.targetingtests.Test_Pos_CreateTagList"/>
+            <class name="tests.targetingtests.Test_Pos_UseTagsInCampaignFromTagListPage"/>
         </classes>
     </test>
-    <test name="NEGATIVE">
+    <test name="MAIL CHECK" parallel="false">
+        <classes>
+            <class name="tests.mailtests.Test_Pos_RegistrationEmailsMultiLanguage"/>
+            <class name="tests.mailtests.Test_Pos_RecoverPassMultiLanguage"/>
+            <class name="tests.mailtests.Test_Pos_NewHttpSiteMailsMultiLanguage"/>
+            <class name="tests.mailtests.Test_Pos_NewHttpsSiteMailsMultiLanguage"/>
+        </classes>
+    </test>
+    <test name="NEGATIVE" parallel="classes" thread-count="3">
         <classes>
             <!--<class name="tests.negativetests.Test_Neg_LogIn"/>-->
             <class name="tests.negativetests.Test_Neg_Registration"/>

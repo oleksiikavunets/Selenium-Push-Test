@@ -10,7 +10,7 @@ import static com.selenium.enums.Protocol.HTTP;
 
 public class TestSiteManager extends TestServerConfiguretion {
 
-    private static String path = "src/main/data/testsites/";
+    private static String path = "src/main/resources/data/testsites/";
 
     private static Properties prop = new Properties();
 
@@ -70,36 +70,6 @@ public class TestSiteManager extends TestServerConfiguretion {
         }
         return testSiteUrl;
     }
-/*
-
-    public static String getHttpSiteUrl() {
-        String httpSite = "";
-        try {
-            InputStream input = new FileInputStream(getFullPath());
-            prop.load(input);
-            httpSite = prop.getProperty("httpSiteUrl");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return httpSite;
-    }
-
-    public static String getHttpsSiteUrl() {
-        String httpSite = "";
-        try {
-            InputStream input = new FileInputStream(getFullPath());
-            prop.load(input);
-            httpSite = prop.getProperty("httpsSiteUrl");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return httpSite;
-    }
-*/
 
     public static void setHttpsSite(String site, int testSiteNumber, String ownerEmail, String ownerPass) {
         testSiteNumber += 2;
@@ -132,7 +102,11 @@ public class TestSiteManager extends TestServerConfiguretion {
         }
     }
 
-    public static String[] getHttpSiteOwner() {
+    public static String[] getSiteOwner(String site){
+        return site.contains("https://") ? getHttpsSiteOwner() : getHttpSiteOwner();
+    }
+
+    private static String[] getHttpSiteOwner() {
         String[] owner = new String[2];
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -141,14 +115,14 @@ public class TestSiteManager extends TestServerConfiguretion {
             System.out.println(ownerCredentials);
             owner[0] = ownerCredentials.split(":")[0];
             owner[1] = ownerCredentials.split(":")[1];
-
+            prop.list(System.err);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return owner;
     }
 
-    public static String[] getHttpsSiteOwner() {
+    private static String[] getHttpsSiteOwner() {
         String[] owner = new String[2];
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -156,6 +130,8 @@ public class TestSiteManager extends TestServerConfiguretion {
             String ownerCredentials = prop.getProperty("httpsSiteOwner");
             owner[0] = ownerCredentials.split(":")[0];
             owner[1] = ownerCredentials.split(":")[1];
+            prop.list(System.err);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -168,6 +144,8 @@ public class TestSiteManager extends TestServerConfiguretion {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
             siteNumber = prop.getProperty("httpSiteNumber");
+            prop.list(System.err);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -180,6 +158,8 @@ public class TestSiteManager extends TestServerConfiguretion {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
             siteNumber = prop.getProperty("httpsSiteNumber");
+            prop.list(System.err);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

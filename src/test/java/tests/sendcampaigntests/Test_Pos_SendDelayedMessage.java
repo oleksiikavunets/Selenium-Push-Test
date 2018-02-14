@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 public class Test_Pos_SendDelayedMessage extends BaseTestClass {
 
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "delayed push"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "delayed push"})
     public void sendDelayedMessageTest(String testSiteUrl){
 
         LocalDateTime date = LocalDateTime.now().plusDays(10);

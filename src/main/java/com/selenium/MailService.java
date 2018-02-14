@@ -18,7 +18,7 @@ public class MailService {
 
     static {
         try {
-            InputStream input = new FileInputStream("src/main/data/GRV.property");
+            InputStream input = new FileInputStream("src/main/resources/data/GRV.property");
             TestServerConfiguretion config = new TestServerConfiguretion();
             prop.load(input);
             int port = Integer.valueOf(config.getPort());

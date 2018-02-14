@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
 import pageutils.Navigator;
+import sikuli.PushHandler;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
@@ -17,11 +18,16 @@ import testutils.Listeners.LogListener;
 @Listeners(LogListener.class)
 public class Test_Pos_SendMessageWithButtons extends BaseTestClass {
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "active elements", "buttons"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "active elements", "buttons"})
     public void sendMessageWithButtonsTest(String testSiteUrl) throws Exception {
+        PushHandler pushHandler = new PushHandler(driver);
         Verifier verifier = new Verifier();
         String title = TestData.pushTitle;
         String text = TestData.pushText;
+        String button1Name = "BTN 1";
+        String button2Name = "BTN 2";
+        String btnRedirect1 = testSiteUrl + "/b1";
+        String btnRedirect2 = testSiteUrl + "/b2";
 
         if (BetaFeatures.verifyBetaToTest("buttonsAndBigImage")) {
 
@@ -31,8 +37,8 @@ public class Test_Pos_SendMessageWithButtons extends BaseTestClass {
                     .setText(text);
 
             createCampaignPage.openAdditionalActiveItems()
-                    .setButtons("Button1", "https://push.gravitec.net:7700/b1",
-                            "Button2", "https://push.gravitec.net:7700/b2")
+                    .setButtons(button1Name, btnRedirect1,
+                            button2Name, btnRedirect2)
                     .setButton1Icon()
                     .setButton2Icon();
 
@@ -42,23 +48,29 @@ public class Test_Pos_SendMessageWithButtons extends BaseTestClass {
 
             verifier.assertNotNull(notificationPreview.getButton1Preview(), "Button 1 is not displayed in Notification Preview");
             if (notificationPreview.getButton1Preview() != null) {
-                verifier.assertEquals(notificationPreview.getButton1Preview().getText(), "Button1", "Incorrect name of Button 1 in Notification Preview");
+                verifier.assertEquals(notificationPreview.getButton1Preview().getText(), button1Name, "Incorrect name of Button 1 in Notification Preview");
             }
             verifier.assertNotNull(notificationPreview.getButton2Preview(), "Button 1 is not displayed in Notification Preview");
             if (notificationPreview.getButton2Preview() != null) {
-                verifier.assertEquals(notificationPreview.getButton2Preview().getText(), "Button2", "Incorrect name of Button 2 in Notification Preview");
+                verifier.assertEquals(notificationPreview.getButton2Preview().getText(), button2Name, "Incorrect name of Button 2 in Notification Preview");
             }
             createCampaignPage.sendPush().openMessage(TestData.pushTitle).copyCampaign();
 
+            /*int numOfWindows = driver.getWindowHandles().size();
+            pushHandler.clickSecondButton();
+            Assert.assertEquals(pushHandler.getPushRedirectUrl(numOfWindows), btnRedirect2);
+
+            Timer.waitSeconds(5);
+            */
             verifier.assertEquals(notificationPreview.getTitlePreview().getText(), title, "Incorrect title in Notification Preview after copying");
             verifier.assertEquals(notificationPreview.getTextPreview().getText(), text, "Incorrect text in Notification Preview after copying");
             verifier.assertNotNull(notificationPreview.getButton1Preview(), "Button 1 is not displayed in Notification Preview after copying push");
             if (notificationPreview.getButton1Preview() != null) {
-                verifier.assertEquals(notificationPreview.getButton1Preview().getText(), "Button1", "Incorrect name of Button 1 in Notification Preview after copying push");
+                verifier.assertEquals(notificationPreview.getButton1Preview().getText(), button1Name, "Incorrect name of Button 1 in Notification Preview after copying push");
             }
             verifier.assertNotNull(notificationPreview.getButton2Preview(), "Button 1 is not displayed in Notification Preview after copying push");
             if (notificationPreview.getButton2Preview() != null) {
-                verifier.assertEquals(notificationPreview.getButton2Preview().getText(), "Button2", "Incorrect name of Button 2 in Notification Preview after copying push");
+                verifier.assertEquals(notificationPreview.getButton2Preview().getText(), button2Name, "Incorrect name of Button 2 in Notification Preview after copying push");
             }
         } else {
             System.out.println("Test: COPY CAMPAIGN> " +

@@ -1,11 +1,16 @@
 package pageobjects;
 
-import actions.Timer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
+
+import java.util.List;
+
+import static actions.Timer.waitSeconds;
+import static com.selenium.utils.TextGetter.textOf;
 
 @PartialPath(value = "/sites/SITE_ID/subscribers")
 public class SubscribersPage extends AbstractAdminPage {
@@ -39,14 +44,19 @@ public class SubscribersPage extends AbstractAdminPage {
     }
 
     public SubscribersPage clickTodayBtn() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(todayBtn)).click();
-        waitForChartToReload();
+        clickAndWaitForChartToReload(wait.until(ExpectedConditions.visibilityOfElementLocated(todayBtn)));
         return this;
     }
 
-    public SubscribersPage waitForChartToReload() {
-        Timer.waitSeconds(1);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(chartBar));
+    public SubscribersPage clickAndWaitForChartToReload(WebElement element) {
+        List<String> graph = getAllDatesInGraph();
+
+        element.click();
+        for(int i = 0; i < 30; i++){
+            waitSeconds(0.5);
+            List<String> newGraph = getAllDatesInGraph();
+            if(!graph.equals(newGraph)|| newGraph.size() == 0) break;
+        }
         return this;
     }
 
@@ -64,32 +74,27 @@ public class SubscribersPage extends AbstractAdminPage {
     }
 
     public SubscribersPage switchTodayStats() {
-        todayBtn.findElement(driver).click();
-        waitForChartToReload();
+        clickAndWaitForChartToReload(todayBtn.findElement(driver));
         return this;
     }
 
     public SubscribersPage switchYesterdayStats() {
-        yesterdayBtn.findElement(driver).click();
-        waitForChartToReload();
+        clickAndWaitForChartToReload(yesterdayBtn.findElement(driver));
         return this;
     }
 
     public SubscribersPage swithWeekStats() {
-        weekBtn.findElement(driver).click();
-        waitForChartToReload();
+        clickAndWaitForChartToReload(weekBtn.findElement(driver));
         return this;
     }
 
     public SubscribersPage switchMonthStats() {
-        monthBtn.findElement(driver).click();
-        waitForChartToReload();
+        clickAndWaitForChartToReload(monthBtn.findElement(driver));
         return this;
     }
 
     public SubscribersPage switchLifeTimeStats() {
-        lifetimeBtn.findElement(driver).click();
-        waitForChartToReload();
+        clickAndWaitForChartToReload(lifetimeBtn.findElement(driver));
         return this;
     }
 
@@ -112,5 +117,10 @@ public class SubscribersPage extends AbstractAdminPage {
         unsbSubsBtn.findElement(driver).click();
         return this;
     }
+
+    public List<String> getAllDatesInGraph(){
+        return textOf(driver.findElements(charDate));
+    }
+
 
 }

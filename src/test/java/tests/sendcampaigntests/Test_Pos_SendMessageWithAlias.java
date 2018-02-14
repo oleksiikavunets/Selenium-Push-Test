@@ -23,7 +23,7 @@ import static testconfigs.testdatamanagers.TestDataManager.getAlias;
 public class Test_Pos_SendMessageWithAlias extends BaseTestClass {
 
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "advanced settings", "alias"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "advanced settings", "alias"})
     public void sendMessageWithAliasTest(String testSiteUrl) throws Exception {
 
         String title = RandomGenerator.nextString();

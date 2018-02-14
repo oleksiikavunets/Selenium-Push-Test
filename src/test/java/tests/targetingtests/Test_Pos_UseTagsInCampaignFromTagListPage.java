@@ -23,7 +23,7 @@ import static testconfigs.testdata.TestData.pass;
 @Listeners(LogListener.class)
 public class Test_Pos_UseTagsInCampaignFromTagListPage extends BaseTestClass {
 
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "tags", "tag list"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "tags", "tag list"})
     public void useTagsInNewCampaignFromTagListPageTest(String testSite) throws Exception {
         String title = TestData.pushTitle;
         String text = TestData.pushText;

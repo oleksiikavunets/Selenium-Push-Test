@@ -23,7 +23,7 @@ import static com.selenium.utils.TextGetter.textOf;
 public class Test_Pos_SendMessageWithTags extends BaseTestClass {
 
     @Parameters("browser")
-    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "testSiteProvider", groups = {"send push", "advanced settings", "tags"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "advanced settings", "tags"})
     public void sendMessageWithTagsTest(String testSiteUrl) throws Exception {
 
         String title = RandomGenerator.nextString();

@@ -4,7 +4,6 @@ import actions.Timer;
 import actions.UserActions;
 import actions.Verifier;
 import common.BaseTestClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
@@ -23,7 +22,7 @@ import testutils.Listeners.LogListener;
 public class Test_Pos_CreateWM extends BaseTestClass {
 
 
-    @Test(dataProvider = "testSiteProvider", groups = {"WM"})
+    @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getRandomSiteNames", groups = {"WM"})
     public void createWMTest(String testSite) throws Exception {
         Navigator navigator = new Navigator(driver);
         SideBar sideBar = new SideBar(driver);
@@ -64,10 +63,5 @@ public class Test_Pos_CreateWM extends BaseTestClass {
 
         userActions.deleteSite(testSite);
         verifier.assertTestPassed();
-    }
-
-    @DataProvider(name = "testSiteProvider")
-    public Object[] provideTestSites() {
-        return TestDataProvider.getRandomSiteNames();
     }
 }

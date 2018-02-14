@@ -12,7 +12,7 @@ import static testconfigs.testdatamanagers.TestUserManager.getPassword;
 public class TestData {
     public static String httpSite = getNewTestSiteUrl(HTTP);
     public static String httpsSite = getNewTestSiteUrl(HTTPS);
-    public static String testSite = getOldTestSiteUrl(HTTP);
+    public static String testSite = getOldTestSiteUrl(HTTPS);
     public static String newHttpSitePattern = "http://seleniumtest";
     public static String newHttpsSitePattern = "https://seleniumtest";
     public static String welcomeMessageTitle = "Welcome Message Title: " + RandomGenerator.nextString();

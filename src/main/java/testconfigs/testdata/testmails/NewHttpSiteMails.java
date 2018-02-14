@@ -22,13 +22,13 @@ public class NewHttpSiteMails {
             "unsubscribe"
     ));
     private List<String> gravitecUA = new ArrayList<>(Arrays.asList(
-            "Новый сайт создан в Вашем аккаунте",
-            "Здравствуйте! В Вашем аккаунте в Gravitec.net был добавлен новый сайт:",
-            "Чтобы интегрировать Ваш сайт с сервисом и начать собирать push-подписчиков, скопируйте приведенный ниже код (скрипт) в HTML шаблон Вашего сайта между тегами и . Чем выше тем лучше:",
-            "Открыть настройки сайта",
-            "С уважением, команда Gravitec.net",
-            "Если у Вас есть вопросы или Вам нужна помощь в использовании сервиса, напишите нам в ответе на это письмо.",
-            "отписаться от рассылки"
+            "Новий сайт створений у Вашому обліковому записі",
+            "Доброго дня! У Вашому обліковому записі в Gravitec.net був доданий новий сайт:",
+            "Щоб інтегрувати Ваш сайт з сервісом і розпочати збір push-підписників, скопіюйте вказаний нижче код (скрипт) в HTML шаблон Вашого сайту між тегами и . Чим вище тим краще:",
+            "Відкрити налаштування сайту",
+            "З повагою, команда Gravitec.net",
+            "Якщо у вас є питання або вам потрібна допомога у використанні сервісу, напишіть нам у відповідь на цей лист.",
+            "відписатися від розсилок"
     ));
     private List<String> gravitecRU = new ArrayList<>(Arrays.asList(
             "Новый сайт создан в Вашем аккаунте",
@@ -86,21 +86,20 @@ public class NewHttpSiteMails {
     private HashMap<String, List> mails;
 
     public HashMap<String, List> getMails(Server serverUnderTest) {
-        if(serverUnderTest.equals(GRV)
-                ||serverUnderTest.equals(GRV_7700)||
+        if (serverUnderTest.equals(GRV)
+                || serverUnderTest.equals(GRV_7700) ||
                 serverUnderTest.equals(GRV_7600)) {
             mails = getGravitecMails();
-        }
-        else if(serverUnderTest.equals(WPUSH)||
-                serverUnderTest.equals(WPUSH_7700)){
+        } else if (serverUnderTest.equals(WPUSH) ||
+                serverUnderTest.equals(WPUSH_7700)) {
             mails = getWpushMails();
-        }else if(serverUnderTest.equals(P2B)){
+        } else if (serverUnderTest.equals(P2B)) {
             mails = getPush2bMails();
         }
         return mails;
     }
 
-    private  HashMap<String, List> getGravitecMails() {
+    private HashMap<String, List> getGravitecMails() {
         gravitecMails.put("en", gravitecEN);
         gravitecMails.put("pl", gravitecPL);
         gravitecMails.put("ua", gravitecUA);
@@ -108,12 +107,14 @@ public class NewHttpSiteMails {
         gravitecMails.put("de", gravitecDE);
         return gravitecMails;
     }
-    private  HashMap<String, List> getWpushMails(){
+
+    private HashMap<String, List> getWpushMails() {
         wpushMails.put("ru", wpushUK);
         wpushMails.put("uk", wpushUK);
         return wpushMails;
     }
-    private  HashMap<String, List> getPush2bMails() {
+
+    private HashMap<String, List> getPush2bMails() {
         push2bMails.put("en", push2bRU);
         push2bMails.put("pl", push2bRU);
         push2bMails.put("ru", push2bRU);
