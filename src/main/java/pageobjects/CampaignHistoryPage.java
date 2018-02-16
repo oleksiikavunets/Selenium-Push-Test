@@ -23,7 +23,12 @@ public class CampaignHistoryPage extends AbstractAdminPage {
     }
 
     public CampaignReportPage openMessage(String title) {
-        searchForMessage(title).click();
+        try {
+            searchForMessage(title).click();
+        }catch (NullPointerException e){
+            System.err.println("COULD NOT FIND YOUR MESSAGE...........................");
+            throw e;
+        }
         return new CampaignReportPage(driver);
     }
 
@@ -44,9 +49,6 @@ public class CampaignHistoryPage extends AbstractAdminPage {
                 break;
             }
         }
-        if (findMessageOnPage(mes) == null) {
-            System.err.println("COULD NOT FIND YOUR MESSAGE...................");
-        }
         return findMessageOnPage(mes);
     }
 
@@ -64,9 +66,6 @@ public class CampaignHistoryPage extends AbstractAdminPage {
             if (!openPage(++page)) {
                 break;
             }
-        }
-        if (findMessageOnPage(mes) == null) {
-            System.err.println("COULD NOT FIND YOUR MESSAGE...................");
         }
         return findMessageOnPage(mes);
     }
