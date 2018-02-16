@@ -39,23 +39,18 @@ public class CampaignHistoryPage extends AbstractAdminPage {
 
     private WebElement searchForDelayedMessage(String mes) {
         int page = 1;
-        WebElement myMessage = null;
-        while (getAmountOfDelayedMessagesOnPage() > 0 && myMessage == null) {
-            myMessage = findMessageOnPage(mes);
-            if (myMessage == null) {
-                if (openPage(++page)) {
-                    break;
-                }
+        while (getAmountOfDelayedMessagesOnPage() > 0 && findMessageOnPage(mes) == null) {
+            if (!openPage(++page)) {
+                break;
             }
         }
-        if (myMessage == null) {
+        if (findMessageOnPage(mes) == null) {
             System.err.println("COULD NOT FIND YOUR MESSAGE...................");
         }
-        return myMessage;
+        return findMessageOnPage(mes);
     }
 
     private WebElement searchForNonDelayedMessage(String mes) {
-        WebElement myMessage = null;
         int page = 1;
         while (getAmountOfDelayedMessagesOnPage() >= 10) {
             openPage(++page);
@@ -65,18 +60,15 @@ public class CampaignHistoryPage extends AbstractAdminPage {
                 driver.navigate().refresh();
             }
         }
-        while (myMessage == null) {
-            myMessage = findMessageOnPage(mes);
-            if (myMessage == null) {
-                if (openPage(++page)) {
-                    break;
-                }
+        while (findMessageOnPage(mes) == null) {
+            if (!openPage(++page)) {
+                break;
             }
         }
-        if (myMessage == null) {
+        if (findMessageOnPage(mes) == null) {
             System.err.println("COULD NOT FIND YOUR MESSAGE...................");
         }
-        return myMessage;
+        return findMessageOnPage(mes);
     }
 
     private WebElement findMessageOnPage(String mes) {
@@ -102,7 +94,7 @@ public class CampaignHistoryPage extends AbstractAdminPage {
             System.out.println("OPENED PAGE #" + page);
             wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(url)));
             opened = true;
-        } catch (java.lang.NullPointerException|org.openqa.selenium.WebDriverException e) {
+        } catch (java.lang.NullPointerException | org.openqa.selenium.WebDriverException e) {
             System.err.println("Page NO# " + (page - 1) + " is the last page");
         }
         return opened;
