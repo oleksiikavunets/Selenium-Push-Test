@@ -68,6 +68,16 @@ public class PasswordRecoveryMails {
             "отписаться от рассылок"
     ));
 
+    private List<String> push2bEN = new ArrayList<>(Arrays.asList(
+           "Reset the password in Push2b.com",
+            "Someone (hopefully you) asked us for a password reset link for your account in Push2b.com Dashboard",
+            "To reset your password, please click the button below:",
+            "Reset the password",
+            "If you did not request a password reset, just ignore this email.",
+            "Do you have any questions? Feel free to ask us by reply to this email.",
+            "Unsubscribe"
+    ));
+
     private HashMap<String, List> gravitecMails = new HashMap<>();
     private HashMap<String, List> wpushMails = new HashMap<>();
     private HashMap<String, List> push2bMails = new HashMap<>();
@@ -105,7 +115,7 @@ public class PasswordRecoveryMails {
     }
 
     private  HashMap<String, List> getPush2bMails() {
-        push2bMails.put("en", push2bRU);
+        push2bMails.put("en", push2bEN);
         push2bMails.put("pl", push2bRU);
         push2bMails.put("ru", push2bRU);
         push2bMails.put("de", push2bRU);

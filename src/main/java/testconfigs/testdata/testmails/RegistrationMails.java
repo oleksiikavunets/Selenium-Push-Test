@@ -57,10 +57,10 @@ public class RegistrationMails {
             "Якщо у Вас виникли питання або Вам потрібна допомога у використанні сервісу, напишіть нам у відповідь на цей лист.",
             "Скасувати підписку"));
     private List<String> push2bEN = new ArrayList<>(Arrays.asList(
-            "Complete Registration in push2b.com",
-            "You've just registered in push2b.com Dashboard. Please open the link (click the button) below to verify your email address:",
+            "Complete Registration in Push2b.com",
+            "You've just registered in Push2b Dashboard. Please open the link (click the button) below to verify your email address:",
             "Complete registration",
-            "Someone (hopefully you) has used this email to register in push2b.com. If it wasn't you - just ignore this email. In this case, your account will not be activated.",
+            "Someone (hopefully you) has used this email to register in Push2b.com. If it wasn't you - just ignore this email. In this case, your account will not be activated.",
             "Any questions? Feel free to ask us by reply to this email.",
             "unsubscribe"
     ));

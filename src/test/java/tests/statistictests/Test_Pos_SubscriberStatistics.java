@@ -28,6 +28,7 @@ public class Test_Pos_SubscriberStatistics extends BaseTestClass {
         int amountOfSiteSubscribers = mainAdminPage.getAmountOfSiteSubscribers(testSite);
         System.out.println(amountOfSiteSubscribers);
         SubscribersPage subscribersPage = navigator.open(SubscribersPage.class, testSite);
+        subscribersPage.switchLifeTimeStats();
         int amountOfAllSubscribers = subscribersPage.getAmountOfSubscribers();
         Assert.assertEquals(amountOfSiteSubscribers, amountOfAllSubscribers);
         int amountOfAllSubs = subscribersPage.switchLifeTimeStats().getAmountOfSubscribers();

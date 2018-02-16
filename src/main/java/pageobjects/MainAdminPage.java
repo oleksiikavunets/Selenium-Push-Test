@@ -26,17 +26,17 @@ public class MainAdminPage extends AbstractAdminPage {
     private By amountOfSiteSucsribers = By.cssSelector("td[ng-bind*=\"(site.totalFollowers)\"]");
 
 
-    public MainAdminPage(WebDriver driver){
+    public MainAdminPage(WebDriver driver) {
         super(driver);
     }
 
-    public int getTotalAmountOfSubscribers(){
+    public int getTotalAmountOfSubscribers() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(amountOfAllSubscribers));
         Timer.waitSeconds(1);
         return Integer.valueOf(driver.findElement(amountOfAllSubscribers).getText());
     }
 
-    public int getAmountOfSiteSubscribers(String siteName){
+    public int getAmountOfSiteSubscribers(String siteName) {
 
         return Integer.valueOf(driver.findElement(By.xpath("//a[text()='" + siteName + "']/parent::td[@class=\"site-name\"]/following-sibling::td")).getText());
     }
@@ -54,12 +54,12 @@ public class MainAdminPage extends AbstractAdminPage {
         return present;
     }
 
-    public AddNewSitePage clickAddNewSiteButton(){
+    public AddNewSitePage clickAddNewSiteButton() {
         wait.until(ExpectedConditions.presenceOfElementLocated(addNewSiteButton)).click();
         return new AddNewSitePage(driver);
     }
 
-    public SideBar openSite(){
+    public SideBar openSite() {
         String currentUrl = driver.getCurrentUrl();
         wait.until(ExpectedConditions.visibilityOfElementLocated(siteName)).click();
         wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
@@ -91,14 +91,12 @@ public class MainAdminPage extends AbstractAdminPage {
         }
     }
 
-    public List<WebElement> getSiteList(){
+    public List<WebElement> getSiteList() {
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(siteName));
         return siteName.findElements(driver);
     }
 
-    public String getSiteId(String site){
-        String a =  driver.findElement(By.xpath("//a[text()='" + site + "']/../following-sibling::td/a")).getAttribute("href").split("/")[4];
-        System.out.println(a);
-   return a;
+    public String getSiteId(String site) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[text()='" + site + "']/../following-sibling::td/a"))).getAttribute("href").split("/")[4];
     }
 }

@@ -70,6 +70,14 @@ public class NewHttpSiteMails {
             "отписаться от рассылки"
     ));
 
+    private List<String> push2bEN = new ArrayList<>(Arrays.asList(
+            "The new website was registered!",
+            "Dear Customer,",
+            "You've just added a new website to Push2B.com dashboard:",
+            "To complete integration, please add the following code to the main HTML template of your website pages between the and tags. The higher the better:",
+            "Go to site settings"
+    ));
+
     private List<String> wpushUK = new ArrayList<>(Arrays.asList(
             "Новий сайт створений у Вашому обліковому записі",
             "Вітаю! До Вашого облікового запису в wpush.biz було додано новий сайт:",
@@ -115,7 +123,7 @@ public class NewHttpSiteMails {
     }
 
     private HashMap<String, List> getPush2bMails() {
-        push2bMails.put("en", push2bRU);
+        push2bMails.put("en", push2bEN);
         push2bMails.put("pl", push2bRU);
         push2bMails.put("ru", push2bRU);
         push2bMails.put("de", push2bRU);

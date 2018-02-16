@@ -82,6 +82,20 @@ public class NewHttpsSiteMails {
             "abmelden"
     ));
 
+    private List<String> push2bEN = new ArrayList<>(Arrays.asList(
+            "The new website was registered!",
+            "Dear Customer,",
+            "You've just added a new website to Push2b.com dashboard:",
+            "To complete integration, please, follow the instructions below.",
+            "Step 1. Add the following code to the main HTML template of your website pages before between the and tags. The higher the better:",
+            "Step 2. Copy SDK files",
+            "and push-worker.js",
+            "Go to site settings",
+            "Best regards, Gravitec.net team",
+            "Do you have any questions? Feel free to ask them by replying to this email.",
+            "unsubscribe"
+    ));
+
     private List<String> push2bRU = new ArrayList<>(Arrays.asList(
             "Новый сайт создан в вашем аккаунте",
             "Здравствуйте! В вашем аккаунте в push2b.com был добавлен новый сайт:",
@@ -142,7 +156,7 @@ public class NewHttpsSiteMails {
     }
 
     private HashMap<String, List> getPush2bMails() {
-        push2bMails.put("en", push2bRU);
+        push2bMails.put("en", push2bEN);
         push2bMails.put("pl", push2bRU);
         push2bMails.put("ru", push2bRU);
         push2bMails.put("de", push2bRU);

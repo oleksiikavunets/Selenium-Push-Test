@@ -165,6 +165,10 @@ public class HeaderMenu extends AbstractAdminPage {
     public void waitForBeingLogged(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton));
     }
+
+    public boolean verifyBeingLogged(){
+        return logOutButton.findElements(driver).size() > 0;
+    }
 }
 
 

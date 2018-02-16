@@ -32,7 +32,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
     private By titlePreview = By.cssSelector("p[data-ng-bind*=\"$ctrl.mtitle \"]");
     private By textPreview = By.cssSelector("p[data-ng-bind*=\"$ctrl.body\"]");
     private By iconPrev = By.cssSelector("div[class*=\"icon\"]>img[src*=\"cdn\"]");
-    private By bigImagePrev = By.cssSelector("img[class=\"additional-img\"]");
+    private By bigImagePrev = By.cssSelector("img.additional-img");
     private By button1Prev = By.cssSelector("span[ng-bind*=\"$ctrl.btn1.title \"]");
     private By button2Prev = By.cssSelector("span[ng-bind*=\"$ctrl.btn2.title \"]");
     //input fields
@@ -154,12 +154,14 @@ public class CreateCampaignPage extends AbstractAdminPage {
         }
 
         public WebElement getBigImagePreview() {
+            waitSeconds(5);
             WebElement element = null;
             for (int i = 0; i < 5; i++) {
                 try {
                     element = bigImagePrev.findElement(driver);
                 } catch (org.openqa.selenium.NoSuchElementException e) {
                     waitSeconds(1);
+                    continue;
                 }
             }
             return element;

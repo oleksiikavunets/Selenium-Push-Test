@@ -1,8 +1,6 @@
 package pageobjects;
 
 import actions.Clicker;
-import actions.Timer;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.enums.Server;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -11,6 +9,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractOuterPage;
 import pageobjects.common.annotations.PartialPath;
+import pageutils.Navigator;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
+
+import static actions.Timer.waitSeconds;
 
 
 @PartialPath(value = "/login")
@@ -27,20 +29,31 @@ public class LogInPage extends AbstractOuterPage {
         super(driver);
     }
 
-    public MainAdminPage login(String login, String pass) {
-//        try {
-            if (!driver.getCurrentUrl().contains("login")) driver.get(new TestServerConfiguretion().getStartUrl() + "/login");
-//        } catch (NullPointerException e) {
-//        }
-        for (int i = 0; i <= 100; i++) {
-            setLogin(login).setPassword(pass);
-            if (driver.findElement(loginInput).getAttribute("value").equals(login) && driver.findElement(passwordInput).getAttribute("value").equals(pass)) {
-                submit();
-                break;
-            } else {
-                clearAll();
-            }
+    private LogInPage openLoginPage(){
+        for(int i = 0; i < 20; i++) {
+            new Navigator(driver).open(LogInPage.class);
+            if(loginInput.findElements(driver).size() > 0 || new HeaderMenu(driver).verifyBeingLogged()) break;
         }
+        return this;
+    }
+
+    public MainAdminPage login(String login, String pass) {
+
+            if (!driver.getCurrentUrl().contains("/login")) openLoginPage();
+                waitSeconds(1);
+
+            if (driver.getCurrentUrl().contains("/login")) {
+
+                for (int i = 0; i <= 100; i++) {
+                    setLogin(login).setPassword(pass);
+                    if (driver.findElement(loginInput).getAttribute("value").equals(login) && driver.findElement(passwordInput).getAttribute("value").equals(pass)) {
+                        submit();
+                        break;
+                    } else {
+                        clearAll();
+                    }
+                }
+            }
         new HeaderMenu(driver).waitForBeingLogged();
         return new MainAdminPage(driver);
     }
@@ -48,7 +61,7 @@ public class LogInPage extends AbstractOuterPage {
     private LogInPage managePopUp() {
         if (TestServerConfiguretion.iTest.equals(Server.GRV_7700)) {
             try {
-                Timer.waitSeconds(1);
+                waitSeconds(1);
                 driver.findElement(By.cssSelector("button[ng-click=\"$close()\"]")).click();
             } catch (NoSuchElementException e) {
                 System.out.println("No pop up");

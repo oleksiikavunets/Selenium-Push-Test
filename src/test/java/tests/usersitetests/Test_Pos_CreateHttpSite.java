@@ -38,7 +38,7 @@ public class Test_Pos_CreateHttpSite extends BaseTestClass {
             siteManagerPage.setSiteDatas(siteUrl, script);
             driver.get(siteUrl);
         }else {
-            System.out.println("CURRENT TEST OFF SCOPE.............................");
+            System.out.println("CURRENT TEST IS OUT OF SCOPE.............................");
         }
     }
 }

@@ -36,7 +36,7 @@ public class Test_Pos_CreateTagList extends BaseTestClass {
                 .addTagsToNewTL()
                 .setTagListName(tagListName)
                 .saveNewTagList();
-        Assert.assertEquals(tagListPage.getNewTLpopUp().getText(), tagListName, "Wrong tag list name on pop up after saving");
+        Assert.assertEquals(tagListPage.getNewTlPopUp().getText(), tagListName, "Wrong tag list name on pop up after saving");
         tagListPage.closePopUp();
         driver.navigate().refresh();
         tagListPage.searchForTagList(tagListName);

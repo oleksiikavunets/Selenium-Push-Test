@@ -60,7 +60,8 @@ public class TagListPage extends AbstractAdminPage{
         return driver.findElements(tagInNewTagList);
     }
 
-    public WebElement getNewTLpopUp(){
+    public WebElement getNewTlPopUp(){
+        while (newTLpopUp.findElement(driver).getText().length() == 0) Timer.waitSeconds(0.5);
         return newTLpopUp.findElement(driver);
     }
 
