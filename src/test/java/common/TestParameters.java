@@ -7,7 +7,7 @@ public class TestParameters {
 
     public static Server serverToTest = Server.P2B;
     public static TestSitesScope testSitesScope = TestSitesScope.TEST_BOTH;
-    public static boolean clickOnPush = true;
+    public static boolean clickOnPush = false;
     public static int failedTestsRetryCount = 2; //ONLY FOR  TEST SUITE RUNNING
 
 

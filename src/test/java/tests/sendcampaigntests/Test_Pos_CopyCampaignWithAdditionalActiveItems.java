@@ -68,7 +68,7 @@ public class Test_Pos_CopyCampaignWithAdditionalActiveItems extends BaseTestClas
 
             CampaignReportPage campaignReportPage = campaignHistoryPage.openMessage(title);
             CreateCampaignPage.NotificationPreview notificationPreview = createCampaignPage.new NotificationPreview();
-            for (int i = 1; i <= 3; i++) {
+            for (int i = 1; i <= 1; i++) {
                 campaignReportPage.copyCampaign();
                 Timer.waitSeconds(0.5);
 
