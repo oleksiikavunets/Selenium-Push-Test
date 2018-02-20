@@ -199,7 +199,8 @@ public class SubscribersPage extends AbstractAdminPage {
             }
         } while (openPage(++page));
         okBtn.findElement(driver).click();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(okBtn));
+        waitSeconds(1);
+        //wait.until(ExpectedConditions.invisibilityOfElementLocated(okBtn));
         return subs;
     }
 
@@ -214,7 +215,7 @@ public class SubscribersPage extends AbstractAdminPage {
 
     public SubscribersPage countSubscribers() {
         countBtn.findElement(driver).click();
-        waitSeconds(5);
+        waitSeconds(1);
         return this;
     }
 
@@ -266,12 +267,7 @@ public class SubscribersPage extends AbstractAdminPage {
     }
 
     public SubscribersPage resetSelects(){
-        selectBrowser("All");
-        selectAliases("All");
-        selectCity("All");
-        selectCountry("All");
-        selectOs("All");
-        selectTagsOption("All");
+        driver.findElements(By.cssSelector("select")).forEach(s -> new Select(s).selectByIndex(0));
         return this;
     }
 
