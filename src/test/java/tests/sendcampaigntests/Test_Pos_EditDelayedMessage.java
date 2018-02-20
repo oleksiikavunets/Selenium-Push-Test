@@ -8,7 +8,7 @@ import pageobjects.CampaignReportPage;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
 import pageobjects.SiteSettingsPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
@@ -18,7 +18,7 @@ public class Test_Pos_EditDelayedMessage extends BaseTestClass {
 
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "delayed push"})
     public void editDelayedMessageTest(String testSiteUrl)  {
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
         Verifier verifier = new Verifier();
         String title = TestData.pushTitle;
         String text = TestData.pushText;
@@ -32,12 +32,12 @@ public class Test_Pos_EditDelayedMessage extends BaseTestClass {
 
         new LogInPage(driver).login(TestData.email, TestData.pass);
 
-        SiteSettingsPage siteSettingsPage = navigator.open(SiteSettingsPage.class, testSiteUrl);
+        SiteSettingsPage siteSettingsPage = navigationUtil.open(SiteSettingsPage.class, testSiteUrl);
 
         String utm_source = siteSettingsPage.getUtm_source();
         String utm_medium = siteSettingsPage.getUtm_medium();
 
-        CampaignReportPage campaignReportPage = navigator.open(CreateCampaignPage.class, testSiteUrl)
+        CampaignReportPage campaignReportPage = navigationUtil.open(CreateCampaignPage.class, testSiteUrl)
                 .setTitle(title)
                 .setText(text)
                 .setUTMcampaign(utm_campaign)

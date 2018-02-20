@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
 import pageobjects.SiteSettingsPage;
 import pageobjects.WelcomeMessagePage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
@@ -23,7 +23,7 @@ public class Test_Pos_CreateWMWithButtons extends BaseTestClass {
 
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getRandomSiteNames", groups = {"WM"})
     public void createWMWithButtonsTest(String testSite) throws Exception {
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
         UserActions userActions = new UserActions(driver);
         WelcomeMessagePage welcomeMessagePage = new WelcomeMessagePage(driver);
         Verifier verifier = new Verifier();
@@ -32,7 +32,7 @@ public class Test_Pos_CreateWMWithButtons extends BaseTestClass {
             userActions.createSite(TestData.email, TestData.pass, testSite);
             for (int i = 0; i <= 10; i++) {
 
-                CreateWMPage createWMPage = navigator.open(WelcomeMessagePage.class, testSite)
+                CreateWMPage createWMPage = navigationUtil.open(WelcomeMessagePage.class, testSite)
                         .clickCreateNewWM()
                         .setTitle(TestData.welcomeMessageTitle)
                         .setText(TestData.welcomeMessageText);
@@ -49,7 +49,7 @@ public class Test_Pos_CreateWMWithButtons extends BaseTestClass {
                     String currentUrl = driver.getCurrentUrl();
                     String siteId = currentUrl.split("sites")[1].split("welcome-messages")[0];
                     verifier.assertNotEquals(siteId, "//", "No siteId in current URL: " + currentUrl);
-                    navigator.open(SiteSettingsPage.class, testSite);
+                    navigationUtil.open(SiteSettingsPage.class, testSite);
                 } else {
                     break;
                 }

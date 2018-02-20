@@ -2,9 +2,7 @@ package pageobjects;
 
 import actions.Clicker;
 import actions.Timer;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
@@ -52,10 +50,19 @@ public class WelcomeMessagePage extends AbstractAdminPage {
     }
 
     public CreateWMPage clickCreateNewWM() {
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(addNewWMButton));
-        new Clicker(driver).clickJS(element);
+        try {
+            new Clicker(driver).clickJS(addNewWMButton.findElement(driver));
+        }catch (ElementNotVisibleException e){
+            switchWM();
+            clickCreateNewWM();
+        }
+        catch (NoSuchElementException e){
+            deleteWM();
+            clickCreateNewWM();
+        }
         return new CreateWMPage(driver);
     }
+
 
     public CreateWMPage clickEditWM(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(editWMButton)).click();
@@ -64,7 +71,6 @@ public class WelcomeMessagePage extends AbstractAdminPage {
 
     public WelcomeMessagePage enableWM() {
         new Clicker(driver).clickJS(wait.until(ExpectedConditions.visibilityOfElementLocated(disabledWM)));
-
         wait.until(ExpectedConditions.visibilityOfElementLocated(enabledWM)).isDisplayed();
         return this;
     }

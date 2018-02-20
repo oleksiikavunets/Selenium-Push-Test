@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import pageobjects.CampaignReportPage;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
 import testconfigs.testrestrictions.BetaFeatures;
@@ -31,7 +31,7 @@ public class Test_Pos_SendMessageWithBigImage extends BaseTestClass {
             Verifier verifier = new Verifier();
 
             new LogInPage(driver).login(TestData.email, TestData.pass);
-            CreateCampaignPage createCampaignPage = new Navigator(driver).open(CreateCampaignPage.class, testSiteUrl)
+            CreateCampaignPage createCampaignPage = new NavigationUtil(driver).open(CreateCampaignPage.class, testSiteUrl)
 
                     .setTitle(TestData.pushTitle)
                     .setText(TestData.pushText);

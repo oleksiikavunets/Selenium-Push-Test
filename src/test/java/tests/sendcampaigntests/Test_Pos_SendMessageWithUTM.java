@@ -8,7 +8,7 @@ import pageobjects.CampaignReportPage;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
 import pageobjects.SiteSettingsPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
 import testconfigs.testrestrictions.BetaFeatures;
@@ -19,7 +19,7 @@ public class Test_Pos_SendMessageWithUTM extends BaseTestClass {
 
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "UTM"})
     public void sendMessageWithUTMTest(String testSiteUrl) throws InterruptedException {
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
 
         Verifier verifier = new Verifier();
         String title = TestData.pushTitle;
@@ -28,12 +28,12 @@ public class Test_Pos_SendMessageWithUTM extends BaseTestClass {
         if (BetaFeatures.verifyBetaToTest("UTM")) {
             new LogInPage(driver).login(TestData.email, TestData.pass);
 
-            SiteSettingsPage siteSettingsPage = navigator.open(SiteSettingsPage.class, testSiteUrl);
+            SiteSettingsPage siteSettingsPage = navigationUtil.open(SiteSettingsPage.class, testSiteUrl);
 
             String utm_source = siteSettingsPage.getUtm_source();
             String utm_medium = siteSettingsPage.getUtm_medium();
 
-            CampaignReportPage campaignReportPage = navigator.open(CreateCampaignPage.class, testSiteUrl)
+            CampaignReportPage campaignReportPage = navigationUtil.open(CreateCampaignPage.class, testSiteUrl)
                     .setTitle(title)
                     .setText("UTM test")
                     .setUTMcampaign("campaign")

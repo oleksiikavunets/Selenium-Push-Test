@@ -27,7 +27,6 @@ public class PaginationUtil {
                     .findFirst()
                     .orElse(null)
                     .click();
-            System.out.println("OPENED PAGE #" + page);
             wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(url)));
             opened = true;
         } catch (java.lang.NullPointerException | org.openqa.selenium.WebDriverException e) {
@@ -44,7 +43,6 @@ public class PaginationUtil {
                     .findFirst()
                     .orElse(null)
                     .click();
-            System.out.println("OPENED PAGE #" + page);
             opened = true;
         } catch (java.lang.NullPointerException | org.openqa.selenium.WebDriverException e) {
             System.err.println("Page NO# " + (page - 1) + " is the last page");

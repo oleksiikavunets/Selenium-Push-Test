@@ -8,7 +8,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
 import pageobjects.WelcomeMessagePage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
@@ -26,7 +26,7 @@ public class Test_Pos_EditWM extends BaseTestClass {
 
         if (BetaFeatures.verifyBetaToTest("WMwithButtonsAndBigImage")) {
             userActions.createSite(TestData.email, TestData.pass, testSite);
-            CreateWMPage createWMPage = new Navigator(driver).open(WelcomeMessagePage.class, testSite)
+            CreateWMPage createWMPage = new NavigationUtil(driver).open(WelcomeMessagePage.class, testSite)
                     .switchWM()
                     .clickCreateNewWM()
                     .setTitle(TestData.welcomeMessageTitle)

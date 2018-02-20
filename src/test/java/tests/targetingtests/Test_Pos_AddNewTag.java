@@ -7,7 +7,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.LogInPage;
 import pageobjects.TagListPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
@@ -20,7 +20,7 @@ public class Test_Pos_AddNewTag extends BaseTestClass {
 
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"subscription", "advanced settings", "tags"})
     public void addNewTagTest(String testSite) throws Exception {
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
         String newTag = TestData.newTag;
         String[] newTags = {
                 "newT1" + RandomGenerator.nextString(),
@@ -32,7 +32,7 @@ public class Test_Pos_AddNewTag extends BaseTestClass {
         setTags(newTags);
         setSite(testSite);
         new LogInPage(driver).login(TestData.email, TestData.pass);
-        TagListPage tagListPage = navigator.open(TagListPage.class, testSite);
+        TagListPage tagListPage = navigationUtil.open(TagListPage.class, testSite);
         tagListPage.searchForTag(newTags);
 //        ArrayList<String> t = Arrays.copyOf(newTags);
 //    Assert.assertTrue(tagListPage.searchForTag(newTags), "Could not find added tag/tags");

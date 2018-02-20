@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.LogInPage;
 import pageobjects.SubscribersPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestDataProvider;
 
 import static testconfigs.testdata.TestData.email;
@@ -16,9 +16,9 @@ public class Test_Pos_SubscribersCalculatorTest extends BaseTestClass {
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites")
     public void subscribersCalculatorTest(String testSite) {
 
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
         new LogInPage(driver).login(email, pass);
-        SubscribersPage subscribersPage = navigator.open(SubscribersPage.class, testSite);
+        SubscribersPage subscribersPage = navigationUtil.open(SubscribersPage.class, testSite);
         subscribersPage.switchLifeTimeStats();
 
         subscribersPage.getSubsAmountByBrowsers().forEach((k, v) -> Assert.assertEquals(

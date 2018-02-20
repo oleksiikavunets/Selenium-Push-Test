@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import pageobjects.CampaignReportPage;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
@@ -33,7 +33,7 @@ public class Test_Pos_SendMessageWithAlias extends BaseTestClass {
         new UserActions(driver).addNewAlias(testSiteUrl, alias);
 
         new LogInPage(driver).login(TestData.email, TestData.pass);
-        CreateCampaignPage.AdvancedOptions advancedOptions = new Navigator(driver).open(CreateCampaignPage.class, testSiteUrl)
+        CreateCampaignPage.AdvancedOptions advancedOptions = new NavigationUtil(driver).open(CreateCampaignPage.class, testSiteUrl)
                 .setTitle(title)
                 .setText(text)
                 .openAdvancedOptions();

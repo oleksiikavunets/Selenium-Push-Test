@@ -13,10 +13,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
-public class Navigator {
+public class NavigationUtil {
     private WebDriver driver;
 
-    public Navigator(WebDriver driver){
+    public NavigationUtil(WebDriver driver){
         this.driver = driver;
     }
 
@@ -32,21 +32,11 @@ public class Navigator {
     }
 
     private boolean onMainPage(){
-        boolean onMain = false;
-       if(!driver.getCurrentUrl().contains("sites/")){
-           onMain = true;
-       }
-       return onMain;
+        return !driver.getCurrentUrl().contains("sites/") ? true : false;
     }
 
     private String getSiteID(String site){
-        String siteId;
-        if (onMainPage()){
-            siteId = new MainAdminPage(driver).getSiteId(site);
-        }else {
-            siteId = driver.getCurrentUrl().split("/sites/")[1].split("/")[0];
-        }
-        return siteId;
+        return onMainPage() ? new MainAdminPage(driver).getSiteId(site) : driver.getCurrentUrl().split("/sites/")[1].split("/")[0];
     }
 
     private <T extends AbstractPage> String getPartialPath(Class<T> page){

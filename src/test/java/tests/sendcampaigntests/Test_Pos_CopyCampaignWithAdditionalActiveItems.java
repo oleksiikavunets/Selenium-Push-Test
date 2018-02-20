@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
 import testconfigs.testrestrictions.BetaFeatures;
@@ -25,7 +25,7 @@ public class Test_Pos_CopyCampaignWithAdditionalActiveItems extends BaseTestClas
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites",  groups = {"send push", "copy campaign", "advanced settings", "tags", "alias", "active elements", "buttons", "big image"})
     public void copyCampaignWithAdditionalActiveItemsTest(String testSiteUrl) {
         Logger Log = LogManager.getLogger(Test_Pos_CopyCampaignWithAdditionalActiveItems.class);
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
         Verifier verifier = new Verifier();
 
         String title = TestData.pushTitle;
@@ -41,12 +41,12 @@ public class Test_Pos_CopyCampaignWithAdditionalActiveItems extends BaseTestClas
         if (BetaFeatures.verifyBetaToTest("copyCampaign")) {
             new LogInPage(driver).login(TestData.email, TestData.pass);
             if (BetaFeatures.verifyBetaToTest("UTM")) {
-                SiteSettingsPage siteSettingsPage = navigator.open(SiteSettingsPage.class, testSiteUrl);
+                SiteSettingsPage siteSettingsPage = navigationUtil.open(SiteSettingsPage.class, testSiteUrl);
                 Timer.waitSeconds(2);
                 utm_source = wait.until(ExpectedConditions.visibilityOfElementLocated(siteSettingsPage.UTMsource)).getText();
                 utm_medium = siteSettingsPage.UTMmedium.findElement(driver).getText();
             }
-            CreateCampaignPage createCampaignPage = navigator.open(CreateCampaignPage.class, testSiteUrl)
+            CreateCampaignPage createCampaignPage = navigationUtil.open(CreateCampaignPage.class, testSiteUrl)
                     .setTitle(title)
                     .setText(text)
                     .setUrlToRedirect(url);

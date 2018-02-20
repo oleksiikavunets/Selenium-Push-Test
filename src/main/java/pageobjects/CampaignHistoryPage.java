@@ -1,11 +1,12 @@
 package pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
+import pageutils.PaginationUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +17,6 @@ public class CampaignHistoryPage extends AbstractAdminPage {
 
     private By message = By.cssSelector("span[class=\"text-strong-600 ng-binding\"]");
     private By delayedLabel = By.cssSelector("span.label[ng-if=\"message.delayed\"]");
-    private By pageNumber = By.cssSelector("a[ng-click*=\"Pagination.changePage\"][data-ng-bind=\"page\"]");
 
     public CampaignHistoryPage(WebDriver driver) {
         super(driver);
@@ -26,8 +26,7 @@ public class CampaignHistoryPage extends AbstractAdminPage {
         try {
             searchForMessage(title).click();
         }catch (NullPointerException e){
-            System.err.println("COULD NOT FIND YOUR MESSAGE...........................");
-            throw e;
+            throw new NoSuchElementException("COULD NOT FIND MESSAGE WITH TITLE '" + title + "'...........................");
         }
         return new CampaignReportPage(driver);
     }
@@ -45,7 +44,7 @@ public class CampaignHistoryPage extends AbstractAdminPage {
     private WebElement searchForDelayedMessage(String mes) {
         int page = 1;
         while (getAmountOfDelayedMessagesOnPage() > 0 && findMessageOnPage(mes) == null) {
-            if (!openPage(++page)) {
+            if (!new PaginationUtil(driver).openPage(++page)) {
                 break;
             }
         }
@@ -55,7 +54,7 @@ public class CampaignHistoryPage extends AbstractAdminPage {
     private WebElement searchForNonDelayedMessage(String mes) {
         int page = 1;
         while (getAmountOfDelayedMessagesOnPage() >= 10) {
-            openPage(++page);
+            new PaginationUtil(driver).openPage(++page);
         }
         for (int i = 0; i < 5; i++) {
             if (findMessageOnPage(mes) == null) {
@@ -63,7 +62,7 @@ public class CampaignHistoryPage extends AbstractAdminPage {
             }
         }
         while (findMessageOnPage(mes) == null) {
-            if (!openPage(++page)) {
+            if (!new PaginationUtil(driver).openPage(++page)) {
                 break;
             }
         }
@@ -72,31 +71,13 @@ public class CampaignHistoryPage extends AbstractAdminPage {
 
     private WebElement findMessageOnPage(String mes) {
         return driver.findElements(message).stream()
-                .filter(webElement -> webElement.getText().equals(mes))
+                .filter(el -> el.getText().equals(mes))
                 .findFirst()
                 .orElse(null);
     }
 
     private int getAmountOfDelayedMessagesOnPage() {
         return driver.findElements(delayedLabel).size();
-    }
-
-    private boolean openPage(int page) {
-        boolean opened = false;
-        String url = driver.getCurrentUrl();
-        try {
-            driver.findElements(pageNumber).stream()
-                    .filter(p -> p.getText().equals(String.valueOf(page)))
-                    .findFirst()
-                    .orElse(null)
-                    .click();
-            System.out.println("OPENED PAGE #" + page);
-            wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(url)));
-            opened = true;
-        } catch (java.lang.NullPointerException | org.openqa.selenium.WebDriverException e) {
-            System.err.println("Page NO# " + (page - 1) + " is the last page");
-        }
-        return opened;
     }
 
     public boolean verifyMessageExists(String mes) {

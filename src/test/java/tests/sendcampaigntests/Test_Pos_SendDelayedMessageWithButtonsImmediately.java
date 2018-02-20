@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import pageobjects.CampaignReportPage;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
 
@@ -21,7 +21,7 @@ public class Test_Pos_SendDelayedMessageWithButtonsImmediately extends BaseTestC
         String text = RandomGenerator.nextString();
 
         new LogInPage(driver).login(TestData.email, TestData.pass);
-        new Navigator(driver).open(CreateCampaignPage.class, testSite)
+        new NavigationUtil(driver).open(CreateCampaignPage.class, testSite)
                 .setTitle(title)
                 .setText(text)
                 .setDateAndTime(10, 0, 0)

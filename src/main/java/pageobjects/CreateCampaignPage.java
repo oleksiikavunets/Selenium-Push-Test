@@ -10,7 +10,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
-import pageutils.ImageUploader;
+import pageutils.CropUtil;
 import testconfigs.testrestrictions.BetaFeatures;
 
 import java.io.File;
@@ -31,7 +31,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
     //push preview block
     private By titlePreview = By.cssSelector("p[data-ng-bind*=\"$ctrl.mtitle \"]");
     private By textPreview = By.cssSelector("p[data-ng-bind*=\"$ctrl.body\"]");
-    private By iconPrev = By.cssSelector("div[class*=\"icon\"]>img[src*=\"cdn\"]");
+    private By iconPrev = By.cssSelector("div[class*=\"icon\"]>img");
     private By bigImagePrev = By.cssSelector("img.additional-img");
     private By button1Prev = By.cssSelector("span[ng-bind*=\"$ctrl.btn1.title \"]");
     private By button2Prev = By.cssSelector("span[ng-bind*=\"$ctrl.btn2.title \"]");
@@ -103,6 +103,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
             try {
                 element = wait.until(ExpectedConditions.visibilityOfElementLocated(titlePreview));
             } catch (org.openqa.selenium.NoSuchElementException e) {
+                e.printStackTrace();
             }
             return element;
         }
@@ -112,6 +113,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
             try {
                 element = textPreview.findElement(driver);
             } catch (org.openqa.selenium.NoSuchElementException e) {
+                e.printStackTrace();
             }
             return element;
         }
@@ -121,15 +123,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
             try {
                 element = iconPrev.findElement(driver);
             } catch (org.openqa.selenium.NoSuchElementException e) {
-            }
-            return element;
-        }
-
-        public WebElement getBigImgPreview() {
-            WebElement element = null;
-            try {
-                element = bigImagePrev.findElement(driver);
-            } catch (org.openqa.selenium.NoSuchElementException e) {
+                e.printStackTrace();
             }
             return element;
         }
@@ -140,6 +134,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
             try {
                 element = button1Prev.findElement(driver);
             } catch (org.openqa.selenium.NoSuchElementException e) {
+                e.printStackTrace();
             }
             return element;
         }
@@ -149,14 +144,14 @@ public class CreateCampaignPage extends AbstractAdminPage {
             try {
                 element = button2Prev.findElement(driver);
             } catch (org.openqa.selenium.NoSuchElementException e) {
+                e.printStackTrace();
             }
             return element;
         }
 
         public WebElement getBigImagePreview() {
-            waitSeconds(5);
             WebElement element = null;
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 10; i++) {
                 try {
                     element = bigImagePrev.findElement(driver);
                 } catch (org.openqa.selenium.NoSuchElementException e) {
@@ -365,7 +360,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
     public String uploadIconToPush(String path) {
 
         if (BetaFeatures.verifyBetaToTest("imageCropper")) {
-            new ImageUploader(driver).uploadIcon(path);
+            new CropUtil(driver).uploadIcon(path);
         } else {
             uploadIcon(path);
         }
@@ -475,7 +470,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
         public String uploadBigImage(String path) {
             if (BetaFeatures.verifyBetaToTest("imageCropper")) {
                 switchBIGImage();
-                new ImageUploader(driver).uploadBigImg(path);
+                new CropUtil(driver).uploadBigImg(path);
             } else {
                 setBIGImage(path);
             }

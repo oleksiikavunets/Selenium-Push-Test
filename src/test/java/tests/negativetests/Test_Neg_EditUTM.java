@@ -10,7 +10,7 @@ import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
 import pageobjects.SiteSettingsPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.ErrorMessages;
 import testconfigs.testdata.TestData;
 import testconfigs.testrestrictions.BetaFeatures;
@@ -26,7 +26,7 @@ public class Test_Neg_EditUTM extends BaseTestClass {
 
     @Test(groups = {"negative", "UTM"})
     public void editUTMNegativeTest() {
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
         LogInPage logInPage = new LogInPage(driver);
         HeaderMenu headerMenu = new HeaderMenu(driver);
         ErrorMessages errorMessages = new ErrorMessages();
@@ -38,7 +38,7 @@ public class Test_Neg_EditUTM extends BaseTestClass {
             MainAdminPage mainAdminPage = logInPage.login(TestData.email, TestData.pass);
             List<WebElement> langs = headerMenu.getAvailableLanguages();
             langs.get(0).click();
-            SiteSettingsPage siteSettingsPage = navigator.open(SiteSettingsPage.class, testSite)
+            SiteSettingsPage siteSettingsPage = navigationUtil.open(SiteSettingsPage.class, testSite)
                     .clickEditUTM()
                     .clearUTMTags();
             siteLang = headerMenu.checkLanguage();

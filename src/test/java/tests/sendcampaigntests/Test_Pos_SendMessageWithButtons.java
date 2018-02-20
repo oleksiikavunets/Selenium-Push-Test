@@ -7,7 +7,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import sikuli.PushHandler;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
@@ -32,7 +32,7 @@ public class Test_Pos_SendMessageWithButtons extends BaseTestClass {
         if (BetaFeatures.verifyBetaToTest("buttonsAndBigImage")) {
 
             new LogInPage(driver).login(TestData.email, TestData.pass);
-            CreateCampaignPage createCampaignPage = new Navigator(driver).open(CreateCampaignPage.class, testSiteUrl)
+            CreateCampaignPage createCampaignPage = new NavigationUtil(driver).open(CreateCampaignPage.class, testSiteUrl)
                     .setTitle(title)
                     .setText(text);
 

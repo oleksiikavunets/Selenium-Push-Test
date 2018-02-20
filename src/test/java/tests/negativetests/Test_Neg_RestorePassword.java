@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.RecoverPasswordPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.ErrorMessages;
 import testconfigs.testdata.TestData;
 import testutils.Listeners.LogListener;
@@ -26,7 +26,7 @@ public class Test_Neg_RestorePassword extends BaseTestClass {
 
     @Test(groups = {"negative"})
     public void restorePasswordNegativeTest() throws Exception {
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
         HeaderMenu headerMenu = new HeaderMenu(driver);
         LogInPage logInPage = new LogInPage(driver);
         ErrorMessages errorMessages = new ErrorMessages();
@@ -45,7 +45,7 @@ public class Test_Neg_RestorePassword extends BaseTestClass {
 
         for (int i = 1; i <= langs.size(); i++) {
             headerMenu.logout();
-            RecoverPasswordPage recoverPasswordPage = navigator.open(RecoverPasswordPage.class)
+            RecoverPasswordPage recoverPasswordPage = navigationUtil.open(RecoverPasswordPage.class)
                     .setEmail(TestData.inValidEmail)
                     .clickResetButton();
             verifier.assertEquals(wait.until(ExpectedConditions.presenceOfElementLocated(recoverPasswordPage.errorMessage)).getText(), emailExists.get(siteLang));

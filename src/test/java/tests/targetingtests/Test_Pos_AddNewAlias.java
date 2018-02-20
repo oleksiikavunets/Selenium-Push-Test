@@ -6,7 +6,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
 import testconfigs.testdatamanagers.TestDataManager;
@@ -20,7 +20,7 @@ public class Test_Pos_AddNewAlias extends BaseTestClass {
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites",
             groups = {"subscription", "advanced settings", "alias"})
     public void addNewAliasTest(String testSite) throws Exception {
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
         UserActions userActions = new UserActions(driver, wait);
         String alias = newAlias;
 
@@ -33,7 +33,7 @@ public class Test_Pos_AddNewAlias extends BaseTestClass {
         testDataManager.setAlias(alias);
 
         new LogInPage(driver).login(TestData.email, TestData.pass);
-        CreateCampaignPage.AdvancedOptions advancedOptions = navigator.open(CreateCampaignPage.class, testSite)
+        CreateCampaignPage.AdvancedOptions advancedOptions = navigationUtil.open(CreateCampaignPage.class, testSite)
                 .openAdvancedOptions();
         advancedOptions.addAliasToCampaign(alias);
     }

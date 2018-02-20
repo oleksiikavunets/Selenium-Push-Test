@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import pageobjects.CampaignReportPage;
 import pageobjects.LogInPage;
 import pageobjects.TagListPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
@@ -35,7 +35,7 @@ public class Test_Pos_UseTagsInCampaignFromTagListPage extends BaseTestClass {
 
         new UserActions(driver).addNewTag(testSite, tags);
         new LogInPage(driver).login(email, pass);
-        TagListPage tagListPage = new Navigator(driver).open(TagListPage.class, testSite)
+        TagListPage tagListPage = new NavigationUtil(driver).open(TagListPage.class, testSite)
                 .addTagsToNewTL(tags);
 
         List<String> addedTags = textOf(tagListPage.getAddedTags());

@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.RegistrationPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.ErrorMessages;
 import testconfigs.testdata.TestData;
 import testutils.Listeners.LogListener;
@@ -27,7 +27,7 @@ public class Test_Neg_Registration extends BaseTestClass {
 
     @Test(groups = {"negative"})
     public void registrationNegativeTest() throws Exception {
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
         HeaderMenu headerMenu = new HeaderMenu(driver);
         LogInPage logInPage = new LogInPage(driver);
         ErrorMessages errorMessages = new ErrorMessages();
@@ -48,7 +48,7 @@ public class Test_Neg_Registration extends BaseTestClass {
 
         for (int i = 1; i <= langs.size(); i++) {
             headerMenu.logout();
-            RegistrationPage registrationPage = navigator.open(RegistrationPage.class)
+            RegistrationPage registrationPage = navigationUtil.open(RegistrationPage.class)
                     .setEmail("admin@")
                     .setPass("1111");
             verifier.assertEquals(wait.until(ExpectedConditions.presenceOfElementLocated(registrationPage.invalidFormat)).getText(), invalidEmailFormat.get(siteLang));

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.*;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.ErrorMessages;
 import testconfigs.testdata.TestData;
 import testconfigs.testrestrictions.BetaFeatures;
@@ -27,7 +27,7 @@ public class Test_Neg_SendMessage extends BaseTestClass {
 
     @Test(groups = {"negative", "send push"})// checks all error messages on page "Create Campaign"
     public void sendMessageNegativeTest() throws Exception {
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
         HeaderMenu headerMenu = new HeaderMenu(driver);
         BetaFeatures betaFeatures = new BetaFeatures();
         ErrorMessages errorMessages = new ErrorMessages();
@@ -41,7 +41,7 @@ public class Test_Neg_SendMessage extends BaseTestClass {
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         langs.get(0).click();
 
-        CreateCampaignPage createCampaignPage = navigator.open(CreateCampaignPage.class, testSite)
+        CreateCampaignPage createCampaignPage = navigationUtil.open(CreateCampaignPage.class, testSite)
                 .setUrlToRedirect("1!@#$2345qwerцуке")
                 .uploadIcon(TestData.bigIcon);
         CreateCampaignPage.AdditionalActiveItems activeItems = createCampaignPage.new AdditionalActiveItems();

@@ -12,7 +12,7 @@ import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.NewPasswordSetUpPage;
 import pageobjects.RecoverPasswordPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
 import testutils.Listeners.LogListener;
@@ -46,7 +46,7 @@ public class Test_Pos_RecoverPassMultiLanguage extends BaseTestClass {
         headerMenu.logout();
         for (int i = 1; i <= langs.size(); i++) {
 
-            new Navigator(driver).open(RecoverPasswordPage.class).requestPasswordReset(email);
+            new NavigationUtil(driver).open(RecoverPasswordPage.class).requestPasswordReset(email);
             String message = MailService.getRecoverPasswordMail();
             Log.info(message);
             verifier.assertTrue(verifier.verifyReceivedMail(message, siteLang));

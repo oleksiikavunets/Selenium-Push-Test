@@ -9,7 +9,7 @@ import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
 import pageobjects.SubscribersPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
 
@@ -22,7 +22,7 @@ public class Test_Pos_Subscription extends BaseTestClass {
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getNewlyCreatedSites", groups = "subscription")
     public void subscriptionTest(String testSite) {
 
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
 
         Verifier verifier = new Verifier();
         LogInPage logInPage = new LogInPage(driver);
@@ -33,7 +33,7 @@ public class Test_Pos_Subscription extends BaseTestClass {
 
         MainAdminPage mainAdminPage = logInPage.login(email, pass);
         int totalAmountOfSubsBefore = mainAdminPage.getTotalAmountOfSubscribers();
-        SubscribersPage subscribersPage = navigator.open(SubscribersPage.class, testSite);
+        SubscribersPage subscribersPage = navigationUtil.open(SubscribersPage.class, testSite);
 //                .clickTodayBtn();
 
         int amountOfSubsBefore = subscribersPage.getAmountOfSubscribers();
@@ -48,7 +48,7 @@ public class Test_Pos_Subscription extends BaseTestClass {
                 "Before: " + totalAmountOfSubsBefore +
                 " After: " + totalAmountOfSubsAfter);
 
-        navigator.open(SubscribersPage.class, testSite);//.clickTodayBtn();
+        navigationUtil.open(SubscribersPage.class, testSite);//.clickTodayBtn();
 
         int amountOfSubsAfter = subscribersPage.getAmountOfSubscribers();
         System.out.println("Subs after: on main page - " + totalAmountOfSubsAfter +

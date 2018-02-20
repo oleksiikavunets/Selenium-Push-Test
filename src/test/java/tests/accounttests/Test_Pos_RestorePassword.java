@@ -10,7 +10,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.NewPasswordSetUpPage;
 import pageobjects.RecoverPasswordPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testutils.Listeners.LogListener;
 
@@ -31,7 +31,7 @@ public class Test_Pos_RestorePassword extends BaseTestClass {
         if (newPass.equals("tttt1111")) newPass = "qqqq1111";
         else if (newPass.equals("qqqq1111")) newPass = "tttt1111";
 
-        new Navigator(driver).open(RecoverPasswordPage.class)
+        new NavigationUtil(driver).open(RecoverPasswordPage.class)
                 .setEmail(testEmail)
                 .clickResetButton();
         String link = MailService.getRecoverLink();

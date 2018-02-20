@@ -9,7 +9,7 @@ import pageobjects.CampaignHistoryPage;
 import pageobjects.CampaignReportPage;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
@@ -19,13 +19,13 @@ public class Test_Pos_DeleteDelayedMessage extends BaseTestClass {
 
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "delayed push"})
     public void deleteDelayedMessageTest(String testSiteUrl) {
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
 
         String title = RandomGenerator.nextString();
         String text = RandomGenerator.nextString();
 
         new LogInPage(driver).login(TestData.email, TestData.pass);
-        CampaignReportPage campaignReportPage = navigator.open(CreateCampaignPage.class, testSiteUrl)
+        CampaignReportPage campaignReportPage = navigationUtil.open(CreateCampaignPage.class, testSiteUrl)
                 .setTitle(title)
                 .setText(text)
                 .setDateAndTime(10, 0, 0)

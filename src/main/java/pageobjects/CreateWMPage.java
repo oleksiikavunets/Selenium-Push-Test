@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
-import pageutils.ImageUploader;
+import pageutils.CropUtil;
 import testconfigs.testrestrictions.BetaFeatures;
 
 import java.io.File;
@@ -84,7 +84,8 @@ public class CreateWMPage extends AbstractAdminPage {
     }
 
     public WebElement getIconPreview() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(iconPreview));
+
+        return iconPreview.findElement(driver);
     }
 
     public WebElement getButton1Preview() {
@@ -92,6 +93,7 @@ public class CreateWMPage extends AbstractAdminPage {
         try {
             element = button1Preview.findElement(driver);
         } catch (org.openqa.selenium.NoSuchElementException noEL) {
+            noEL.printStackTrace();
         }
         return element;
     }
@@ -117,7 +119,7 @@ public class CreateWMPage extends AbstractAdminPage {
     public String uploadIconToWM(String path) {
 
         if(BetaFeatures.verifyBetaToTest("imageCropper")){
-            new ImageUploader(driver).uploadIcon(path);
+            new CropUtil(driver).uploadIcon(path);
         }else {
             uploadIcon(path);
         }
@@ -204,7 +206,7 @@ public class CreateWMPage extends AbstractAdminPage {
         public String uploadBigImage(String path) {
             if(BetaFeatures.verifyBetaToTest("imageCropper")){
                 switchBIGImage();
-                new ImageUploader(driver).uploadBigImg(path);
+                new CropUtil(driver).uploadBigImg(path);
             }else {
                 setBIGImage(path);
             }

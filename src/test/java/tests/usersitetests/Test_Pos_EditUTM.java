@@ -9,7 +9,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.LogInPage;
 import pageobjects.SiteSettingsPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
@@ -26,7 +26,7 @@ public class Test_Pos_EditUTM extends BaseTestClass {
         String newUTMmedium = TestData.utm_medium;
         if (BetaFeatures.verifyBetaToTest("UTM")) {
             new LogInPage(driver).login(TestData.email, TestData.pass);
-            SiteSettingsPage siteSettingsPage = new Navigator(driver).open(SiteSettingsPage.class, testSite);
+            SiteSettingsPage siteSettingsPage = new NavigationUtil(driver).open(SiteSettingsPage.class, testSite);
 
             String UTMsource = siteSettingsPage.getUtm_source();
             String UTMmedium = siteSettingsPage.getUtm_medium();

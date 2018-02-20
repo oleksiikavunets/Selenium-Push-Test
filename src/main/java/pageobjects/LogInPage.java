@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractOuterPage;
 import pageobjects.common.annotations.PartialPath;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 
 import static actions.Timer.waitSeconds;
@@ -31,7 +31,7 @@ public class LogInPage extends AbstractOuterPage {
 
     private LogInPage openLoginPage(){
         for(int i = 0; i < 20; i++) {
-            new Navigator(driver).open(LogInPage.class);
+            new NavigationUtil(driver).open(LogInPage.class);
             if(loginInput.findElements(driver).size() > 0 || new HeaderMenu(driver).verifyBeingLogged()) break;
         }
         return this;

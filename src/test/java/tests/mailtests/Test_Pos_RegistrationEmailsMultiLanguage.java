@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.RegistrationPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
 import testutils.Listeners.LogListener;
@@ -43,7 +43,7 @@ public class Test_Pos_RegistrationEmailsMultiLanguage extends BaseTestClass {
         for (int i = 1; i <= langs.size(); i++) {
             int emailNumber = getEmailNumber();
             String email = generateNewUserEmail(emailNumber);
-            new Navigator(driver).open(RegistrationPage.class)
+            new NavigationUtil(driver).open(RegistrationPage.class)
                     .setUserCridentials(email, pass);
             emailNumber = emailNumber + 2;
 

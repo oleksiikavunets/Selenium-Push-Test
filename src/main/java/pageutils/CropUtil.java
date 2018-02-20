@@ -9,7 +9,7 @@ import webdriverconfiger.WaitManager;
 
 import java.io.File;
 
-public class ImageUploader {
+public class CropUtil {
 
     private static WebDriver driver;
     private static Wait<WebDriver> wait;
@@ -19,7 +19,7 @@ public class ImageUploader {
     private static By confirmBtn = By.cssSelector("button[class*=\"btn-success\"]");
     private static By cancelBtn = By.cssSelector("button[ng-if][class*=\"primary\"]");
 
-    public ImageUploader(WebDriver driver){
+    public CropUtil(WebDriver driver){
         this.driver = driver;
         wait = new WaitManager(driver).getWait();
     }

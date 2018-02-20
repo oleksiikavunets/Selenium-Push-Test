@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
-import pageutils.ImageUploader;
+import pageutils.CropUtil;
 import testconfigs.testrestrictions.BetaFeatures;
 
 import java.io.File;
@@ -88,7 +88,7 @@ public class SiteSettingsPage extends AbstractAdminPage {
 
     public SiteSettingsPage uplodIcon(String path) {
         if (BetaFeatures.verifyBetaToTest("imageCropper")) {
-            new ImageUploader(driver).uploadIcon(path);
+            new CropUtil(driver).uploadIcon(path);
         } else {
             driver.findElement(By.cssSelector("input[type='file']")).sendKeys(new File(path).getAbsolutePath());
         }

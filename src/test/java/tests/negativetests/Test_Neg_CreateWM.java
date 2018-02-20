@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import pageobjects.CreateWMPage;
 import pageobjects.HeaderMenu;
 import pageobjects.WelcomeMessagePage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.ErrorMessages;
 import testconfigs.testdata.TestData;
 import testutils.Listeners.LogListener;
@@ -29,7 +29,7 @@ public class Test_Neg_CreateWM extends BaseTestClass {
     public void createWMnegativeTest() throws Exception {
         HeaderMenu headerMenu = new HeaderMenu(driver);
 //        SideBar sideBar = new SideBar(driver);
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
 
 
         ErrorMessages errorMessages = new ErrorMessages();
@@ -42,7 +42,7 @@ public class Test_Neg_CreateWM extends BaseTestClass {
         HashMap<String, String> invalidLinkFormat = errorMessages.getInvalidLinkFormat();
 
         userActions.createSite(TestData.email, TestData.pass, siteUrl);
-        WelcomeMessagePage welcomeMessagePage = navigator.open(WelcomeMessagePage.class, siteUrl);
+        WelcomeMessagePage welcomeMessagePage = navigationUtil.open(WelcomeMessagePage.class, siteUrl);
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         langs.get(0).click();
         //driver.navigate().refresh();

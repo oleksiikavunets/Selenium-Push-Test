@@ -11,7 +11,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import pageobjects.*;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import webdriverconfiger.WaitManager;
 
 import java.util.stream.Collectors;
@@ -65,7 +65,7 @@ public class UserActions {
 
     public MainAdminPage deleteSite(String siteUrl) {
 
-        SiteSettingsPage siteSettingsPage = new Navigator(driver).open(SiteSettingsPage.class, siteUrl);
+        SiteSettingsPage siteSettingsPage = new NavigationUtil(driver).open(SiteSettingsPage.class, siteUrl);
 
         for (int i = 0; i <= 40; i++) {
             boolean popUp = false;
@@ -87,13 +87,13 @@ public class UserActions {
     }
 
     public void createNewUser() throws Exception {
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
         int emailNumber = getEmailNumber();
         String email = "grovitek+" + emailNumber + "@gmail.com";
         String pass = getPassword();
         if (pass.equals("qqqq1111")) pass = "tttt1111";
         try {
-            navigator.open(RegistrationPage.class)
+            navigationUtil.open(RegistrationPage.class)
                     .setUserCridentials(email, pass);
             emailNumber = emailNumber + 2;
             setEmailNumber(emailNumber);

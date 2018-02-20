@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
 import pageobjects.SubscribersPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestDataProvider;
 
 import java.time.LocalDateTime;
@@ -22,12 +22,12 @@ public class Test_Pos_SubscriberStatistics extends BaseTestClass {
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites")
     public void allSubscribersAmountTest(String testSite) {
 
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
 
         MainAdminPage mainAdminPage = new LogInPage(driver).login(email, pass);
         int amountOfSiteSubscribers = mainAdminPage.getAmountOfSiteSubscribers(testSite);
         System.out.println(amountOfSiteSubscribers);
-        SubscribersPage subscribersPage = navigator.open(SubscribersPage.class, testSite);
+        SubscribersPage subscribersPage = navigationUtil.open(SubscribersPage.class, testSite);
         subscribersPage.switchLifeTimeStats();
         int amountOfAllSubscribers = subscribersPage.getAmountOfSubscribers();
         Assert.assertEquals(amountOfSiteSubscribers, amountOfAllSubscribers);
@@ -40,7 +40,7 @@ public class Test_Pos_SubscriberStatistics extends BaseTestClass {
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites")
     public void periodFilterTest(String testSite){
 
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
         Verifier verifier = new Verifier();
         String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.YYYY"));
         String yesterday = LocalDateTime.now().minusDays(1).format(DateTimeFormatter.ofPattern("dd.MM.YYYY"));
@@ -48,7 +48,7 @@ public class Test_Pos_SubscriberStatistics extends BaseTestClass {
         String monthAgo = LocalDateTime.now().minusDays(30).format(DateTimeFormatter.ofPattern("dd.MM.YYYY"));
 
         new LogInPage(driver).login(email, pass);
-        SubscribersPage subscribersPage = navigator.open(SubscribersPage.class, testSite);
+        SubscribersPage subscribersPage = navigationUtil.open(SubscribersPage.class, testSite);
 
         subscribersPage.switchLifeTimeStats();
         verifier.assertEquals(subscribersPage.getAllDatesInGraph().get(0), now,"Incorrect end date in Life Time Period..............................");

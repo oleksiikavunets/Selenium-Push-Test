@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import pageobjects.CampaignHistoryPage;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import sikuli.PushHandler;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
@@ -32,7 +32,7 @@ public class Test_Pos_SendMessage extends BaseTestClass {
         String text = "SIMPLE PUSH";
 
         new LogInPage(driver).login(TestData.email, TestData.pass);
-        CampaignHistoryPage campaignHistoryPage = new Navigator(driver).open(CreateCampaignPage.class, testSite)
+        CampaignHistoryPage campaignHistoryPage = new NavigationUtil(driver).open(CreateCampaignPage.class, testSite)
                 .setTitle(title)
                 .setText(text)
                 .sendPush();

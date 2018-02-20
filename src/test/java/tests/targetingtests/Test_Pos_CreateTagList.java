@@ -8,7 +8,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageobjects.LogInPage;
 import pageobjects.TagListPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
@@ -22,7 +22,7 @@ public class Test_Pos_CreateTagList extends BaseTestClass {
 
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"tag list"})
     public void createTagListTest(String testSite) throws Exception {
-        Navigator navigator = new Navigator(driver);
+        NavigationUtil navigationUtil = new NavigationUtil(driver);
 
         String tagListName = TestData.tagListName;
         String[] tags = new String[]{
@@ -32,7 +32,7 @@ public class Test_Pos_CreateTagList extends BaseTestClass {
 
         new UserActions(driver).addNewTag(testSite, tags);/** This block adds a new tag. If you do not need any new tag make it a comment*/
         new LogInPage(driver).login(TestData.email, TestData.pass);
-        TagListPage tagListPage = navigator.open(TagListPage.class, testSite)
+        TagListPage tagListPage = navigationUtil.open(TagListPage.class, testSite)
                 .addTagsToNewTL()
                 .setTagListName(tagListName)
                 .saveNewTagList();

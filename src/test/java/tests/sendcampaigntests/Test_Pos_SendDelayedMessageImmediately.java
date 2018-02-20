@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import pageobjects.CampaignReportPage;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
-import pageutils.Navigator;
+import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
 import testutils.Listeners.LogListener;
@@ -23,7 +23,7 @@ public class Test_Pos_SendDelayedMessageImmediately extends BaseTestClass {
         String text = RandomGenerator.nextString();
 
         new LogInPage(driver).login(TestData.email, TestData.pass);
-        CampaignReportPage campaignReportPage = new Navigator(driver).open(CreateCampaignPage.class, testSiteUrl)
+        CampaignReportPage campaignReportPage = new NavigationUtil(driver).open(CreateCampaignPage.class, testSiteUrl)
                 .setTitle(title)
                 .setText(text)
                 .setDateAndTime(10, 0, 0)
