@@ -27,7 +27,7 @@ public class Test_Pos_CropBigImageInNewWelcomeMessage extends BaseTestClass {
 
         CreateWMPage.AdditionalActiveItems activeItems = createWMPage.openAdditionalActiveItems();
         activeItems.switchBIGImage();
-        crop.uploadBigImg(bigImage);
+        crop.uploadAndCropBigImg(bigImage);
 
         assertNotNull(createWMPage.getBigImagePreview().getAttribute("src"), "BIG IMAGE WAS NOT CROPPED AND LOADED...................................");
     }

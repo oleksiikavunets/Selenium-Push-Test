@@ -1,6 +1,5 @@
 package pageobjects;
 
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -8,10 +7,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
+import webdriverconfiger.WaitManager;
 
 import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
+import static com.selenium.utils.TextGetter.textOf;
 
 /**
  * Created by Oleksii on 13.07.2017.
@@ -28,12 +30,12 @@ public class HeaderMenu extends AbstractAdminPage {
     public By de = By.cssSelector("img[src=\"../../../assets/img/de.png\"]");
 
 
-    public HeaderMenu(WebDriver driver){
+    public HeaderMenu(WebDriver driver) {
         super(driver);
     }
 
     public MainAdminPage clickLogo() {
-        if(driver.getCurrentUrl().contains("/sites/")) {
+        if (driver.getCurrentUrl().contains("/sites/")) {
             logo.findElement(driver).click();
             wait.until(ExpectedConditions.not(ExpectedConditions.urlContains("/sites")));
         }
@@ -59,8 +61,18 @@ public class HeaderMenu extends AbstractAdminPage {
         return langs;
     }
 
+    public HeaderMenu switchFirstLanguage(){
+        List<WebElement> langs = driver.findElements(language);
+        if(langs.size() > 1) {
+            String langToChange = textOf(logOutButton, driver);
+            langs.get(0).click();
+            wait.until(ExpectedConditions.invisibilityOfElementWithText(logOutButton, langToChange));
+        }
+        return this;
+    }
+
     public HeaderMenu switchLanguage(int i) {
-        if(!TestServerConfiguretion.iTest.equals(P2B)) //Push2b.com has only one language version
+        if (!TestServerConfiguretion.iTest.equals(P2B)) //Push2b.com has only one language version
         {
             String langToChange = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
             openLanguageDropDown();
@@ -73,7 +85,7 @@ public class HeaderMenu extends AbstractAdminPage {
     }
 
     public HeaderMenu switchLanguage() {
-        if(!TestServerConfiguretion.iTest.equals(P2B)) //Push2b.com has only one language version
+        if (!TestServerConfiguretion.iTest.equals(P2B)) //Push2b.com has only one language version
         {
             String langToChange = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
             openLanguageDropDown();
@@ -84,17 +96,12 @@ public class HeaderMenu extends AbstractAdminPage {
     }
 
     public String checkLanguage() {
-        String lang = "";
-        String mot = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
-
-        switch (mot) {
-            case ("Sign out") : lang = "en"; break;
-            case ("Wyloguj") : lang = "pl"; break;
-            case ("Вийти") : lang = "ua"; break;
-            case ("Выйти") : lang = "ru"; break;
-            case ("Ausloggen") : lang = "de"; break;
-        }
-        return lang;
+        String mot = textOf(logOutButton, driver);
+        return mot.equals("Sign out") ? "en" :
+                mot.equals("Wyloguj") ? "pl" :
+                        mot.equals("Вийти") ? "ua" :
+                                mot.equals("Выйти") ? "ru" :
+                                        mot.equals("Ausloggen") ? "de" : null;
     }
 
     public HeaderMenu switchPl() {
@@ -162,11 +169,12 @@ public class HeaderMenu extends AbstractAdminPage {
         return this;
     }
 
-    public void waitForBeingLogged(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton));
+    public void waitForBeingLogged() {
+        new WaitManager(driver).getWait(60)
+        .until(ExpectedConditions.visibilityOfElementLocated(logOutButton));
     }
 
-    public boolean verifyBeingLogged(){
+    public boolean verifyBeingLogged() {
         return logOutButton.findElements(driver).size() > 0;
     }
 }

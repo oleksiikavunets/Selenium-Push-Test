@@ -27,7 +27,7 @@ public class Test_Pos_CropIconInNewWelcomeMessage extends BaseTestClass {
 
         String oldIcon = createWMPage.getIconPreview().getAttribute("src");
 
-        crop.uploadIcon(icon);
+        crop.uploadAndCropIcon(icon);
 
         String newIcon = createWMPage.getIconPreview().getAttribute("src");
 

@@ -26,7 +26,7 @@ import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 public class Test_Neg_CreateSite extends BaseTestClass {
 
     @Test(groups = {"negative", "new site"})// checks all error messages on page "Add New Website
-    public void createSiteNegativeTest() throws Exception {
+    public void createSiteNegativeTest() {
         LogInPage logInPage = new LogInPage(driver);
         HeaderMenu headerMenu = new HeaderMenu(driver);
         Verifier verifier = new Verifier();

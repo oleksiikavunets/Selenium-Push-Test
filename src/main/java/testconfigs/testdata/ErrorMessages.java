@@ -1,8 +1,51 @@
 package testconfigs.testdata;
 
-import java.util.HashMap;
+import pageutils.MapUtil;
+
+import java.util.*;
 
 public class ErrorMessages {
+
+    private static List<String> k = new ArrayList<>(Arrays.asList("en", "ua", "ru", "pl", "de"));
+
+    private static List<String> iconTooSmallErr = new ArrayList<>(Arrays.asList(
+            "The icon should be at least 80px on each side.",
+            "Іконка повинна бути не меншою ніж 80рх по кожній стороні.",
+            "Иконка должна быть не меньше 80px по каждой стороне.",
+            "Ikona powinna mieć co najmniej 80 pikseli po każdej stronie.",
+            "Das Symbol sollte mindestens 80 Pixel auf jeder Seite haben."
+    ));
+
+    private static List<String> imgTooBigErr = new ArrayList<>(Arrays.asList(
+            "img too big, max size 200kb",
+            "Зображення завелике, максимальний розмір до 200kb",
+            "Картинка слишком большая, максимальный размер до 200kb",
+            "Grafika za duża, maksymalny rozmiar to 200 kB",
+            "img zu groß, max Größe - 200 kb"
+    ));
+
+    private static List<String> bigImgTooSmallErr = new ArrayList<>(Arrays.asList(
+            "The picture must be no less than the recommended size.",
+            "Зображення повинно бути не менше за рекомендовані розміри.",
+            "Картинка должна быть не меньше рекомендуемых размеров.",
+            "Obraz nie może być mniejszy niż zalecany rozmiar.",
+            "Das Bild muss nicht kleiner als die empfohlene Größe sein."
+    ));
+
+    public static Map<String, String> getIconTooSmallError(){
+        return MapUtil.toMap(k, iconTooSmallErr);
+    }
+
+    public static Map<String, String> getBigImageTooSmallError(){
+        return MapUtil.toMap(k, bigImgTooSmallErr);
+    }
+
+    public static Map<String, String> getImageTooBigError(){
+        return MapUtil.toMap(k, imgTooBigErr);
+    }
+
+
+
     HashMap<String, String> requiredField = new HashMap<>();
     HashMap<String, String> selectProtocol = new HashMap<>();
     HashMap<String, String> siteExists = new HashMap<>();

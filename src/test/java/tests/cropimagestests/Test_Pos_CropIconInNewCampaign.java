@@ -27,7 +27,7 @@ public class Test_Pos_CropIconInNewCampaign extends BaseTestClass {
 
         String iconBefore = preview.getIconPreview().getAttribute("src");
 
-        crop.uploadIcon(icon);
+        crop.uploadAndCropIcon(icon);
 
         String iconAfter = preview.getIconPreview().getAttribute("src");
 

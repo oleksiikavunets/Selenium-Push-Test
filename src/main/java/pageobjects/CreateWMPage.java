@@ -119,7 +119,7 @@ public class CreateWMPage extends AbstractAdminPage {
     public String uploadIconToWM(String path) {
 
         if(BetaFeatures.verifyBetaToTest("imageCropper")){
-            new CropUtil(driver).uploadIcon(path);
+            new CropUtil(driver).uploadAndCropIcon(path);
         }else {
             uploadIcon(path);
         }
@@ -206,7 +206,7 @@ public class CreateWMPage extends AbstractAdminPage {
         public String uploadBigImage(String path) {
             if(BetaFeatures.verifyBetaToTest("imageCropper")){
                 switchBIGImage();
-                new CropUtil(driver).uploadBigImg(path);
+                new CropUtil(driver).uploadAndCropBigImg(path);
             }else {
                 setBIGImage(path);
             }

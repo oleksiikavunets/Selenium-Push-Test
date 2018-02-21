@@ -13,16 +13,23 @@ import java.util.HashMap;
 import java.util.logging.Level;
 
 public class WebDriverManager {
-    public WebDriver driver;
-    public Wait<WebDriver> wait;
+    private WebDriver driver;
+    private Wait<WebDriver> wait;
 
     private StringBuilder path = new StringBuilder("src/main/resources/WebDrivers/");
 
     public WebDriver getDriver(String browser) {
-        return browser.equalsIgnoreCase("chrome") ? getChromeDriver() :
+        driver = browser.equalsIgnoreCase("chrome") ? getChromeDriver() :
                 browser.equalsIgnoreCase("firefox") ? getFirefoxDriver() :
                         browser.equalsIgnoreCase("opera") ? getOperaDriver() : null;
+//        setDriver(browser);
+        return driver;
     }
+
+//    private void setDriver(String browser){
+//        driver = getDriver(browser);
+//        if(driver != null) return;
+//    }
 
 
     private WebDriver getChromeDriver() {
@@ -82,6 +89,6 @@ public class WebDriverManager {
     }
 
     public WebDriver getDriver() {
-        return driver;
+        return this.driver;
     }
 }

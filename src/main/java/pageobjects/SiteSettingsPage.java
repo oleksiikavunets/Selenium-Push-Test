@@ -88,7 +88,7 @@ public class SiteSettingsPage extends AbstractAdminPage {
 
     public SiteSettingsPage uplodIcon(String path) {
         if (BetaFeatures.verifyBetaToTest("imageCropper")) {
-            new CropUtil(driver).uploadIcon(path);
+            new CropUtil(driver).uploadAndCropIcon(path);
         } else {
             driver.findElement(By.cssSelector("input[type='file']")).sendKeys(new File(path).getAbsolutePath());
         }

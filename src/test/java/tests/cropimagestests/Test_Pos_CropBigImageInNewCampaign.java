@@ -27,7 +27,7 @@ public class Test_Pos_CropBigImageInNewCampaign extends BaseTestClass{
 
         CreateCampaignPage.AdditionalActiveItems activeItems = createCampaignPage.openAdditionalActiveItems();
         activeItems.switchBIGImage();
-        crop.uploadBigImg(bigImage);
+        crop.uploadAndCropBigImg(bigImage);
 
         CreateCampaignPage.NotificationPreview preview = createCampaignPage.new NotificationPreview();
 

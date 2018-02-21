@@ -76,6 +76,18 @@
             <class name="tests.mailtests.Test_Pos_NewHttpsSiteMailsMultiLanguage"/>
         </classes>
     </test>
+    <test name="CROP IMAGES" parallel="classes" thread-count="2">
+        <classes>
+            <class name="tests.cropimagestests.Test_Pos_CropIconInNewCampaign"/>
+            <class name="tests.cropimagestests.Test_Pos_CropIconInNewWelcomeMessage"/>
+            <class name="tests.cropimagestests.Test_Pos_CropBigImageInNewCampaign"/>
+            <class name="tests.cropimagestests.Test_Pos_CropBigImageInNewWelcomeMessage"/>
+            <class name="tests.cropimagestests.Test_Pos_CheckCropImageHintsInNewCampaign"/>
+            <class name="tests.cropimagestests.Test_Pos_CheckCropImageHintsInNewWelcomeMessage"/>
+            <class name="tests.cropimagestests.Test_Pos_CheckCropImageRecommendationsInNewCampaign"/>
+            <class name="tests.cropimagestests.Test_Pos_CheckCropImageRecommendationsInNewWelcomeMessage"/>
+        </classes>
+    </test>
     <test name="NEGATIVE" parallel="classes" thread-count="2">
         <classes>
             <!--<class name="tests.negativetests.Test_Neg_LogIn"/>-->
