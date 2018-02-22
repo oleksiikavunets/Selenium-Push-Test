@@ -17,8 +17,8 @@ public class Test_Pos_SendDelayedMessageWithButtonsImmediately extends BaseTestC
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "delayed push"})
     public void sendDelayedMessageWithButtonsImmediatelyTest(String testSite) {
 
-        String title = RandomGenerator.nextString();
-        String text = RandomGenerator.nextString();
+        String title = "PUSH TITLE: " + RandomGenerator.nextString();
+        String text = "DELAYED PUSH WITH BUTTONS";
 
         new LogInPage(driver).login(TestData.email, TestData.pass);
         new NavigationUtil(driver).open(CreateCampaignPage.class, testSite)

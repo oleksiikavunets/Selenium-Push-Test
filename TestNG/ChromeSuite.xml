@@ -90,7 +90,7 @@
     </test>
     <test name="NEGATIVE" parallel="classes" thread-count="2">
         <classes>
-            <!--<class name="tests.negativetests.Test_Neg_LogIn"/>-->
+            <class name="tests.negativetests.Test_Neg_LogIn"/>
             <class name="tests.negativetests.Test_Neg_Registration"/>
             <class name="tests.negativetests.Test_Neg_RestorePassword"/>
             <class name="tests.negativetests.Test_Neg_CreateSite"/>

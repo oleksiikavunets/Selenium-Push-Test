@@ -19,8 +19,8 @@ public class Test_Pos_SendDelayedMessageImmediately extends BaseTestClass {
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "delayed push"})
     public void sendDelayedMessageImmediatelyTest(String testSiteUrl)  {
 
-        String title = RandomGenerator.nextString();
-        String text = RandomGenerator.nextString();
+        String title = "PUSH TITLE: " + RandomGenerator.nextString();
+        String text = "DELAYED PUSH TO BE SENT NOW";
 
         new LogInPage(driver).login(TestData.email, TestData.pass);
         CampaignReportPage campaignReportPage = new NavigationUtil(driver).open(CreateCampaignPage.class, testSiteUrl)

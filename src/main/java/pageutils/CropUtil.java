@@ -9,6 +9,7 @@ import webdriverconfiger.WaitManager;
 
 import java.io.File;
 
+import static actions.Timer.waitSeconds;
 import static com.selenium.utils.TextGetter.textOf;
 
 public class CropUtil {
@@ -49,6 +50,7 @@ public class CropUtil {
 
     public CropUtil uploadAndCropBigImg(String bigImgPath) {
         uploadBigImg(bigImgPath).confirmUpload();
+        waitSeconds(1);
         return this;
     }
 

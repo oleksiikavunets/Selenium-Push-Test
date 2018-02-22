@@ -1,8 +1,6 @@
 package actions;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +40,7 @@ public class Clicker {
             try {
                 driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
                 element.click();
-            }catch (org.openqa.selenium.NoSuchElementException e){
+            }catch (NoSuchElementException|StaleElementReferenceException e){
                 break;
             }
         }

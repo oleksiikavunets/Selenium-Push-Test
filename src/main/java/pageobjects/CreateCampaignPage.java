@@ -1,26 +1,25 @@
 package pageobjects;
 
 import actions.Clicker;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
 import pageutils.CropUtil;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testrestrictions.BetaFeatures;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import static actions.Timer.waitSeconds;
-import static com.selenium.enums.Server.*;
+import static com.selenium.enums.Server.WPUSH;
 
 /**
  * Created by Oleksii on 14.07.2017.
@@ -134,7 +133,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
             try {
                 element = button1Prev.findElement(driver);
             } catch (org.openqa.selenium.NoSuchElementException e) {
-                e.printStackTrace();
+                throw new NoSuchElementException("BUTTON 1 WAS NOT DISPLAYED IN NOTIFICATION PREVIEW.");
             }
             return element;
         }
@@ -144,7 +143,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
             try {
                 element = button2Prev.findElement(driver);
             } catch (org.openqa.selenium.NoSuchElementException e) {
-                e.printStackTrace();
+                throw new NoSuchElementException("BUTTON 2 WAS NOT DISPLAYED IN NOTIFICATION PREVIEW.");
             }
             return element;
         }
@@ -285,10 +284,14 @@ public class CreateCampaignPage extends AbstractAdminPage {
 
 
         public AdvancedOptions addTagToCampaign(String... tag) {
-            for (String t : tag) {
-                wait.until(ExpectedConditions.visibilityOfElementLocated(tagSearch)).sendKeys(t);
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a[title='" + t + "']"))).click();
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + t + "')]")));
+            try {
+                new ArrayList<>(Arrays.asList(tag)).forEach(t -> {
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(tagSearch)).sendKeys(t);
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a[title='" + t + "']"))).click();
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + t + "')]")));
+                });
+            }catch (TimeoutException e){
+                throw new NoSuchElementException("COULD NOT FIND AND ADD  TAGS CAMPAIGN");
             }
             return this;
         }
@@ -307,11 +310,15 @@ public class CreateCampaignPage extends AbstractAdminPage {
         }
 
         public AdvancedOptions addAliasToCampaign(String alias) {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(aliasSearch)).sendKeys(alias);
-            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(),'" + alias + "')]")));
-            waitSeconds(0.5);
-            aliasSearch(alias);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + alias + "')]")));
+            try {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(aliasSearch)).sendKeys(alias);
+                wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(),'" + alias + "')]")));
+                waitSeconds(0.5);
+                aliasSearch(alias);
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + alias + "')]")));
+            }catch (TimeoutException e){
+                throw new TimeoutException("COULD NOT FIND NEW ALIAS " + alias);
+            }
             return this;
         }
 

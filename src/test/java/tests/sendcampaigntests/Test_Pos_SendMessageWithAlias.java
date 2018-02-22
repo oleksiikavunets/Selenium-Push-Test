@@ -26,8 +26,8 @@ public class Test_Pos_SendMessageWithAlias extends BaseTestClass {
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "advanced settings", "alias"})
     public void sendMessageWithAliasTest(String testSiteUrl) throws Exception {
 
-        String title = RandomGenerator.nextString();
-        String text = RandomGenerator.nextString();
+        String title = "PUSH TITLE: " + RandomGenerator.nextString();
+        String text = "ALIAS";
         String alias = getAlias();
 
         new UserActions(driver).addNewAlias(testSiteUrl, alias);
@@ -37,6 +37,7 @@ public class Test_Pos_SendMessageWithAlias extends BaseTestClass {
                 .setTitle(title)
                 .setText(text)
                 .openAdvancedOptions();
+        System.out.println("title: " + title);
         advancedOptions.addAliasToCampaign(alias);
 
         CampaignReportPage campaignReportPage = new CreateCampaignPage(driver).sendPush().openMessage(title);

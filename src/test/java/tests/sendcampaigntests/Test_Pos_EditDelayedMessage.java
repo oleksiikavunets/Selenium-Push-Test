@@ -1,6 +1,7 @@
 package tests.sendcampaigntests;
 
 import actions.Verifier;
+import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -20,8 +21,8 @@ public class Test_Pos_EditDelayedMessage extends BaseTestClass {
     public void editDelayedMessageTest(String testSiteUrl)  {
         NavigationUtil navigationUtil = new NavigationUtil(driver);
         Verifier verifier = new Verifier();
-        String title = TestData.pushTitle;
-        String text = TestData.pushText;
+        String title = "PUSH TITLE: " + RandomGenerator.nextString();
+        String text = "DELAYED PUSH TO BE EDITED.";
         String utm_campaign = TestData.utm_campaign;
 
         String edit = "new";

@@ -1,6 +1,7 @@
 package tests.sendcampaigntests;
 
 import actions.Verifier;
+import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -22,7 +23,8 @@ public class Test_Pos_SendMessageWithUTM extends BaseTestClass {
         NavigationUtil navigationUtil = new NavigationUtil(driver);
 
         Verifier verifier = new Verifier();
-        String title = TestData.pushTitle;
+        String title = "PUSH TITLE: " + RandomGenerator.nextString();
+        String text = "UTM";
         String utm_campaign = "campaign";
 
         if (BetaFeatures.verifyBetaToTest("UTM")) {
@@ -35,7 +37,7 @@ public class Test_Pos_SendMessageWithUTM extends BaseTestClass {
 
             CampaignReportPage campaignReportPage = navigationUtil.open(CreateCampaignPage.class, testSiteUrl)
                     .setTitle(title)
-                    .setText("UTM test")
+                    .setText(text)
                     .setUTMcampaign("campaign")
                     .sendPush()
                     .openMessage(title);

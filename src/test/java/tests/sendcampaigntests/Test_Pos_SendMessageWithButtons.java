@@ -2,6 +2,7 @@ package tests.sendcampaigntests;
 
 import actions.Timer;
 import actions.Verifier;
+import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -22,8 +23,8 @@ public class Test_Pos_SendMessageWithButtons extends BaseTestClass {
     public void sendMessageWithButtonsTest(String testSiteUrl) throws Exception {
         PushHandler pushHandler = new PushHandler(driver);
         Verifier verifier = new Verifier();
-        String title = TestData.pushTitle;
-        String text = TestData.pushText;
+        String title = RandomGenerator.nextString();
+        String text = "THERE MUST BE BUTTONS BELOW";
         String button1Name = "BTN 1";
         String button2Name = "BTN 2";
         String btnRedirect1 = testSiteUrl + "/b1";
@@ -54,7 +55,7 @@ public class Test_Pos_SendMessageWithButtons extends BaseTestClass {
             if (notificationPreview.getButton2Preview() != null) {
                 verifier.assertEquals(notificationPreview.getButton2Preview().getText(), button2Name, "Incorrect name of Button 2 in Notification Preview");
             }
-            createCampaignPage.sendPush().openMessage(TestData.pushTitle).copyCampaign();
+            createCampaignPage.sendPush().openMessage(title).copyCampaign();
 
             /*int numOfWindows = driver.getWindowHandles().size();
             pushHandler.clickSecondButton();

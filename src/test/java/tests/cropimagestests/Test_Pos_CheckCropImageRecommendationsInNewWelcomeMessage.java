@@ -44,7 +44,7 @@ public class Test_Pos_CheckCropImageRecommendationsInNewWelcomeMessage extends B
             Map<String, String> imageCropRecommendationsExpected = CropRecommendations.getBigImgCropRecommendations();
 
             assertEquals(iconCropRecommendationActual, iconCropRecommendationsExpected.get(lang), "INCORRECT ICON CROP RECOMMENDATION DISPLAYED.");
-            assertEquals(imageCropRecommendationActual, imageCropRecommendationsExpected.get(lang), "INCORRECT GIG IMAGE CROP RECOMMENDATION DISPLAYED.");
+            assertEquals(imageCropRecommendationActual, imageCropRecommendationsExpected.get(lang), "INCORRECT BIG IMAGE CROP RECOMMENDATION DISPLAYED.");
 
             if(i == langs.size()) break;
             headerMenu.switchLanguage(i);

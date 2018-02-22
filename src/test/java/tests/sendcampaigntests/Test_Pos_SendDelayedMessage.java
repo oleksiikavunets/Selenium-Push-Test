@@ -33,8 +33,8 @@ public class Test_Pos_SendDelayedMessage extends BaseTestClass {
         int hour = date.getHour();
         int min = 0;
 
-        String title = RandomGenerator.nextString();
-        String text = RandomGenerator.nextString();
+        String title = "PUSH TITLE: " + RandomGenerator.nextString();
+        String text = "DELAYED PUSH";
         String siteUrl = "http://" + RandomGenerator.nextString() + ".com";
 
         new LogInPage(driver).login(TestData.email, TestData.pass);

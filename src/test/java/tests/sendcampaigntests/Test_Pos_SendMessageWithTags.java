@@ -26,8 +26,8 @@ public class Test_Pos_SendMessageWithTags extends BaseTestClass {
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "advanced settings", "tags"})
     public void sendMessageWithTagsTest(String testSiteUrl) throws Exception {
 
-        String title = RandomGenerator.nextString();
-        String text = RandomGenerator.nextString();
+        String title = "PUSH TITLE: " + RandomGenerator.nextString();
+        String text = "TAGS";
         String[] newTags = new String[]{
                 "t1" + RandomGenerator.nextString(),
                 "t2" + RandomGenerator.nextString(),
@@ -41,6 +41,7 @@ public class Test_Pos_SendMessageWithTags extends BaseTestClass {
                 .setText(text)
                 .openAdvancedOptions()
                 .addTagToCampaign(newTags);
+        System.out.println("title: " + title);
 
         List<String> tagsInPush = textOf(advancedOptions.getTagsToBeSent());
 

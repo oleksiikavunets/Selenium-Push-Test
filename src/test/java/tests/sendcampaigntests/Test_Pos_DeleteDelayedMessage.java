@@ -21,8 +21,8 @@ public class Test_Pos_DeleteDelayedMessage extends BaseTestClass {
     public void deleteDelayedMessageTest(String testSiteUrl) {
         NavigationUtil navigationUtil = new NavigationUtil(driver);
 
-        String title = RandomGenerator.nextString();
-        String text = RandomGenerator.nextString();
+        String title = "PUSH TITLE: " + RandomGenerator.nextString();
+        String text = "DELAYED PUSH TO BE DELETED.";
 
         new LogInPage(driver).login(TestData.email, TestData.pass);
         CampaignReportPage campaignReportPage = navigationUtil.open(CreateCampaignPage.class, testSiteUrl)

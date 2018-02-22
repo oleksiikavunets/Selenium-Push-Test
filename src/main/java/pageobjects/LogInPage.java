@@ -32,7 +32,11 @@ public class LogInPage extends AbstractOuterPage {
     private LogInPage openLoginPage(){
         for(int i = 0; i < 20; i++) {
             new NavigationUtil(driver).open(LogInPage.class);
-            if(loginInput.findElements(driver).size() > 0 || new HeaderMenu(driver).verifyBeingLogged()) break;
+            if(loginInput.findElements(driver).size() > 0 || new HeaderMenu(driver).verifyBeingLogged()) {
+                break;
+            }else {
+                driver.manage().deleteAllCookies();
+            }
         }
         return this;
     }

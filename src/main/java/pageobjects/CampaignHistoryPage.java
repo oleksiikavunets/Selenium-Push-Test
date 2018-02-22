@@ -1,5 +1,6 @@
 package pageobjects;
 
+import actions.Clicker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -24,7 +25,7 @@ public class CampaignHistoryPage extends AbstractAdminPage {
 
     public CampaignReportPage openMessage(String title) {
         try {
-            searchForMessage(title).click();
+            new Clicker(driver).click(searchForMessage(title));
         }catch (NullPointerException e){
             throw new NoSuchElementException("COULD NOT FIND MESSAGE WITH TITLE '" + title + "'...........................");
         }

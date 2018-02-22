@@ -2,6 +2,7 @@ package tests.sendcampaigntests;
 
 import actions.Timer;
 import actions.Verifier;
+import com.selenium.utils.RandomGenerator;
 import common.BaseTestClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,12 +29,14 @@ public class Test_Pos_CopyCampaignWithAdditionalActiveItems extends BaseTestClas
         NavigationUtil navigationUtil = new NavigationUtil(driver);
         Verifier verifier = new Verifier();
 
-        String title = TestData.pushTitle;
-        String text = TestData.pushText;
+        String title = "PUSH TITLE: " + RandomGenerator.nextString();
+        String text = "COPY PUSH";
         String utm_source = "";
         String utm_medium = "";
         String utm_campaign = "campaign";
         String bigIMG = "";
+        String btn1Name = "BTN 1";
+        String btn2Name = "BTN 2";
 
 
         String url = TestData.url;
@@ -59,8 +62,8 @@ public class Test_Pos_CopyCampaignWithAdditionalActiveItems extends BaseTestClas
 
             if (BetaFeatures.verifyBetaToTest("buttonsAndBigImage")) { //not released on kyivstar yet
                 CreateCampaignPage.AdditionalActiveItems activeItems = createCampaignPage.openAdditionalActiveItems()
-                        .setButtons("Button 1", "http://gravitec.at.ua/b1",
-                                "Button 2", "http://gravitec.at.ua/b2");
+                        .setButtons(btn1Name, "http://gravitec.at.ua/b1",
+                                btn2Name, "http://gravitec.at.ua/b2");
                 bigIMG = activeItems.uploadBigImage(TestData.bigImage);
             }
 
@@ -83,11 +86,11 @@ public class Test_Pos_CopyCampaignWithAdditionalActiveItems extends BaseTestClas
                     }
                     verifier.assertNotNull(notificationPreview.getButton1Preview(), "Button 1 was not copied! Loop NO# " + i);
                     if (notificationPreview.getButton1Preview() != null) {
-                        verifier.assertEquals(notificationPreview.getButton1Preview().getText(), "Button 1", "Button 1 assertion failed. Loop NO# " + i);
+                        verifier.assertEquals(notificationPreview.getButton1Preview().getText(), btn1Name, "Button 1 assertion failed. Loop NO# " + i);
                     }
                     verifier.assertNotNull(notificationPreview.getButton2Preview(), "Button 2 was not copied! Loop NO# " + i);
                     if (notificationPreview.getButton2Preview() != null) {
-                        verifier.assertEquals(notificationPreview.getButton2Preview().getText(), "Button 2", "Button 1 assertion failed. Loop NO# " + i);
+                        verifier.assertEquals(notificationPreview.getButton2Preview().getText(), btn2Name, "Button 2 assertion failed. Loop NO# " + i);
                     }
                 }
 

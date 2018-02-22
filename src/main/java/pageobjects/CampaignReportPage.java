@@ -1,12 +1,14 @@
 package pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by Oleksii on 17.07.2017.
@@ -106,11 +108,22 @@ public class CampaignReportPage extends AbstractAdminPage {
     }
 
     public List<WebElement> getSentTags(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(tag));
-        List<WebElement> sentTags = driver.findElements(tag);
+        List<WebElement> sentTags;
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(tag));
+            sentTags = driver.findElements(tag);
+        } catch (TimeoutException e){
+            throw new NoSuchElementException("COULD NOT FIND ANY SENT TAG ON CAMPAIGN REPORT PAGE.");
+        }
         return sentTags;
     }
     public WebElement getSentAlias(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(alias));
+        WebElement el;
+        try {
+            el = wait.until(ExpectedConditions.visibilityOfElementLocated(alias));
+        }catch (TimeoutException e){
+            throw new NoSuchElementException("COULD NOT FIND SENT ALIAS");
+        }
+        return el;
     }
 }
