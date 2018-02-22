@@ -93,18 +93,15 @@ public class CampaignReportPage extends AbstractAdminPage {
     }
 
     public String getUTM_source() {
-        String utm_source = wait.until(ExpectedConditions.visibilityOfElementLocated(redirect)).getText().split("utm_source=")[1].split("&")[0];
-        return utm_source;
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(redirect)).getText().split("utm_source=")[1].split("&")[0];
     }
 
     public String getUTM_medium() {
-        String utm_medium = wait.until(ExpectedConditions.visibilityOfElementLocated(redirect)).getText().split("utm_medium=")[1].split("&")[0];
-        return utm_medium;
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(redirect)).getText().split("utm_medium=")[1].split("&")[0];
     }
 
     public String getUTM_campaign() {
-        String utm_campaign = wait.until(ExpectedConditions.visibilityOfElementLocated(redirect)).getText().split("utm_campaign=")[1].split("&")[0];
-        return utm_campaign;
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(redirect)).getText().split("utm_campaign=")[1].split("&")[0];
     }
 
     public List<WebElement> getSentTags(){

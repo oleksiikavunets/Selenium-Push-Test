@@ -4,6 +4,8 @@ import org.openqa.selenium.*;
 
 import java.util.concurrent.TimeUnit;
 
+import static actions.Timer.waitSeconds;
+
 public class Clicker {
     WebDriver driver;
     public Clicker(WebDriver driver){
@@ -36,10 +38,12 @@ public class Clicker {
     }
 
     public void click(WebElement element){
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 10; i++) {
             try {
                 driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
                 element.click();
+                System.out.println("CLICK " + i + "ON ELEMENT " + element);
+                waitSeconds(1);
             }catch (NoSuchElementException|StaleElementReferenceException e){
                 break;
             }

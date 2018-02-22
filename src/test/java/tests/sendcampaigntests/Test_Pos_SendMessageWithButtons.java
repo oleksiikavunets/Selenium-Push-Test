@@ -23,7 +23,7 @@ public class Test_Pos_SendMessageWithButtons extends BaseTestClass {
     public void sendMessageWithButtonsTest(String testSiteUrl) throws Exception {
         PushHandler pushHandler = new PushHandler(driver);
         Verifier verifier = new Verifier();
-        String title = RandomGenerator.nextString();
+        String title = "PUSH TITLE: " + RandomGenerator.nextString();
         String text = "THERE MUST BE BUTTONS BELOW";
         String button1Name = "BTN 1";
         String button2Name = "BTN 2";

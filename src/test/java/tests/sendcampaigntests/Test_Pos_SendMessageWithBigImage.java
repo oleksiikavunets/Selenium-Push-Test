@@ -6,7 +6,6 @@ import common.BaseTestClass;
 import org.testng.SkipException;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageobjects.CampaignReportPage;
 import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
 import pageutils.NavigationUtil;
@@ -28,14 +27,13 @@ public class Test_Pos_SendMessageWithBigImage extends BaseTestClass {
 
         if (BetaFeatures.verifyBetaToTest("buttonsAndBigImage")) {
 
-            String pushTitle = "Push Title: " + RandomGenerator.nextString();
+            String pushTitle = "PUSH TITLE: " + RandomGenerator.nextString();
             String pushText = "THERE MUST BE BIG IMAGE BELOW";
             new CreateCampaignPage(driver);
             Verifier verifier = new Verifier();
 
             new LogInPage(driver).login(TestData.email, TestData.pass);
             CreateCampaignPage createCampaignPage = new NavigationUtil(driver).open(CreateCampaignPage.class, testSiteUrl)
-
                     .setTitle(pushTitle)
                     .setText(pushText);
 
@@ -43,11 +41,11 @@ public class Test_Pos_SendMessageWithBigImage extends BaseTestClass {
             String image = bigImage.uploadBigImage(TestData.bigImage);
             CreateCampaignPage.NotificationPreview notificationPreview = createCampaignPage.new NotificationPreview();
             verifier.assertTrue(notificationPreview.getBigImagePreview().isDisplayed());
-            CampaignReportPage campaignReportPage = createCampaignPage.sendPush()
-                    .openMessage(pushTitle);
-            campaignReportPage.copyCampaign();
+            createCampaignPage.sendPush()
+                    .openMessage(pushTitle)
+                    .copyCampaign();
 
-            verifier.assertEquals(notificationPreview.getBigImagePreview().getAttribute("src"), image );
+            verifier.assertEquals(notificationPreview.getBigImagePreview().getAttribute("src"), image);
             verifier.assertTestPassed();
         } else {
             throw new SkipException("");
