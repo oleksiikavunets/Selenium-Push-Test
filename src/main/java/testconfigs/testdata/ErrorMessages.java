@@ -1,6 +1,6 @@
 package testconfigs.testdata;
 
-import pageutils.MapUtil;
+import utils.MapUtil;
 
 import java.util.*;
 
@@ -32,15 +32,15 @@ public class ErrorMessages {
             "Das Bild muss nicht kleiner als die empfohlene Größe sein."
     ));
 
-    public static Map<String, String> getIconTooSmallError(){
+    public static Map<String, String> getIconTooSmallErrors(){
         return MapUtil.toMap(k, iconTooSmallErr);
     }
 
-    public static Map<String, String> getBigImageTooSmallError(){
+    public static Map<String, String> getBigImageTooSmallErrors(){
         return MapUtil.toMap(k, bigImgTooSmallErr);
     }
 
-    public static Map<String, String> getImageTooBigError(){
+    public static Map<String, String> getImageTooBigErrors(){
         return MapUtil.toMap(k, imgTooBigErr);
     }
 

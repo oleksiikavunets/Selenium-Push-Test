@@ -1,4 +1,4 @@
-package com.selenium.utils;
+package utils;
 
 
 import org.apache.logging.log4j.LogManager;

@@ -10,7 +10,7 @@ import pageobjects.SiteManagerPage;
 import testconfigs.baseconfiguration.TestCofiguration;
 import testutils.Listeners.LogListener;
 
-import static com.selenium.utils.NameGenerator.generateNewHttpSiteName;
+import static utils.NameGenerator.generateNewHttpSiteName;
 import static testconfigs.testdata.TestData.testEmail;
 import static testconfigs.testdata.TestData.testPass;
 import static testconfigs.testdatamanagers.TestSiteManager.getHttpSiteNumber;

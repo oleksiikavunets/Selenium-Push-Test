@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
-import static com.selenium.utils.NameGenerator.generateNewUserEmail;
+import static utils.NameGenerator.generateNewUserEmail;
 import static testconfigs.testdatamanagers.TestUserManager.*;
 
 @Listeners(LogListener.class)

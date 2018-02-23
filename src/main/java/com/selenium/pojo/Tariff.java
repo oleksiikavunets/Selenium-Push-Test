@@ -2,7 +2,7 @@ package com.selenium.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.selenium.utils.JsonUtils;
+import utils.JsonUtils;
 
 
 public class Tariff {

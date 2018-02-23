@@ -47,10 +47,14 @@
             <class name="tests.statistictests.Test_Pos_SubscriberStatistics"/>
         </classes>
     </test>
-    <test name="ADDING AND EDITING SITES" parallel="classes" thread-count="2">
+    <test name="CREATE NEW SITES" >
         <classes>
             <class name="tests.usersitetests.Test_Pos_CreateHttpsSite"/>
             <class name="tests.usersitetests.Test_Pos_CreateHttpSite"/>
+        </classes>
+    </test>
+    <test name="ADDING AND EDITING SITES" parallel="classes" thread-count="2">
+        <classes>
             <class name="tests.usersitetests.Test_Pos_DeleteSite"/>
             <class name="tests.statistictests.Test_Pos_Subscription"/>
             <class name="tests.wmtests.Test_Pos_CreateWM"/>
@@ -98,6 +102,8 @@
             <class name="tests.negativetests.Test_Neg_SendMessage"/>
             <class name="tests.negativetests.Test_Neg_EditUTM"/>
             <class name="tests.negativetests.Test_Neg_CreateTagList"/>
+            <class name="tests.negativetests.Test_Neg_CheckCropImageErrorsInNewCampaign"/>
+            <class name="tests.negativetests.Test_Neg_CheckCropImageErrorsInNewWelcomeMessage"/>
         </classes>
     </test>
 </suite>

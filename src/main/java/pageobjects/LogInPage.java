@@ -29,6 +29,10 @@ public class LogInPage extends AbstractOuterPage {
         super(driver);
     }
 
+    public boolean verifyLoginPageOpened(){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(loginInput)).isDisplayed();
+    }
+
     private LogInPage openLoginPage(){
         for(int i = 0; i < 20; i++) {
             new NavigationUtil(driver).open(LogInPage.class);

@@ -167,16 +167,30 @@ public class TestSiteManager extends TestServerConfiguretion {
     }
 
     public static void updateSiteOwnerPass(String email, String pass) {
+       updateHttpsSiteOwner(email, pass);
+       updateHttpSiteOwner(email, pass);
+    }
+
+    private static void updateHttpsSiteOwner(String email, String pass){
         try {
             prop.load(new FileInputStream(getFullPath()));
             if (prop.getProperty("httpsSiteOwner").split(":")[0].equals(email)) {
                 prop.setProperty("httpsSiteOwner", email + ":" + pass);
             }
+            prop.store(new FileOutputStream(getFullPath()), null);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private static void updateHttpSiteOwner(String email, String pass){
+        try {
+            prop.load(new FileInputStream(getFullPath()));
             if (prop.getProperty("httpSiteOwner").split(":")[0].equals(email)) {
                 prop.setProperty("httpSiteOwner", email + ":" + pass);
             }
             prop.store(new FileOutputStream(getFullPath()), null);
-        } catch (IOException e) {
+        }catch (IOException e){
             e.printStackTrace();
         }
     }

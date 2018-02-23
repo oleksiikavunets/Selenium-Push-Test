@@ -1,8 +1,9 @@
 package tests.sendcampaigntests;
 
 import actions.Verifier;
-import com.selenium.utils.RandomGenerator;
+import utils.RandomGenerator;
 import common.BaseTestClass;
+import org.openqa.selenium.NoSuchElementException;
 import org.testng.SkipException;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -14,6 +15,8 @@ import testconfigs.testdata.TestDataProvider;
 import testconfigs.testrestrictions.BetaFeatures;
 import testutils.Listeners.LogListener;
 
+import java.util.Optional;
+
 /**
  * Created by Oleksii on 31.07.2017.
  */
@@ -23,7 +26,7 @@ public class Test_Pos_SendMessageWithBigImage extends BaseTestClass {
 
 
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites", groups = {"send push", "active elements", "big image"})
-    public void sendMessageWithBIGImageTest(String testSiteUrl) {
+    public void sendMessageWithBigImageTest(String testSiteUrl) {
 
         if (BetaFeatures.verifyBetaToTest("buttonsAndBigImage")) {
 
@@ -40,7 +43,10 @@ public class Test_Pos_SendMessageWithBigImage extends BaseTestClass {
             CreateCampaignPage.AdditionalActiveItems bigImage = createCampaignPage.openAdditionalActiveItems();
             String image = bigImage.uploadBigImage(TestData.bigImage);
             CreateCampaignPage.NotificationPreview notificationPreview = createCampaignPage.new NotificationPreview();
-            verifier.assertTrue(notificationPreview.getBigImagePreview().isDisplayed());
+            verifier.assertTrue(
+                    Optional.ofNullable(notificationPreview.getBigImagePreview())
+                            .orElseThrow(() -> new NoSuchElementException("BIG IMAGE NOT DISPLAYED IN NOTIFICATION PREVIEW"))
+                            .isDisplayed());
             createCampaignPage.sendPush()
                     .openMessage(pushTitle)
                     .copyCampaign();

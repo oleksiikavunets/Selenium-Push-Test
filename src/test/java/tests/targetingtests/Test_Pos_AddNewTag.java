@@ -1,7 +1,7 @@
 package tests.targetingtests;
 
 import actions.UserActions;
-import com.selenium.utils.RandomGenerator;
+import utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;

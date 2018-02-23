@@ -1,7 +1,7 @@
 package tests.sendcampaigntests;
 
 import actions.UserActions;
-import com.selenium.utils.RandomGenerator;
+import utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
@@ -17,7 +17,7 @@ import testutils.Listeners.LogListener;
 
 import java.util.List;
 
-import static com.selenium.utils.TextGetter.textOf;
+import static utils.TextUtil.textOf;
 
 @Listeners(LogListener.class)
 public class Test_Pos_SendMessageWithTags extends BaseTestClass {

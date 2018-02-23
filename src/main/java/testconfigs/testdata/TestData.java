@@ -1,6 +1,6 @@
 package testconfigs.testdata;
 
-import com.selenium.utils.RandomGenerator;
+import utils.RandomGenerator;
 
 import static com.selenium.enums.Protocol.HTTP;
 import static com.selenium.enums.Protocol.HTTPS;

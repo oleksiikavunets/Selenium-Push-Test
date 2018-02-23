@@ -19,7 +19,7 @@ import java.util.List;
 
 import static com.selenium.enums.Protocol.HTTPS;
 import static com.selenium.enums.Server.P2B;
-import static com.selenium.utils.TextGetter.textOf;
+import static utils.TextUtil.textOf;
 import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 
 @Listeners(LogListener.class)

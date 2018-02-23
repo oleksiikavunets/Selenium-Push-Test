@@ -1,6 +1,6 @@
 import com.selenium.GravitecServer;
 import com.selenium.pojo.User;
-import com.selenium.utils.JsonUtils;
+import utils.JsonUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Wait;
 

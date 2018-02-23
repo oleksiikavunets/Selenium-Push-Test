@@ -1,7 +1,7 @@
 package tests.sendcampaigntests;
 
 import actions.Timer;
-import com.selenium.utils.RandomGenerator;
+import utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.Assert;
 import org.testng.annotations.Test;

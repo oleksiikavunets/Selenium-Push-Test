@@ -3,7 +3,7 @@ package tests.wmtests;
 import actions.Timer;
 import actions.UserActions;
 import actions.Verifier;
-import com.selenium.utils.Log;
+import utils.Log;
 import common.BaseTestClass;
 import org.testng.SkipException;
 import org.testng.annotations.Listeners;

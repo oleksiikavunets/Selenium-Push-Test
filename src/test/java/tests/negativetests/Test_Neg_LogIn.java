@@ -15,7 +15,7 @@ import testutils.Listeners.LogListener;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.selenium.utils.TextGetter.textOf;
+import static utils.TextUtil.textOf;
 
 /**
  * Created by Oleksii on 31.07.2017.
@@ -38,8 +38,7 @@ public class Test_Neg_LogIn extends BaseTestClass {
 
         logInPage.login(TestData.email, TestData.pass);
         List<WebElement> langs = headerMenu.getAvailableLanguages();
-        langs.get(0).click();
-        driver.navigate().refresh();
+        headerMenu.switchFirstLanguage();
         siteLang = headerMenu.checkLanguage();
 
 

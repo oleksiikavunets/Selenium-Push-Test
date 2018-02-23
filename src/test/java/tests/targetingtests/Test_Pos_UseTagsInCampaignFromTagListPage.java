@@ -1,7 +1,7 @@
 package tests.targetingtests;
 
 import actions.UserActions;
-import com.selenium.utils.RandomGenerator;
+import utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
@@ -16,7 +16,7 @@ import testutils.Listeners.LogListener;
 
 import java.util.List;
 
-import static com.selenium.utils.TextGetter.textOf;
+import static utils.TextUtil.textOf;
 import static testconfigs.testdata.TestData.email;
 import static testconfigs.testdata.TestData.pass;
 

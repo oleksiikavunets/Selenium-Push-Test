@@ -1,19 +1,16 @@
 package pageobjects;
 
-import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import webdriverconfiger.WaitManager;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static com.selenium.enums.Server.P2B;
-import static com.selenium.utils.TextGetter.textOf;
+import static utils.TextUtil.textOf;
+import static testconfigs.baseconfiguration.TestServerConfiguretion.iTest;
 
 /**
  * Created by Oleksii on 13.07.2017.
@@ -23,6 +20,7 @@ public class HeaderMenu extends AbstractAdminPage {
     public By logo = By.cssSelector("a[ui-sref=\"list\"]");
     public By logOutButton = By.cssSelector("span[ng-bind-html*=\"HDR_SGN_OUT\"]");
     public By languageDropDown = By.cssSelector("a[class=\"dropdown-toggle\"]");
+    private By siteLang = By.cssSelector("img[ng-if*='Header.getLang']");
     public By language = By.cssSelector("a[ng-class*=\"Header.getLang\"]");
     public By en = By.cssSelector("img[src=\"../../../assets/img/english.png\"]");
     public By ru = By.cssSelector("img[src=\"../../../assets/img/russian.png\"]");
@@ -44,7 +42,7 @@ public class HeaderMenu extends AbstractAdminPage {
 
     public LogInPage logout() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).click();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(logOutButton));
+        wait.until(l -> new LogInPage(driver).verifyLoginPageOpened());
         return new LogInPage(driver);
     }
 
@@ -61,18 +59,25 @@ public class HeaderMenu extends AbstractAdminPage {
         return langs;
     }
 
-    public HeaderMenu switchFirstLanguage(){
+    public HeaderMenu switchFirstLanguage() {
         List<WebElement> langs = driver.findElements(language);
-        if(langs.size() > 1) {
-            String langToChange = textOf(logOutButton, driver);
-            langs.get(0).click();
-            wait.until(ExpectedConditions.invisibilityOfElementWithText(logOutButton, langToChange));
+        if (langs.size() > 1 &&
+                !checkLanguage().equals(langs.get(0)
+                        .getAttribute("ng-class")
+                        .split("=== '")[1].split("'")[0])) {
+            try {
+                String langToChange = textOf(logOutButton, driver);
+                langs.get(0).click();
+                wait.until(ExpectedConditions.invisibilityOfElementWithText(logOutButton, langToChange));
+            }catch (ElementNotVisibleException e){
+                openLanguageDropDown().switchFirstLanguage();
+            }
         }
         return this;
     }
 
     public HeaderMenu switchLanguage(int i) {
-        if (!TestServerConfiguretion.iTest.equals(P2B)) //Push2b.com has only one language version
+        if (!iTest.equals(P2B)) //Push2b.com has only one language version
         {
             String langToChange = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
             openLanguageDropDown();
@@ -85,7 +90,7 @@ public class HeaderMenu extends AbstractAdminPage {
     }
 
     public HeaderMenu switchLanguage() {
-        if (!TestServerConfiguretion.iTest.equals(P2B)) //Push2b.com has only one language version
+        if (!iTest.equals(P2B)) //Push2b.com has only one language version
         {
             String langToChange = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
             openLanguageDropDown();
@@ -96,82 +101,17 @@ public class HeaderMenu extends AbstractAdminPage {
     }
 
     public String checkLanguage() {
-        String mot = textOf(logOutButton, driver);
-        return mot.equals("Sign out") ? "en" :
-                mot.equals("Wyloguj") ? "pl" :
-                        mot.equals("Вийти") ? "ua" :
-                                mot.equals("Выйти") ? "ru" :
-                                        mot.equals("Ausloggen") ? "de" : null;
-    }
-
-    public HeaderMenu switchPl() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(languageDropDown));
-        try {
-            Assert.assertTrue(driver.findElement(pl).isDisplayed());
-        } catch (AssertionError e) {
-            openLanguageDropDown();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(pl)).click();
-        }
-        return this;
-    }
-
-    public HeaderMenu switchEng() {
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(languageDropDown));
-        try {
-            Assert.assertTrue(driver.findElement(en).isDisplayed());
-        } catch (AssertionError e) {
-            openLanguageDropDown();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(en)).click();
-        }
-        return this;
-    }
-
-    public HeaderMenu switchRu() {
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(languageDropDown));
-        try {
-            Assert.assertTrue(driver.findElement(ru).isDisplayed());
-        } catch (AssertionError e) {
-            openLanguageDropDown();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(ru)).click();
-        }
-        return this;
-    }
-
-    public HeaderMenu switchDe() {
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(languageDropDown));
-        try {
-            Assert.assertTrue(driver.findElement(de).isDisplayed());
-        } catch (AssertionError e) {
-            openLanguageDropDown();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(de)).click();
-        }
-        return this;
-    }
-
-    public HeaderMenu switchNextLanguage() {
-        String mot = wait.until(ExpectedConditions.visibilityOfElementLocated(logOutButton)).getText();
-        switch (mot) {
-            case ("Sign out"):
-                switchPl();
-                break;
-            case ("Wyloguj"):
-                switchRu();
-                break;
-            case ("Выйти"):
-                switchDe();
-                break;
-            default:
-                break;
-        }
-        return this;
+        return siteLang.findElement(driver).getAttribute("ng-if").split("=== '")[1].split("'")[0];
     }
 
     public void waitForBeingLogged() {
-        new WaitManager(driver).getWait(60)
-        .until(ExpectedConditions.visibilityOfElementLocated(logOutButton));
+        try {
+            new WaitManager(driver).getWait(60)
+                    .until(ExpectedConditions.visibilityOfElementLocated(logOutButton));
+        } catch (org.openqa.selenium.TimeoutException e) {
+            throw new NoSuchElementException("COULD NOT AUTHORIZE.");
+        }
+
     }
 
     public boolean verifyBeingLogged() {

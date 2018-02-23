@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static actions.Timer.waitSeconds;
-import static com.selenium.utils.TextGetter.textOf;
+import static utils.TextUtil.textOf;
 
 @PartialPath(value = "/sites/SITE_ID/subscribers")
 public class SubscribersPage extends AbstractAdminPage {

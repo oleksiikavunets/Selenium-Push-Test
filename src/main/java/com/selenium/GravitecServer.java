@@ -4,7 +4,7 @@ import com.selenium.pojo.Alias;
 import com.selenium.pojo.Message;
 import com.selenium.pojo.Tag;
 import com.selenium.pojo.User;
-import com.selenium.utils.JsonUtils;
+import utils.JsonUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;

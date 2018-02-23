@@ -2,8 +2,8 @@ package tests.mailtests;
 
 import actions.Verifier;
 import com.selenium.MailService;
-import com.selenium.utils.Log;
-import com.selenium.utils.RandomGenerator;
+import utils.Log;
+import utils.RandomGenerator;
 import common.BaseTestClass;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;

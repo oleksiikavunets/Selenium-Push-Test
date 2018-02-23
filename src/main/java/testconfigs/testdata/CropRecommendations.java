@@ -1,6 +1,6 @@
 package testconfigs.testdata;
 
-import pageutils.MapUtil;
+import utils.MapUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;

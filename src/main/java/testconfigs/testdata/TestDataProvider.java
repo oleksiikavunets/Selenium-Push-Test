@@ -1,7 +1,7 @@
 package testconfigs.testdata;
 
 import com.selenium.enums.TestSitesScope;
-import com.selenium.utils.RandomGenerator;
+import utils.RandomGenerator;
 import org.testng.annotations.DataProvider;
 import testconfigs.baseconfiguration.TestCofiguration;
 

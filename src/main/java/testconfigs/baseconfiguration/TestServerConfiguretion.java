@@ -5,23 +5,13 @@ import com.selenium.enums.Server;
 import java.io.*;
 import java.util.Properties;
 
+import static com.selenium.enums.Server.*;
+
 /**
  * Created by Oleksii on 01.08.2017.
  */
 public class TestServerConfiguretion {
     private static Properties prop = new Properties();
-    String propertyPath;
-    int port;
-    int directPort;
-    String hostUrl;
-    String apiUrl;
-    String testSiteUrl;
-    String adminLogin;
-    String adminPass;
-    String emailNumber;
-    String password;
-    String startUrl;
-    String pattern;
 
     public static Server iTest = TestCofiguration.testServer;
 
@@ -36,43 +26,21 @@ public class TestServerConfiguretion {
         iTest = serverToTest;
     }
 
-    protected String setPath() {
+    private static String setPath() {
         return String.format("src/main/resources/data/%s.property", iTest);
     }
 
     public String getStartUrl(){
-        switch (iTest){
-            case WPUSH:
-                startUrl = getHostUrl();
-                break;
-            case UBR:
-                startUrl = getHostUrl();
-                break;
-            default:
-                startUrl = getHostUrl() + getPort();
-        }
-        return startUrl;
+        return (iTest == WPUSH || iTest == UBR) ? getHostUrl() : getHostUrl() + getPort();
     }
 
     public String pattern(){
-        switch (iTest){
-            case WPUSH:
-                pattern = ".*Wpush.*";
-                break;
-            case WPUSH_7700:
-                pattern = ".*Wpush.*";
-                break;
-            case P2B:
-                pattern = ".*Push2b*.";
-                break;
-            default:
-                pattern = ".*Gravitec.net.*";
-                break;
-        }
-    return pattern;
+        return (iTest == WPUSH || iTest == WPUSH_7700) ? ".*Wpush.*" :
+                iTest == P2B ? ".*Push2b*." : ".*Gravitec.net.*";
     }
 
-    public int getPort(){
+    public static int getPort(){
+        int port = 0;
         try {
             InputStream input = new FileInputStream(setPath());
             prop.load(input);
@@ -85,7 +53,8 @@ public class TestServerConfiguretion {
         }
         return port;
     }
-    public int getDirectPort(){
+    public static int getDirectPort(){
+        int directPort = 0;
         try {
             InputStream input = new FileInputStream(setPath());
             prop.load(input);
@@ -96,11 +65,10 @@ public class TestServerConfiguretion {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return directPort;
     }
-    public String getHostUrl(){
+    public static String getHostUrl(){
+        String hostUrl = "";
         try {
             InputStream input = new FileInputStream(setPath());
             prop.load(input);
@@ -113,7 +81,8 @@ public class TestServerConfiguretion {
         }
         return hostUrl;
     }
-    public String getApiUrl(){
+    public static String getApiUrl(){
+        String apiUrl = "";
         try {
             InputStream input = new FileInputStream(setPath());
             prop.load(input);
@@ -126,7 +95,8 @@ public class TestServerConfiguretion {
         return apiUrl;
     }
 
-    public String getAdminLogin(){
+    public static String getAdminLogin(){
+        String adminLogin = "";
         try {
             InputStream input = new FileInputStream(setPath());
             prop.load(input);
@@ -139,7 +109,8 @@ public class TestServerConfiguretion {
         return adminLogin;
     }
 
-    public String getAdminPass(){
+    public static String getAdminPass(){
+        String adminPass = "";
         try {
             InputStream input = new FileInputStream(setPath());
             prop.load(input);
@@ -152,7 +123,8 @@ public class TestServerConfiguretion {
         return adminPass;
     }
 
-    public String getEmailNumber(){
+    public static String getEmailNumber(){
+        String emailNumber = "";
         try {
             InputStream input = new FileInputStream(setPath());
             prop.load(input);
@@ -165,7 +137,7 @@ public class TestServerConfiguretion {
         return emailNumber;
     }
 
-    public void setEmailNumber(int num){
+    public static void setEmailNumber(int num){
         try {
             InputStream input = new FileInputStream(setPath());
             prop.load(input);
@@ -179,7 +151,8 @@ public class TestServerConfiguretion {
         }
     }
 
-    public String getPassword(){
+    public static String getPassword(){
+        String password = "";
         try {
             InputStream input = new FileInputStream(setPath());
             prop.load(input);
@@ -192,7 +165,7 @@ public class TestServerConfiguretion {
         return password;
     }
 
-    public void setPassword(String password) {
+    public static void setPassword(String password) {
         try {
             InputStream input = new FileInputStream(setPath());
             prop.load(input);

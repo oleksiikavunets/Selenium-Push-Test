@@ -8,9 +8,10 @@ import org.openqa.selenium.support.ui.Wait;
 import webdriverconfiger.WaitManager;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import static actions.Timer.waitSeconds;
-import static com.selenium.utils.TextGetter.textOf;
+import static utils.TextUtil.textOf;
 
 public class CropUtil {
 
@@ -25,20 +26,22 @@ public class CropUtil {
 
     private By iconCropRec = By.cssSelector("p[ng-bind-html*='SETTNGS_REC']");
     private By iconTooSmallErr = By.cssSelector("span[ng-bind*=ICON_TOO_SMALL]");
+    private By iconTooBigErr = By.cssSelector("[ng-if*='iconErrorMessage'][ng-bind*='max size 200kb']");
     private By iconNotDistHint = By.cssSelector("[picture*=icon] p[translate=IMG_NOT_DIST]");
     private By iconWillBeDistHint = By.cssSelector("[picture*=icon] p[translate=IMG_WILL_BE_DIST]");
     private By iconWillZoomHint = By.cssSelector("[picture*=icon] p[translate=IMG_WILL_ZOOMED]");
 
-    private By imgCropRec = By.cssSelector("p[ng-bind*=SETTNGS_BIG_REC]");
-    private By imgTooSmallErr = By.cssSelector("span[ng-bind*=IMAGE_TOO_SMALL]");
+    private By bigImgCropRec = By.cssSelector("p[ng-bind*=SETTNGS_BIG_REC]");
+    private By bigImgTooSmallErr = By.cssSelector("span[ng-bind*=IMAGE_TOO_SMALL]");
+    private By bigImgTooBigErr = By.cssSelector("[ng-if*='imageErrorMessage'][ng-bind*='max size 200kb']");
 
-    private By tooBigErr = By.cssSelector("span[ng-bind=image to big]");
     private By bigImgNotDistHint = By.cssSelector("[picture*=img] p[translate=IMG_NOT_DIST]");
     private By bigImgWillBeDistHint = By.cssSelector("[picture*=img] p[translate=IMG_WILL_BE_DIST]");
     private By bigImgWillZoomHint = By.cssSelector("[picture*=img] p[translate=IMG_WILL_ZOOMED]");
 
     public CropUtil(WebDriver driver) {
         this.driver = driver;
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         wait = new WaitManager(driver).getWait();
     }
 
@@ -88,6 +91,10 @@ public class CropUtil {
         return textOf(iconTooSmallErr, driver);
     }
 
+    public String getIconTooBigErr(){
+        return textOf(iconTooBigErr, driver);
+    }
+
     public String getIconNotDistHint() {
         return textOf(iconNotDistHint, driver);
     }
@@ -101,15 +108,15 @@ public class CropUtil {
     }
 
     public String getBigImageCropRecommendation() {
-        return textOf(imgCropRec, driver);
+        return textOf(bigImgCropRec, driver);
     }
 
-    public String getImgTooSmallErr() {
-        return textOf(imgTooSmallErr, driver);
+    public String getBigImgTooSmallErr() {
+        return textOf(bigImgTooSmallErr, driver);
     }
 
-    public String getImgTooBigErr() {
-        return textOf(tooBigErr, driver);
+    public String getBigImgTooBigErr() {
+        return textOf(bigImgTooBigErr, driver);
     }
 
     public String getBigImgNotDistHint() {
@@ -123,6 +130,4 @@ public class CropUtil {
     public String getBigImgWillZoomHint() {
         return textOf(bigImgWillZoomHint, driver);
     }
-
-
 }

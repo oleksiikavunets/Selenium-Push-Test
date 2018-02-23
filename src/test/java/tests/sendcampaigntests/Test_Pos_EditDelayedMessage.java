@@ -1,7 +1,7 @@
 package tests.sendcampaigntests;
 
 import actions.Verifier;
-import com.selenium.utils.RandomGenerator;
+import utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;

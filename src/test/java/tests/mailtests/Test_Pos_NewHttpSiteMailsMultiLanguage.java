@@ -2,7 +2,7 @@ package tests.mailtests;
 
 import actions.Verifier;
 import com.selenium.MailService;
-import com.selenium.utils.RandomGenerator;
+import utils.RandomGenerator;
 import common.BaseTestClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

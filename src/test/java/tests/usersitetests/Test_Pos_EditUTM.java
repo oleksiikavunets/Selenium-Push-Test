@@ -1,7 +1,7 @@
 package tests.usersitetests;
 
 import actions.Verifier;
-import com.selenium.utils.Log;
+import utils.Log;
 import common.BaseTestClass;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.SkipException;

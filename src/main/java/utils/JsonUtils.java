@@ -1,4 +1,4 @@
-package com.selenium.utils;
+package utils;
 
 
 import com.google.gson.*;
