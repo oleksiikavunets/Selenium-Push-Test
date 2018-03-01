@@ -64,20 +64,8 @@ public class CampaignReportPage extends AbstractAdminPage {
     }
 
     public boolean verifyMessageDelayed() {
-        boolean delayed = false;
-        WebElement copy = null;
         wait.until(ExpectedConditions.visibilityOfElementLocated(copyButton));
-        try {
-            copy = editButton.findElement(driver);
-        } catch (org.openqa.selenium.NoSuchElementException noEl) {
-        } finally {
-            if (copy != null) {
-                if (copy.isDisplayed()) {
-                    delayed = true;
-                }
-            }
-        }
-        return delayed;
+        return driver.findElements(editButton).size() > 0;
     }
 
     public String getPushTitle() {

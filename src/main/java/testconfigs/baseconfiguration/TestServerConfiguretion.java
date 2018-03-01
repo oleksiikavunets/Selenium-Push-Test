@@ -27,7 +27,7 @@ public class TestServerConfiguretion {
     }
 
     private static String setPath() {
-        return String.format("src/main/resources/data/%s.property", iTest);
+        return String.format("src/data/%s.property", iTest);
     }
 
     public String getStartUrl(){

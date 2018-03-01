@@ -25,5 +25,3 @@ public class BillingPage extends AbstractAdminPage {
         return this;
     }
 }
-
-//body > div.modal.fade.ng-scope.ng-isolate-scope.in > div > div > h3

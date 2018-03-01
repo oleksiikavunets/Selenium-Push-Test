@@ -1,5 +1,6 @@
 package tests.mailtests;
 
+import actions.UserActions;
 import actions.Verifier;
 import com.selenium.MailService;
 import utils.Log;
@@ -47,6 +48,7 @@ public class Test_Pos_NewHttpsSiteMailsMultiLanguage extends BaseTestClass {
             verifier.assertTrue(verifier.verifyReceivedMail(message, siteLang));
             headerMenu.clickLogo();
             mainAdminPage.verifySitePresent(siteUrl);
+            new UserActions(driver).deleteSite(siteUrl);
             if (i == langs.size() || TestServerConfiguretion.iTest.equals(P2B)) {
                 break;
             }

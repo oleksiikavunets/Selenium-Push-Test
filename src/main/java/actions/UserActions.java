@@ -1,17 +1,17 @@
 package actions;
 
-import org.openqa.selenium.chrome.ChromeDriver;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.MailService;
 import com.selenium.enums.Server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import pageobjects.*;
 import pageutils.NavigationUtil;
+import testconfigs.baseconfiguration.TestServerConfiguretion;
 import webdriverconfiger.WaitManager;
 
 import java.util.stream.Collectors;
@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
 import static com.selenium.enums.Protocol.HTTP;
 import static com.selenium.enums.Protocol.HTTPS;
 import static com.selenium.enums.Server.WPUSH;
-import static testconfigs.testdata.TestData.testEmail;
-import static testconfigs.testdata.TestData.testPass;
 import static testconfigs.testdatamanagers.TestSiteManager.getNewTestSiteUrl;
 import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 import static testconfigs.testdatamanagers.TestUserManager.*;
@@ -42,9 +40,8 @@ public class UserActions {
     }
 
     public String createSite(String siteUrl) throws Exception {
-        new LogInPage(driver).login(testEmail, testPass);
-        String script = new AddNewSitePage(driver).createSite(siteUrl);
-        return script;
+        new LogInPage(driver).login(getEmail(), getPassword());
+        return new AddNewSitePage(driver).createSite(siteUrl);
     }
 
     public void createSite(String email, String pass, String siteUrl) throws Exception {
@@ -164,7 +161,7 @@ public class UserActions {
         }
     }
 
-    public void addNewTag(String testSite, String... newTag) throws Exception {
+    public void addNewTag(String testSite, String... newTag) {
         JSRunner jsRunner = new JSRunner(driver);
         try {
             subscribe(testSite);
@@ -179,7 +176,7 @@ public class UserActions {
         }
     }
 
-    public void addNewAlias(String testSite, String alias) throws Exception {
+    public void addNewAlias(String testSite, String alias)  {
         JSRunner jsRunner = new JSRunner(driver);
         try {
             subscribe(testSite);

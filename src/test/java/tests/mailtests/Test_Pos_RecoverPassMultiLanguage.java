@@ -34,10 +34,11 @@ public class Test_Pos_RecoverPassMultiLanguage extends BaseTestClass {
         String email = getEmail();
         String newPass;
         String oldPass = getPassword();
+        System.out.println(oldPass);
         String siteLang;
 
         newPass = oldPass.equals("tttt1111") ? "qqqq1111" : "tttt1111";
-
+        System.out.println(newPass);
         new LogInPage(driver).login(TestData.email, TestData.pass);
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         headerMenu.switchFirstLanguage();

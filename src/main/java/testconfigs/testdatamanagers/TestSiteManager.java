@@ -10,7 +10,7 @@ import static com.selenium.enums.Protocol.HTTP;
 
 public class TestSiteManager extends TestServerConfiguretion {
 
-    private static String path = "src/main/resources/data/testsites/";
+    private static String path = "src/data/testsites/";
 
     private static Properties prop = new Properties();
 

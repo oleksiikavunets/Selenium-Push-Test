@@ -1,0 +1,1 @@
+{"uuid":"233ecb1a-f0a9-4c12-b1c3-e22e4e3fdebd","name":"MAILING TEST","start":1519836856565,"stop":1519836886592,"children":["629e36b9-45d2-4fa4-bba3-ffa2d8831027","671776f9-afd5-4b9d-a13a-0dbed460bae4"],"befores":[{"name":"initializeTest","status":"passed","stage":"finished","description":"","start":1519836856565,"stop":1519836856565}]}

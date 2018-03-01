@@ -8,12 +8,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
 
 import java.io.File;
 
 import static com.selenium.enums.Server.WPUSH;
+import static testconfigs.baseconfiguration.TestServerConfiguretion.iTest;
 
 @PartialPath(value = "/add/site/step1")
 public class AddNewSitePage extends AbstractAdminPage {
@@ -64,13 +64,11 @@ public class AddNewSitePage extends AbstractAdminPage {
 
 
     public AddNewSitePage selectHTTPprotocol(){
-        Clicker clicker = new Clicker(driver);
-        clicker.clickJS(driver.findElement(httpButton));
+        new Clicker(driver).clickJS(driver.findElement(httpButton));
         return this;
     }
     public AddNewSitePage selectHTTPSprotocol(){
-        Clicker clicker = new Clicker(driver);
-        clicker.clickJS(driver.findElement(httpsButton));
+        new Clicker(driver).clickJS(driver.findElement(httpsButton));
         return this;
     }
 
@@ -90,23 +88,14 @@ public class AddNewSitePage extends AbstractAdminPage {
     }
 
     public AddNewSitePage clickAdd() {
-        Clicker clicker = new Clicker(driver);
-
         WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(addSiteButton));
-        clicker.clickJS(el);
+        new Clicker(driver).clickJS(el);
         return this;
     }
 
     public WebElement getIconTooBigError(){
-        By locator;
-        if(TestServerConfiguretion.iTest.equals(WPUSH)){
-            locator = iconError;
-        }else {
-            locator = iconErrorGRV;
-        }
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(
+                iTest.equals(WPUSH) ? iconError : iconErrorGRV));
     }
-
-
 }
 

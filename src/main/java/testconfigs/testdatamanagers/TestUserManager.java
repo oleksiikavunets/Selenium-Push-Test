@@ -10,7 +10,7 @@ import static testconfigs.testdatamanagers.TestSiteManager.updateSiteOwnerPass;
 
 public class TestUserManager {
 
-    private static final String path = "src/main/resources/data/testusers/";
+    private static final String path = "src/data/testusers/";
     private static Properties prop = new Properties();
 
     private static String getFullPath() {
@@ -117,11 +117,9 @@ public class TestUserManager {
 
     public static void setPassword(String pass) {
         try {
-            InputStream input = new FileInputStream(getFullPath());
-            prop.load(input);
-            OutputStream output = new FileOutputStream(getFullPath());
+            prop.load(new FileInputStream(getFullPath()));
             prop.setProperty("password", String.valueOf(pass));
-            prop.store(output, null);
+            prop.store(new FileOutputStream(getFullPath()), null);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

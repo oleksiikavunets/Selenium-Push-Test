@@ -38,7 +38,7 @@ public class Test_Pos_SubscriberStatistics extends BaseTestClass {
     }
 
     @Test(dataProviderClass = TestDataProvider.class, dataProvider = "getPermanentTestSites")
-    public void periodFilterTest(String testSite){
+    public void periodFilterTest(String testSite) {
 
         NavigationUtil navigationUtil = new NavigationUtil(driver);
         Verifier verifier = new Verifier();
@@ -48,21 +48,20 @@ public class Test_Pos_SubscriberStatistics extends BaseTestClass {
         String monthAgo = LocalDateTime.now().minusDays(30).format(DateTimeFormatter.ofPattern("dd.MM.YYYY"));
 
         new LogInPage(driver).login(email, pass);
-        SubscribersPage subscribersPage = navigationUtil.open(SubscribersPage.class, testSite);
-
-        subscribersPage.switchLifeTimeStats();
-        verifier.assertEquals(subscribersPage.getAllDatesInGraph().get(0), now,"Incorrect end date in Life Time Period..............................");
+        SubscribersPage subscribersPage = navigationUtil.open(SubscribersPage.class, testSite)
+                .switchLifeTimeStats();
+        verifier.assertEquals(subscribersPage.getAllDatesInGraph().get(0), now, "Incorrect end date in Life Time Period..............................");
 
         subscribersPage.switchMonthStats();
         List<String> monthGraph = subscribersPage.getAllDatesInGraph();
-        verifier.assertEquals(monthGraph.size(), 31);
+        verifier.assertEquals(monthGraph.size(), 31, "Graph does not display month period correctly...........");
         verifier.assertEquals(monthGraph.get(0), now, "Incorrect end date in Month Period........");
         verifier.assertEquals(monthGraph.get(monthGraph.size() - 1), monthAgo, "Incorrect start date in Month Period........");
 
         subscribersPage.switchTodayStats();
         List<String> todayGraph = subscribersPage.getAllDatesInGraph();
         verifier.assertEquals(todayGraph.size(), 1, "Today graph displays more than 1 day.................");
-        verifier.assertEquals(todayGraph.get(0), now , "Incorrect date of Today Period...................");
+        verifier.assertEquals(todayGraph.get(0), now, "Incorrect date of Today Period...................");
 
         subscribersPage.switchYesterdayStats();
         List<String> yesterdayGraph = subscribersPage.getAllDatesInGraph();

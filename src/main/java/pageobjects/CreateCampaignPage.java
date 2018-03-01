@@ -290,8 +290,8 @@ public class CreateCampaignPage extends AbstractAdminPage {
                     wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a[title='" + t + "']"))).click();
                     wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + t + "')]")));
                 });
-            }catch (TimeoutException e){
-                throw new NoSuchElementException("COULD NOT FIND AND ADD  TAGS CAMPAIGN");
+            } catch (TimeoutException e) {
+                throw new NoSuchElementException("COULD NOT FIND AND ADD TAGS TO CAMPAIGN");
             }
             return this;
         }
@@ -316,7 +316,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
                 waitSeconds(0.5);
                 aliasSearch(alias);
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + alias + "')]")));
-            }catch (TimeoutException e){
+            } catch (TimeoutException e) {
                 throw new TimeoutException("COULD NOT FIND NEW ALIAS " + alias);
             }
             return this;
@@ -382,9 +382,10 @@ public class CreateCampaignPage extends AbstractAdminPage {
         return this;
     }
 
-
+//TODO refactoring needed
     public AdditionalActiveItems openAdditionalActiveItems() {
         wait.until(ExpectedConditions.elementToBeClickable(additionalActiveItems)).click();
+        waitSeconds(5);
         return new AdditionalActiveItems();
     }
 
@@ -481,9 +482,7 @@ public class CreateCampaignPage extends AbstractAdminPage {
             } else {
                 setBIGImage(path);
             }
-            String imageLink = wait.until(ExpectedConditions.visibilityOfElementLocated(bigImagePrev)).getAttribute("src");
-
-            return imageLink;
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(bigImagePrev)).getAttribute("src");
         }
 
         public WebElement getBtn1TitleError() {

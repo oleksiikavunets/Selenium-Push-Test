@@ -183,10 +183,7 @@ public class CreateWMPage extends AbstractAdminPage {
         }
 
         public AdditionalActiveItems setButtons(String button1Name, String button1URL, String button2Name, String button2URL) {
-            switchButton1();
-            switchButton2();
-            setButton1(button1Name, button1URL);
-            setButton2(button2Name, button2URL);
+            switchButton1().switchButton2().setButton1(button1Name, button1URL).setButton2(button2Name, button2URL);
             return this;
         }
 
@@ -210,8 +207,7 @@ public class CreateWMPage extends AbstractAdminPage {
             }else {
                 setBIGImage(path);
             }
-            String imageLink = wait.until(ExpectedConditions.visibilityOfElementLocated(bigImagePreview)).getAttribute("src");
-            return imageLink;
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(bigImagePreview)).getAttribute("src");
         }
     }
 

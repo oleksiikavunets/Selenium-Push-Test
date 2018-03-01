@@ -21,7 +21,7 @@ public class JSRunner {
     }
 
 
-    public void addNewTag(String newTag) throws Exception{
+    public void addNewTag(String newTag){
         if(runningOn.equals(GRV) || runningOn.equals(GRV_7700) || runningOn.equals(GRV_7600)) {
             ((JavascriptExecutor) driver).executeScript("Gravitec.addTag('" + newTag + "')");
             System.out.println("Adding tag for Gravitec");
@@ -32,7 +32,7 @@ public class JSRunner {
         Timer.waitSeconds(0.3);
     }
 
-    public void addNewAlias(String alias) throws Exception{
+    public void addNewAlias(String alias){
         if(runningOn.equals(GRV) || runningOn.equals(GRV_7700) || runningOn.equals(GRV_7600)) {
             ((JavascriptExecutor) driver).executeScript("Gravitec.setAlias('" + alias + "')");
             System.out.println("Setting alias for Gravitec");

@@ -12,15 +12,10 @@
     <test name="SANITY">
         <classes>
             <class name="tests.accounttests.Test_Pos_LogInLogOut"/>
+            <class name="tests.accounttests.Test_Pos_Registration"/>
         </classes>
     </test>
 
-    <test name="MAILING TEST">
-        <classes>
-            <class name="tests.accounttests.Test_Pos_Registration"/>
-            <class name="tests.accounttests.Test_Pos_RestorePassword"/>
-        </classes>
-    </test>
     <test name="SEND CAMPAIGNS" parallel="classes" thread-count="2">
         <classes>
             <class name="tests.sendcampaigntests.Test_Pos_SendMessage"/>
@@ -34,14 +29,15 @@
             <class name="tests.sendcampaigntests.Test_Pos_SendMessageWithUTM"/>
             <class name="tests.sendcampaigntests.Test_Pos_SendMessageWithButtons"/>
             <class name="tests.sendcampaigntests.Test_Pos_SendMessageWithBigImage"/>
-            <class name="tests.sendcampaigntests.Test_Pos_CopyCampaignWithAdditionalActiveItems"/>
+            <class name="tests.sendcampaigntests.Test_Pos_CopyCampaignWithAdvancedTargeting"/>
+            <!--<class name="tests.sendcampaigntests.Test_Pos_CopyCampaignWithAdditionalActiveItems"/> BUG -->
         </classes>
     </test>
-    <test name="SITE FRONT TEST">
+  <!--  <test name="SITE FRONT TEST">
         <classes>
             <class name="tests.webapptests.Test_Pos_SideBar"/>
         </classes>
-    </test>
+    </test> -->
     <test name="STATISTICS TEST">
         <classes>
             <class name="tests.statistictests.Test_Pos_SubscriberStatistics"/>
@@ -74,6 +70,7 @@
     </test>
     <test name="MAIL CHECK" parallel="false">
         <classes>
+            <class name="tests.accounttests.Test_Pos_RestorePassword"/>
             <class name="tests.mailtests.Test_Pos_RegistrationEmailsMultiLanguage"/>
             <class name="tests.mailtests.Test_Pos_RecoverPassMultiLanguage"/>
             <class name="tests.mailtests.Test_Pos_NewHttpSiteMailsMultiLanguage"/>
@@ -94,7 +91,7 @@
     </test>
     <test name="NEGATIVE" parallel="classes" thread-count="2">
         <classes>
-            <class name="tests.negativetests.Test_Neg_LogIn"/>
+            <!--<class name="tests.negativetests.Test_Neg_LogIn"/>-->
             <class name="tests.negativetests.Test_Neg_Registration"/>
             <class name="tests.negativetests.Test_Neg_RestorePassword"/>
             <class name="tests.negativetests.Test_Neg_CreateSite"/>
@@ -106,4 +103,5 @@
             <class name="tests.negativetests.Test_Neg_CheckCropImageErrorsInNewWelcomeMessage"/>
         </classes>
     </test>
+
 </suite>

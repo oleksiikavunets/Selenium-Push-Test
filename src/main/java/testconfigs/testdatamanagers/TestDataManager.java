@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.Properties;
 
 public class TestDataManager {
-    private static final String path = "src/main/resources/data/testdata/";//C:\Users\OleksiiKavunets\Documents\Selenium\src\main\resources\data\testdata
+    private static final String path = "src/data/testdata/";//C:\Users\OleksiiKavunets\Documents\Selenium\src\main\resources\data\testdata
     private static Properties prop = new Properties();
 
     private static String getFullPath() {

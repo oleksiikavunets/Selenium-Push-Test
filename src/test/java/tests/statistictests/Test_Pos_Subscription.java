@@ -33,9 +33,8 @@ public class Test_Pos_Subscription extends BaseTestClass {
 
         MainAdminPage mainAdminPage = logInPage.login(email, pass);
         int totalAmountOfSubsBefore = mainAdminPage.getTotalAmountOfSubscribers();
-        SubscribersPage subscribersPage = navigationUtil.open(SubscribersPage.class, testSite);
-//                .clickTodayBtn();
-
+        SubscribersPage subscribersPage = navigationUtil.open(SubscribersPage.class, testSite)
+                .switchLifeTimeStats();
         int amountOfSubsBefore = subscribersPage.getAmountOfSubscribers();
         System.out.println("Subs before: on main page - " + totalAmountOfSubsBefore +
                 " on subs page - " + amountOfSubsBefore);

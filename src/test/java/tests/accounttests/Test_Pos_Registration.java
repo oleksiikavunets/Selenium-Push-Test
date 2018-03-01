@@ -10,9 +10,6 @@ import testutils.Listeners.LogListener;
 import static testconfigs.testdatamanagers.TestUserManager.getEmail;
 import static testconfigs.testdatamanagers.TestUserManager.getPassword;
 
-/**
- * Created by Rayant on 11.04.2017.
- */
 @Listeners(LogListener.class)
 public class Test_Pos_Registration extends BaseTestClass {
 

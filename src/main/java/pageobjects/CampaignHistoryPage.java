@@ -1,10 +1,7 @@
 package pageobjects;
 
 import actions.Clicker;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
 import pageutils.PaginationUtil;
@@ -12,6 +9,7 @@ import pageutils.PaginationUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @PartialPath(value = "/sites/SITE_ID/history")
 public class CampaignHistoryPage extends AbstractAdminPage {
@@ -27,7 +25,7 @@ public class CampaignHistoryPage extends AbstractAdminPage {
         try {
             new Clicker(driver).click(searchForMessage(title));
         }catch (NullPointerException e){
-            throw new NoSuchElementException("COULD NOT FIND MESSAGE WITH TITLE '" + title + "'...........................");
+            throw new NotFoundException("COULD NOT FIND MESSAGE WITH TITLE '" + title + "'...........................");
         }
         return new CampaignReportPage(driver);
     }
@@ -57,11 +55,7 @@ public class CampaignHistoryPage extends AbstractAdminPage {
         while (getAmountOfDelayedMessagesOnPage() >= 10) {
             new PaginationUtil(driver).openPage(++page);
         }
-        for (int i = 0; i < 5; i++) {
-            if (findMessageOnPage(mes) == null) {
-                driver.navigate().refresh();
-            }
-        }
+        IntStream.range(0, 5).forEach(e -> {if (findMessageOnPage(mes) == null) driver.navigate().refresh();});
         while (findMessageOnPage(mes) == null) {
             if (!new PaginationUtil(driver).openPage(++page)) {
                 break;

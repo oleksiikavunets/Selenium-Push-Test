@@ -55,8 +55,7 @@ public class HeaderMenu extends AbstractAdminPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(languageDropDown));
         openLanguageDropDown();
         wait.until(ExpectedConditions.visibilityOfElementLocated(language));
-        List<WebElement> langs = driver.findElements(language);
-        return langs;
+        return driver.findElements(language);
     }
 
     public HeaderMenu switchFirstLanguage() {
@@ -111,9 +110,7 @@ public class HeaderMenu extends AbstractAdminPage {
         } catch (org.openqa.selenium.TimeoutException e) {
             throw new NoSuchElementException("COULD NOT AUTHORIZE.");
         }
-
     }
-
     public boolean verifyBeingLogged() {
         return logOutButton.findElements(driver).size() > 0;
     }

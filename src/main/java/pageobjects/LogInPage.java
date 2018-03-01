@@ -1,16 +1,13 @@
 package pageobjects;
 
 import actions.Clicker;
-import com.selenium.enums.Server;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractOuterPage;
 import pageobjects.common.annotations.PartialPath;
 import pageutils.NavigationUtil;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 
 import static actions.Timer.waitSeconds;
 
@@ -46,12 +43,9 @@ public class LogInPage extends AbstractOuterPage {
     }
 
     public MainAdminPage login(String login, String pass) {
-
             if (!driver.getCurrentUrl().contains("/login")) openLoginPage();
                 waitSeconds(1);
-
             if (driver.getCurrentUrl().contains("/login")) {
-
                 for (int i = 0; i <= 100; i++) {
                     setLogin(login).setPassword(pass);
                     if (driver.findElement(loginInput).getAttribute("value").equals(login) && driver.findElement(passwordInput).getAttribute("value").equals(pass)) {
@@ -64,18 +58,6 @@ public class LogInPage extends AbstractOuterPage {
             }
         new HeaderMenu(driver).waitForBeingLogged();
         return new MainAdminPage(driver);
-    }
-
-    private LogInPage managePopUp() {
-        if (TestServerConfiguretion.iTest.equals(Server.GRV_7700)) {
-            try {
-                waitSeconds(1);
-                driver.findElement(By.cssSelector("button[ng-click=\"$close()\"]")).click();
-            } catch (NoSuchElementException e) {
-                System.out.println("No pop up");
-            }
-        }
-        return this;
     }
 
     public LogInPage setLogin(String login) {

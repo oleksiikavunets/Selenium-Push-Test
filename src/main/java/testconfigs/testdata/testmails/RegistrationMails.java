@@ -87,7 +87,6 @@ public class RegistrationMails {
             "Irgendwelche Fragen? Wir helfen gerne! Schreibe uns einfach eine E-mail.",
             "abmelden"
     ));
-    private HashMap<String, String> activate = new HashMap<>();
     private HashMap<String, List> gravitecMails = new HashMap<>();
     private HashMap<String, List> wpushMails = new HashMap<>();
     private HashMap<String, List> push2bMails = new HashMap<>();
@@ -117,7 +116,7 @@ public class RegistrationMails {
 
     private  HashMap<String, List> getWpushMails(){
         wpushMails.put("ru", wpushUK);
-        wpushMails.put("uk", wpushUK);
+        wpushMails.put("ua", wpushUK);
         return wpushMails;
     }
 

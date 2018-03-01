@@ -22,7 +22,7 @@ public class MainAdminPage extends AbstractAdminPage {
     private By siteName = By.cssSelector("a[ng-bind=\"site.url\"]");
     private By siteList = By.cssSelector("div[class*=\"table-sites-list\"]");
     private By addNewSiteButton = By.cssSelector("span[data-ng-bind-html=\"'LIST_ADD_NEW' | translate\"]");
-    private By amountOfAllSubscribers = By.cssSelector("span[ng-bind*=\"(vmList.currentUser.followers)\"]");
+    private By amountOfAllSubscribers = By.cssSelector("span[ng-bind*=\"vmList.currentUser\"]");
     private By amountOfSiteSucsribers = By.cssSelector("td[ng-bind*=\"(site.totalFollowers)\"]");
 
 
@@ -42,16 +42,10 @@ public class MainAdminPage extends AbstractAdminPage {
     }
 
     public boolean verifySitePresent(String site) {
-        boolean present = false;
-        WebElement mySite = null;
         wait.until(ExpectedConditions.visibilityOfElementLocated(siteName));
-        List<WebElement> sites = driver.findElements(siteName);
-        for (WebElement s : sites) {
-            if (s.getText().equals(site)) {
-                present = true;
-            }
-        }
-        return present;
+        return  driver.findElements(siteName)
+                .stream().map(e -> e.getText())
+                .filter(e -> e.equals(site)).findFirst().equals(site);
     }
 
     public AddNewSitePage clickAddNewSiteButton() {
@@ -67,9 +61,7 @@ public class MainAdminPage extends AbstractAdminPage {
     }
 
     public SideBar openSite(String siteToOpen) {
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(siteName));
         String currentUrl = driver.getCurrentUrl();
-
         List<WebElement> siteList = driver.findElements(siteName);
 
         for (WebElement site : siteList) {

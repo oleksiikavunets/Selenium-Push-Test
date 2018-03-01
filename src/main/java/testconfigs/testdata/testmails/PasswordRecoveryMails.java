@@ -101,7 +101,7 @@ public class PasswordRecoveryMails {
     }
     private  HashMap<String, List> getWpushMails(){
         wpushMails.put("ru", wpushUK);
-        wpushMails.put("uk", wpushUK);
+        wpushMails.put("ua", wpushUK);
         return wpushMails;
     }
 

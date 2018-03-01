@@ -3,16 +3,23 @@
 <suite name="Chrome Suite" parallel="tests" thread-count="1">
     <parameter name="browser" value="chrome"/>
     <listeners>
+        <!--<listener class-name="utils.Listeners.TestListener"/>-->
+        <!--<listener class-name="utils.Listeners.AnnotationTransformer"/>-->
         <listener class-name="testutils.Listeners.TestRetryListener"/>
-        <!--<listener class-name="testutils.Listeners.TestNGReportListener"/>-->
-        <!--<listener class-name="org.uncommons.reportng.HTMLReporter"/>-->
+        <listener class-name="testutils.Listeners.TestNGReportListener"/>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
     </listeners>
 
     <test name="test run">
-        <parameter name="testSitesScope" value="http"/>
         <classes>
-            <class name="tests.negativetests.Test_Neg_LogIn"/>
-            <!--<class name="tests.sendcampaigntests.Test_Pos_SendMessage"/>-->
+            <class name="tests.accounttests.Test_Pos_Registration"/>
+            <class name="tests.accounttests.Test_Pos_RestorePassword"/>
+
+        </classes>
+    </test>
+    <test name="del">
+        <classes>
+            <class name="tests.usersitetests.Test_Pos_DeleteSite"/>
         </classes>
     </test>
 </suite>

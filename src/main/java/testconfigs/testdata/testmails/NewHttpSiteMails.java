@@ -88,26 +88,13 @@ public class NewHttpSiteMails {
             "Скасувати підписку"
     ));
 
-    private HashMap<String, List> gravitecMails = new HashMap<>();
-    private HashMap<String, List> wpushMails = new HashMap<>();
-    private HashMap<String, List> push2bMails = new HashMap<>();
-    private HashMap<String, List> mails;
-
     public HashMap<String, List> getMails(Server serverUnderTest) {
-        if (serverUnderTest.equals(GRV)
-                || serverUnderTest.equals(GRV_7700) ||
-                serverUnderTest.equals(GRV_7600)) {
-            mails = getGravitecMails();
-        } else if (serverUnderTest.equals(WPUSH) ||
-                serverUnderTest.equals(WPUSH_7700)) {
-            mails = getWpushMails();
-        } else if (serverUnderTest.equals(P2B)) {
-            mails = getPush2bMails();
-        }
-        return mails;
+        return serverUnderTest.equals(WPUSH) || serverUnderTest.equals(WPUSH_7700) ? getWpushMails() :
+                serverUnderTest.equals(P2B) ? getPush2bMails() : getGravitecMails();
     }
 
     private HashMap<String, List> getGravitecMails() {
+        HashMap<String, List> gravitecMails = new HashMap<>();
         gravitecMails.put("en", gravitecEN);
         gravitecMails.put("pl", gravitecPL);
         gravitecMails.put("ua", gravitecUA);
@@ -117,12 +104,14 @@ public class NewHttpSiteMails {
     }
 
     private HashMap<String, List> getWpushMails() {
+        HashMap<String, List> wpushMails = new HashMap<>();
         wpushMails.put("ru", wpushUK);
-        wpushMails.put("uk", wpushUK);
+        wpushMails.put("ua", wpushUK);
         return wpushMails;
     }
 
     private HashMap<String, List> getPush2bMails() {
+        HashMap<String, List> push2bMails = new HashMap<>();
         push2bMails.put("en", push2bEN);
         push2bMails.put("pl", push2bRU);
         push2bMails.put("ru", push2bRU);
