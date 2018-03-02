@@ -4,7 +4,6 @@ import com.selenium.pojo.Alias;
 import com.selenium.pojo.Message;
 import com.selenium.pojo.Tag;
 import com.selenium.pojo.User;
-import utils.JsonUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -18,13 +17,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
+import testconfigs.testdatamanagers.TestSiteManager;
+import utils.JsonUtils;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.selenium.enums.Protocol.HTTP;
-import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 
 /**
  * Created by Rayant on 07.04.2017.
@@ -39,7 +39,7 @@ public class GravitecServer {
     private JSONParser parser = new JSONParser();
     private String apiUrl = config.getApiUrl();
     private String hostUrl = config.getHostUrl();
-    private String testSiteUrl = getOldTestSiteUrl(HTTP);
+    private String testSiteUrl =  new TestSiteManager().getOldTestSiteUrl(HTTP);
 
     private static CloseableHttpClient httpClient = HttpClients.custom()
             .setMaxConnPerRoute(1000)

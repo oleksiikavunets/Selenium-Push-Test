@@ -3,10 +3,13 @@ package tests.cropimagestests;
 import common.BaseTestClass;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
-import pageobjects.*;
+import pageobjects.HeaderMenu;
+import pageobjects.LogInPage;
+import pageobjects.WelcomeMessagePage;
 import pageutils.CropUtil;
 import pageutils.NavigationUtil;
 import testconfigs.testdata.CropRecommendations;
+import testconfigs.testdatamanagers.TestSiteManager;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +18,6 @@ import static com.selenium.enums.Protocol.HTTPS;
 import static org.testng.Assert.assertEquals;
 import static testconfigs.testdata.TestData.email;
 import static testconfigs.testdata.TestData.pass;
-import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 
 public class Test_Pos_CheckCropImageRecommendationsInNewWelcomeMessage extends BaseTestClass{
 
@@ -27,7 +29,7 @@ public class Test_Pos_CheckCropImageRecommendationsInNewWelcomeMessage extends B
         CropUtil cropUtil = new CropUtil(driver);
 
         new LogInPage(driver).login(email, pass);
-        navigation.open(WelcomeMessagePage.class, getOldTestSiteUrl(HTTPS))
+        navigation.open(WelcomeMessagePage.class,  new TestSiteManager().getOldTestSiteUrl(HTTPS))
                 .clickCreateNewWM()
                 .openAdditionalActiveItems()
                 .switchBIGImage();

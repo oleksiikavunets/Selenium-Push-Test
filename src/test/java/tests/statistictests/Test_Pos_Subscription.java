@@ -11,9 +11,8 @@ import pageobjects.MainAdminPage;
 import pageobjects.SubscribersPage;
 import pageutils.NavigationUtil;
 import testconfigs.testdata.TestDataProvider;
+import testconfigs.testdatamanagers.TestSiteManager;
 import testutils.Listeners.LogListener;
-
-import static testconfigs.testdatamanagers.TestSiteManager.getSiteOwner;
 
 @Listeners(LogListener.class)
 public class Test_Pos_Subscription extends BaseTestClass {
@@ -27,7 +26,7 @@ public class Test_Pos_Subscription extends BaseTestClass {
         Verifier verifier = new Verifier();
         LogInPage logInPage = new LogInPage(driver);
 
-        String[] siteOwner = getSiteOwner(testSite);
+        String[] siteOwner =  new TestSiteManager().getSiteOwner(testSite);
         String email = siteOwner[0];
         String pass = siteOwner[1];
 

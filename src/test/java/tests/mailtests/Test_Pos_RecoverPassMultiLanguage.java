@@ -15,12 +15,12 @@ import pageobjects.RecoverPasswordPage;
 import pageutils.NavigationUtil;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
+import testconfigs.testdatamanagers.TestUserManager;
 import testutils.Listeners.LogListener;
 
 import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
-import static testconfigs.testdatamanagers.TestUserManager.*;
 
 @Listeners(LogListener.class)
 public class Test_Pos_RecoverPassMultiLanguage extends BaseTestClass {
@@ -31,9 +31,9 @@ public class Test_Pos_RecoverPassMultiLanguage extends BaseTestClass {
         HeaderMenu headerMenu = new HeaderMenu(driver);
         Verifier verifier = new Verifier();
 
-        String email = getEmail();
+        String email = new TestUserManager().getEmail();
         String newPass;
-        String oldPass = getPassword();
+        String oldPass = new TestUserManager().getPassword();
         System.out.println(oldPass);
         String siteLang;
 
@@ -54,7 +54,7 @@ public class Test_Pos_RecoverPassMultiLanguage extends BaseTestClass {
             String link = "https://" + message.split("https://")[3].split("\\n")[0];
             driver.get(link);
             new NewPasswordSetUpPage(driver).setNewPass(newPass).login(email, newPass);
-            setPassword(newPass);
+            new TestUserManager().setPassword(newPass);
             if (i == langs.size() || TestServerConfiguretion.iTest.equals(P2B)) {
                 break;
             }

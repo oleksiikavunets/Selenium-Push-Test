@@ -4,6 +4,7 @@ import actions.UserActions;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import com.selenium.GravitecServer;
 import com.selenium.pojo.User;
+import testconfigs.testdatamanagers.TestUserManager;
 import utils.Log;
 import utils.RandomGenerator;
 import common.BaseTestClass;
@@ -51,8 +52,8 @@ public class BillingTestsTest extends BaseTestClass {
         if (run) {
             TestServerConfiguretion testServerConfiguretion = new TestServerConfiguretion();
             new UserActions(driver, wait).createNewUser();
-            int emailNumber = Integer.valueOf(testServerConfiguretion.getEmailNumber()) - 2;
-            String pass = testServerConfiguretion.getPassword();
+            int emailNumber = Integer.valueOf(new TestUserManager().getEmailNumber()) - 2;
+            String pass = new TestUserManager().getPassword();
             new LogInPage(driver).login("grovitek+" + emailNumber + "@gmail.com", pass);
             User user = gravitecServer.getUserFromStatus();
             Assert.assertEquals(user.getTariff().getName(), "Free");
@@ -98,8 +99,8 @@ public class BillingTestsTest extends BaseTestClass {
         if (run) {
             TestServerConfiguretion testServerConfiguretion = new TestServerConfiguretion();
 
-            int emailNumber = Integer.valueOf(testServerConfiguretion.getEmailNumber()) - 2;
-            String pass = testServerConfiguretion.getPassword();
+            int emailNumber = Integer.valueOf(new TestUserManager().getEmailNumber()) - 2;
+            String pass = new TestUserManager().getPassword();
             new LogInPage(driver).login("grovitek+" + emailNumber + "@gmail.com", pass);
             changeTariff("Free");
             setPrice(100);
@@ -157,8 +158,8 @@ public class BillingTestsTest extends BaseTestClass {
         if (run) {
             TestServerConfiguretion testServerConfiguretion = new TestServerConfiguretion();
 
-            int emailNumber = Integer.valueOf(testServerConfiguretion.getEmailNumber()) - 2;
-            String pass = testServerConfiguretion.getPassword();
+            int emailNumber = Integer.valueOf(new TestUserManager().getEmailNumber()) - 2;
+            String pass = new TestUserManager().getPassword();
             new LogInPage(driver).login("grovitek+" + emailNumber + "@gmail.com", pass);
             setDebt(100);
             setPrice(200);

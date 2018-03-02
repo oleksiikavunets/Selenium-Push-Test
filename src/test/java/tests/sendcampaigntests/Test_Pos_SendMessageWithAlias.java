@@ -1,7 +1,6 @@
 package tests.sendcampaigntests;
 
 import actions.UserActions;
-import utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
@@ -12,9 +11,9 @@ import pageobjects.LogInPage;
 import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
+import testconfigs.testdatamanagers.TestDataManager;
 import testutils.Listeners.LogListener;
-
-import static testconfigs.testdatamanagers.TestDataManager.getAlias;
+import utils.RandomGenerator;
 
 /**
  * Created by Oleksii on 31.07.2017.
@@ -28,7 +27,7 @@ public class Test_Pos_SendMessageWithAlias extends BaseTestClass {
 
         String title = "PUSH TITLE: " + RandomGenerator.nextString();
         String text = "ALIAS";
-        String alias = getAlias();
+        String alias =  new TestDataManager().getAlias();
 
         new UserActions(driver).addNewAlias(testSiteUrl, alias);
 

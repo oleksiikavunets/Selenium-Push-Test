@@ -1,7 +1,6 @@
 package tests.targetingtests;
 
 import actions.UserActions;
-import utils.RandomGenerator;
 import common.BaseTestClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -10,10 +9,9 @@ import pageobjects.TagListPage;
 import pageutils.NavigationUtil;
 import testconfigs.testdata.TestData;
 import testconfigs.testdata.TestDataProvider;
+import testconfigs.testdatamanagers.TestDataManager;
 import testutils.Listeners.LogListener;
-
-import static testconfigs.testdatamanagers.TestDataManager.setSite;
-import static testconfigs.testdatamanagers.TestDataManager.setTags;
+import utils.RandomGenerator;
 
 @Listeners(LogListener.class)
 public class Test_Pos_AddNewTag extends BaseTestClass {
@@ -29,8 +27,8 @@ public class Test_Pos_AddNewTag extends BaseTestClass {
         };
         driver.manage().deleteAllCookies();
         new UserActions(driver).addNewTag(testSite, newTags);
-        setTags(newTags);
-        setSite(testSite);
+        new TestDataManager().setTags(newTags);
+        new TestDataManager().setSite(testSite);
         new LogInPage(driver).login(TestData.email, TestData.pass);
         TagListPage tagListPage = navigationUtil.open(TagListPage.class, testSite);
         tagListPage.searchForTag(newTags);

@@ -12,11 +12,8 @@ import pageobjects.NewPasswordSetUpPage;
 import pageobjects.RecoverPasswordPage;
 import pageutils.NavigationUtil;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
+import testconfigs.testdatamanagers.TestUserManager;
 import testutils.Listeners.LogListener;
-
-import static testconfigs.testdata.TestData.testEmail;
-import static testconfigs.testdata.TestData.testPass;
-import static testconfigs.testdatamanagers.TestUserManager.setPassword;
 
 /**
  * Created by Oleksii on 31.07.2017.
@@ -26,20 +23,20 @@ public class Test_Pos_RestorePassword extends BaseTestClass {
 
     @Test(groups = {"mails", "recover password"}, singleThreaded = true, threadPoolSize = 1)
     public void restorePasswordTest() throws Exception {
-        String newPass = testPass;
+        String newPass = new TestUserManager().getPassword();
 
         if (newPass.equals("tttt1111")) newPass = "qqqq1111";
         else if (newPass.equals("qqqq1111")) newPass = "tttt1111";
 
         new NavigationUtil(driver).open(RecoverPasswordPage.class)
-                .setEmail(testEmail)
+                .setEmail(new TestUserManager().getEmail())
                 .clickResetButton();
         String link = MailService.getRecoverLink();
 
         driver.navigate().to(link);
         new NewPasswordSetUpPage(driver).setNewPass(newPass)
-                .login(testEmail, newPass);
-        setPassword(newPass);
+                .login(new TestUserManager().getEmail(), newPass);
+        new TestUserManager().setPassword(newPass);
     }
 
     private void managePopUp() {

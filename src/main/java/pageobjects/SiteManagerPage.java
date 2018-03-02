@@ -8,10 +8,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import pageobjects.common.AbstractPage;
+import testconfigs.testdatamanagers.TestSiteManager;
 
 import static com.selenium.enums.Protocol.HTTP;
 import static com.selenium.enums.Protocol.HTTPS;
-import static testconfigs.testdatamanagers.TestSiteManager.getNewTestSiteUrl;
 
 public class SiteManagerPage extends AbstractPage{
 
@@ -70,7 +70,7 @@ public class SiteManagerPage extends AbstractPage{
         String newTemplate = template.replace("putYourScriptHere", script);
         textarea.findElement(driver).sendKeys(newTemplate);
         saveBtn.findElement(driver).click();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(textarea));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(siteNameInput));
         if(!site.equals(oldSite)){
             deleteOldSite(oldSite);
         }
@@ -87,7 +87,7 @@ public class SiteManagerPage extends AbstractPage{
         sdkInput.findElement(driver).sendKeys(linkSDK);
         textarea.findElement(driver).sendKeys(newTemplate);
         saveBtn.findElement(driver).click();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(textarea));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(siteNameInput));
         if(!site.equals(oldSite)){
             deleteOldSite(oldSite);
         }
@@ -115,7 +115,7 @@ public class SiteManagerPage extends AbstractPage{
 
     private String getOldSiteUrl(String newSite){
         Protocol protocol = newSite.contains("https://") ? HTTPS : HTTP;
-        return getNewTestSiteUrl(protocol);
+        return  new TestSiteManager().getNewTestSiteUrl(protocol);
     }
 
     private SiteManagerPage inputNewSiteName(String newSiteName) {

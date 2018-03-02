@@ -45,7 +45,7 @@ public class Test_Pos_SubscriberStatistics extends BaseTestClass {
         String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.YYYY"));
         String yesterday = LocalDateTime.now().minusDays(1).format(DateTimeFormatter.ofPattern("dd.MM.YYYY"));
         String weekAgo = LocalDateTime.now().minusDays(6).format(DateTimeFormatter.ofPattern("dd.MM.YYYY"));
-        String monthAgo = LocalDateTime.now().minusDays(30).format(DateTimeFormatter.ofPattern("dd.MM.YYYY"));
+        String monthAgo = LocalDateTime.now().minusMonths(1).plusDays(1).format(DateTimeFormatter.ofPattern("dd.MM.YYYY"));
 
         new LogInPage(driver).login(email, pass);
         SubscribersPage subscribersPage = navigationUtil.open(SubscribersPage.class, testSite)
@@ -54,7 +54,7 @@ public class Test_Pos_SubscriberStatistics extends BaseTestClass {
 
         subscribersPage.switchMonthStats();
         List<String> monthGraph = subscribersPage.getAllDatesInGraph();
-        verifier.assertEquals(monthGraph.size(), 31, "Graph does not display month period correctly...........");
+        verifier.assertTrue(monthGraph.size() >= 28 && monthGraph.size() <= 31, "Graph does not display month period correctly...........");
         verifier.assertEquals(monthGraph.get(0), now, "Incorrect end date in Month Period........");
         verifier.assertEquals(monthGraph.get(monthGraph.size() - 1), monthAgo, "Incorrect start date in Month Period........");
 

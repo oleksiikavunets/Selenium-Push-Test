@@ -9,11 +9,9 @@ import pageobjects.SiteManagerPage;
 import pageobjects.SiteSettingsPage;
 import testconfigs.baseconfiguration.TestCofiguration;
 import testconfigs.testdatamanagers.TestSiteManager;
+import testconfigs.testdatamanagers.TestUserManager;
 
 import static utils.NameGenerator.generateNewHttpsSiteName;
-import static testconfigs.testdata.TestData.testEmail;
-import static testconfigs.testdata.TestData.testPass;
-import static testconfigs.testdatamanagers.TestSiteManager.setHttpsSite;
 
 public class Test_Pos_CreateHttpsSite extends BaseTestClass {
 
@@ -31,7 +29,7 @@ public class Test_Pos_CreateHttpsSite extends BaseTestClass {
             siteManagerPage.createNewSite(siteUrl);
             String script = userActions.createSite(siteUrl);
             String siteSDK = siteSettingsPage.getSDKlink();
-            setHttpsSite(siteUrl, siteNumber, testEmail, testPass);
+            new TestSiteManager().setHttpsSite(siteUrl, siteNumber, new TestUserManager().getEmail(), new TestUserManager().getPassword());
             new HeaderMenu(driver).clickLogo().verifySitePresent(siteUrl);
             userActions.checkCreateSiteMail(siteUrl);
             siteManagerPage.setSiteDatas(siteUrl, script, siteSDK);

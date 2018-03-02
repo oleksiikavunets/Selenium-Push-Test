@@ -3,8 +3,6 @@ package tests.mailtests;
 import actions.UserActions;
 import actions.Verifier;
 import com.selenium.MailService;
-import utils.Log;
-import utils.RandomGenerator;
 import common.BaseTestClass;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -14,12 +12,13 @@ import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
+import testconfigs.testdatamanagers.TestUserManager;
+import utils.Log;
+import utils.RandomGenerator;
 
 import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
-import static testconfigs.testdatamanagers.TestUserManager.getEmail;
-import static testconfigs.testdatamanagers.TestUserManager.getPassword;
 
 public class Test_Pos_NewHttpsSiteMailsMultiLanguage extends BaseTestClass {
 
@@ -29,8 +28,8 @@ public class Test_Pos_NewHttpsSiteMailsMultiLanguage extends BaseTestClass {
         HeaderMenu headerMenu = new HeaderMenu(driver);
         Verifier verifier = new Verifier();
 
-        String email = getEmail();
-        String pass = getPassword();
+        String email = new TestUserManager().getEmail();
+        String pass = new TestUserManager().getPassword();
         String siteLang;
 
         MainAdminPage mainAdminPage = new LogInPage(driver).login(email, pass);

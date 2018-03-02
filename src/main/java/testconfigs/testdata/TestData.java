@@ -1,18 +1,15 @@
 package testconfigs.testdata;
 
+import testconfigs.testdatamanagers.TestSiteManager;
 import utils.RandomGenerator;
 
 import static com.selenium.enums.Protocol.HTTP;
 import static com.selenium.enums.Protocol.HTTPS;
-import static testconfigs.testdatamanagers.TestSiteManager.getNewTestSiteUrl;
-import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
-import static testconfigs.testdatamanagers.TestUserManager.getEmail;
-import static testconfigs.testdatamanagers.TestUserManager.getPassword;
 
 public class TestData {
-    public static String httpSite = getNewTestSiteUrl(HTTP);
-    public static String httpsSite = getNewTestSiteUrl(HTTPS);
-    public static String testSite = getOldTestSiteUrl(HTTPS);
+    public static String httpSite =  new TestSiteManager().getNewTestSiteUrl(HTTP);
+    public static String httpsSite =  new TestSiteManager().getNewTestSiteUrl(HTTPS);
+    public static String testSite =  new TestSiteManager().getOldTestSiteUrl(HTTPS);
     public static String newHttpSitePattern = "http://seleniumtest";
     public static String newHttpsSitePattern = "https://seleniumtest";
     public static String welcomeMessageTitle = "Welcome Message Title: " + RandomGenerator.nextString();
@@ -35,8 +32,6 @@ public class TestData {
     public static String newAlias = RandomGenerator.nextString();
     public static String newTag = RandomGenerator.nextString();
 
-    public static String testEmail = getEmail();
-    public static String testPass = getPassword();
     public static String email = "mpstestdepartment@gmail.com";
     public static String pass = "tttt1111";
     public static String pass2 = "qqqq1111";

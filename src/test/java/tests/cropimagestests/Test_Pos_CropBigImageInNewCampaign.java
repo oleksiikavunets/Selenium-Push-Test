@@ -6,13 +6,11 @@ import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
 import pageutils.CropUtil;
 import pageutils.NavigationUtil;
+import testconfigs.testdatamanagers.TestSiteManager;
 
 import static com.selenium.enums.Protocol.HTTPS;
 import static org.testng.Assert.assertNotNull;
-import static testconfigs.testdata.TestData.bigImage;
-import static testconfigs.testdata.TestData.email;
-import static testconfigs.testdata.TestData.pass;
-import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
+import static testconfigs.testdata.TestData.*;
 
 public class Test_Pos_CropBigImageInNewCampaign extends BaseTestClass{
 
@@ -23,7 +21,7 @@ public class Test_Pos_CropBigImageInNewCampaign extends BaseTestClass{
         CropUtil crop = new CropUtil(driver);
 
         new LogInPage(driver).login(email, pass);
-        CreateCampaignPage createCampaignPage = navigationUtil.open(CreateCampaignPage.class, getOldTestSiteUrl(HTTPS));
+        CreateCampaignPage createCampaignPage = navigationUtil.open(CreateCampaignPage.class,  new TestSiteManager().getOldTestSiteUrl(HTTPS));
 
         CreateCampaignPage.AdditionalActiveItems activeItems = createCampaignPage.openAdditionalActiveItems();
         activeItems.switchBIGImage();

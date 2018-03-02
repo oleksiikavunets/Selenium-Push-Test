@@ -9,6 +9,7 @@ import pageobjects.WelcomeMessagePage;
 import pageutils.CropUtil;
 import pageutils.NavigationUtil;
 import testconfigs.testdata.ErrorMessages;
+import testconfigs.testdatamanagers.TestSiteManager;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -17,7 +18,6 @@ import static com.selenium.enums.Protocol.HTTPS;
 import static org.testng.Assert.assertEquals;
 import static testconfigs.testdata.TestData.email;
 import static testconfigs.testdata.TestData.pass;
-import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 
 public class Test_Neg_CheckCropImageErrorsInNewWelcomeMessage extends BaseTestClass {
 
@@ -35,7 +35,7 @@ public class Test_Neg_CheckCropImageErrorsInNewWelcomeMessage extends BaseTestCl
         new LogInPage(driver).login(email, pass);
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         headerMenu.switchFirstLanguage();
-        navigation.open(WelcomeMessagePage.class, getOldTestSiteUrl(HTTPS))
+        navigation.open(WelcomeMessagePage.class,  new TestSiteManager().getOldTestSiteUrl(HTTPS))
                 .clickCreateNewWM()
                 .openAdditionalActiveItems()
                 .switchBIGImage();

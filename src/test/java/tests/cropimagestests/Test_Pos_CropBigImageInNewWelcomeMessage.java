@@ -7,11 +7,11 @@ import pageobjects.LogInPage;
 import pageobjects.WelcomeMessagePage;
 import pageutils.CropUtil;
 import pageutils.NavigationUtil;
+import testconfigs.testdatamanagers.TestSiteManager;
 
 import static com.selenium.enums.Protocol.HTTPS;
 import static org.testng.Assert.assertNotNull;
 import static testconfigs.testdata.TestData.*;
-import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 
 public class Test_Pos_CropBigImageInNewWelcomeMessage extends BaseTestClass {
 
@@ -22,7 +22,7 @@ public class Test_Pos_CropBigImageInNewWelcomeMessage extends BaseTestClass {
         CropUtil crop = new CropUtil(driver);
 
         new LogInPage(driver).login(email, pass);
-        WelcomeMessagePage welcomeMessagePage = navigationUtil.open(WelcomeMessagePage.class, getOldTestSiteUrl(HTTPS));
+        WelcomeMessagePage welcomeMessagePage = navigationUtil.open(WelcomeMessagePage.class,  new TestSiteManager().getOldTestSiteUrl(HTTPS));
         CreateWMPage createWMPage = welcomeMessagePage.clickCreateNewWM();
 
         CreateWMPage.AdditionalActiveItems activeItems = createWMPage.openAdditionalActiveItems();

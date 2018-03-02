@@ -12,6 +12,7 @@ import pageobjects.RegistrationPage;
 import pageutils.NavigationUtil;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.TestData;
+import testconfigs.testdatamanagers.TestUserManager;
 import testutils.Listeners.LogListener;
 
 import java.io.IOException;
@@ -19,7 +20,6 @@ import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
 import static utils.NameGenerator.generateNewUserEmail;
-import static testconfigs.testdatamanagers.TestUserManager.*;
 
 @Listeners(LogListener.class)
 public class Test_Pos_RegistrationEmailsMultiLanguage extends BaseTestClass {
@@ -31,7 +31,7 @@ public class Test_Pos_RegistrationEmailsMultiLanguage extends BaseTestClass {
         HeaderMenu headerMenu = new HeaderMenu(driver);
         Verifier verifier = new Verifier();
 
-        String pass = getPassword();
+        String pass = new TestUserManager().getPassword();
         String siteLang;
         if (pass.equals("qqqq1111")) pass = "tttt1111";
         logInPage.login(TestData.email, TestData.pass);
@@ -41,7 +41,7 @@ public class Test_Pos_RegistrationEmailsMultiLanguage extends BaseTestClass {
         siteLang = headerMenu.checkLanguage();
         headerMenu.logout();
         for (int i = 1; i <= langs.size(); i++) {
-            int emailNumber = getEmailNumber();
+            int emailNumber = new TestUserManager().getEmailNumber();
             String email = generateNewUserEmail(emailNumber);
             new NavigationUtil(driver).open(RegistrationPage.class)
                     .setUserCridentials(email, pass);
@@ -56,8 +56,8 @@ public class Test_Pos_RegistrationEmailsMultiLanguage extends BaseTestClass {
             driver.navigate().to(link);
 
             logInPage.login(email, pass);
-            setEmail(email, emailNumber);
-            setPassword(pass);
+            new TestUserManager().setEmail(email, emailNumber);
+            new TestUserManager().setPassword(pass);
             if (i == langs.size() || TestServerConfiguretion.iTest.equals(P2B)) {
                 headerMenu.logout();
                 break;

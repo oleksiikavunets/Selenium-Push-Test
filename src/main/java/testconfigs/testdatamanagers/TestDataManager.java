@@ -6,10 +6,10 @@ import java.io.*;
 import java.util.Properties;
 
 public class TestDataManager {
-    private static final String path = "src/data/testdata/";//C:\Users\OleksiiKavunets\Documents\Selenium\src\main\resources\data\testdata
-    private static Properties prop = new Properties();
+    private  final String path = "src/data/testdata/";//C:\Users\OleksiiKavunets\Documents\Selenium\src\main\resources\data\testdata
+    private  Properties prop = new Properties();
 
-    private static String getFullPath() {
+    private  String getFullPath() {
         StringBuilder fullPath = new StringBuilder(path);
 
         switch (TestServerConfiguretion.iTest) {
@@ -35,7 +35,7 @@ public class TestDataManager {
         return fullPath.toString();
     }
 
-    public static String getSite() {
+    public  String getSite() {
         String site = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -49,7 +49,7 @@ public class TestDataManager {
         return site;
     }
 
-    public static String getAlias() {
+    public  String getAlias() {
         String alias = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -63,7 +63,7 @@ public class TestDataManager {
         return alias;
     }
 
-    public static String getTag() {
+    public  String getTag() {
         String tag = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -77,7 +77,7 @@ public class TestDataManager {
         return tag;
     }
 
-    public static String[] getTags() {
+    public  String[] getTags() {
         String[] tags = new String[3];
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -93,7 +93,7 @@ public class TestDataManager {
         return tags;
     }
 
-    public static void setAlias(String alias) {
+    public  void setAlias(String alias) {
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
@@ -108,7 +108,7 @@ public class TestDataManager {
         }
     }
 
-    public static void setTags(String...tags) {
+    public  void setTags(String...tags) {
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
@@ -124,7 +124,7 @@ public class TestDataManager {
         }
     }
 
-    public static void setSite(String site) {
+    public  void setSite(String site) {
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);

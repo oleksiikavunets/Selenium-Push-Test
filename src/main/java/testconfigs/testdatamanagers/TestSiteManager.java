@@ -10,11 +10,11 @@ import static com.selenium.enums.Protocol.HTTP;
 
 public class TestSiteManager extends TestServerConfiguretion {
 
-    private static String path = "src/data/testsites/";
+    private  String path = "src/data/testsites/";
 
-    private static Properties prop = new Properties();
+    private Properties prop = new Properties();
 
-    private static String getFullPath() {
+    private  String getFullPath() {
         StringBuilder fullPath = new StringBuilder(path);
 
         switch (TestServerConfiguretion.iTest) {
@@ -43,7 +43,7 @@ public class TestSiteManager extends TestServerConfiguretion {
         return fullPath.toString();
     }
 
-    public static String getOldTestSiteUrl(Protocol protocol) {
+    public  String getOldTestSiteUrl(Protocol protocol) {
         String testSiteUrl = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -57,7 +57,7 @@ public class TestSiteManager extends TestServerConfiguretion {
         return testSiteUrl;
     }
 
-    public static String getNewTestSiteUrl(Protocol protocol) {
+    public  String getNewTestSiteUrl(Protocol protocol) {
         String testSiteUrl = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -71,7 +71,7 @@ public class TestSiteManager extends TestServerConfiguretion {
         return testSiteUrl;
     }
 
-    public static void setHttpsSite(String site, int testSiteNumber, String ownerEmail, String ownerPass) {
+    public  void setHttpsSite(String site, int testSiteNumber, String ownerEmail, String ownerPass) {
         testSiteNumber += 2;
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -86,7 +86,7 @@ public class TestSiteManager extends TestServerConfiguretion {
         }
     }
 
-    public static void setHttpSite(String site, int testSiteNumber, String ownerEmail, String ownerPass) {
+    public  void setHttpSite(String site, int testSiteNumber, String ownerEmail, String ownerPass) {
         testSiteNumber += 2;
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -102,11 +102,11 @@ public class TestSiteManager extends TestServerConfiguretion {
         }
     }
 
-    public static String[] getSiteOwner(String site){
+    public  String[] getSiteOwner(String site){
         return site.contains("https://") ? getHttpsSiteOwner() : getHttpSiteOwner();
     }
 
-    private static String[] getHttpSiteOwner() {
+    private  String[] getHttpSiteOwner() {
         String[] owner = new String[2];
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -122,7 +122,7 @@ public class TestSiteManager extends TestServerConfiguretion {
         return owner;
     }
 
-    private static String[] getHttpsSiteOwner() {
+    private  String[] getHttpsSiteOwner() {
         String[] owner = new String[2];
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -138,7 +138,7 @@ public class TestSiteManager extends TestServerConfiguretion {
         return owner;
     }
 
-    public static String getHttpSiteNumber() {
+    public  String getHttpSiteNumber() {
         String siteNumber = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -152,7 +152,7 @@ public class TestSiteManager extends TestServerConfiguretion {
         return siteNumber;
     }
 
-    public static String getHttpsSiteNumber() {
+    public  String getHttpsSiteNumber() {
         String siteNumber = "";
         try {
             InputStream input = new FileInputStream(getFullPath());
@@ -166,12 +166,12 @@ public class TestSiteManager extends TestServerConfiguretion {
         return siteNumber;
     }
 
-    public static void updateSiteOwnerPass(String email, String pass) {
+    public  void updateSiteOwnerPass(String email, String pass) {
        updateHttpsSiteOwner(email, pass);
        updateHttpSiteOwner(email, pass);
     }
 
-    private static void updateHttpsSiteOwner(String email, String pass){
+    private  void updateHttpsSiteOwner(String email, String pass){
         try {
             prop.load(new FileInputStream(getFullPath()));
             if (prop.getProperty("httpsSiteOwner").split(":")[0].equals(email)) {
@@ -183,7 +183,7 @@ public class TestSiteManager extends TestServerConfiguretion {
         }
     }
 
-    private static void updateHttpSiteOwner(String email, String pass){
+    private  void updateHttpSiteOwner(String email, String pass){
         try {
             prop.load(new FileInputStream(getFullPath()));
             if (prop.getProperty("httpSiteOwner").split(":")[0].equals(email)) {

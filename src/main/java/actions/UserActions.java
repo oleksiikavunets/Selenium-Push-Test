@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.Wait;
 import pageobjects.*;
 import pageutils.NavigationUtil;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
+import testconfigs.testdatamanagers.TestSiteManager;
+import testconfigs.testdatamanagers.TestUserManager;
 import webdriverconfiger.WaitManager;
 
 import java.util.stream.Collectors;
@@ -19,9 +21,6 @@ import java.util.stream.Collectors;
 import static com.selenium.enums.Protocol.HTTP;
 import static com.selenium.enums.Protocol.HTTPS;
 import static com.selenium.enums.Server.WPUSH;
-import static testconfigs.testdatamanagers.TestSiteManager.getNewTestSiteUrl;
-import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
-import static testconfigs.testdatamanagers.TestUserManager.*;
 
 
 public class UserActions {
@@ -40,7 +39,7 @@ public class UserActions {
     }
 
     public String createSite(String siteUrl) throws Exception {
-        new LogInPage(driver).login(getEmail(), getPassword());
+        new LogInPage(driver).login(new TestUserManager().getEmail(), new TestUserManager().getPassword());
         return new AddNewSitePage(driver).createSite(siteUrl);
     }
 
@@ -85,15 +84,15 @@ public class UserActions {
 
     public void createNewUser() throws Exception {
         NavigationUtil navigationUtil = new NavigationUtil(driver);
-        int emailNumber = getEmailNumber();
+        int emailNumber = new TestUserManager().getEmailNumber();
         String email = "grovitek+" + emailNumber + "@gmail.com";
-        String pass = getPassword();
+        String pass = new TestUserManager().getPassword();
         if (pass.equals("qqqq1111")) pass = "tttt1111";
         try {
             navigationUtil.open(RegistrationPage.class)
                     .setUserCridentials(email, pass);
             emailNumber = emailNumber + 2;
-            setEmailNumber(emailNumber);
+            new TestUserManager().setEmailNumber(emailNumber);
             String link = MailService.getConfirmationLink();
             System.out.println("CONFIRMATION LINK: " + link);
             driver.navigate().to(link);
@@ -101,8 +100,8 @@ public class UserActions {
             e.printStackTrace();
         }
         emailNumber = emailNumber + 2;
-        setEmail(email, emailNumber);
-        setPassword(pass);
+        new TestUserManager().setEmail(email, emailNumber);
+        new TestUserManager().setPassword(pass);
     }
 
     private void managePopUp(){
@@ -210,10 +209,10 @@ public class UserActions {
     }
 
     public void deleteUnnecessarySites() {
-        String necessarySite1 = getNewTestSiteUrl(HTTP);
-        String necessarySite2 = getNewTestSiteUrl(HTTPS);
-        String necessarySite3 = getOldTestSiteUrl(HTTP);
-        String necessarySite4 = getOldTestSiteUrl(HTTPS);
+        String necessarySite1 =  new TestSiteManager().getNewTestSiteUrl(HTTP);
+        String necessarySite2 =  new TestSiteManager().getNewTestSiteUrl(HTTPS);
+        String necessarySite3 =  new TestSiteManager().getOldTestSiteUrl(HTTP);
+        String necessarySite4 =  new TestSiteManager().getOldTestSiteUrl(HTTPS);
 
 //        if(!driver.getCurrentUrl().contains("/login")){
 //            new LogInPage(driver).login(TestDataProvider.email, TestDataProvider.pass);

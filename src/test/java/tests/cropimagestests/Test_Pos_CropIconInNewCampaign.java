@@ -6,11 +6,11 @@ import pageobjects.CreateCampaignPage;
 import pageobjects.LogInPage;
 import pageutils.CropUtil;
 import pageutils.NavigationUtil;
+import testconfigs.testdatamanagers.TestSiteManager;
 
 import static com.selenium.enums.Protocol.HTTPS;
 import static org.testng.Assert.assertNotEquals;
 import static testconfigs.testdata.TestData.*;
-import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 
 public class Test_Pos_CropIconInNewCampaign extends BaseTestClass {
 
@@ -21,7 +21,7 @@ public class Test_Pos_CropIconInNewCampaign extends BaseTestClass {
         CropUtil crop = new CropUtil(driver);
 
         new LogInPage(driver).login(email, pass);
-        CreateCampaignPage createCampaignPage = navigationUtil.open(CreateCampaignPage.class, getOldTestSiteUrl(HTTPS));
+        CreateCampaignPage createCampaignPage = navigationUtil.open(CreateCampaignPage.class,  new TestSiteManager().getOldTestSiteUrl(HTTPS));
 
         CreateCampaignPage.NotificationPreview preview = createCampaignPage.new NotificationPreview();
 

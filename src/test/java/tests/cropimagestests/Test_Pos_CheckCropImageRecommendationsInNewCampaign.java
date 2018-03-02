@@ -9,6 +9,7 @@ import pageobjects.LogInPage;
 import pageutils.CropUtil;
 import pageutils.NavigationUtil;
 import testconfigs.testdata.CropRecommendations;
+import testconfigs.testdatamanagers.TestSiteManager;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,6 @@ import static com.selenium.enums.Protocol.HTTPS;
 import static org.testng.Assert.assertEquals;
 import static testconfigs.testdata.TestData.email;
 import static testconfigs.testdata.TestData.pass;
-import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 
 public class Test_Pos_CheckCropImageRecommendationsInNewCampaign extends BaseTestClass{
 
@@ -32,7 +32,7 @@ public class Test_Pos_CheckCropImageRecommendationsInNewCampaign extends BaseTes
         List<WebElement> langs = headerMenu.getAvailableLanguages();
         headerMenu.switchFirstLanguage();
 
-        navigation.open(CreateCampaignPage.class, getOldTestSiteUrl(HTTPS))
+        navigation.open(CreateCampaignPage.class,  new TestSiteManager().getOldTestSiteUrl(HTTPS))
                 .openAdditionalActiveItems()
                 .switchBIGImage();
 

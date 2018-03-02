@@ -12,6 +12,7 @@ import pageobjects.MainAdminPage;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testdata.ErrorMessages;
 import testconfigs.testdata.TestData;
+import testconfigs.testdatamanagers.TestSiteManager;
 import testutils.Listeners.LogListener;
 
 import java.util.HashMap;
@@ -20,7 +21,6 @@ import java.util.List;
 import static com.selenium.enums.Protocol.HTTPS;
 import static com.selenium.enums.Server.P2B;
 import static utils.TextUtil.textOf;
-import static testconfigs.testdatamanagers.TestSiteManager.getOldTestSiteUrl;
 
 @Listeners(LogListener.class)
 public class Test_Neg_CreateSite extends BaseTestClass {
@@ -32,7 +32,7 @@ public class Test_Neg_CreateSite extends BaseTestClass {
         Verifier verifier = new Verifier();
 
         ErrorMessages errorMessages = new ErrorMessages();
-        String existingSite = getOldTestSiteUrl(HTTPS);
+        String existingSite =  new TestSiteManager().getOldTestSiteUrl(HTTPS);
         String siteLang;
 
         HashMap<String, String> selectProtocol = errorMessages.getSelectProtocol();

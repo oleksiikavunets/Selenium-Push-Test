@@ -2,7 +2,6 @@ package tests.mailtests;
 
 import actions.Verifier;
 import com.selenium.MailService;
-import utils.RandomGenerator;
 import common.BaseTestClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,14 +13,14 @@ import pageobjects.HeaderMenu;
 import pageobjects.LogInPage;
 import pageobjects.MainAdminPage;
 import testconfigs.baseconfiguration.TestServerConfiguretion;
+import testconfigs.testdatamanagers.TestUserManager;
 import testutils.Listeners.LogListener;
+import utils.RandomGenerator;
 
 import java.util.List;
 
 import static com.selenium.enums.Server.P2B;
 import static testconfigs.testdata.TestData.newHttpSitePattern;
-import static testconfigs.testdatamanagers.TestUserManager.getEmail;
-import static testconfigs.testdatamanagers.TestUserManager.getPassword;
 
 @Listeners(LogListener.class)
 public class Test_Pos_NewHttpSiteMailsMultiLanguage extends BaseTestClass {
@@ -32,8 +31,8 @@ public class Test_Pos_NewHttpSiteMailsMultiLanguage extends BaseTestClass {
         HeaderMenu headerMenu = new HeaderMenu(driver);
         Verifier verifier = new Verifier();
 
-        String email = getEmail();
-        String pass = getPassword();
+        String email = new TestUserManager().getEmail();
+        String pass = new TestUserManager().getPassword();
         String siteLang;
 
         MainAdminPage mainAdminPage = new LogInPage(driver).login(email, pass);

@@ -13,6 +13,24 @@
         <classes>
             <class name="tests.accounttests.Test_Pos_LogInLogOut"/>
             <class name="tests.accounttests.Test_Pos_Registration"/>
+            <class name="tests.accounttests.Test_Pos_RestorePassword"/>
+        </classes>
+    </test>
+    <test name="CREATE NEW SITES" >
+        <classes>
+            <class name="tests.usersitetests.Test_Pos_CreateHttpsSite"/>
+            <class name="tests.usersitetests.Test_Pos_CreateHttpSite"/>
+        </classes>
+    </test>
+    <test name="ADDING AND EDITING SITES" parallel="classes" thread-count="2">
+        <classes>
+            <class name="tests.usersitetests.Test_Pos_DeleteSite"/>
+            <class name="tests.statistictests.Test_Pos_Subscription"/>
+            <class name="tests.wmtests.Test_Pos_CreateWM"/>
+            <class name="tests.wmtests.Test_Pos_CreateWMWithButtons"/>
+            <class name="tests.wmtests.Test_Pos_CreateWMWithBigImage"/>
+            <class name="tests.usersitetests.Test_Pos_ChangeSiteIcon"/>
+            <class name="tests.usersitetests.Test_Pos_EditUTM"/>
         </classes>
     </test>
 
@@ -43,23 +61,7 @@
             <class name="tests.statistictests.Test_Pos_SubscriberStatistics"/>
         </classes>
     </test>
-    <test name="CREATE NEW SITES" >
-        <classes>
-            <class name="tests.usersitetests.Test_Pos_CreateHttpsSite"/>
-            <class name="tests.usersitetests.Test_Pos_CreateHttpSite"/>
-        </classes>
-    </test>
-    <test name="ADDING AND EDITING SITES" parallel="classes" thread-count="2">
-        <classes>
-            <class name="tests.usersitetests.Test_Pos_DeleteSite"/>
-            <class name="tests.statistictests.Test_Pos_Subscription"/>
-            <class name="tests.wmtests.Test_Pos_CreateWM"/>
-            <class name="tests.wmtests.Test_Pos_CreateWMWithButtons"/>
-            <class name="tests.wmtests.Test_Pos_CreateWMWithBigImage"/>
-            <class name="tests.usersitetests.Test_Pos_ChangeSiteIcon"/>
-            <class name="tests.usersitetests.Test_Pos_EditUTM"/>
-        </classes>
-    </test>
+
     <test name="ADVANCED SETTINGS AND TARGETING" parallel="classes" thread-count="2">
         <classes>
             <class name="tests.targetingtests.Test_Pos_AddNewTag"/>
@@ -70,7 +72,6 @@
     </test>
     <test name="MAIL CHECK" parallel="false">
         <classes>
-            <class name="tests.accounttests.Test_Pos_RestorePassword"/>
             <class name="tests.mailtests.Test_Pos_RegistrationEmailsMultiLanguage"/>
             <class name="tests.mailtests.Test_Pos_RecoverPassMultiLanguage"/>
             <class name="tests.mailtests.Test_Pos_NewHttpSiteMailsMultiLanguage"/>

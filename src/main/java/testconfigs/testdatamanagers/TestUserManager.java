@@ -5,15 +5,14 @@ import testconfigs.baseconfiguration.TestServerConfiguretion;
 import java.io.*;
 import java.util.Properties;
 
-import static testconfigs.testdata.TestData.testEmail;
-import static testconfigs.testdatamanagers.TestSiteManager.updateSiteOwnerPass;
+
 
 public class TestUserManager {
 
-    private static final String path = "src/data/testusers/";
-    private static Properties prop = new Properties();
+    private  final String path = "src/data/testusers/";
+    private  Properties prop = new Properties();
 
-    private static String getFullPath() {
+    private  String getFullPath() {
         StringBuilder fullPath = new StringBuilder(path);
 
         switch (TestServerConfiguretion.iTest) {
@@ -41,7 +40,7 @@ public class TestUserManager {
         return fullPath.toString();
     }
 
-    public static String getEmail(){
+    public  String getEmail(){
 
         String email = "";
         try {
@@ -56,7 +55,7 @@ public class TestUserManager {
         return email;
     }
 
-    public static int getEmailNumber(){
+    public  int getEmailNumber(){
 
             String emailNumber = "";
             try {
@@ -71,7 +70,7 @@ public class TestUserManager {
             return Integer.valueOf(emailNumber);
         }
 
-    public static String getPassword(){
+    public  String getPassword(){
 
         String pass = "";
         try {
@@ -86,7 +85,7 @@ public class TestUserManager {
         return pass;
     }
 
-    public static void setEmail(String email, int emailNumber){
+    public  void setEmail(String email, int emailNumber){
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
@@ -101,7 +100,7 @@ public class TestUserManager {
         }
     }
 
-    public static void setEmailNumber(int emailNumber){
+    public  void setEmailNumber(int emailNumber){
         try {
             InputStream input = new FileInputStream(getFullPath());
             prop.load(input);
@@ -115,7 +114,7 @@ public class TestUserManager {
         }
     }
 
-    public static void setPassword(String pass) {
+    public  void setPassword(String pass) {
         try {
             prop.load(new FileInputStream(getFullPath()));
             prop.setProperty("password", String.valueOf(pass));
@@ -125,6 +124,6 @@ public class TestUserManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        updateSiteOwnerPass(testEmail, pass);
+        new TestSiteManager().updateSiteOwnerPass(new TestUserManager().getEmail(), pass);
     }
 }

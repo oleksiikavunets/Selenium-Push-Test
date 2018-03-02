@@ -8,13 +8,12 @@ import org.testng.annotations.Test;
 import pageobjects.HeaderMenu;
 import pageobjects.SiteManagerPage;
 import testconfigs.baseconfiguration.TestCofiguration;
+import testconfigs.testdatamanagers.TestSiteManager;
+import testconfigs.testdatamanagers.TestUserManager;
 import testutils.Listeners.LogListener;
 
+
 import static utils.NameGenerator.generateNewHttpSiteName;
-import static testconfigs.testdata.TestData.testEmail;
-import static testconfigs.testdata.TestData.testPass;
-import static testconfigs.testdatamanagers.TestSiteManager.getHttpSiteNumber;
-import static testconfigs.testdatamanagers.TestSiteManager.setHttpSite;
 
 @Listeners(LogListener.class)
 public class Test_Pos_CreateHttpSite extends BaseTestClass {
@@ -22,7 +21,7 @@ public class Test_Pos_CreateHttpSite extends BaseTestClass {
     @Test
     public void createHttpSiteTest() throws Exception {
         if(!(TestCofiguration.testSitesScope == TestSitesScope.TEST_HTTPS_ONLY)) {
-            int siteNumber = Integer.valueOf(getHttpSiteNumber());
+            int siteNumber = Integer.valueOf( new TestSiteManager().getHttpSiteNumber());
             UserActions userActions = new UserActions(driver);
             SiteManagerPage siteManagerPage = new SiteManagerPage(driver);
 
@@ -31,7 +30,7 @@ public class Test_Pos_CreateHttpSite extends BaseTestClass {
             siteManagerPage.createNewSite(siteUrl);
             String script = userActions.createSite(siteUrl);
             System.out.println("Site Script: " + script);
-            setHttpSite(siteUrl, siteNumber, testEmail, testPass);
+            new TestSiteManager().setHttpSite(siteUrl, siteNumber, new TestUserManager().getEmail(), new TestUserManager().getPassword());
             new HeaderMenu(driver).clickLogo().verifySitePresent(siteUrl);
             userActions.checkCreateSiteMail(siteUrl);
 
