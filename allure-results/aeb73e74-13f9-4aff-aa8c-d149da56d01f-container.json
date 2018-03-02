@@ -1,1 +1,0 @@
-{"uuid":"aeb73e74-13f9-4aff-aa8c-d149da56d01f","name":"del","start":1519906235300,"stop":1519906235360,"children":["ba358ec0-e08c-490f-8d71-f4b03b765fbd","0b98b6fe-74f6-42ad-9598-bd286aa87e81"],"befores":[{"name":"initializeTest","status":"passed","stage":"finished","description":"","start":1519906235301,"stop":1519906235302}]}

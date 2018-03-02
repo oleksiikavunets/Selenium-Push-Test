@@ -1,1 +1,0 @@
-{"uuid":"7c06a3c7-e421-4ed9-97b3-1e462257c565","name":"SANITY","start":1519836832335,"stop":1519836856550,"children":["07973031-1f15-48b0-87d9-1515d7275a12"],"befores":[{"name":"initializeTest","status":"passed","stage":"finished","description":"","start":1519836832335,"stop":1519836832335}]}

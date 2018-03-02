@@ -1,1 +1,0 @@
-{"uuid":"526fecfe-b33f-48bf-9609-316011e9f353","name":"Chrome Suite","start":1519905698829,"stop":1519905699699,"children":["4d2a9b24-193f-4b4b-b2e5-4b58ffbdbf39","37a1b8a3-bdd1-4e46-a381-fbf4e5c7d748"],"befores":[{"name":"configureTestSuite","status":"passed","stage":"finished","description":"","start":1519905698896,"stop":1519905698923}]}
