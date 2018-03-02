@@ -4,3 +4,4 @@ test-output/
 target/
 .idea/
 src/main/data/
+allure-results
