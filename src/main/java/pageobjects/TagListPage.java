@@ -2,8 +2,6 @@ package pageobjects;
 
 
 import actions.Clicker;
-import actions.Timer;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,6 +14,8 @@ import webdriverconfiger.WaitManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static actions.Timer.waitSeconds;
 
 @PartialPath(value = "/sites/SITE_ID/tags")
 public class TagListPage extends AbstractAdminPage{
@@ -61,7 +61,7 @@ public class TagListPage extends AbstractAdminPage{
     }
 
     public WebElement getNewTlPopUp(){
-        while (newTLpopUp.findElement(driver).getText().length() == 0) Timer.waitSeconds(0.5);
+        while (newTLpopUp.findElement(driver).getText().length() == 0) waitSeconds(0.5);
         return newTLpopUp.findElement(driver);
     }
 
@@ -125,26 +125,13 @@ public class TagListPage extends AbstractAdminPage{
 
             tagSearchMask.findElement(driver).sendKeys(tags[i]);
             searchBtn.findElement(driver).click();
-
-//            wait.until(ExpectedConditions.invisibilityOfElementLocated(tagName));
-            Timer.waitSeconds(1);
+            waitSeconds(1);
             if(driver.findElement(By.xpath("//span[text()='" + tags[i] + "']")).isDisplayed());{
                 foundTags[i] = tags[i];
             }
 
-//            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(tagName));
-//            List<String> foundTagsNames = textOf(driver.findElements(tagName));
-//            if (foundTagsNames.contains(tags[i])) {
-//                founds.add(true);
-//            } else {
-//                founds.add(false);
-//            }
             tagSearchMask.findElement(driver).clear();
-//        }
-//        if (!founds.contains(false)) {
-//            found = true;
-//        } else {
-//            found = false;
+
         }
         return foundTags;
     }
@@ -152,22 +139,29 @@ public class TagListPage extends AbstractAdminPage{
     public boolean searchForTagList(String tagListName) {
         boolean found = false;
         wait.until(ExpectedConditions.visibilityOfElementLocated(tagListTUB)).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(tagList));
-        List<WebElement> pages = driver.findElements(pageButton);
-
-        for (WebElement page : pages) {
-            List<WebElement> tagLists = driver.findElements(tagList);
-            for (WebElement tagList : tagLists) {
-                if (tagList.getText().equals(tagListName)) {
-                    found = true;
-                    Assert.assertEquals(tagListName, tagList.getText());
-                    break;
-                }
-            }
-            tagLists.clear();
-            page.click();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(tagList));
+        waitSeconds(1);
+        tagSearchMask.findElement(driver).sendKeys(tagListName);
+        searchBtn.findElement(driver).click();
+        waitSeconds(1);
+        if(driver.findElement(By.xpath("//span[text()='" + tagListName + "']")).isDisplayed());{
+            found = true;
         }
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(tagList));
+//        List<WebElement> pages = driver.findElements(pageButton);
+//
+//        for (WebElement page : pages) {
+//            List<WebElement> tagLists = driver.findElements(tagList);
+//            for (WebElement tagList : tagLists) {
+//                if (tagList.getText().equals(tagListName)) {
+//                    found = true;
+//                    Assert.assertEquals(tagListName, tagList.getText());
+//                    break;
+//                }
+//            }
+//            tagLists.clear();
+//            page.click();
+//            wait.until(ExpectedConditions.visibilityOfElementLocated(tagList));
+//        }
         return found;
     }
 
@@ -181,7 +175,7 @@ public class TagListPage extends AbstractAdminPage{
             WebElement element = driver.findElement(endPaginationButton);
             new Clicker(driver).clickJS(element);
             wait.until(ExpectedConditions.invisibilityOfElementLocated(endPaginationButton));
-            Timer.waitSeconds(0.5);
+            waitSeconds(0.5);
         } catch (org.openqa.selenium.NoSuchElementException e) {
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(pageButton));

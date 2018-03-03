@@ -22,7 +22,7 @@ public class MainAdminPage extends AbstractAdminPage {
     private By siteName = By.cssSelector("a[ng-bind=\"site.url\"]");
     private By siteList = By.cssSelector("div[class*=\"table-sites-list\"]");
     private By addNewSiteButton = By.cssSelector("span[data-ng-bind-html=\"'LIST_ADD_NEW' | translate\"]");
-    private By amountOfAllSubscribers = By.cssSelector("span[ng-bind*=\"vmList.currentUser\"]");
+    private By amountOfAllSubscribers = By.cssSelector("span[ng-bind*=\"vmList\"][ng-bind*=\"numberSeparator\"]");
     private By amountOfSiteSucsribers = By.cssSelector("td[ng-bind*=\"(site.totalFollowers)\"]");
 
 

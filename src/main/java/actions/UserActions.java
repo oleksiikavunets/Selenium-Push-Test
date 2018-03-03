@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 import static com.selenium.enums.Protocol.HTTP;
 import static com.selenium.enums.Protocol.HTTPS;
-import static com.selenium.enums.Server.WPUSH;
 
 
 public class UserActions {
@@ -104,7 +103,7 @@ public class UserActions {
         new TestUserManager().setPassword(pass);
     }
 
-    private void managePopUp(){
+    private void managePopUp() {
         if (TestServerConfiguretion.iTest.equals(Server.GRV_7700)) {
             try {
                 Timer.waitSeconds(1);
@@ -120,11 +119,7 @@ public class UserActions {
         if (driver instanceof FirefoxDriver) {
             oneClickSubscribe();
         } else {
-            if (TestServerConfiguretion.iTest.equals(WPUSH)) {
-                oneClickSubscribe();
-            } else {
-                twoClicksSubscribe();
-            }
+            twoClicksSubscribe();
         }
     }
 
@@ -175,7 +170,7 @@ public class UserActions {
         }
     }
 
-    public void addNewAlias(String testSite, String alias)  {
+    public void addNewAlias(String testSite, String alias) {
         JSRunner jsRunner = new JSRunner(driver);
         try {
             subscribe(testSite);
@@ -209,10 +204,10 @@ public class UserActions {
     }
 
     public void deleteUnnecessarySites() {
-        String necessarySite1 =  new TestSiteManager().getNewTestSiteUrl(HTTP);
-        String necessarySite2 =  new TestSiteManager().getNewTestSiteUrl(HTTPS);
-        String necessarySite3 =  new TestSiteManager().getOldTestSiteUrl(HTTP);
-        String necessarySite4 =  new TestSiteManager().getOldTestSiteUrl(HTTPS);
+        String necessarySite1 = new TestSiteManager().getNewTestSiteUrl(HTTP);
+        String necessarySite2 = new TestSiteManager().getNewTestSiteUrl(HTTPS);
+        String necessarySite3 = new TestSiteManager().getOldTestSiteUrl(HTTP);
+        String necessarySite4 = new TestSiteManager().getOldTestSiteUrl(HTTPS);
 
 //        if(!driver.getCurrentUrl().contains("/login")){
 //            new LogInPage(driver).login(TestDataProvider.email, TestDataProvider.pass);

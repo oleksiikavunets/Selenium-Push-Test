@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.common.AbstractAdminPage;
 import pageobjects.common.annotations.PartialPath;
 import pageutils.CropUtil;
-import testconfigs.baseconfiguration.TestServerConfiguretion;
 import testconfigs.testrestrictions.BetaFeatures;
 
 import java.io.File;
@@ -19,7 +18,6 @@ import java.util.List;
 import java.util.Random;
 
 import static actions.Timer.waitSeconds;
-import static com.selenium.enums.Server.WPUSH;
 
 /**
  * Created by Oleksii on 14.07.2017.
@@ -206,13 +204,8 @@ public class CreateCampaignPage extends AbstractAdminPage {
     }
 
     public WebElement getIconTooBigError() {
-        By locator;
-        if (TestServerConfiguretion.iTest.equals(WPUSH)) {
-            locator = iconError;
-        } else {
-            locator = iconErrorGRV;
-        }
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(iconErrorGRV));
     }
 
     public CreateCampaignPage setDateAndTime(int year, int month, int day, int hour, int minute) {

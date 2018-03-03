@@ -12,9 +12,6 @@ import testconfigs.testdata.TestData;
 
 import java.io.File;
 
-import static com.selenium.enums.Server.WPUSH;
-import static testconfigs.baseconfiguration.TestServerConfiguretion.iTest;
-
 @PartialPath(value = "/add/site/step1")
 public class AddNewSitePage extends AbstractAdminPage {
 
@@ -94,8 +91,7 @@ public class AddNewSitePage extends AbstractAdminPage {
     }
 
     public WebElement getIconTooBigError(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(
-                iTest.equals(WPUSH) ? iconError : iconErrorGRV));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(iconErrorGRV));
     }
 }
 

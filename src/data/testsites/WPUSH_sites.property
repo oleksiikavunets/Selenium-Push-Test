@@ -1,5 +1,9 @@
-testHttpSiteUrl=http\://kyivselenium.at.ua
-httpSiteNumber=2
-httpSiteUrl=http\://wpush1.mpsdevelopment.com
-httpsSiteNumber=1
-testHttpsSiteUrl
+#Sat Mar 03 16:39:08 EET 2018
+httpsSiteOwner=grovitek+1136@gmail.com\:qqqq1111
+httpSiteOwner=grovitek+1136@gmail.com\:qqqq1111
+httpsSiteUrl=https\://wpush11.mpsdevelopment.com
+testHttpSiteUrl=http\://wpushp.mpsdevelopment.com
+httpSiteUrl=http\://wpush12.mpsdevelopment.com
+httpSiteNumber=14
+httpsSiteNumber=13
+testHttpsSiteUrl=https\://wpushp.mpsdevelopment.com
